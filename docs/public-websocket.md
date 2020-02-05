@@ -58,11 +58,14 @@ JSON Structure of response message:
 * `error` - **Null** for success, **JSON Object** for failure:
     * `message` - Detailed text
     * `code` - Error code
-        * **1** - invalid argument
-        * **2** - internal error
-        * **3** - service unavailable
-        * **4** - method not found
-        * **5** - service timeout
+    
+Code | Message
+--- | ---
+**1** | invalid argument
+**2** | internal error
+**3** | service unavailable
+**4** | method not found
+**5** | service timeout
 
 ## Types of response messages
 
