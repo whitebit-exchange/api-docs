@@ -1,5 +1,35 @@
 # Public WebSocket API
 
+## Methods
+
+* [Sevice](#service)
+    * [Ping](#ping)
+    * [Time](#time)
+* [Kline](#kline)
+    * [Query](#query)
+    * [Subscribe](#subscribe)
+    * [Unsubscribe](#unsubscribe)
+* [Last price](#last-price)
+    * [Query](#query-1)
+    * [Subscribe](#subscribe-1)
+    * [Unsubscribe](#unsubscribe-1)
+* [Market statistics](#market-statistics)
+    * [Query](#query-2)
+    * [Subscribe](#subscribe-2)
+    * [Unsubscribe](#unsubscribe-2)
+* [Market statistics for current day UTC](#market-statistics-for-current-day-utc)
+    * [Query](#query-3)
+    * [Subscribe](#subscribe-3)
+    * [Unsubscribe](#unsubscribe-3)
+* [Market trades](#market-trades)
+    * [Query](#query-4)
+    * [Subscribe](#subscribe-4)
+    * [Unsubscribe](#unsubscribe-4)
+* [Market depth](#market-depth)
+    * [Query](#query-5)
+    * [Subscribe](#subscribe-5)
+    * [Unsubscribe](#unsubscribe-5)
+
 The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol. 
 
 :warning: Connection will be closed by server for inactivity after 60s.
@@ -46,7 +76,7 @@ JSON Structure of response message:
 
 **Example** messages for request with response:
 
-#### :arrow_heading_up: Request
+#### :arrow_heading_up: Request:
 
 ```json
 {
@@ -67,7 +97,7 @@ JSON Structure of response message:
 
 **Example** subscription:
 
-#### :arrow_heading_up: Request
+#### :arrow_heading_up: Request:
 
 ```json
 {
@@ -88,7 +118,7 @@ JSON Structure of response message:
 }
 ```
 
-#### :arrows_counterclockwise: Update Event 
+#### :arrows_counterclockwise: Update Event: 
 ```json5
 {
     "id": null,
@@ -99,41 +129,13 @@ JSON Structure of response message:
 
 ---
 
-## Methods
-
-* [Sevice](#service)
-    * [Ping](#ping)
-    * [Time](#time)
-* [Kline](#kline)
-    * [Query](#query)
-    * [Subscribe](#subscribe)
-    * [Unsubscribe](#unsubscribe)
-* [Last price](#last-price)
-    * [Query](#query-1)
-    * [Subscribe](#subscribe-1)
-    * [Unsubscribe](#unsubscribe-1)
-* [Market statistics](#market-statistics)
-    * [Query](#query-2)
-    * [Subscribe](#subscribe-2)
-    * [Unsubscribe](#unsubscribe-2)
-* [Market statistics for current day UTC](#market-statistics-for-current-day-utc)
-    * [Query](#query-3)
-    * [Subscribe](#subscribe-3)
-    * [Unsubscribe](#unsubscribe-3)
-* [Market trades](#market-trades)
-    * [Query](#query-4)
-    * [Subscribe](#subscribe-4)
-    * [Unsubscribe](#unsubscribe-4)
-* [Market depth](#market-depth)
-    * [Query](#query-5)
-    * [Subscribe](#subscribe-5)
-    * [Unsubscribe](#unsubscribe-5)
+## API
 
 ### Service
 
 #### Ping
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json
 {
@@ -143,7 +145,7 @@ JSON Structure of response message:
 }
 ```
 
-##### Response::
+##### :arrow_heading_down: Response:
 
 ```json
 {
@@ -155,7 +157,7 @@ JSON Structure of response message:
 
 #### Time
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json
 {
@@ -165,7 +167,7 @@ JSON Structure of response message:
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json
 {
@@ -181,7 +183,7 @@ JSON Structure of response message:
 
 #### Query
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -196,7 +198,7 @@ JSON Structure of response message:
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json5
 {
@@ -220,7 +222,7 @@ JSON Structure of response message:
 
 #### Subscribe
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -233,7 +235,7 @@ JSON Structure of response message:
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json
 {
@@ -245,7 +247,7 @@ JSON Structure of response message:
 }
 ```
 
-##### Update events
+##### Update events:
 
 ```json5
 {
@@ -266,7 +268,7 @@ JSON Structure of response message:
 
 #### Unsubscribe
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -276,7 +278,7 @@ JSON Structure of response message:
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json
 {
@@ -294,7 +296,7 @@ JSON Structure of response message:
 
 #### Query
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -306,7 +308,7 @@ JSON Structure of response message:
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json5
 {
@@ -318,7 +320,7 @@ JSON Structure of response message:
 
 #### Subscribe
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -332,7 +334,7 @@ JSON Structure of response message:
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json
 {
@@ -344,7 +346,7 @@ JSON Structure of response message:
 }
 ```
 
-##### Update events
+##### Update events:
 
 ```json5
 {
@@ -359,7 +361,7 @@ JSON Structure of response message:
 
 #### Unsubscribe
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -369,7 +371,7 @@ JSON Structure of response message:
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json
 {
@@ -387,7 +389,7 @@ JSON Structure of response message:
 
 #### Query
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -400,7 +402,7 @@ JSON Structure of response message:
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json5
 {
@@ -424,7 +426,7 @@ JSON Structure of response message:
 
 You can subscribe only for 86400s (24h from now).
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -438,7 +440,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json
 {
@@ -450,7 +452,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Update events
+##### Update events:
 
 ```json5
 {
@@ -474,7 +476,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Unsubscribe
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -484,7 +486,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json
 {
@@ -502,7 +504,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Query
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -514,7 +516,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json5
 {
@@ -534,7 +536,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Subscribe
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -548,7 +550,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json
 {
@@ -560,7 +562,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Update events
+##### Update events:
 
 ```json5
 {
@@ -582,7 +584,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Unsubscribe
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -592,7 +594,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json
 {
@@ -610,7 +612,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Query
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -624,7 +626,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json5
 {
@@ -646,7 +648,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Subscribe
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -660,7 +662,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json
 {
@@ -672,7 +674,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Update events
+##### Update events:
 
 ```json5
 {
@@ -696,7 +698,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Unsubscribe
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -706,7 +708,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json
 {
@@ -724,7 +726,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Query
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -738,7 +740,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json5
 {
@@ -760,7 +762,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Subscribe
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -774,7 +776,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json
 {
@@ -786,7 +788,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Update events
+##### Update events:
 
 ```json5
 {
@@ -811,7 +813,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Unsubscribe
 
-##### Request:
+##### :arrow_heading_up: Request:
 
 ```json5
 {
@@ -821,7 +823,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response:
+##### :arrow_heading_down: Response:
 
 ```json
 {
