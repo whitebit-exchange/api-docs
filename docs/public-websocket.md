@@ -2,9 +2,9 @@
 
 The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol. 
 
-Connection will be closed by server for inactivity after 60s.
+:warning: Connection will be closed by server for inactivity after 60s.
 
-## Request message
+## :arrow_heading_up: Request message
 
 JSON Structure of request message:
 
@@ -12,14 +12,14 @@ JSON Structure of request message:
 * `method` - **String**. Name of request.
 * `params` - **Array**. Here you pass params for method.
 
-WebSocket connection will be closed if invalid JSON was sent.
+:no_entry_sign: WebSocket connection will be closed if invalid JSON was sent.
 
 ### Types of request messages
 
 * Query (`ping`, `candles_request`, etc)
 * Subscription (`candles_subscribe`, `lastprice_subscribe`, etc). Repeated subscription will be cancelled for the same data type.
 
-## Response message
+## :arrow_heading_down: Response message
 
 JSON Structure of response message:
 
@@ -46,7 +46,7 @@ JSON Structure of response message:
 
 **Example** messages for request with response:
 
-#### Request
+#### :arrow_heading_up: Request
 
 ```json
 {
@@ -56,7 +56,7 @@ JSON Structure of response message:
 }
 ```
 
-#### Response: 
+#### :arrow_heading_down: Response: 
 ```json
 {
     "id": 0,
@@ -67,7 +67,7 @@ JSON Structure of response message:
 
 **Example** subscription:
 
-#### Request
+#### :arrow_heading_up: Request
 
 ```json
 {
@@ -77,7 +77,7 @@ JSON Structure of response message:
 }
 ```
 
-#### Response: 
+#### :arrow_heading_down: Response: 
 ```json
 {
     "id": 0,
@@ -88,7 +88,7 @@ JSON Structure of response message:
 }
 ```
 
-#### Update Event 
+#### :arrows_counterclockwise: Update Event 
 ```json5
 {
     "id": null,
