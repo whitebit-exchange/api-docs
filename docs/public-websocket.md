@@ -12,6 +12,13 @@ JSON Structure of request message:
 * `method` - **String**. Name of request.
 * `params` - **Array**. Here you pass params for method.
 
+WebSocket connection will be closed if invalid JSON was sent.
+
+### Types of request messages
+
+* Query (`ping`, `candles_request`, etc)
+* Subscription (`candles_subscribe`, `lastprice_subscribe`, etc). Repeated subscription will be cancelled for the same data type.
+
 ## Response message
 
 JSON Structure of response message:
@@ -26,15 +33,6 @@ JSON Structure of response message:
         * **3** - service unavailable
         * **4** - method not found
         * **5** - service timeout
-
-WebSocket connection will be closed if invalid JSON was sent.
-
----
-
-## Types of request messages
-
-* Query (`ping`, `candles_request`, etc)
-* Subscription (`candles_subscribe`, `lastprice_subscribe`, etc). Repeated subscription will be cancelled for the same data type.
 
 ## Types of response messages
 
@@ -58,7 +56,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 }
 ```
 
-#### Response 
+#### Response: 
 ```json
 {
     "id": 0,
@@ -66,8 +64,6 @@ WebSocket connection will be closed if invalid JSON was sent.
     "error": null
 }
 ```
-
----
 
 **Example** subscription:
 
@@ -81,7 +77,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 }
 ```
 
-#### Response 
+#### Response: 
 ```json
 {
     "id": 0,
@@ -101,13 +97,47 @@ WebSocket connection will be closed if invalid JSON was sent.
 }
 ```
 
+---
+
 ## Methods
+
+* [Sevice](#service)
+    * [Ping](#ping)
+    * [Time](#time)
+* [Kline](#kline)
+    * [Query](#query)
+    * [Subscribe](#subscribe)
+    * [Unsubscribe](#unsubscribe)
+* [Price](#last-price)
+    * [Query](#query-1)
+    * [Subscribe](#subscribe-1)
+    * [Unsubscribe](#unsubscribe-1)
+* [Last price](#last-price)
+    * [Query](#query-2)
+    * [Subscribe](#subscribe-2)
+    * [Unsubscribe](#unsubscribe-2)
+* [Market statistics](#market-statistics)
+    * [Query](#query-3)
+    * [Subscribe](#subscribe-3)
+    * [Unsubscribe](#unsubscribe-3)
+* [Market statistics for current day UTC](#market-statistics-for-current-day-utc)
+    * [Query](#query-4)
+    * [Subscribe](#subscribe-4)
+    * [Unsubscribe](#unsubscribe-4)
+* [Market trades](#market-trades)
+    * [Query](#query-5)
+    * [Subscribe](#subscribe-5)
+    * [Unsubscribe](#unsubscribe-5)
+* [Market depth](#market-depth)
+    * [Query](#query-6)
+    * [Subscribe](#subscribe-6)
+    * [Unsubscribe](#unsubscribe-6)
 
 ### Service
 
 #### Ping
 
-##### Request
+##### Request:
 
 ```json
 {
@@ -117,7 +147,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 }
 ```
 
-##### Response
+##### Response::
 
 ```json
 {
@@ -129,7 +159,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 
 #### Time
 
-##### Request
+##### Request:
 
 ```json
 {
@@ -139,7 +169,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 }
 ```
 
-##### Response
+##### Response:
 
 ```json
 {
@@ -155,7 +185,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 
 #### Query
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -170,7 +200,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 }
 ```
 
-##### Response
+##### Response:
 
 ```json5
 {
@@ -194,7 +224,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 
 #### Subscribe
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -207,7 +237,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 }
 ```
 
-##### Response
+##### Response:
 
 ```json
 {
@@ -240,7 +270,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 
 #### Unsubscribe
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -250,7 +280,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 }
 ```
 
-##### Response
+##### Response:
 
 ```json
 {
@@ -268,7 +298,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 
 #### Query
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -280,7 +310,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 }
 ```
 
-##### Response
+##### Response:
 
 ```json5
 {
@@ -292,7 +322,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 
 #### Subscribe
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -306,7 +336,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 }
 ```
 
-##### Response
+##### Response:
 
 ```json
 {
@@ -333,7 +363,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 
 #### Unsubscribe
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -343,7 +373,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 }
 ```
 
-##### Response
+##### Response:
 
 ```json
 {
@@ -361,7 +391,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 
 #### Query
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -374,7 +404,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 }
 ```
 
-##### Response
+##### Response:
 
 ```json5
 {
@@ -398,7 +428,7 @@ WebSocket connection will be closed if invalid JSON was sent.
 
 You can subscribe only for 86400s (24h from now).
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -412,7 +442,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response
+##### Response:
 
 ```json
 {
@@ -448,7 +478,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Unsubscribe
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -458,7 +488,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response
+##### Response:
 
 ```json
 {
@@ -472,11 +502,119 @@ You can subscribe only for 86400s (24h from now).
 
 ---
 
+### Market statistics for current day UTC
+
+#### Query
+
+##### Request:
+
+```json5
+{
+    "id": 14,
+    "method": "marketToday_request",
+    "params": [
+        "ETH_BTC" // only one market per request
+    ]
+}
+```
+
+##### Response:
+
+```json5
+{
+    "id": 14,
+    "result": {
+        "last": "0.020981",      // last price
+        "open": "0.02035",       // open price that was at 'now - period' time
+        "high": "0.020988",      // highest price
+        "low": "0.020281",       // lowest price
+        "volume": "135220.218",  // volume in stock
+        "deal": "2776.587022649" // volume in money
+    },
+    "error": null
+}
+
+```
+
+#### Subscribe
+
+##### Request:
+
+```json5
+{
+    "id": 15,
+    "method": "marketToday_subscribe",
+    "params": [
+        "ETH_BTC", // markets
+        "BTC_USDT",
+        ...
+    ]
+}
+```
+
+##### Response:
+
+```json
+{
+    "id": 15,
+    "result": {
+        "status": "success"
+    },
+    "error": null
+}
+```
+
+##### Update events
+
+```json5
+{
+    "id": null,
+    "method": "marketToday_update",
+    "result": [
+        "ETH_BTC",                   // market
+         {                           // response same as 'market_request'
+            "last": "0.020964",      // last price
+            "open": "0.020349",      // open price that was at 'now - period' time
+            "high": "0.020997",      // highest price
+            "low": "0.020281",       // lowest price
+            "volume": "135574.476",  // volume in stock
+            "deal": "2784.413999488" // volume in money
+        }
+    ]
+}
+```
+
+#### Unsubscribe
+
+##### Request:
+
+```json5
+{
+    "id": 16,
+    "method": "marketToday_unsubscribe",
+    "params": []
+}
+```
+
+##### Response:
+
+```json
+{
+    "id": 16,
+    "result": {
+        "status": "success"
+    },
+    "error": null
+}
+```
+
+---
+
 ### Market trades
 
 #### Query
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -490,7 +628,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response
+##### Response:
 
 ```json5
 {
@@ -512,7 +650,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Subscribe
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -526,7 +664,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response
+##### Response:
 
 ```json
 {
@@ -562,7 +700,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Unsubscribe
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -572,7 +710,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response
+##### Response:
 
 ```json
 {
@@ -590,7 +728,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Query
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -604,7 +742,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response
+##### Response:
 
 ```json5
 {
@@ -626,7 +764,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Subscribe
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -640,7 +778,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response
+##### Response:
 
 ```json
 {
@@ -677,7 +815,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Unsubscribe
 
-##### Request
+##### Request:
 
 ```json5
 {
@@ -687,7 +825,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Response
+##### Response:
 
 ```json
 {
@@ -698,112 +836,3 @@ You can subscribe only for 86400s (24h from now).
     "error": null
 }
 ```
-
----
-
-### Market statistics for current day UTC
-
-#### Query
-
-##### Request
-
-```json5
-{
-    "id": 14,
-    "method": "marketToday_request",
-    "params": [
-        "ETH_BTC" // only one market per request
-    ]
-}
-```
-
-##### Response
-
-```json5
-{
-    "id": 14,
-    "result": {
-        "last": "0.020981",      // last price
-        "open": "0.02035",       // open price that was at 'now - period' time
-        "high": "0.020988",      // highest price
-        "low": "0.020281",       // lowest price
-        "volume": "135220.218",  // volume in stock
-        "deal": "2776.587022649" // volume in money
-    },
-    "error": null
-}
-
-```
-
-#### Subscribe
-
-##### Request
-
-```json5
-{
-    "id": 15,
-    "method": "marketToday_subscribe",
-    "params": [
-        "ETH_BTC", // markets
-        "BTC_USDT",
-        ...
-    ]
-}
-```
-
-##### Response
-
-```json
-{
-    "id": 15,
-    "result": {
-        "status": "success"
-    },
-    "error": null
-}
-```
-
-##### Update events
-
-```json5
-{
-    "id": null,
-    "method": "marketToday_update",
-    "result": [
-        "ETH_BTC",                   // market
-         {                           // response same as 'market_request'
-            "last": "0.020964",      // last price
-            "open": "0.020349",      // open price that was at 'now - period' time
-            "high": "0.020997",      // highest price
-            "low": "0.020281",       // lowest price
-            "volume": "135574.476",  // volume in stock
-            "deal": "2784.413999488" // volume in money
-        }
-    ]
-}
-```
-
-#### Unsubscribe
-
-##### Request
-
-```json5
-{
-    "id": 16,
-    "method": "marketToday_unsubscribe",
-    "params": []
-}
-```
-
-##### Response
-
-```json
-{
-    "id": 16,
-    "result": {
-        "status": "success"
-    },
-    "error": null
-}
-```
-
