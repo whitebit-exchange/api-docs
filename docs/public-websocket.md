@@ -32,7 +32,7 @@
 
 The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol. 
 
-:warning: Connection will be closed by server for inactivity after 60s.
+:warning: Connection will be closed by server in cause of inactivity after 60s.
 
 ## :arrow_heading_up: Request message
 
