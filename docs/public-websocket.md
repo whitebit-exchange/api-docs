@@ -121,7 +121,7 @@ Code | Message
 }
 ```
 
-#### :arrows_counterclockwise: Update Event: 
+#### :arrows_counterclockwise: Update events: 
 ```json5
 {
     "id": null,
@@ -250,7 +250,7 @@ Code | Message
 }
 ```
 
-##### Update events:
+##### :arrows_counterclockwise: Update events:
 
 ```json5
 {
@@ -349,7 +349,7 @@ Code | Message
 }
 ```
 
-##### Update events:
+##### :arrows_counterclockwise: Update events:
 
 ```json5
 {
@@ -455,7 +455,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Update events:
+##### :arrows_counterclockwise: Update events:
 
 ```json5
 {
@@ -565,7 +565,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Update events:
+##### :arrows_counterclockwise: Update events:
 
 ```json5
 {
@@ -677,7 +677,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Update events:
+##### :arrows_counterclockwise: Update events:
 
 ```json5
 {
@@ -791,7 +791,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### Update events:
+##### :arrows_counterclockwise: Update events:
 
 ```json5
 {
