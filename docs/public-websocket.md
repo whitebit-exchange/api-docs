@@ -29,6 +29,8 @@
     * [Query](#query-5)
     * [Subscribe](#subscribe-5)
     * [Unsubscribe](#unsubscribe-5)
+    
+Public WebSocket endpoint is wss://api.whitebit.com/ws
 
 The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol. 
 
