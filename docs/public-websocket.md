@@ -514,7 +514,7 @@ You can subscribe only for 86400s (24h from now).
 ```json5
 {
     "id": 14,
-    "method": "marketToday_request",
+    "method": "marketToday_query",
     "params": [
         "ETH_BTC" // only one market per request
     ]
