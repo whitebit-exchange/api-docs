@@ -188,13 +188,13 @@ Code | Message
 
 #### Query
 
-Interval can be:
-   1. If the number is less than 60, then 60 must be divisible without a remainder by the transmitted number;
-   2. Less than 3600 (1 hour) - the number must be divisible by 60 without a remainder, and 3600 must be divided without a remainder by the transmitted number;
-   3. Less than 86400 (day) - the number must be whitened without a remainder by 3600, and 86400 must be divisible by the number without a remainder;
-   4. Less than 86400 * 7 (week) - the number must be divisible without a remainder by 86400;
-   5. Equal to 86400 * 7;
-   6. Equal to 86400 * 30.
+The requested interval must meet the following conditions:
+   * If the number is less than 60, then 60 must be divisible by the requested number without a remainder;
+   * Less than 3600 (1 hour) - the number must be divisible by 60 without a remainder, and 3600 must be divisible by the requested number without a remainder;
+   * Less than 86400 (day) - the number must be whitened by 3600 without a remainder, and 86400 must be divisible by the number without a remainder;
+   * Less than 86400 * 7 (week) - the number must be divisible by 86400 without a remainder;
+   * Equal to 86400 * 7;
+   * Equal to 86400 * 30.
 
 ##### :arrow_heading_up: Request:
 
@@ -661,7 +661,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Subscribe
 
-:heavy_exclamation_mark: You can subscribe only for one market per websocket connection.
+:heavy_exclamation_mark: For each websocket connection, you can subscribe only to one market. Every following subscription will replace the existing one.
 
 ##### :arrow_heading_up: Request:
 
@@ -777,7 +777,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Subscribe
 
-:heavy_exclamation_mark: You can subscribe only for one market per websocket connection.
+:heavy_exclamation_mark: For each websocket connection, you can subscribe only to one market. Every following subscription will replace the existing one.
 
 ##### :arrow_heading_up: Request:
 
