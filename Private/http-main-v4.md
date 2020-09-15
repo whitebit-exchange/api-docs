@@ -524,6 +524,20 @@ Response error codes:
 
 ___
 
+
+### Create withdraw request with specifying absolute withdraw amount
+
+```
+[POST] /api/v4/main-account/withdraw-pay
+```
+This endpoint has the similar logic as /main-account/withdraw, but with the only one difference: amount that is specified will not include fee (it will be calculated to make target withdraw amount equal to the specified amount).
+                 
+Example:
+* When you create base withdraw and set amount = 100 USD, receiver will earn 100 USD - fee amount, and your balance will decrease to 100 USD.
+* When you use this endpoint and set amount = 100 USD, receiver will earn 100 USD, and your balance will decrease to 100 USD + fee amount.
+
+---
+
 ### Transfer between main and trade balances
 
 ```
