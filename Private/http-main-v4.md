@@ -383,7 +383,7 @@ This endpoint creates withdraw for the specified ticker.
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 ticker | String | **Yes** | Currencies ticker. Example: BTC ⚠ Currencies ticker should be: not cypto and has "can_deposit" status must be "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.
-amount | Numeric string | **Yes** | Deposit amount.
+amount | Numeric string | **Yes** | Withdraw amount (including fee). If you want fee to be added to the specified amount, you need to use [/main-account/withdraw-pay](#create-withdraw-request-with-specifying-absolute-withdraw-amount) request (see examples there)
 address | String | **Yes** | Target address (wallet address for cryptocurrencies, identifier/card number for fiat currencies)
 memo | String | **Yes, if currency is memoable** | Target address (wallet address for cryptocurrencies, identifier/card number for fiat currencies)
 uniqueId | String | **Yes** | Unique transaction identifier on client's side.
@@ -530,7 +530,7 @@ ___
 ```
 [POST] /api/v4/main-account/withdraw-pay
 ```
-This endpoint has the similar logic as /main-account/withdraw, but with the only one difference: amount that is specified will not include fee (it will be calculated to make target withdraw amount equal to the specified amount).
+This endpoint has the similar logic as [/main-account/withdraw](#create-withdraw-request), but with the only one difference: amount that is specified will not include fee (it will be calculated to make target withdraw amount equal to the specified amount).
                  
 Example:
 * When you create base withdraw and set amount = 100 USD, receiver will earn 100 USD - fee amount, and your balance will decrease to 100 USD.
