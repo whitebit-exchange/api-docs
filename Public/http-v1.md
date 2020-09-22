@@ -159,7 +159,7 @@ market | String | **Yes** | Available market. Example: BTC_USDT
     "last": "9419.55",               // Latest deal price
     "volume": "27303.824558",        // Volume in stock
     "deal": "254399191.68843464",    // Volume in money
-    "change": "1.63"                 // Change between open and close price
+    "change": "1.63"                 // Change between open and close price in percentage
   }
 }
 ```
@@ -296,7 +296,7 @@ _1 second_
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
-lastId | int | **Yes** | Largest id of last returned result. Example: 1
+lastId | int | **Yes** | Largest id of last returned result. Example: request deals starting from id equals to 6
 limit | int | **No** | Limit of results. Default: 50 Example: 100
 
 
