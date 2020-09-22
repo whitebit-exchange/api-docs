@@ -110,7 +110,7 @@ NONE
   "message": "",
   "result": [
     {
-      "lastUpdateTimestamp": "2020-07-10T13:37:27.000Z",     // Timestamp of last update
+      "lastUpdateTimestamp": "2020-07-10T13:37:27.000Z",     // ISO 8601 time format of last update
       "tradingPairs": "ETH_BTC",                             // Name of market pair
       "lastPrice": "0.026014",                               // Last deal price
       "lowestAsk": "0.026027",                               // Lowest ask price
@@ -151,7 +151,7 @@ NONE
       "price": "9371.69",                   // Price.
       "volume": "0.145642",                 // Amount.
       "time": "2020-07-09T14:13:01.000Z",   // Time.
-      "isBuyerMaker": true                  // Is Maker close this order or taker
+      "isBuyerMaker": true                  // Sell order is taker: true, Buy order is taker: false
     },
     {
       ...
@@ -180,8 +180,8 @@ NONE
   "success": true,
   "message": "",
   "result": {
-    "makerFee": "0.1",  // Default maker fee (percent of trading amount)
-    "takerFee": "0.1"   // Default taker fee (percent of trading amount)
+    "makerFee": "0.1",  // Default maker fee (percent of trading amount in money currency)
+    "takerFee": "0.1"   // Default taker fee (percent of trading amount in money currency)
   }
 }
 ```
@@ -207,8 +207,8 @@ NONE
   "message": "",
   "result": {
     "BTC": {
-      "id": "4f37bc79-f612-4a63-9a81-d37f7f9ff622",         //  Asset id
-      "lastUpdateTimestamp": "2020-07-10T13:20:07.000Z",    // Timestamp of last update
+      "id": "4f37bc79-f612-4a63-9a81-d37f7f9ff622",         // Asset id
+      "lastUpdateTimestamp": "2020-07-10T13:20:07.000Z",    // ISO 8601 time format of last update
       "name": "Bitcoin",                                    // Name of currency
       "canWithdraw": true,                                  // Is currency withdrawable
       "canDeposit": true,                                   // Is currency depositable
@@ -245,23 +245,23 @@ NONE
       "lastUpdateTimestamp": "2020-07-09T14:49:12.000Z",     // Timestamp of last update
       "asks": [
         [
-          "9431.9",                                          // Price of lowest bid
-          "0.705088"                                         // Amount of lowest bid
+          "9431.9",                                          // Price of lowest ask
+          "0.705088"                                         // Amount of lowest ask
         ],
         [
-          "9433.67",                                         // Price of next bid
-          "0.324509"                                         // Amount of next bid
+          "9433.67",                                         // Price of next ask
+          "0.324509"                                         // Amount of next ask
         ],
         [...]
       ],
       "bids": [
         [
-          "9427.65",                                         // Price of highest ask
-          "0.547909"                                         // Amount of highest ask
+          "9427.65",                                         // Price of highest bid
+          "0.547909"                                         // Amount of highest bid
         ],
         [
-          "9427.3",                                          // Price of next ask
-          "0.669249"                                         // Amount of next ask
+          "9427.3",                                          // Price of next bid
+          "0.669249"                                         // Amount of next bid
         ],
       ],
       [...]
