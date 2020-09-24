@@ -459,6 +459,19 @@ Response error codes:
     "message": "Validation failed"
 }
 ```
+Errors for unconfirmed users (users without KYC):
+```json5
+{
+    "code": 0,
+    "errors": {
+        "amount": [
+            "This currency has no active pairs or it may have been unlisted. Its rate cannot be calculated at the moment.",
+            "Current limit exceeded"
+        ],
+    },
+    "message": "Validation failed"
+}
+```
 
 ```json5
 {
@@ -608,6 +621,19 @@ Response error codes:
         "ticker": [
             "The selected ticker is invalid."
         ]
+    },
+    "message": "Validation failed"
+}
+```
+Errors for unconfirmed users (users without KYC):
+```json5
+{
+    "code": 0,
+    "errors": {
+        "amount": [
+            "This currency has no active pairs or it may have been unlisted. Its rate cannot be calculated at the moment.",
+            "Current limit exceeded"
+        ],
     },
     "message": "Validation failed"
 }
@@ -1060,6 +1086,19 @@ Response error codes:
         "ticker": [
             "The selected ticker is invalid."
         ]
+    },
+    "message": "Validation failed"
+}
+```
+Errors for unconfirmed users (users without KYC):
+```json5
+{
+    "code": 0,
+    "errors": {
+        "amount": [
+            "This currency has no active pairs or it may have been unlisted. Its rate cannot be calculated at the moment.",
+            "Current limit exceeded"
+        ],
     },
     "message": "Validation failed"
 }
