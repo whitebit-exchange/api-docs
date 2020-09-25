@@ -459,7 +459,7 @@ Response error codes:
     "message": "Validation failed"
 }
 ```
-Errors for unconfirmed users (users without KYC):
+Errors for unconfirmed users (without KYC):
 ```json5
 {
     "code": 0,
@@ -472,7 +472,7 @@ Errors for unconfirmed users (users without KYC):
     "message": "Validation failed"
 }
 ```
-Also, fiat currencies can't be withdraw without KYC:
+Also, fiat currencies can't be withdrawn without KYC:
 ```json5
 {
     "code": 0,
@@ -637,7 +637,7 @@ Response error codes:
     "message": "Validation failed"
 }
 ```
-Errors for unconfirmed users (users without KYC):
+Errors for unconfirmed users (without KYC):
 ```json5
 {
     "code": 0,
@@ -650,7 +650,7 @@ Errors for unconfirmed users (users without KYC):
     "message": "Validation failed"
 }
 ```
-Also, fiat currencies can't be withdraw without KYC:
+Also, fiat currencies can't be withdrawn without KYC:
 ```json5
 {
     "code": 0,
@@ -1113,7 +1113,7 @@ Response error codes:
     "message": "Validation failed"
 }
 ```
-Errors for unconfirmed users (users without KYC):
+Errors for unconfirmed users (without KYC):
 ```json5
 {
     "code": 0,
@@ -1126,7 +1126,7 @@ Errors for unconfirmed users (users without KYC):
     "message": "Validation failed"
 }
 ```
-Also, fiat currencies can't be withdraw without KYC:
+Also, fiat currencies can't be withdrawn without KYC:
 ```json5
 {
     "code": 0,
