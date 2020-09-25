@@ -465,11 +465,23 @@ Errors for unconfirmed users (users without KYC):
     "code": 0,
     "errors": {
         "amount": [
-            "This currency has no active pairs or it may have been unlisted. Its rate cannot be calculated at the moment.",
+            "This currency has no active pairs or it may have been delisted. Its rate cannot be calculated at the moment.",
             "Current limit exceeded"
         ],
     },
     "message": "Validation failed"
+}
+```
+Also, fiat currencies can't be withdraw without KYC:
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "amount": [
+            "Your account must be verified"
+        ]
+    }
 }
 ```
 
@@ -631,11 +643,23 @@ Errors for unconfirmed users (users without KYC):
     "code": 0,
     "errors": {
         "amount": [
-            "This currency has no active pairs or it may have been unlisted. Its rate cannot be calculated at the moment.",
+            "This currency has no active pairs or it may have been delisted. Its rate cannot be calculated at the moment.",
             "Current limit exceeded"
         ],
     },
     "message": "Validation failed"
+}
+```
+Also, fiat currencies can't be withdraw without KYC:
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "amount": [
+            "Your account must be verified"
+        ]
+    }
 }
 ```
 
@@ -923,7 +947,6 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
 {
     "code": 0,
     "errors": {
@@ -1096,13 +1119,27 @@ Errors for unconfirmed users (users without KYC):
     "code": 0,
     "errors": {
         "amount": [
-            "This currency has no active pairs or it may have been unlisted. Its rate cannot be calculated at the moment.",
+            "This currency has no active pairs or it may have been delisted. Its rate cannot be calculated at the moment.",
             "Current limit exceeded"
         ],
     },
     "message": "Validation failed"
 }
 ```
+Also, fiat currencies can't be withdraw without KYC:
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "amount": [
+            "Your account must be verified"
+        ]
+    }
+}
+```
+
+ 
 
 </details>
 
