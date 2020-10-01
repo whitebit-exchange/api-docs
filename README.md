@@ -56,3 +56,4 @@ ___
         5. ``Java``
         6. ``Kotlin``
         7. ``DotNet``
+        8. ``Ruby``
