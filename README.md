@@ -14,6 +14,8 @@ ___
 
 ## Private API
 
+[Private WebSocket API](./Private/websocket.md)
+
 [Private API Authentication Documentation](./Private/http-auth.md) - Documentation for making private Auth requests on WhiteBIT
 
 [Private API V1 Documentation Trade keys](./Private/http-v1.md) - Documentations for making private trading requests
