@@ -513,7 +513,7 @@ All possible [order types](#order-types)
 }
 ```
 
-E.g. you subscribed for your deal messages of *BTC_USDT* market. Let's say the connection was disconnected and you received the last deal with ID equal to 100. So, when you reconnect, you need to send 100 as **Last processed deal ID**.
+Explaining **Last processed deal ID** - E.g. you subscribed for your deal messages of *BTC_USDT* market. Let's say the connection was disconnected and you received the last deal with ID equal to 100. So, when you reconnect, you need to send 100 as second parameter.
 
 ##### :arrow_heading_down: Response:
 
