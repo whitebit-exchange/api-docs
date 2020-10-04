@@ -8,14 +8,14 @@
     * [Subscribe](#subscribe)
     * [Unsubscribe](#unsubscribe)
 * [Orders Pending](#orders-pending)
+    * [Query](#query-1)
+    * [Subscribe](#subscribe-1)
+    * [Unsubscribe](#unsubscribe-1)
+* [Orders Executed](#executed)
     * [Query](#query-2)
+* [Deals](#deals)
     * [Subscribe](#subscribe-2)
     * [Unsubscribe](#unsubscribe-2)
-* [Orders Executed](#executed)
-    * [Query](#query-3)
-* [Deals](#deals)
-    * [Subscribe](#subscribe-4)
-    * [Unsubscribe](#unsubscribe-4)
     
 WebSocket endpoint is wss://api.whitebit.com/ws
 
@@ -508,10 +508,12 @@ All possible [order types](#order-types)
             "BTC_USDT", // market
             "ETH_BTC"   // market
         ],
-        
+        1               // Last processed deal ID
     ]
 }
 ```
+
+E.g. you subscribed for your deal messages of *BTC_USDT* market. Let's say the connection was disconnected and you received the last deal with ID equal to 100. So, when you reconnect, you need to send 100 as **Last processed deal ID**.
 
 ##### :arrow_heading_down: Response:
 
