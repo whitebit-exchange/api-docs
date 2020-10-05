@@ -508,12 +508,16 @@ All possible [order types](#order-types)
             "BTC_USDT", // market
             "ETH_BTC"   // market
         ],
-        1               // Last processed deal ID
+        0               // Filter deal for limit or market orders.
     ]
 }
 ```
 
-Explaining **Last processed deal ID** - E.g. you subscribed for your deal messages of *BTC_USDT* market. Let's say the connection was disconnected and you received the last deal with ID equal to 100. So, when you reconnect, you need to send 100 as second parameter.
+| Filter deal id | Deals for |
+| --- | --- |
+| 0 | Limit and Market orders |
+| 1 | Limit orders |
+| 2 | Market orders |
 
 ##### :arrow_heading_down: Response:
 
