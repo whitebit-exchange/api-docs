@@ -503,16 +503,16 @@ All possible [order types](#order-types)
             "BTC_USDT", // market
             "ETH_BTC"   // market
         ],
-        0               // Filter deal for limit or market orders.
+        0               // filter executed limit or market orders
     ]
 }
 ```
 
-| Filter deal id | Deals for |
+| Filter | Executed orders |
 | --- | --- |
-| 0 | Limit and Market orders |
-| 1 | Limit orders |
-| 2 | Market orders |
+| 0 | Limit and Market |
+| 1 | Limit |
+| 2 | Market |
 
 ##### :arrow_heading_down: Response:
 
