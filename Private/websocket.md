@@ -13,7 +13,6 @@
     * [Unsubscribe](#unsubscribe-1)
 * [Orders Executed](#executed)
     * [Query](#query-2)
-* [Deals](#deals)
     * [Subscribe](#subscribe-2)
     * [Unsubscribe](#unsubscribe-2)
     
@@ -491,10 +490,6 @@ All possible [order types](#order-types)
 }
 ```
 
----
-
-### Deals
-
 #### Subscribe
 
 ##### :arrow_heading_up: Request:
@@ -502,7 +497,7 @@ All possible [order types](#order-types)
 ```json5
 {
     "id": 12,
-    "method": "deals_subscribe",
+    "method": "ordersExecuted_subscribe",
     "params": [
         [
             "BTC_USDT", // market
@@ -536,7 +531,7 @@ All possible [order types](#order-types)
 ```json5
 {
     "id": null,
-    "method": "deals_update",
+    "method": "ordersExecuted_update",
     "params": [
         {
             "id": 6887337167,           // Order ID
@@ -563,7 +558,7 @@ All possible [order types](#order-types)
 ```json5
 {
     "id": 13,
-    "method": "deals_unsubscribe",
+    "method": "ordersExecuted_unsubscribe",
     "params": []
 }
 ```
