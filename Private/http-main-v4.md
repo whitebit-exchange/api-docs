@@ -797,7 +797,7 @@ Withdraw status codes:
         {...},
         {...}
     ],
-    "total": 4                                                                                             // total number of  transactions, use this for calculating ‘limit’ and ‘offset'
+    "total": 300                                                                                             // total number of  transactions, use this for calculating ‘limit’ and ‘offset'
 }
 
 ```
