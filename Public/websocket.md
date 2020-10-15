@@ -781,8 +781,6 @@ You can subscribe only for 86400s (24h from now).
 
 #### Subscribe
 
-:heavy_exclamation_mark: For each websocket connection, you can subscribe only to one market. Every following subscription will replace the existing one.
-
 ##### :arrow_heading_up: Request:
 
 ```json5
@@ -792,10 +790,13 @@ You can subscribe only for 86400s (24h from now).
     "params": [
         "ETH_BTC", // market
         100,       // limit, max value is 100
-        "0"        // price interval units. "0" - no interval, available values - "0.00000001", "0.0000001", "0.000001", "0.00001", "0.0001", "0.001", "0.01", "0.1"
+        "0",       // price interval units. "0" - no interval, available values - "0.00000001", "0.0000001", "0.000001", "0.00001", "0.0001", "0.001", "0.01", "0.1"
+        true       // multiple subscription flag. true - add, false - unsubscribe from all
     ]
 }
 ```
+
+The last parameter - Multiple subscription flag - allows you to subscribe to market depths as many markets as you want. The only restriction is one subscription with specific parameters per market.
 
 ##### :arrow_heading_down: Response:
 
