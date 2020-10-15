@@ -15,6 +15,10 @@
     * [Query](#query-2)
     * [Subscribe](#subscribe-2)
     * [Unsubscribe](#unsubscribe-2)
+* [Deals](#deals)
+    * [Query](#query-3)
+    * [Subscribe](#subscribe-3)
+    * [Unsubscribe](#unsubscribe-3)
     
 WebSocket endpoint is wss://api.whitebit.com/ws
 
@@ -214,7 +218,7 @@ At this momen websocket token you can get only from Chrome DevTools:
         "BTC": {
             "available": "0", // Amount available for trade
             "freeze": "0"     // Amount in active orders
-        },
+        }
     },
     "error": null
 }
@@ -568,6 +572,128 @@ All possible [order types](#order-types)
 ```json
 {
     "id": 13,
+    "result": {
+        "status": "success"
+    },
+    "error": null
+}
+```
+
+---
+
+### Deals
+
+#### Query
+
+##### :arrow_heading_up: Request:
+
+Market should exist. The maximum limit is 100.
+
+```json5
+{
+    "id": 14,
+    "method": "deals_request",
+    "params": [
+        "BTC_USDT", // market 
+        0,          // offset
+        30          // limit
+    ]
+}
+```
+
+##### :arrow_heading_down: Response:
+
+```json5
+{
+    "id": 14,
+    "result": {
+        "limit": 100,
+        "offset": 0,
+        "total": 124,
+        "records": [
+            {
+                "time": 1602760519.688911,   // Deal time
+                "id": 251923106,             // Deal ID
+                "side": 1,                   // Side 1 - sell, 2 - bid
+                "role": 2,                   // Your role. 1 - maker, 2 - taker
+                "price": "11303.76",         // Deal price
+                "amount": "0.001",           // Stock amount
+                "deal": "11.30376",          // Money amount
+                "fee": "0.01130376",         // Deal fee in money
+                "market": "BTC_USDT",        // Market
+                "deal_order_id": 7421295951  // Order ID
+            },
+            ...
+        ]
+    },
+    "error": null
+}
+```
+
+#### Subscribe
+
+##### :arrow_heading_up: Request:
+
+```json5
+{
+    "id": 15,
+    "method": "deals_subscribe",
+    "params": [
+        [
+            "BTC_USDT", // market
+            "ETH_BTC"   // market
+        ]
+    ]
+}
+```
+
+##### :arrow_heading_down: Response:
+
+```json
+{
+    "id": 15,
+    "result": {
+        "status": "success"
+    },
+    "error": null
+}
+```
+
+##### :arrows_counterclockwise: Update events:
+
+```json5
+{
+    "id": null,
+    "method": "deals_update",
+    "params": [
+        252104486,         // Deal ID
+        1602770801.015587, // Deal time
+        "BTC_USDT",        // Market
+        7425988844,        // Order ID
+        "11399.24",        // Price
+        "0.008256",        // Stock amount
+        "0.094112125440"   // Deal fee
+    ]
+}
+```
+
+#### Unsubscribe
+
+##### :arrow_heading_up: Request:
+
+```json5
+{
+    "id": 16,
+    "method": "deals_unsubscribe",
+    "params": []
+}
+```
+
+##### :arrow_heading_down: Response:
+
+```json
+{
+    "id": 16,
     "result": {
         "status": "success"
     },
