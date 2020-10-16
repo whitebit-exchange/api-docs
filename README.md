@@ -22,7 +22,7 @@ ___
 
 [Private API V4 Documentation Trade keys](./Private/http-trade-v4.md) - Documentations for making private trading requests
 
-[Private API V4 Documentation Deposit/Withdraw keys](./Private/http-main-v4.md) - Documentations for making private trading & deposit/withdraw requests (Not Ready)
+[Private API V4 Documentation Deposit/Withdraw keys](./Private/http-main-v4.md) - Documentations for making private trading & deposit/withdraw requests
 
 ---
 
