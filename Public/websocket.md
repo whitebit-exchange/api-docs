@@ -30,13 +30,15 @@
     * [Subscribe](#subscribe-5)
     * [Unsubscribe](#unsubscribe-5)
     
-Public WebSocket endpoint is wss://api.whitebit.com/ws
+WebSocket endpoint is wss://api.whitebit.com/ws
 
 The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol. 
 
 :warning: Connection will be closed by server in cause of inactivity after 60s.
 
 :heavy_exclamation_mark: Rate limit 100 ws connections per minute.
+
+All endpoints return time in Unix-time format.
 
 ## :arrow_heading_up: Request message
 
@@ -268,7 +270,7 @@ The requested interval must meet the following conditions:
 {
     "id": null,
     "method": "candles_update",
-    "result": [
+    "params": [
         1580895000,     // time
         "0.020683",     // open
         "0.020683",     // close
@@ -367,7 +369,7 @@ The requested interval must meet the following conditions:
 {
     "id": null,
     "method": "lastprice_update",
-    "result": [
+    "params": [
         "ETH_BTC",  // market
         "0.020683", // price
     ]
@@ -473,7 +475,7 @@ You can subscribe only for 86400s (24h from now).
 {
     "id": null,
     "method": "market_update",
-    "result": [
+    "params": [
         "ETH_BTC",                   // market
          {                           // response same as 'market_request'
             "period": 86400,         // period in seconds 
@@ -583,7 +585,7 @@ You can subscribe only for 86400s (24h from now).
 {
     "id": null,
     "method": "marketToday_update",
-    "result": [
+    "params": [
         "ETH_BTC",                   // market
          {                           // response same as 'market_request'
             "last": "0.020964",      // last price
@@ -697,7 +699,7 @@ You can subscribe only for 86400s (24h from now).
 {
     "id": null,
     "method": "trades_update",
-    "result": [
+    "params": [
         "ETH_BTC",                         // market
          [                                 // response same as 'market_request'
              {                            
@@ -779,8 +781,6 @@ You can subscribe only for 86400s (24h from now).
 
 #### Subscribe
 
-:heavy_exclamation_mark: For each websocket connection, you can subscribe only to one market. Every following subscription will replace the existing one.
-
 ##### :arrow_heading_up: Request:
 
 ```json5
@@ -790,10 +790,13 @@ You can subscribe only for 86400s (24h from now).
     "params": [
         "ETH_BTC", // market
         100,       // limit, max value is 100
-        "0"        // price interval units. "0" - no interval, available values - "0.00000001", "0.0000001", "0.000001", "0.00001", "0.0001", "0.001", "0.01", "0.1"
+        "0",       // price interval units. "0" - no interval, available values - "0.00000001", "0.0000001", "0.000001", "0.00001", "0.0001", "0.001", "0.01", "0.1"
+        true       // multiple subscription flag. true - add, false - unsubscribe from all
     ]
 }
 ```
+
+The last parameter - Multiple subscription flag - allows you to subscribe to market depths as many markets as you want. The only restriction is one subscription with specific parameters per market.
 
 ##### :arrow_heading_down: Response:
 
@@ -813,7 +816,7 @@ You can subscribe only for 86400s (24h from now).
 {
     "id": null,
     "method": "depth_update",
-    "result": [
+    "params": [
         false,                          // true - full reload, false - partial update
         {
             "asks": [

@@ -38,7 +38,9 @@ To help you get started with our API, we've created the [API Quick start helper]
 3. JavaScript
 4. Go
 5. Kotlin
-6. Java
+6. DotNet
+7. Ruby
+8. C++
 ```
 
 ### Errors:
