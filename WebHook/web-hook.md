@@ -29,7 +29,7 @@ All web-hook requests are performing with
 {
    "method": "string",
    "params": {
-       /* here will be web-hook payload data */
+
        "nonce": 0
    },
    "id": "uniqueID"
