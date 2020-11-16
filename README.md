@@ -24,6 +24,11 @@ ___
 
 ---
 
+## Web Hooks
+
+[Documentation for WebHooks](./WebHook/web-hook.md) - Documentations for processing web-hooks
+
+
 ## Info HTTP
 
 1. WhiteBIT API supports `private` and `public` methods.
