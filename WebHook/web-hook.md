@@ -36,13 +36,13 @@ All web-hook requests are performing with
 }
 ```
 
-** method ** - string. The name of method which was evaluated. Web hooks API supports such web-hook methods:
+**method** - string. The name of method which was evaluated. Web hooks API supports such web-hook methods:
 
 - **code.apply**. Performs when code owned by a customer was applied. 
 
-** id ** - string. Uuid to identify every request.
+**id** - string. Uuid to identify every request.
 
-** params ** - the request payload. Here you can find useful data about passed actions, which triggered web hook call. Also in this field placed a nonce. **'nonce'** - a number that is always **greater** than the previous request’s nonce number 
+**params** - the request payload. Here you can find useful data about passed actions, which triggered web hook call. Also in this field placed a nonce. **'nonce'** - a number that is always **greater** than the previous request’s nonce number 
 
 
 #### Request headers
