@@ -2,11 +2,12 @@
 
 ## Public endpoints V4
 
-* [Ticker](#ticker)
-* [Assets](#assets)
+* [Ticker](#market-activity)
+* [Assets](#asset-status-list)
 * [Orderbook](#orderbook)
 * [Recent Trades](#recent-trades)
-
+* [Server Time](#server-time)
+* [Server Status](#server-status)
     
 Base URL is https://whitebit.com
 
@@ -50,7 +51,7 @@ ___
 
 ___
 
-### Ticker 
+### Market activity 
 
 ```
 [GET] /api/v4/public/ticker
@@ -79,7 +80,7 @@ NONE
 ```
 ___
 
-### Assets
+### Asset status list
 
 ```
 [GET] /api/v4/public/assets
@@ -102,8 +103,8 @@ NONE
     "can_deposit": true,                      // Identifies whether deposits are enabled or disabled.
     "min_withdraw": "0.001000000000000000",   // Identifies the single minimum withdrawal amount of a cryptocurrency.
     "max_withdraw": "0.000000000000000000",   // Identifies the single maximum withdrawal amount of a cryptocurrency.
-    "maker_fee": "0.1",                       // Fees applied when liquidity is added to the order book.
-    "taker_fee": "0.1",                       // Fees applied when liquidity is removed from the order book.
+    "maker_fee": "0.1",                       // Maker fee in percentage
+    "taker_fee": "0.1",                       // Taker fee in percentage
     "min_deposit": "0.01",                    // Min deposit amount
     "max_deposit": "100",                     // Max deposit amount, will not be returned if there is no limit
   },
@@ -232,7 +233,7 @@ type | String | **No** | Can be buy or sell
     "base_volume": "9186.13",         // Transaction amount in base pair volume.
     "quote_volume": "0.0021",         // Transaction amount in quote pair volume.
     "trade_timestamp": 1594391747,    // Unix timestamp in milliseconds, identifies when the transaction occurred.
-    "type": "sell"                    //  Used to determine whether or not the transaction originated as a buy or sell. Buy – Identifies an ask that was removed from the order book. Sell – Identifies a bid that was removed from the order book.
+    "type": "sell"                    // Used to determine whether or not the transaction originated as a buy or sell. Buy – Identifies an ask that was removed from the order book. Sell – Identifies a bid that was removed from the order book.
   },
   {
     "tradeID": 158056416,
@@ -246,3 +247,39 @@ type | String | **No** | Can be buy or sell
 }
 ```
 ___
+
+___
+
+### Server Time
+
+```
+[GET] /api/v4/public/time
+```
+This endpoint retrieves the current server time.
+
+**Response is cached for:**
+_1 second_
+
+**Response:**
+```json5
+{
+  "time": 1605168359 
+}
+```
+### Server Status
+
+```
+[GET] /api/v4/public/ping
+```
+This endpoint retrieves the current API life-state.
+
+**Response is cached for:**
+_1 second_
+
+**Response:**
+```json5
+[
+  "pong"
+]
+```
+

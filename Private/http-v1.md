@@ -203,6 +203,8 @@ market | String | **Yes** | Available market. Example: BTC_USDT
 side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
 amount | String | **Yes** | Amount of stock currency to buy or sell. Example: '0.001'
 price | String | **Yes** | Price in money currency. Example: '9800'
+clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours. 
+                                
 
 **Request BODY raw:**
 ```json5
@@ -211,6 +213,7 @@ price | String | **Yes** | Price in money currency. Example: '9800'
     "side": "buy",
     "amount": "0.01",
     "price": "9800",
+    "clientOrderId": "order1987111",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
@@ -227,6 +230,7 @@ price | String | **Yes** | Price in money currency. Example: '9800'
     "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
     "market": "BTC_USDT",              // deal market
     "orderId": 4180284841,             // order id
+    "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
     "price": "9800",                   // price
     "side": "buy",                     // order side
     "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
@@ -331,6 +335,46 @@ price | String | **Yes** | Price in money currency. Example: '9800'
 }
 
 ```
+
+```json5
+{
+    "code": 0,
+    "errors": {
+        "clientOrderId": [
+            "The field should be a string."
+        ]
+    },
+    "message": "Validation failed"
+}
+
+```
+
+```json5
+{
+    "code": 0,
+    "errors": {
+        "clientOrderId": [
+            "The field format should be: «0-9a-z»"
+        ]
+    },
+    "message": "Validation failed"
+}
+
+```
+
+```json5
+{
+    "code": 0,
+    "errors": {
+        "clientOrderId": [
+            "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds). "
+        ]
+    },
+    "message": "Validation failed"
+}
+
+```
+
 </details>
 
 ___
@@ -370,6 +414,7 @@ orderId | Int | **Yes** | Order Id. Example: 4180284841
     "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
     "market": "BTC_USDT",              // deal market
     "orderId": 4180284841,             // order id
+    "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
     "price": "9800",                   // price
     "side": "buy",                     // order type
     "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
@@ -487,6 +532,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
         "market": "BTC_USDT",             // currency market
         "orderId": 3686033640,            // unexecuted order ID
+        "clientOrderId": "order1987111",  // custom client order id; "clientOrderId": "" - if not specified.
         "price": "7900",                  // unexecuted order price
         "side": "buy",                    // type of order
         "takerFee": "0.001",              // taker fee ratio. If the number less than 0.0001 - its rounded to zero    
@@ -613,6 +659,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
                 "dealStock": "0.000076",          // executed order amount in stock
                 "ftime": 1594667731.724403,       // executed order finish time
                 "id": 3711942768,                 // executed order ID
+                "clientOrderId": "order11-23-3",  // custom client order ID; "clientOrderId": "" - if not specified.
                 "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero
                 "market": "BTC_USDT",             // mair
                 "marketName": "BTC_USDT",         // market name
@@ -730,14 +777,15 @@ offset | Int | **No** | If you want the request to return entries starting from 
     "message": "",
     "result": [
         {
-            "amount": "0.000076",         // amount in stock
-            "deal": "0.70407996",         // amount in money
-            "fee": "0.00070407996",       // fee that you pay 
-            "id": 160305483,              // orderID
-            "price": "9264.21",           // price
-            "role": 2,                    // Role - 1 - maker, 2 - taker
-            "side": "sell",               // Order side "sell" / "buy"
-            "time": 1594667731.724403     // Timestamp of executed order
+            "amount": "0.000076",             // amount in stock
+            "deal": "0.70407996",             // amount in money
+            "fee": "0.00070407996",           // fee that you pay 
+            "id": 160305483,                  // orderID
+            "clientOrderId": "order1987111",  // custom client order id; "clientOrderId": "" - if not specified.
+            "price": "9264.21",               // price
+            "role": 2,                        // Role - 1 - maker, 2 - taker
+            "side": "sell",                   // Order side "sell" / "buy"
+            "time": 1594667731.724403         // Timestamp of executed order
         },
         {...}
       ],
@@ -842,14 +890,15 @@ offset | Int | **No** | If you want the request to return entries starting from 
     "result": {
         "BTC_USDT": [
             {
-                "amount": "0.000076",         // amount in stock
-                "deal": "0.70407996",         // amount in money
-                "fee": "0.00070407996",       // paid fee
-                "id": 160305483,              // orderID
-                "price": "9264.21",           // price
-                "role": 2,                    // Role - 1 - maker, 2 - taker
-                "side": "sell",               // Order side "sell" / "buy"
-                "time": 1594667731.724403     // Timestamp of executed order
+                "amount": "0.000076",               // amount in stock
+                "deal": "0.70407996",               // amount in money
+                "fee": "0.00070407996",             // paid fee
+                "id": 160305483,                    // orderID
+                "clientOrderId": "order1987111",    // custom client order id; "clientOrderId": "" - if not specified.
+                "price": "9264.21",                 // price
+                "role": 2,                          // Role - 1 - maker, 2 - taker
+                "side": "sell",                     // Order side "sell" / "buy"
+                "time": 1594667731.724403           // Timestamp of executed order
             },
             {...},
         ],
@@ -961,14 +1010,15 @@ Empty response if order is not yours
         "offset": 0,
         "records": [
             {
-                "amount": "598",                // amount in stock
-                "deal": "0.00419198",           // amount in money
-                "dealOrderId": 3134995325,      // completed order ID
-                "fee": "0.00000419198",         // paid fee
-                "id": 149156519,                // id of trade
-                "price": "0.00000701",          // price
-                "role": 2,                      // Role - 1 - maker, 2 - taker
-                "time": 1593342324.613711       // Timestamp of executed order
+                "amount": "598",                    // amount in stock
+                "deal": "0.00419198",               // amount in money
+                "dealOrderId": 3134995325,          // completed order ID
+                "fee": "0.00000419198",             // paid fee
+                "id": 149156519,                    // id of trade
+                "clientOrderId": "order1987111",    // custom client order id; "clientOrderId": "" - if not specified.
+                "price": "0.00000701",              // price
+                "role": 2,                          // Role - 1 - maker, 2 - taker
+                "time": 1593342324.613711           // Timestamp of executed order
             }
         ]
     },
