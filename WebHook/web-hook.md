@@ -25,7 +25,7 @@ All web hook requests are performing using POST method and with application/json
 
 All web-hook requests are performing with 
 
-```json
+```json5
 {
    "method": "string",
    "params": {
@@ -62,9 +62,9 @@ On consumer side you can process security headers to be sure request was perform
 
 Performed when code was applied. Request example:
 
-```json
+```json5
 {
-   "method": "code.applied",
+   "method": "code.apply",
    "params": {
        "code": "<SOME_WHITE_BIT_CODE>",
        "nonce": 1
