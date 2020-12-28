@@ -238,6 +238,8 @@ ___
 ```
 This endpoint retrieves a deposit address of the cryptocurrency.
 
+**Rate limit:** 5 requests per minute
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -366,6 +368,8 @@ Available statuses:
     "message": "Validation failed"
 }
 ```
+
+
 
 </details>
 
