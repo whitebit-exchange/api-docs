@@ -333,7 +333,7 @@ Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
 side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
-amount | String | **Yes** | ⚠️Amount of **`money`** currency to **buy** or amount in **`stock`** currency to **sell**. Example: '0.01' for buy and '0.0001' for sell.
+amount | String | **Yes** | ⚠️Amount of **`money`** currency to **buy** or amount in **`stock`** currency to **sell**. Example: '2' for buy and '0.001' for sell.
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
                                   
 **Request BODY raw:**
@@ -341,7 +341,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 {
     "market": "BTC_USDT",
     "side": "buy",
-    "amount": "50",             // I want to buy for 50 USDT
+    "amount": "50",             // I want to buy BTC for 50 USDT
     "clientOrderId": "order1987111",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
@@ -640,6 +640,18 @@ Error codes:
         ]
     },
     "message": "Validation failed"
+}
+```
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "activationPrice": [
+            "Activation price should not be equal to the last price"
+        ]
+    }
 }
 ```
 
