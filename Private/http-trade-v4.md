@@ -27,7 +27,16 @@ For receiving responses from API calls please use http method __POST__
 ___
 ```json5
 {
-    "message": "ERROR MESSAGE",
+    "code": 0,
+    "errors": {
+        "PARAM1": [
+            "MESSAGE"
+        ],
+        "PARAM2": [
+            "MESSAGE"
+        ]
+    },
+    "message": "MESSAGE"
 }
 ```
 ___

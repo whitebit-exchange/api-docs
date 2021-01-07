@@ -229,7 +229,7 @@ type | String | **No** | Can be buy or sell
 [
   {
     "tradeID": 158056419,             // A unique ID associated with the trade for the currency pair transaction Note: Unix timestamp does not qualify as trade_id.
-    "price": "9186.13",               // Transaction price in base pair volume.
+    "price": "9186.13",               // Transaction price in quote pair volume.
     "base_volume": "9186.13",         // Transaction amount in base pair volume.
     "quote_volume": "0.0021",         // Transaction amount in quote pair volume.
     "trade_timestamp": 1594391747,    // Unix timestamp in milliseconds, identifies when the transaction occurred.
