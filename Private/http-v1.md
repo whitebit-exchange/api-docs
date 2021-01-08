@@ -864,12 +864,12 @@ offset | Int | **No** | If you want the request to return entries starting from 
 ___
 
 
-### Query executed order history by single all markets
+### Query executed order history by all markets
 
 ```
 [POST] /api/v1/account/executed_history/all
 ```
-This endpoint retrieves orders history sorted by single market.
+This endpoint retrieves orders history sorted by all markets.
 
 **Parameters:**
 
