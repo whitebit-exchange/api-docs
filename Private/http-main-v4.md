@@ -764,7 +764,7 @@ Response error codes:
 Deposit status codes:
 * `Pending` - 15
 * `Unconfirmed by user` - 5
-* `Canceled` - 9 an 4
+* `Canceled` - 9 and 4
 * `Successful` - 3 and 7
 
 Withdraw status codes:
