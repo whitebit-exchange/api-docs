@@ -16,7 +16,7 @@
     * [Query](#query-2)
     * [Subscribe](#subscribe-2)
     * [Unsubscribe](#unsubscribe-2)
-* [Orders Executed](#executed)
+* [Orders Executed](#orders-executed)
     * [Query](#query-3)
     * [Subscribe](#subscribe-3)
     * [Unsubscribe](#unsubscribe-3)
