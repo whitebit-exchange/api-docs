@@ -8,18 +8,22 @@
     * [Query](#query)
     * [Subscribe](#subscribe)
     * [Unsubscribe](#unsubscribe)
-* [Orders Pending](#orders-pending)
+* [Balance Margin](#balance-margin)
     * [Query](#query-1)
     * [Subscribe](#subscribe-1)
     * [Unsubscribe](#unsubscribe-1)
-* [Orders Executed](#executed)
+* [Orders Pending](#orders-pending)
     * [Query](#query-2)
     * [Subscribe](#subscribe-2)
     * [Unsubscribe](#unsubscribe-2)
-* [Deals](#deals)
+* [Orders Executed](#executed)
     * [Query](#query-3)
     * [Subscribe](#subscribe-3)
     * [Unsubscribe](#unsubscribe-3)
+* [Deals](#deals)
+    * [Query](#query-4)
+    * [Subscribe](#subscribe-4)
+    * [Unsubscribe](#unsubscribe-4)
     
 WebSocket endpoint is wss://api.whitebit.com/ws
 
@@ -308,6 +312,108 @@ Subscribe to receive updates in spot balances.
 {
     "id": 4,
     "method": "balanceSpot_unsubscribe",
+    "params": []
+}
+```
+
+##### :arrow_heading_down: Response:
+
+```json
+{
+    "id": 4,
+    "result": {
+        "status": "success"
+    },
+    "error": null
+}
+```
+---
+
+### Balance Marginn
+
+#### Query
+
+Request for amount on margin balance. 
+Balance available for margin trade is equal to `balance * leverage` and it depends on liquidity in orderbook and your open positions.
+When you open position, your balance will not change, but amount available for trade will decrease
+
+##### :arrow_heading_up: Request:
+
+```json5
+{
+    "id": 2,
+    "method": "balanceMargin_request",
+    "params": [
+        "BTC",  // asset
+        "USDT"  // asset
+    ]
+}
+```
+
+##### :arrow_heading_down: Response:
+
+```json5
+{
+    "id": 2,
+    "result": {
+        "BTC": "0", // Amount on margin balance
+        "USDT": "0" // Amount on margin balance
+    },
+    "error": null
+}
+```
+
+#### Subscribe
+
+Subscribe to receive updates in spot balances.
+
+##### :arrow_heading_up: Request:
+
+```json5
+{
+    "id": 3,
+    "method": "balanceMargin_subscribe",
+    "params": [
+        "BTC",  // asset
+        "USDT"  // asset
+    ]
+}
+```
+
+##### :arrow_heading_down: Response:
+
+```json
+{
+    "id": 3,
+    "result": {
+        "status": "success"
+    },
+    "error": null
+}
+```
+
+##### :arrows_counterclockwise: Update events:
+
+```json5
+{
+    "id": null,
+    "method": "balanceMargin_update",
+    "params": [
+        {
+            "USDT": "100.1885" // Amount on margin balance
+        }
+    ]
+}
+```
+
+#### Unsubscribe
+
+##### :arrow_heading_up: Request:
+
+```json5
+{
+    "id": 4,
+    "method": "balanceMargin_unsubscribe",
     "params": []
 }
 ```
