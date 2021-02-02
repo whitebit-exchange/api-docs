@@ -329,7 +329,7 @@ Subscribe to receive updates in spot balances.
 ```
 ---
 
-### Balance Marginn
+### Balance Margin
 
 #### Query
 
