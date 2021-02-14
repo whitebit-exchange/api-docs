@@ -911,7 +911,7 @@ This endpoint creates a new address even when the last created address is not us
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 ticker | String | **Yes** | Currency's ticker. Example: BTC
-network | String | **No** | Currency's network if it multinetwork currency. Example: USDT_OMNI. For USDT default network is ETH.
+network | String | **No** | Currency's network if it multinetwork currency. Example: OMNI or TRC20 or ERC20. For USDT default network is ERC20(ETH).
 
 
 **Request BODY raw:**
