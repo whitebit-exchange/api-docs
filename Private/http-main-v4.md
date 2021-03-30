@@ -737,7 +737,7 @@ address | String | **No** | Can be used for filtering transactions by specific a
 uniqueId | String | **No** | Can be used for filtering transactions by specific unique id
 limit | Int | **Yes** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
 offset | Int | **Yes** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
-status | Array | **Yes** | Can be used for filtering transations by status codes. Caution: You must to use this parameter with the correct transactionMethod and use the valid status codes for this method. Example: status: [3,7]
+status | Array | **Yes** | Can be used for filtering transactions by status codes. :heavy_exclamation_mark: Caution: You must to use this parameter with the correct `transactionMethod` and use the valid status codes for this method. Example: `"status": [3,7]`
 
 **Request BODY raw:**
 ```json5
