@@ -6,6 +6,7 @@
 * [Assets](#asset-status-list)
 * [Orderbook](#orderbook)
 * [Recent Trades](#recent-trades)
+* [Fee](#fee)
 * [Server Time](#server-time)
 * [Server Status](#server-status)
     
