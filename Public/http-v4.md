@@ -248,7 +248,75 @@ type | String | **No** | Can be buy or sell
 ```
 ___
 
+### Fee
+
+```
+[GET] /api/v4/public/fee
+```
+This endpoint retrieves the list of fees and min/max amount for deposits and withdraws
 ___
+
+**Response:**
+```json5
+{
+  "USDT (ERC20)": {
+    "ticker": "USDT",                         // currency ticker
+    "name": "Tether US",                      // currency ticker
+    "providers": [], 
+    "deposit": {                              // deposit fees
+      "min_amount": "0.000500000000000000",   // min deposit amount. 0 if there is no limitation
+      "max_amount": "0.100000000000000000",   // min deposit amount. 0 if there is no limitation
+      "fixed": "0.000500000000000000",        // fixed fee amount which applies for all transaction
+      "flex": {
+        "min_fee": "100.000000000000000000",  // min fee amount
+        "max_fee": "1000.000000000000000000", // max fee amount
+        "percent": "10.000000000000000000" 
+      },                                      // flex fee only applies for all transactions but according to min/max fee. Nullable if there is no flex fee
+    },
+    "withdraw": {
+      "min_amount": "0.001000000000000000",
+      "max_amount": "0.000000000000000000",
+      "fixed": null,
+      "flex": null
+    },
+    "is_depositable": true,                   //true if currency can be deposit
+    "is_withdrawal": true                     //true if currency can be withdraw
+  },
+  "USD": {
+    "ticker": "USD",                          // currency ticker
+    "name": "United States Dollar",           // currency ticker
+    "providers": [
+      "USD_ADVCASH",
+      "USD_CAPITALIST",
+      "USD_EPAY_COM",
+      "USD_PERFECT_MONEY",
+      "USD_VISAMASTER_INTERKASSA"
+    ],                                        // the list of providers. It is uses for fiat currencies. Provider is a payment system with own fees, which process payment operation
+    "deposit": {                              // for currencies with payment providers fee and amounts shows for each provider directly
+      "USD_VISAMASTER_INTERKASSA": {
+        "min_amount": "10.000000000000000000",
+        "max_amount": "1500.000000000000000000",
+        "fixed": null,
+        "flex": null,
+        "is_depositable": false,
+        "name": "USD Visa/MasterCard Interkassa", // provider name
+        "ticker": "USD_VISAMASTER_INTERKASSA"     //provider ticker
+      }
+    },
+    "withdraw": {
+      "USD_VISAMASTER_INTERKASSA": {
+        "min_amount": "20.000000000000000000",
+        "max_amount": "1500.000000000000000000",
+        "fixed": null,
+        "flex": null,
+        "is_withdrawal": false,
+        "name": "USD Visa/MasterCard Interkassa",
+        "ticker": "USD_VISAMASTER_INTERKASSA"
+      }
+    }
+  },
+}
+```
 
 ### Server Time
 
