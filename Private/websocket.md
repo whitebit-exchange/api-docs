@@ -100,7 +100,7 @@ Code | Message
     "id": 0,
     "method": "authorize",
     "params": [
-        "zd5UnHcOzd4WEO0$eUbBmoX.HcOzd4WEOSej.7p7GOHcOzd4WEOfU5d4fU5UnlXK",
+        "<get_your_token_via_api>",
         ""
     ]
 }
@@ -199,8 +199,8 @@ At this moment you can get the websocket token by using [this endpoint](#websock
     "id": 0,
     "method": "authorize",
     "params": [
-        "zd5UnHcOzd4WEO0$eUbBmoX.HcOzd4WEOSej.7p7GOHcOzd4WEOfU5d4fU5UnlXK", // WebSocket Token,
-        "public"                                                            // constant string, always should be "public"
+        "<get_your_token_via_api>", // WebSocket Token,
+        "public"                    // constant string, always should be "public"
     ]
 }
 ```
