@@ -248,6 +248,8 @@ ticker | String | **Yes** | Currencies ticker. Example: UAH ⚠ Currencies ticke
 provider | String | **Yes** | Fiat currency provider. Example: VISAMASTER ⚠ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.
 amount | Numeric String | **Yes** | Deposit amount.
 uniqueId | String | **Yes** | Unique transaction identifier on client's side.
+successLink | String | **No** | Customer will be redirected to this URL by acquiring provider after success deposit. To activate this feature, please contact support
+failureLink | String | **No** | Customer will be redirected to this URL in case of fail or rejection on acquiring provider side. To activate this feature, please contact support
 
 **Request BODY raw:**
 ```json5
@@ -366,6 +368,35 @@ Available statuses:
         ]
     },
     "message": "Validation failed"
+}
+```
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "successLink": [
+            "Your domain is incorrect. Please contact support for more details"
+        ],
+        "failureLink": [
+            "Your domain is incorrect. Please contact support for more details"
+        ]
+  }
+}
+```
+```json5
+{
+      "code": 0,
+      "message": "Validation failed",
+      "errors": {
+            "successLink": [
+                  "Uri domain must have only https scheme"
+            ],
+            "failureLink": [
+                  "Uri domain must have only https scheme"
+            ]
+      }
 }
 ```
 
@@ -737,7 +768,7 @@ address | String | **No** | Can be used for filtering transactions by specific a
 uniqueId | String | **No** | Can be used for filtering transactions by specific unique id
 limit | Int | **Yes** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
 offset | Int | **Yes** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
-status | Array | **Yes** | Can be used for filtering transactions by status codes. :heavy_exclamation_mark: Caution: You must to use this parameter with the correct `transactionMethod` and use the valid status codes for this method. Example: `"status": [3,7]`
+status | Array | **No** | Can be used for filtering transactions by status codes. :heavy_exclamation_mark: Caution: You must to use this parameter with the correct `transactionMethod` and use the valid status codes for this method. Example: `"status": [3,7]`
 
 **Request BODY raw:**
 ```json5
