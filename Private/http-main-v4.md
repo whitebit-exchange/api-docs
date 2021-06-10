@@ -236,7 +236,7 @@ ___
 ```
 [POST] /api/v4/main-account/fiat-deposit-url
 ```
-This endpoint retrieves a deposit address of the cryptocurrency.
+This endpoint retrieves a deposit address of the cryptocurrency. Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality.
 
 **Rate limit:** 5 requests per minute
 
@@ -399,9 +399,41 @@ Available statuses:
       }
 }
 ```
-
-
-
+```json5
+{
+  "success": false,
+  "message": "You don't have permission to use this endpoint. Please contact support for more details",
+  "code": 0
+}
+```
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "successLink": [
+            "Uri domain must have only https scheme"
+        ],
+        "failureLink": [
+            "Uri domain must have only https scheme"
+        ]
+    }
+}
+```
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "successLink": [
+            "Your domain is incorrect. Please contact support for more details"
+        ],
+        "failureLink": [
+            "Your domain is incorrect. Please contact support for more details"
+        ]
+    }
+}
+```
 </details>
 
 ___
