@@ -152,12 +152,23 @@ This endpoint retrieves a deposit address of the cryptocurrency.
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-ticker | String | **Yes** | Currencies ticker. Example: BTC ⚠ Currency ticker should be: not fiat and has "can_deposit" status must be "true". If currency has multinetwork like USDT - you need use multinetwork ticker you can find it in https://whitebit.com/api/v4/public/assets request. Default network for USDT is Ethereum.
+ticker | String | **Yes** | Currencies ticker. Example: BTC ⚠ Currency ticker should be: not fiat and has "can_deposit" status must be "true". If currency has multiple networks like USDT - you need to use multinetwork ticker you can find it in https://whitebit.com/api/v4/public/assets request. Default network for USDT is Ethereum (ERC20).
+network | String | **No** | Cryptocurrency network. Available for multi network currencies. Example: ERC20 ⚠ Currency network should be taken from https://whitebit.com/api/v4/public/assets response. Default for USDT is ERC20
 
 **Request BODY raw:**
 ```json5
 {
     "ticker": "BTC",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Request BODY (for multinetwork currency) raw:**
+```json5
+{
+    "ticker": "USDT",
+    "network": "ERC20",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
@@ -236,7 +247,7 @@ ___
 ```
 [POST] /api/v4/main-account/fiat-deposit-url
 ```
-This endpoint retrieves a deposit address of the cryptocurrency. Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality.
+This endpoint retrieves a deposit url of the fiat invoice. Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality.
 
 **Rate limit:** 5 requests per minute
 
@@ -244,7 +255,7 @@ This endpoint retrieves a deposit address of the cryptocurrency. Please, pay att
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-ticker | String | **Yes** | Currencies ticker. Example: UAH ⚠ Currencies ticker should be: not cypto and has "can_deposit" status must be "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.
+ticker | String | **Yes** | Currencies ticker. Example: UAH ⚠ Currencies ticker should be: fiat and has "can_deposit" status must be "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.
 provider | String | **Yes** | Fiat currency provider. Example: VISAMASTER ⚠ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.
 amount | Numeric String | **Yes** | Deposit amount.
 uniqueId | String | **Yes** | Unique transaction identifier on client's side.
@@ -274,6 +285,9 @@ Available statuses:
     "url": "https://someaddress.com"                  // address for deposit
 }
 ```
+
+**⚠ If you have used VISAMASTER as provider, you must pass [referer header](https://developer.mozilla.org/ru/docs/Web/HTTP/Headers/Referer) when you go to the invoice link (for example, pass `referer` header when you go to `https://someaddress.com`). Otherwise if there is no header (for example, you go to `https://someaddress.com` from Telegram message) you will be redirected to the WhiteBIT homepage**
+
 <details>
 <summary><b>Errors:</b></summary>
 
@@ -449,13 +463,13 @@ This endpoint creates withdraw for the specified ticker.
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-ticker | String | **Yes** | Currencies ticker. Example: BTC ⚠ Currencies ticker should be: not cypto and has "can_deposit" status must be "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.
+ticker | String | **Yes** | Currencies ticker. Example: BTC ⚠ Currencies ticker must have "can_deposit" status equal to "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.
 amount | Numeric string | **Yes** | Withdraw amount (including fee). If you want fee to be added to the specified amount, you need to use [/main-account/withdraw-pay](#create-withdraw-request-with-specifying-absolute-withdraw-amount) request (see examples there)
 address | String | **Yes** | Target address (wallet address for cryptocurrencies, identifier/card number for fiat currencies)
 memo | String | **Yes, if currency is memoable** | Target address (wallet address for cryptocurrencies, identifier/card number for fiat currencies)
 uniqueId | String | **Yes** | Unique transaction identifier on client's side.
 provider | String | **Yes, if currency is fiat** | Fiat currency provider. Example: VISAMASTER ⚠ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.
-network | String | **No** | Cryptocurrency network. Available for multi network currencies. Example: USDT_OMNI ⚠ Currency network should be taken from https://whitebit.com/api/v4/public/assets response. Default for USDT is USDT_ETH
+network | String | **No** | Cryptocurrency network. Available for multi network currencies. Example: OMNI ⚠ Currency network should be taken from https://whitebit.com/api/v4/public/assets response. Default for USDT is ERC20
 
 **Request BODY raw:**
 ```json5
@@ -464,6 +478,19 @@ network | String | **No** | Cryptocurrency network. Available for multi network 
     "amount": "0.9",
     "address": "0x0964A6B8F794A4B8d61b62652dB27ddC9844FB4c",
     "uniqueId" : "24529041",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Request BODY (for multinetwork currency) raw:**
+```json5
+{
+    "ticker": "USDT",
+    "amount": "0.9",
+    "address": "0x0964A6B8F794A4B8d61b62652dB27ddC9844FB4c",
+    "uniqueId" : "24529041",
+    "network" : "ERC20",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
@@ -625,8 +652,8 @@ ___
 This endpoint has the similar logic as [/main-account/withdraw](#create-withdraw-request), but with the only one difference: amount that is specified will not include fee (it will be calculated to make target withdraw amount equal to the specified amount).
                  
 Example:
-* When you create base withdraw and set amount = 100 USD, receiver will earn 100 USD - fee amount, and your balance will decrease to 100 USD.
-* When you use this endpoint and set amount = 100 USD, receiver will earn 100 USD, and your balance will decrease to 100 USD + fee amount.
+* When you create base withdraw and set amount = 100 USD, receiver will recieve 100 USD - fee amount, and your balance will decrease by 100 USD.
+* When you use this endpoint and set amount = 100 USD, receiver will recieve 100 USD, and your balance will decrease by 100 USD + fee amount.
 
 ---
 
@@ -995,6 +1022,16 @@ network | String | **No** | Currency's network if it multinetwork currency. Exam
 ```json5
 {
     "ticker": "XLM",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Request BODY (for multinetwork currency) raw:**
+```json5
+{
+    "ticker": "USDT",
+    "network": "ERC20",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
