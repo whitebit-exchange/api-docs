@@ -60,6 +60,7 @@ ___
 
 `Limit order` - to place this order, you need to fill in the 'Price' and 'Amount' fields. If this order finds a corresponding order on the opposite side, it will be executed. Otherwise it will be placed into the orderbook.
 
+`Stock market order` - to place this order, you need to fill 'Amount' field using Stock value. This order finds a corresponding order on the opposite side and executes. Otherwise it will be cancelled.
 ___
 ### Trading balance
 
@@ -333,7 +334,7 @@ Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
 side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
-amount | String | **Yes** | ⚠️Amount of **`money`** currency to **buy** or amount in **`stock`** currency to **sell**. Example: '2' for buy and '0.001' for sell.
+amount | String | **Yes** | ⚠️Amount of money currency to buy or amount in stock currency to sell. Example: '5 USDT' for buy (min total) and '0.001 BTC' for sell (min amount).
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
                                   
 **Request BODY raw:**
@@ -369,9 +370,204 @@ Available statuses:
 {
     "amount": "0.001",                 // amount
     "dealFee": "0",                    // fee in money that you pay if order is finished
-    "dealMoney": "0",                  // if order finished - amount in money currency that finished
-    "dealStock": "0",                  // if order finished - amount in stock currency that finished
-    "left": "0.001",                   // if order not finished - rest of amount that must be finished
+    "dealMoney": "0",                  // amount in money currency that finished
+    "dealStock": "0",                  // amount in stock currency that finished
+    "left": "0.001",                   // rest of amount that must be finished
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
+    "market": "BTC_USDT",              // deal market
+    "orderId": 4180284841,             // order id
+    "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
+    "side": "buy",                     // order type
+    "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
+    "timestamp": 1595792396.165973,    // current timestamp
+    "type": "market"                   // order type
+}
+```
+<details>
+<summary><b>Errors:</b></summary>
+
+Error codes:
+* `1` - market is disabled for trading
+* `2` - incorrect amount (it is less than or equals zero or its precision is too big)
+* `3` - incorrect price (it is less than or equals zero or its precision is too big)
+* `4` - incorrect taker fee (it is less than zero or its precision is too big)
+* `5` - incorrect maker fee (it is less than zero or its precision is too big)
+* `6` - incorrect clientOrderId (invalid string or not unique id)
+
+```json5
+{
+    "code": 0,
+    "errors": {
+        "amount": [
+            "The amount field is required."
+        ],
+        "market": [
+            "The market field is required."
+        ],
+        "side": [
+            "The side field is required."
+        ]
+    },
+    "message": "Validation failed"
+}
+```
+
+```json5
+{
+    "code": 0,
+    "errors": {
+        "side": [
+            "The selected side is invalid."
+        ]
+    },
+    "message": "Validation failed"
+}
+```
+
+```json5
+{
+    "code": 0,
+    "errors": {
+        "amount": [
+            "The amount must be a number."
+        ]
+    },
+    "message": "Validation failed"
+}
+```
+
+```json5
+{
+    "code": 0,
+    "errors": {
+        "market": [
+            "Unknown market."
+        ]
+    },
+    "message": "Validation failed"
+}
+```
+
+```json5
+{
+    "code": 0,
+    "errors": {
+        "amount": [
+            "Not enough balance"
+        ]
+    },
+    "message": "Validation failed"
+}
+```
+
+```json5
+{
+    "code": 0,
+    "errors": {
+        "amount": [
+            "Given amount is less than min amount - 0.001",
+            "Min amount step = 0.000001"
+        ]
+    },
+    "message": "Validation failed"
+}
+
+```
+
+```json5
+{
+    "code": 0,
+    "errors": {
+        "clientOrderId": [
+            "The field should be a string."
+        ]
+    },
+    "message": "Validation failed"
+}
+
+```
+
+```json5
+{
+    "code": 0,
+    "errors": {
+        "clientOrderId": [
+            "The field format should be: «0-9a-z»"
+        ]
+    },
+    "message": "Validation failed"
+}
+
+```
+
+```json5
+{
+    "code": 0,
+    "errors": {
+        "clientOrderId": [
+            "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+        ]
+    },
+    "message": "Validation failed"
+}
+
+```
+</details>
+
+___
+
+### Create stock market order
+
+```
+[POST] /api/v4/order/stock_market
+```
+This endpoint creates stock-market trading order.
+
+**Parameters:**
+
+Name | Type | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+market | String | **Yes** | Available market. Example: BTC_USDT
+side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
+amount | String | **Yes** | ⚠️Amount in stock currency for buy or sell. Example: '0.001 BTC' (min amount).
+clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
+
+**Request BODY raw:**
+```json5
+{
+    "market": "BTC_USDT",
+    "side": "buy",
+    "amount": "50",             // I want to buy BTC for 50 USDT
+    "clientOrderId": "order1987111",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+```json5
+{
+    "market": "BTC_USDT",
+    "side": "sell",
+    "amount": "0.01",              // I want to sell 0.01 BTC
+    "clientOrderId": "order1987111",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+Available statuses:
+* `Status 200`
+* `Status 422 if internal validation failed`
+* `Status 503 if service is temporary unavailable`
+
+```json5
+{
+    "amount": "0.001",                 // amount
+    "dealFee": "0",                    // fee in money that you pay if order is finished
+    "dealMoney": "0",                  // amount in money currency that finished
+    "dealStock": "0",                  // amount in stock currency that finished
+    "left": "0.001",                   // rest of amount that must be finished
     "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
     "market": "BTC_USDT",              // deal market
     "orderId": 4180284841,             // order id
