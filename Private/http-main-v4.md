@@ -30,6 +30,7 @@ ___
 ```json5
 {
     "code": 0,
+    "message": "MESSAGE",
     "errors": {
         "PARAM1": [
             "MESSAGE"
@@ -37,8 +38,7 @@ ___
         "PARAM2": [
             "MESSAGE"
         ]
-    },
-    "message": "MESSAGE"
+    }
 }
 ```
 ___
@@ -129,12 +129,12 @@ Available statuses:
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "ticker": [
             "The selected ticker is invalid."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
@@ -153,7 +153,7 @@ This endpoint retrieves a deposit address of the cryptocurrency.
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 ticker | String | **Yes** | Currencies ticker. Example: BTC ⚠ Currency ticker should be: not fiat and has "can_deposit" status must be "true". If currency has multiple networks like USDT - you need to use multinetwork ticker you can find it in https://whitebit.com/api/v4/public/assets request. Default network for USDT is Ethereum (ERC20).
-network | String | **No** | Cryptocurrency network. Available for multi network currencies. Example: ERC20 ⚠ Currency network should be taken from https://whitebit.com/api/v4/public/assets response. Default for USDT is ERC20
+network | String | **No** | Cryptocurrency network. Available for multi network currencies. Example: ERC20 ⚠ Currency network should be taken from https://whitebit.com/api/v4/public/assets response. Default for USDT is Ethereum (ERC20).
 
 **Request BODY raw:**
 ```json5
@@ -204,36 +204,48 @@ Available statuses:
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "ticker": [
             "The selected ticker is invalid."
         ]
-    },
-    "message": "Validation failed"
-}
-```
-
-```json5
-{
-    "code": 1,
-    "errors": {
-        "ticker": [
-            "Currency is not depositable"
-        ]
-    },
-    "message": "Inner validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "network": [
+            "The selected network is invalid."
+        ]
+    }
+}
+```
+
+```json5
+{
+    "code": 1,
+    "message": "Inner validation failed",
     "errors": {
         "ticker": [
-            "Fiat are available on the front-end only"
+            "Currency is not depositable"
         ]
-    },
-    "message": "Validation failed"
+    }
+}
+```
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "ticker": [
+            "Fiat deposits are available only on the website"
+        ]
+    }
 }
 ```
 
@@ -267,8 +279,8 @@ failureLink | String | **No** | Customer will be redirected to this URL in case 
 {
     "ticker": "UAH",
     "provider": "VISAMASTER",
-    "amount": "10",
-    "uniqueId": "someID",
+    "amount": "100",
+    "uniqueId": "{{generateID}}",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
@@ -294,42 +306,43 @@ Available statuses:
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "Amount is too little for deposit"
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "provider": [
             "Cannot find currency for specified provider"
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "uniqueId": [
             "The unique id has already been taken."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "The amount must be a number."
@@ -340,20 +353,19 @@ Available statuses:
         "ticker": [
             "The selected ticker is invalid."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "Amount is too little for deposit"
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
@@ -367,6 +379,7 @@ Available statuses:
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "The amount field is required."
@@ -380,8 +393,7 @@ Available statuses:
         "uniqueId": [
             "The unique id field is required."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
@@ -496,6 +508,18 @@ network | String | **No** | Cryptocurrency network. Available for multi network 
 }
 ```
 
+**Request BODY (for fiat currency) raw:**
+```json5
+{
+    "ticker": "UAH",
+    "amount": "100",
+    "provider" : "VISAMASTER",
+    "uniqueId" : "24529041",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
 **Response:**
 Available statuses:
 * `Status 201 if validation succeeded and withdraw creation process is started`
@@ -524,6 +548,7 @@ Response error codes:
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "address": [
             "The address field is required."
@@ -537,33 +562,32 @@ Response error codes:
         "uniqueId": [
             "The unique id field is required."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "uniqueId": [
             "The unique id has already been taken."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 Errors for unconfirmed users (without KYC):
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "This currency has no active pairs or it may have been delisted. Its rate cannot be calculated at the moment.",
             "Current limit exceeded"
         ],
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 Also, fiat currencies can't be withdrawn without KYC:
@@ -582,60 +606,60 @@ Also, fiat currencies can't be withdrawn without KYC:
 ```json5
 {
     "code": 2,
+    "message": "Inner validation failed",
     "errors": {
         "address": [
             "The address is invalid"
         ]
-    },
-    "message": "Inner validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 5,
+    "message": "Inner validation failed",
     "errors": {
         "amount": [
             "Not enough money, Ethereum balance = 1"
         ]
-    },
-    "message": "Inner validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "ticker": [
             "The selected ticker is invalid."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "provider": [
             "Provider is required for fiat currency"
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "memo": [
             "The memo field is required."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
@@ -644,12 +668,12 @@ Also, fiat currencies can't be withdrawn without KYC:
 ___
 
 
-### Create withdraw request with specifying absolute withdraw amount
+### Create withdraw request with the specific withdraw amount (fee is not included)
 
 ```
 [POST] /api/v4/main-account/withdraw-pay
 ```
-This endpoint has the similar logic as [/main-account/withdraw](#create-withdraw-request), but with the only one difference: amount that is specified will not include fee (it will be calculated to make target withdraw amount equal to the specified amount).
+This endpoint has the similar logic as [/main-account/withdraw](#create-withdraw-request), but with the only difference: amount that is specified will not include fee (it will be calculated to make target withdraw amount equal to the specified amount).
                  
 Example:
 * When you create base withdraw and set amount = 100 USD, receiver will recieve 100 USD - fee amount, and your balance will decrease by 100 USD.
@@ -705,6 +729,7 @@ Response error codes:
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "The amount field is required."
@@ -715,33 +740,32 @@ Response error codes:
         "ticker": [
             "The ticker field is required."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "ticker": [
             "The selected ticker is invalid."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 Errors for unconfirmed users (without KYC):
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "This currency has no active pairs or it may have been delisted. Its rate cannot be calculated at the moment.",
             "Current limit exceeded"
         ],
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 Also, fiat currencies can't be withdrawn without KYC:
@@ -760,49 +784,49 @@ Also, fiat currencies can't be withdrawn without KYC:
 ```json5
 {
     "code": 3,
+    "message": "Inner validation failed",
     "errors": {
         "amount": [
             "You don't have such amount for transfer (available 34.68, in amount: 1000000)"
         ]
-    },
-    "message": "Inner validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "method": [
             "The selected method is invalid."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "The amount must be at least 0.00000001."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "The amount must be a number.",
             "Invalid number"
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
@@ -821,7 +845,7 @@ This endpoint retrieves the history of deposits and withdraws
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-transactionMethod | Number | **Yes** | Method. Example: **1** if need to display deposits / **2** if need to display withdraws
+transactionMethod | Number | **Yes** | Method. Example: **1** to display deposits / **2** to display withdraws
 ticker | String | **No** | Currency's ticker. Example: BTC
 address | String | **No** | Can be used for filtering transactions by specific address or memo.
 uniqueId | String | **No** | Can be used for filtering transactions by specific unique id
@@ -872,18 +896,18 @@ Withdraw status codes:
     "records": [
         {
             "address": "3ApEASLcrQtZpg1TsssFgYF5V5YQJAKvuE",                                              // deposit address
-            "amount": "0.000600000000000000",                                                             // amount of deposit
+            "uniqueId": null,                                                                             // unique Id of deposit
             "createdAt": 1593437922,                                                                      // timestamp of deposit
             "currency": "Bitcoin",                                                                        // deposit currency
-            "description": "",                                                                            // deposit description
-            "fee": "0.000000000000000000",                                                                // deposit fee
-            "memo": "",                                                                                   // deposit memo
-            "method": 1,                                                                                  // called method 1 - deposit, 2 - withdraw
-            "network": null,                                                                              // if currency is multinetwork
-            "status": 15,                                                                                 // transactions status
             "ticker": "BTC",                                                                              // deposit currency ticker
+            "method": 1,                                                                                  // called method 1 - deposit, 2 - withdraw
+            "amount": "0.0006",                                                                           // amount of deposit
+            "description": "",                                                                            // deposit description
+            "memo": "",                                                                                   // deposit memo
+            "fee": "0",                                                                                   // deposit fee
+            "status": 15,                                                                                 // transactions status
+            "network": null,                                                                              // if currency is multinetwork
             "transactionHash": "a275a514013e4e0f927fd0d1bed215e7f6f2c4c6ce762836fe135ec22529d886",        // deposit transaction hash
-            "uniqueId": null,                                                                             // unique Id of deposit
             "confirmations": {                                                                            // if transaction status == 15 you can see this object
                 "actual": 1,                                                                              // current block confirmations
                 "required": 2                                                                             // required block confirmation for successful deposit
@@ -903,6 +927,7 @@ Withdraw status codes:
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit field is required."
@@ -913,38 +938,38 @@ Withdraw status codes:
         "transactionMethod": [
             "The transaction method field is required."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "ticker": [
             "The selected ticker is invalid."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "transactionMethod": [
             "The selected transaction method is invalid."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit may not be greater than 100."
@@ -952,14 +977,14 @@ Withdraw status codes:
         "offset": [
             "The offset may not be greater than 10000."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit must be at least 1."
@@ -967,14 +992,14 @@ Withdraw status codes:
         "offset": [
             "The offset must be at least 0."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit must be an integer."
@@ -982,20 +1007,19 @@ Withdraw status codes:
         "offset": [
             "The offset must be an integer."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "status": [
             "The selected status is invalid."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
@@ -1008,7 +1032,7 @@ ___
 ```
 [POST] /api/v4/main-account/create-new-address
 ```
-This endpoint creates a new address even when the last created address is not used. This endpoint is not available by default, you need to contact support@whitebit.com for getting such permissions.
+This endpoint creates a new address even when the last created address is not used. This endpoint is not available by default, you need to contact support@whitebit.com in order to get permissions to use this endpoint.
 
 **Parameters:**
 
@@ -1050,14 +1074,14 @@ Available statuses:
         "memo": "48565488244493"                                                      // memo if currency requires memo
     },
     "required": {
+        "maxAmount": "0",                                                             // max amount of deposit that can be accepted by exchange - if you deposit more than that number, it won't be accepted by exchange 
+        "minAmount": "1",                                                             // min amount of deposit that accepted by exchange - if you deposit less than that number, it won't be accepted by exchange 
         "fixedFee": "0",                                                              // fixed deposit fee
         "flexFee": {                                                                  // flexible fee - is fee that use percent rate
             "maxFee": "0",                                                            // maximum fixed fee that you will pay
             "minFee": "0",                                                            // minimum fixed fee that you will pay
             "percent": "0"                                                            // percent of deposit that you will pay
         },
-        "maxAmount": "0",                                                             // max amount of deposit that can be accepted by exchange - if you deposit more than that number, it won't be accepted by exchange 
-        "minAmount": "1"                                                              // min amount of deposit that accepted by exchange - if you deposit less than that number, it won't be accepted by exchange 
     }
 }
 
@@ -1065,44 +1089,46 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
+```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "ticker": [
             "The ticker field is required."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "ticker": [
             "The selected ticker is invalid."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "network": [
             "Unsupported network"
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "network": [
             "The network must be a string."
@@ -1111,7 +1137,6 @@ Available statuses:
             "The ticker must be a string."
         ]
     },
-    "message": "Validation failed"
 }
 ```
 
@@ -1142,8 +1167,8 @@ description | String | **No** | Additional text description for code. Visible on
 {
     "ticker" : "ETH",
     "amount" : "0.002",
-    "passphrase": "someStrongPassphrase",
-    "description": "Some description", 
+    "passphrase": "some passphrase",
+    "description": "some description", 
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
@@ -1177,6 +1202,7 @@ Response error codes:
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "The amount field is required."
@@ -1184,14 +1210,14 @@ Response error codes:
         "ticker": [
             "The ticker field is required."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "The amount must be a number.",
@@ -1206,14 +1232,14 @@ Response error codes:
         "ticker": [
             "The selected ticker is invalid."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "The amount must be at least 0."
@@ -1227,21 +1253,20 @@ Response error codes:
         "ticker": [
             "The selected ticker is invalid."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 Errors for unconfirmed users (without KYC):
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "This currency has no active pairs or it may have been delisted. Its rate cannot be calculated at the moment.",
             "Current limit exceeded"
-        ],
-    },
-    "message": "Validation failed"
+        ]
+    }
 }
 ```
 Also, fiat currencies can't be withdrawn without KYC:
@@ -1281,7 +1306,7 @@ passphrase | String | **No** | Should be provided if the code was created with p
 ```json5
 {
     "code" : "WBe11f4fce-2a53-4edc-b195-66b693bd77e3ETH",
-    "passphrase": "someStrongPassphrase",
+    "passphrase": "some passphrase",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
@@ -1296,9 +1321,9 @@ Available statuses:
 
 ```json5
 {
-    "amount": "0.002",
     "message": "Code was successfully applied",
-    "ticker": "ETH"
+    "ticker": "ETH",
+    "amount": "0.002"
 }
 
 ```
@@ -1308,27 +1333,24 @@ Available statuses:
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "code": [
             "The code field is required."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
-    "_token": null,
+    "code": 0,
+    "message": "Validation failed",
     "errors": {
         "code": [
             "Incorrect code or passphrase"
         ]
-    },
-    "notification": null,
-    "response": null,
-    "status": 422,
-    "warning": "Incorrect code or passphrase"
+    }
 }
 ```
 
@@ -1369,6 +1391,7 @@ Available statuses:
 
 ```json5
 {
+    "total": 15,
     "data": [
         {
             "amount": "0.002",                                          // code amount
@@ -1380,8 +1403,7 @@ Available statuses:
         {...}
     ],
     "limit": 30,
-    "offset": 0,
-    "total": 15
+    "offset": 0
 }
 
 
@@ -1392,6 +1414,7 @@ Available statuses:
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit may not be greater than 100."
@@ -1399,14 +1422,14 @@ Available statuses:
         "offset": [
             "The offset may not be greater than 10000."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit must be at least 1."
@@ -1414,14 +1437,14 @@ Available statuses:
         "offset": [
             "The offset must be at least 0."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit must be an integer."
@@ -1429,8 +1452,7 @@ Available statuses:
         "offset": [
             "The offset must be an integer."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
@@ -1471,6 +1493,7 @@ Available statuses:
 
 ```json5
 {
+    "total": 29,
     "data": [
         {
             "amount": "+0.002",                                           // code amount change; - is created; + is applied
@@ -1489,8 +1512,7 @@ Available statuses:
         {...}
     ],
     "limit": 100,
-    "offset": 0,
-    "total": 29
+    "offset": 0
 }
 
 
@@ -1502,6 +1524,7 @@ Available statuses:
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit may not be greater than 100."
@@ -1509,14 +1532,14 @@ Available statuses:
         "offset": [
             "The offset may not be greater than 10000."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit must be at least 1."
@@ -1524,14 +1547,14 @@ Available statuses:
         "offset": [
             "The offset must be at least 0."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit must be an integer."
@@ -1539,8 +1562,7 @@ Available statuses:
         "offset": [
             "The offset must be an integer."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 

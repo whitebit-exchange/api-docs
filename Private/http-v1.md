@@ -24,6 +24,7 @@ ___
 ```json5
 {
     "code": 0,
+    "message": "MESSAGE",
     "errors": {
         "PARAM1": [
             "MESSAGE"
@@ -31,8 +32,7 @@ ___
         "PARAM2": [
             "MESSAGE"
         ]
-    },
-    "message": "MESSAGE"
+    }
 }
 ```
 ___
@@ -82,14 +82,8 @@ currency | String | **Yes** | Currency's ticker. Example: BTC
 **Response:**
 ```json5
 {
-    "message": "",
-    "result": {
-        "BTC": {
-            "available": "0.2",    // Available balance of currency for trading
-            "freeze": "1.02"       // Balance of currency on orders
-        }
-    },
-    "success": true
+    "available": "0.2",    // Available balance of currency for trading
+    "freeze": "1.02"       // Balance of currency on orders
 }
 ```
 
@@ -98,25 +92,19 @@ currency | String | **Yes** | Currency's ticker. Example: BTC
 
 ```json5
 {
-    "message": [
-        [
-            "Currency not found"
-        ]
-    ],
-    "result": [],
-    "success": false
+    "message": "Currency not found"
 }
 ```
 
 ```json5
 {
-    "message": {
-        "currency": [
-            "The currency field is required."
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "ticker": [
+            "The ticker must be a string."
         ]
-    },
-    "result": [],
-    "success": false
+    }
 }
 ```
 </details>
@@ -143,6 +131,7 @@ NONE
 **Response:**
 ```json5
 {
+    "success": true,
     "message": "",
     "result": {
         "BAT": {
@@ -190,7 +179,7 @@ NONE
             "freeze": "0"
         },
         {...}
-  }
+    }
 }
 ```
 ___
@@ -218,8 +207,8 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 {
     "market": "BTC_USDT",
     "side": "buy",
-    "amount": "0.01",
-    "price": "9800",
+    "amount": "0.001",
+    "price": "40000",
     "clientOrderId": "order1987111",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
@@ -229,20 +218,20 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 **Response:**
 ```json5
 {
-    "amount": "0.001",                 // amount
-    "dealFee": "0",                    // fee in money that you pay if order is finished
-    "dealMoney": "0",                  // if order finished - amount in money currency that finished
-    "dealStock": "0",                  // if order finished - amount in stock currency that finished
-    "left": "0.001",                   // if order not finished - rest of amount that must be finished
-    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
-    "market": "BTC_USDT",              // deal market
     "orderId": 4180284841,             // order id
     "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
-    "price": "9800",                   // price
+    "market": "BTC_USDT",              // deal market
     "side": "buy",                     // order side
-    "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
+    "type": "limit",                   // order type
     "timestamp": 1595792396.165973,    // current timestamp
-    "type": "limit"                    // order type
+    "dealMoney": "0",                  // if order finished - amount in money currency that finished
+    "dealStock": "0",                  // if order finished - amount in stock currency that finished
+    "amount": "0.001",                 // amount
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
+    "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
+    "left": "0.001",                   // if order not finished - rest of amount that must be finished
+    "dealFee": "0",                    // fee in money that you pay if order is finished
+    "price": "40000"                   // price
 }
 ```
 <details>
@@ -251,6 +240,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "The amount field is required."
@@ -264,81 +254,82 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
         "side": [
             "The side field is required."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "side": [
             "The selected side is invalid."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "The amount must be a number."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "price": [
             "The price must be a number."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "market": [
             "Unknown market."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
             "Not enough balance"
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "amount": [
-            "Given amount is less than min amount - 0.001",
-            "Min amount step = 0.000001"
+            "Given amount is less than min amount 0.0001"
+        ],
+        "total": [
+            "Total is less than 5.05"
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 
 ```
@@ -346,12 +337,12 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "clientOrderId": [
             "The field should be a string."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 
 ```
@@ -359,12 +350,12 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "clientOrderId": [
             "The field format should be: «0-9a-z»"
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 
 ```
@@ -372,12 +363,25 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "clientOrderId": [
             "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds). "
         ]
-    },
-    "message": "Validation failed"
+    }
+}
+
+```
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "amount": [
+            "Min amount step = 0.01"         //money/stock precision is not taken into consideration when order was submitted
+        ]
+    }
 }
 
 ```
@@ -423,7 +427,7 @@ orderId | Int | **Yes** | Order Id. Example: 4180284841
     "orderId": 4180284841,             // order id
     "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
     "price": "9800",                   // price
-    "side": "buy",                     // order type
+    "side": "buy",                     // order side
     "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
     "timestamp": 1595792396.165973,    // current timestamp
     "type": "limit"                    // order type
@@ -435,6 +439,7 @@ orderId | Int | **Yes** | Order Id. Example: 4180284841
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "market": [
             "The market field is required."
@@ -442,58 +447,57 @@ orderId | Int | **Yes** | Order Id. Example: 4180284841
         "orderId": [
             "The order id field is required."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 2,
+    "message": "Inner validation failed",
     "errors": {
         "order_id": [
             "Unexecuted order was not found."
         ]
-    },
-    "message": "Inner validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "market": [
             "Market is not available"
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "orderId": [
             "The order id must be an integer."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "market": [
             "The market must be a string.",
             "The market format is invalid.",
             "Market is not available"
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
@@ -531,20 +535,20 @@ offset | Int | **No** | If you want the request to return entries starting from 
 ```json5
 [
     {
-        "amount": "2.241379",             // active order amount
-        "dealFee": "0",                   // executed fee by deal
-        "dealMoney": "0",                 // executed amount in money
-        "dealStock": "0",                 // executed amount in stock
-        "left": "2.241379",               // unexecuted amount in stock
-        "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
-        "market": "BTC_USDT",             // currency market
         "orderId": 3686033640,            // unexecuted order ID
         "clientOrderId": "order1987111",  // custom client order id; "clientOrderId": "" - if not specified.
-        "price": "7900",                  // unexecuted order price
-        "side": "buy",                    // type of order
-        "takerFee": "0.001",              // taker fee ratio. If the number less than 0.0001 - its rounded to zero    
+        "market": "BTC_USDT",             // currency market
+        "side": "buy",                    // order side
+        "type": "limit",                  // unexecuted order type
         "timestamp": 1594605801.49815,    // current timestamp of unexecuted order
-        "type": "limit"                   // unexecuted order type
+        "dealMoney": "0",                 // executed amount in money
+        "dealStock": "0",                 // executed amount in stock
+        "amount": "2.241379",             // active order amount
+        "takerFee": "0.001",              // taker fee ratio. If the number less than 0.0001 - its rounded to zero    
+        "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
+        "left": "2.241379",               // unexecuted amount in stock
+        "dealFee": "0",                   // executed fee by deal
+        "price": "60000"                  // unexecuted order price
     },
     {...}
 ]
@@ -556,30 +560,31 @@ offset | Int | **No** | If you want the request to return entries starting from 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "market": [
             "The market field is required."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "market": [
             "Market is not available"
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit must be an integer."
@@ -587,14 +592,14 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "offset": [
             "The offset must be an integer."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit may not be greater than 100."
@@ -602,14 +607,14 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "offset": [
             "The offset may not be greater than 10000."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit must be at least 1."
@@ -617,8 +622,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "offset": [
             "The offset must be at least 0."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
@@ -655,25 +659,25 @@ offset | Int | **No** | If you want the request to return entries starting from 
 **Response:**
 ```json5
 {
+    "success": true,
     "message": "",
     "result": {
         "BTC_USDT": [
             {
                 "amount": "0.70326019",           // executed order amount
-                "ctime": 1594667731.724387,       // executed order creating time
-                "dealFee": "0",                   // executed order fee that user pay
-                "dealMoney": "0.70407996",        // executed order amount in money
-                "dealStock": "0.000076",          // executed order amount in stock
-                "ftime": 1594667731.724403,       // executed order finish time
+                "price": "0",                     // executed order price, if executed order type is market it is equal to 0
+                "type": "market",                 // executed order type
                 "id": 3711942768,                 // executed order ID
                 "clientOrderId": "order11-23-3",  // custom client order ID; "clientOrderId": "" - if not specified.
-                "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero
-                "market": "BTC_USDT",             // pair
-                "marketName": "BTC_USDT",         // market name
-                "price": "0",                     // executed order price, if executed order type is market it is equal to 0
                 "side": "sell",                   // executed order side
+                "ctime": 1594667731.724387,       // executed order creating time
                 "takerFee": "0.001",              // taker fee ratio. If the number less than 0.0001 - it is rounded to zero 
-                "type": "market"                  // executed order type
+                "ftime": 1594667731.724403,       // executed order finish time
+                "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero
+                "dealFee": "0",                   // executed order fee that user pay
+                "dealStock": "0.000076",          // executed order amount in stock
+                "dealMoney": "0.70407996",        // executed order amount in money
+                "marketName": "BTC_USDT"          // market name
             }
         ],
         "DBTC_DUSDT": [
@@ -682,8 +686,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "ETH_USDT": [
             {...}
         ]
-    },
-    "success": true
+    }
 }
 
 ```
@@ -692,20 +695,21 @@ offset | Int | **No** | If you want the request to return entries starting from 
 
 ```json5
 {
+    "success": false,
     "message": {
         "market": [
             "The market must be a string.",
             "The market format is invalid."
         ]
     },
-    "result": [],
-    "success": false
+    "result": []
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit must be an integer."
@@ -713,14 +717,14 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "offset": [
             "The offset must be an integer."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit may not be greater than 100."
@@ -728,14 +732,14 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "offset": [
             "The offset may not be greater than 10000."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit must be at least 1."
@@ -743,8 +747,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "offset": [
             "The offset must be at least 0."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
@@ -781,22 +784,22 @@ offset | Int | **No** | If you want the request to return entries starting from 
 **Response:**
 ```json5
 {
+    "success": true,
     "message": "",
     "result": [
         {
-            "amount": "0.000076",             // amount in stock
-            "deal": "0.70407996",             // amount in money
-            "fee": "0.00070407996",           // fee that you pay 
             "id": 160305483,                  // orderID
             "clientOrderId": "order1987111",  // custom client order id; "clientOrderId": "" - if not specified.
-            "price": "9264.21",               // price
-            "role": 2,                        // Role - 1 - maker, 2 - taker
+            "time": 1594667731.724403,        // Timestamp of executed order
             "side": "sell",                   // Order side "sell" / "buy"
-            "time": 1594667731.724403         // Timestamp of executed order
+            "role": 2,                        // Role - 1 - maker, 2 - taker
+            "amount": "0.000076",             // amount in stock
+            "price": "9264.21",               // price
+            "deal": "0.70407996",             // amount in money
+            "fee": "0.00070407996"            // fee that you pay 
         },
         {...}
-      ],
-    "success": true
+    ]
 }
 
 
@@ -806,32 +809,33 @@ offset | Int | **No** | If you want the request to return entries starting from 
 
 ```json5
 {
+    "success": false,
     "message": {
         "market": [
             "The market must be a string.",
             "The market format is invalid."
         ]
     },
-    "result": [],
-    "success": false
+    "result": []
 }
 ```
 
 ```json5
 {
+    "success": false,
     "message": {
         "market": [
             "The market field is required."
         ]
     },
-    "result": [],
-    "success": false
+    "result": []
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit may not be greater than 100."
@@ -839,14 +843,14 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "offset": [
             "The offset may not be greater than 10000."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit must be at least 1."
@@ -854,8 +858,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "offset": [
             "The offset must be at least 0."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
@@ -891,27 +894,27 @@ offset | Int | **No** | If you want the request to return entries starting from 
 **Response:**
 ```json5
 {
+    "success": true,
     "message": "",
     "result": {
         "BTC_USDT": [
             {
-                "amount": "0.000076",               // amount in stock
-                "deal": "0.70407996",               // amount in money
-                "fee": "0.00070407996",             // paid fee
                 "id": 160305483,                    // orderID
                 "clientOrderId": "order1987111",    // custom client order id; "clientOrderId": "" - if not specified.
-                "price": "9264.21",                 // price
-                "role": 2,                          // Role - 1 - maker, 2 - taker
+                "time": 1594667731.724403,          // Timestamp of executed order
                 "side": "sell",                     // Order side "sell" / "buy"
-                "time": 1594667731.724403           // Timestamp of executed order
+                "role": 2,                          // Role - 1 - maker, 2 - taker
+                "amount": "0.000076",               // amount in stock
+                "price": "9264.21",                 // price
+                "deal": "0.70407996",               // amount in money
+                "fee": "0.00070407996"              // paid fee
             },
             {...},
         ],
         "DBTC_DUSDT": [
             {...}
         ]
-    },
-    "success": true
+    }
 }
 
 
@@ -921,32 +924,33 @@ offset | Int | **No** | If you want the request to return entries starting from 
 
 ```json5
 {
+    "success": false,
     "message": {
         "market": [
             "The market must be a string.",
             "The market format is invalid."
         ]
     },
-    "result": [],
-    "success": false
+    "result": []
 }
 ```
 
 ```json5
 {
+    "success": false,
     "message": {
         "market": [
             "The market field is required."
         ]
     },
-    "result": [],
-    "success": false
+    "result": []
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit may not be greater than 100."
@@ -954,14 +958,14 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "offset": [
             "The offset may not be greater than 10000."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit must be at least 1."
@@ -969,8 +973,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "offset": [
             "The offset must be at least 0."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 
@@ -1009,25 +1012,25 @@ offset | Int | **No** | If you want the request to return entries starting from 
 Empty response if order is not yours
 ```json5
 {
+    "success": true,
     "message": "",
     "result": {
         "limit": 50,
         "offset": 0,
         "records": [
             {
-                "amount": "598",                    // amount in stock
-                "deal": "0.00419198",               // amount in money
-                "dealOrderId": 3134995325,          // completed order ID
-                "fee": "0.00000419198",             // paid fee
                 "id": 149156519,                    // id of trade
                 "clientOrderId": "order1987111",    // custom client order id; "clientOrderId": "" - if not specified.
-                "price": "0.00000701",              // price
+                "amount": "598",                    // amount in stock
+                "time": 1593342324.613711,          // Timestamp of executed order
+                "dealOrderId": 3134995325,          // completed order ID
                 "role": 2,                          // Role - 1 - maker, 2 - taker
-                "time": 1593342324.613711           // Timestamp of executed order
+                "deal": "0.00419198",               // amount in money
+                "price": "0.00000701",              // price
+                "fee": "0.00000419198"              // paid fee
             }
         ]
-    },
-    "success": true
+    }
 }
 
 
@@ -1037,30 +1040,31 @@ Empty response if order is not yours
 
 ```json5
 {
+    "success": false,
     "message": {
         "orderId": [
             "The order id field is required."
         ]
     },
-    "result": [],
-    "success": false
+    "result": []
 }
 ```
 
 ```json5
 {
+    "success": false,
     "message": {
         "orderId": [
             "The order id must be an integer."
         ]
     },
-    "result": [],
-    "success": false
+    "result": []
 }
 ```
 
 ```json5
 {
+    "success": false,
     "message": {
         "limit": [
             "The limit may not be greater than 100."
@@ -1069,14 +1073,14 @@ Empty response if order is not yours
             "The offset may not be greater than 10000."
         ]
     },
-    "result": [],
-    "success": false
+    "result": []
 }
 ```
 
 ```json5
 {
     "code": 0,
+    "message": "Validation failed",
     "errors": {
         "limit": [
             "The limit must be at least 1."
@@ -1084,8 +1088,7 @@ Empty response if order is not yours
         "offset": [
             "The offset must be at least 0."
         ]
-    },
-    "message": "Validation failed"
+    }
 }
 ```
 

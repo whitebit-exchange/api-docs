@@ -2,7 +2,7 @@
 
 ## Methods
 
-* [Sevice](#service)
+* [Service](#service)
     * [Ping](#ping)
     * [Time](#time)
 * [Kline](#kline)

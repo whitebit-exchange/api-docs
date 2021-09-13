@@ -67,20 +67,20 @@ NONE
 ```json5
 {
   "success": true,
-  "message": "",
+  "message": null,
   "result": [
     {
       "name": "SON_USD",         // Market pair name
-      "moneyPrec": "2",          // Precision of money currency
       "stock": "SON",            // Ticker of stock currency
       "money": "USD",            // Ticker of money currency
       "stockPrec": "3",          // Stock currency precision
+      "moneyPrec": "2",          // Precision of money currency
       "feePrec": "4",            // Fee precision
-      "minAmount": "0.001",      // Minimal amount of stock to trade
-      "tradesEnabled": true,     // Is trading enabled
-      "minTotal": "0.001",       // Minimal amount of money to trade
       "makerFee": "0.001",       // Default maker fee ratio
-      "takerFee": "0.001"        // Default taker fee ratio
+      "takerFee": "0.001",       // Default taker fee ratio
+      "minAmount": "0.001",      // Minimal amount of stock to trade
+      "minTotal": "0.001",       // Minimal amount of money to trade
+      "tradesEnabled": true      // Is trading enabled
     },
     {
       ...
@@ -107,7 +107,7 @@ NONE
 ```json5
 {
   "success": true,
-  "message": "",
+  "message": null,
   "result": [
     {
       "lastUpdateTimestamp": "2020-07-10T13:37:27.000Z",     // ISO 8601 time format of last update
@@ -144,7 +144,7 @@ NONE
 ```json5
 {
   "success": true,
-  "message": "",
+  "message": null,
   "result": [
     {
       "tradeId": 157257950,                 // A unique ID associated with the trade for the currency pair transaction Note: Unix timestamp does not qualify as trade_id.
@@ -178,7 +178,7 @@ NONE
 ```json5
 {
   "success": true,
-  "message": "",
+  "message": null,
   "result": {
     "makerFee": "0.1",  // Default maker fee (percent of trading amount in money currency)
     "takerFee": "0.1"   // Default taker fee (percent of trading amount in money currency)
@@ -204,7 +204,7 @@ NONE
 ```json5
 {
   "success": true,
-  "message": "",
+  "message": null,
   "result": {
     "BTC": {
       "id": "4f37bc79-f612-4a63-9a81-d37f7f9ff622",         // Asset id
@@ -240,7 +240,7 @@ NONE
 ```json5
 {
   "success": true,
-  "message": "",
+  "message": null,
   "result": {
       "lastUpdateTimestamp": "2020-07-09T14:49:12.000Z",     // Timestamp of last update
       "asks": [
@@ -249,8 +249,8 @@ NONE
           "0.705088"                                         // Amount of lowest ask
         ],
         [
-          "9433.67",                                         // Price of next ask
-          "0.324509"                                         // Amount of next ask
+          "9433.67",                                         // Price of the next ask
+          "0.324509"                                         // Amount of the next ask
         ],
         [...]
       ],
