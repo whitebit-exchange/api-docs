@@ -68,18 +68,18 @@ NONE
 ```json5
 {
   "success": true,
-  "message": "",
+  "message": null,
   "result": [
     {
       "name": "BTC_USDT",      // Name of market pair
-      "moneyPrec": "2",        // Precision of money currency
       "stock": "BTC",          // Ticker of stock currency
       "money": "USDT",         // Ticker of money currency
       "stockPrec": "6",        // Precision of stock currency
+      "moneyPrec": "2",        // Precision of money currency
       "feePrec": "4",          // Precision of fee
-      "minAmount": "0.001",    // Minimal amount of stock to trade
       "makerFee": "0.001",     // Default maker fee ratio
-      "takerFee": "0.001"      // Default taker fee ratio
+      "takerFee": "0.001",     // Default taker fee ratio
+      "minAmount": "0.0001"    // Minimal amount of stock to trade
     },
     {
       ...
@@ -106,10 +106,9 @@ NONE
 ```json5
 {
   "success": true,
-  "message": "",
+  "message": null,
   "result": {
     "BTC_USDT": {                         // Name of market pair
-      "at": 1594232194,                   // Timestamp in seconds
       "ticker": {
         "bid": "9412.1",                  // Highest bid
         "ask": "9416.33",                 // Lowest ask
@@ -119,7 +118,8 @@ NONE
         "vol": "27324.819448",            // Volume in stock currency
         "deal": "254587570.43407191",     // Volume in money currency
         "change": "1.53"                  // Change in percent between open and last prices
-      }
+      },
+      "at": 159423219                     // Timestamp in seconds
     },
     "ETH_BTC": {
       ...
@@ -149,13 +149,13 @@ market | String | **Yes** | Available market. Example: BTC_USDT
 ```json5
 {
   "success": true,
-  "message": "",
+  "message": null,
   "result": {
+    "open": "9267.98",               // Open price for day
     "bid": "9417.4",                 // The highest bid currently available
     "ask": "9421.64",                // The lowest ask currently available
-    "open": "9267.98",               // Open price for day
-    "high": "9469.99",               // Highest price for day
     "low": "9203.13",                // Lowest price for day
+    "high": "9469.99",               // Highest price for day
     "last": "9419.55",               // Latest deal price
     "volume": "27303.824558",        // Volume in stock
     "deal": "254399191.68843464",    // Volume in money
@@ -193,16 +193,16 @@ limit | Integer | **NO** | Possible values from 1 to 1440. Default value is 1440
 ```json5
 {
   "success": true,
-  "message": "",
+  "message": null,
   "result": [
     [
-        594166400,             // Time in seconds
-        "9257.4",              // Open
-        "9243.19",             // Close
-        "9265.14",             // High
-        "9231.32",             // Low
-        "817.535991",          // Volume stock
-        "7558389.54233595"     // Volume money
+        1631440800,            // Time in seconds
+        "45865.62",            // Open
+        "45958.14",            // Close
+        "45981.3",             // High
+        "45750.23",            // Low
+        "15.327634",           // Volume stock
+        "703140.24230131"      // Volume money
     ],
     [...]
   ]
@@ -227,7 +227,7 @@ NONE
 ```json5
 {
   "success": true,
-  "message": "",
+  "message": null,
   "result": [
     "BTC_USDT",      // Name of market pair
     "ETH_BTC",       // Name of market pair
@@ -253,7 +253,7 @@ _1 second_
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
-limit | int | **No** | Limit of results. Default: 50 Example: 100
+limit | int | **No** | Limit of results. Default: 100 Example: 100
 
 
 **Response:**
@@ -308,21 +308,21 @@ limit | int | **No** | Limit of results. Default: 50 Example: 100
 ```json5
 {
   "success": true,
-  "message": "",
+  "message": null,
   "result": [
     {
       "id": 156720314,              // Deal id
-      "type": "sell",               // Deal type (buy or sell)
       "time": 1594240477.849703,    // Deal time in seconds
+      "price": "9429.66",           // Deal price
       "amount": "0.002784",         // Deal amount
-      "price": "9429.66"            // Deal price
+      "type": "sell"                // Deal type (buy or sell)
     },
     {
       "id": 156720309,
-      "type": "sell",
       "time": 1594240476.832347,
+      "price": "9429.66",
       "amount": "0.002455",
-      "price": "9429.66"
+      "type": "sell"
     },
     {...}
   ]

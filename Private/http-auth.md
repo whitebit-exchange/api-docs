@@ -1,11 +1,13 @@
-# Private HTTP API Authenticate
+# Private HTTP API Authentication
 
 ## How to use:
 
-1. Go to your account on whitebit.com.
+1. Go to your account on whitebit.com and navigate to account settings.
 2. Click on the API keys tab.
 3. Select the appropriate configuration tab for your API keys. Different API keys allow access to different API calls.
-4. Generate API keys and toggle the activation switcher to "Activated".
+4. Generate an API key.
+5. Enable IP restrictions by specifying up to 5 trusted IPs *(optional, **recommended**)*
+6. Enable Endpoint access restrictions. Select only those endpoints, that you are going to use and click "Apply" button.
 
 ## Requirements:
 
@@ -18,7 +20,7 @@ Auth request should be using `POST` method and should include:
 **JSON** that includes:
 1. **'request'** - a request path without the domain name. Example: `'/api/v4/trade-account/balance'`.
 2. **'nonce'** - a number that is always **greater** than the previous request’s nonce number. Example: `'1594297865'`. A good method of creating a **nonce** is to use the unix timestamp in milliseconds. This way you'll always get an incrementing number, but make sure not to send two API calls at the same time, otherwise their nonce will be identical.
-3. **'nonceWindow'** - boolean. In cases when you can’t guarantee consecutive increment of **nonce** you can use **nonceWindow** field. If it set to true nonce validation will be work a bit different. You have to passed nonce as unix timestamp in milliseconds. The api will validate that your nonce enter the range of current time +/- 5 seconds (5000 milliseconds). Also your nonce will be checked as unique, to avoid double spending. This feature can be useful in high-frequency concurrent systems when a lot of requests generate in short period of time. 
+3. **'nonceWindow'** - boolean. In cases when you can’t guarantee consecutive increment of **nonce** you can use **nonceWindow** field. If it set to true nonce validation will be work a bit different. You have to passed nonce as unix timestamp in milliseconds. The api will validate that your nonce enter the range of current time +/- 5 seconds (5000 milliseconds). Also your nonce will be checked as unique, to avoid double spending. This feature can be useful in high-frequency concurrent systems when a lot of requests generate in short period of time.
 4. **params of request** - Example: `'ticker': 'BTC'`
 ### Headers
 
@@ -61,7 +63,7 @@ ___
 ```
 ___
 
-**"This action is unauthorized. Enable your key in API settings"** - this error occurs when you are using disabled API key. You can enable your API key in account settings https://whitebit.com/settings/api. Note: Your API key is disabled automatically after disabling 2FA
+**"This action is unauthorized. Enable your key in API settings"** - this error occurs when you are using disabled API key. You can enable your API key in account API settings https://whitebit.com/settings/api. Note: Your API key is disabled automatically after disabling 2FA. Also, the API key will be disabled if the request is received from unknown IP (if IP access restrictions are turned on).
 
 ___
 ```json5
@@ -69,6 +71,22 @@ ___
     "message": [
         [
             "This action is unauthorized. Enable your key in API settings"
+        ]
+    ],
+    "result": [],
+    "success": false
+}
+```
+___
+
+**"You don't have permission to use this endpoint. Please contact support for more details"** - this error occurs when you are using an endpoint that is disabled for a specific API key in API key settings. You can enable endpoint by editing "Endpoint access restrictions" for this API key in account settings https://whitebit.com/settings/api. 
+
+___
+```json5
+{
+    "message": [
+        [
+            "You don't have permission to use this endpoint. Please contact support for more details"
         ]
     ],
     "result": [],

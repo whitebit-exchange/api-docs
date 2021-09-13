@@ -72,6 +72,11 @@ Performed when code was applied. Request example:
    "id": "45a1d85d-2fdf-483e-8dfa-6d253148c730"
 } 
 ```
+
+### WhiteBIT deposit to main balance
+
+Performed when deposit was accepted. Request example:
+
 ```json5
 {
   method: "deposit.accepted",
@@ -97,6 +102,9 @@ Performed when code was applied. Request example:
   id: 'uuid'
 }   
 ```
+
+Performed when deposit was processed, so it is available on your balance. Request example:
+
 ```json5
 {
   method: "deposit.processed",
@@ -122,55 +130,35 @@ Performed when code was applied. Request example:
   id: 'uuid'
 }   
 ```
+
+Performed when deposit was canceled. Request example:
+
 ```json5
 {
   method: "deposit.canceled",
   params: {
     "address": "wallet address",                  // deposit address
-    "amount": "0.000600000000000000",             // amount of deposit
+    "amount": "100.00",                           // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
-    "currency": "Bitcoin",                        // deposit currency
+    "currency": "Tether US",                      // deposit currency
     "description": "",                            // deposit description
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
     "method": 1,                                  // called method 1 - deposit, 2 - withdraw
-    "network": "OMNI",                            // if currency is multi network
+    "network": "TRC20",                           // if currency is multi network, "null" if no multi network
     "status": 15,                                 // transactions status
-    "ticker": "BTC",                              // deposit currency ticker
+    "ticker": "USDT",                             // deposit currency ticker
     "transactionHash": "transaction hash",        // deposit transaction hash
     "uniqueId": null,                             // unique Id of deposit
     "confirmations": {                            // if transaction has confirmations info it will display here
         "actual": 1,                              // current block confirmations
-        "required": 2                             // required block confirmation for successful deposit
-    }
-  },
-  id: 'uuid'
-}
-```
-```json5
-{
-  method: "deposit.canceled",
-  params: {
-    "address": "wallet address",                  // deposit address
-    "amount": "0.000600000000000000",             // amount of deposit
-    "createdAt": 1593437922,                      // timestamp of deposit
-    "currency": "Bitcoin",                        // deposit currency
-    "description": "",                            // deposit description
-    "fee": "0.000000000000000000",                // deposit fee
-    "memo": "",                                   // deposit memo
-    "method": 1,                                  // called method 1 - deposit, 2 - withdraw
-    "network": null,                              // if currency is multi network
-    "status": 15,                                 // transactions status
-    "ticker": "BTC",                              // deposit currency ticker
-    "transactionHash": "transaction hash",        // deposit transaction hash
-    "uniqueId": null,                             // unique Id of deposit
-    "confirmations": {                            // if transaction has confirmations info it will display here
-        "actual": 1,                              // current block confirmations
-        "required": 2                             // required block confirmation for successful deposit
+        "required": 32                             // required block confirmation for successful deposit
     }
   },
   id: 'uuid'
 }
 ```
 
+### WhiteBIT withdraw from main balance
 
+*Coming soon*
