@@ -1040,6 +1040,14 @@ Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 ticker | String | **Yes** | Currency's ticker. Example: BTC
 network | String | **No** | Currency's network if it multinetwork currency. Example: OMNI or TRC20 or ERC20. For USDT default network is ERC20(ETH).
+type | String | **No** | Address type, available for specific currencies list (see address types table below)
+
+**Address types:**
+
+Currency | Types | Default 
+---------|------|-------------
+BTC | p2sh-segwit, bech32 | p2sh-segwit
+LTC | p2sh-segwit, bech32 | p2sh-segwit
 
 
 **Request BODY raw:**
@@ -1056,6 +1064,16 @@ network | String | **No** | Currency's network if it multinetwork currency. Exam
 {
     "ticker": "USDT",
     "network": "ERC20",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Request BODY (for BTC with specific address type):**
+```json5
+{
+    "ticker": "BTC",
+    "type": "bech32",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
