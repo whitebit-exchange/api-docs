@@ -35,7 +35,7 @@ ___
 
 [Private API V4 Documentation - Main balance](./Private/http-main-v4.md) - Main balance & deposit/withdraw endpoints.
 
-[Private API V1 Documentation - Trade balance](./Private/http-v1.md) - Documentation for making private trading requests
+[Private API V1 Documentation - Trade balance](./Private/http-trade-v1.md) - **Deprecated** use [V4 alternatives](./Private/http-trade-v4.md). Documentation for making private trading requests
 
 [Private API V4 Documentation - Trade balance](./Private/http-trade-v4.md) - Additional endpoints.
 
