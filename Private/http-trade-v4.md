@@ -1628,7 +1628,7 @@ Empty response if order is not yours
 
 ___
 
-### Query executed orders by market
+### Query executed orders
 
 ```
 [POST] /api/v4/trade-account/order/history
