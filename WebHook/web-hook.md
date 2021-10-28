@@ -14,8 +14,12 @@ Please pay attention that secret key will be show only one time, so make sure yo
 
 ### For web hook keys generation
 
-While you are generating new web hook keys you should make sure your web-hook server is online. To check it the test request will be performed. 
-The request will be performed with HEAD method. As a result your web hook service should respond with 200 http status code
+Before starting using webhooks, you'll be asked to verify ownership of the domain, you are set as webhook destination. You can do it in one of three ways
+1. You can add TXT DNS record to your domain with your webhook public key.
+2. You can add plain text file `whiteBIT-verification.txt` into your root domain folder and provide public web access to this file from your server. In this file should be placed your public webhook key.
+3. You can implement `/whiteBIT-verification` endpoint. This endpoint should respond with 200 OK and return JSON array which contains your public webhook key. For example: ```["<your-public-webhook-key>"]```
+
+Passing just one of these checks will be able you to switch webhook on 
 
 ### For processing web-hook requests
 
