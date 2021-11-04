@@ -845,7 +845,7 @@ This endpoint retrieves the history of deposits and withdraws
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-transactionMethod | Number | **Yes** | Method. Example: **1** to display deposits / **2** to display withdraws
+transactionMethod | Number | **No** | Method. Example: **1** to display deposits / **2** to display withdraws. Do not send this parameter in order to receive both deposits and withdraws.
 ticker | String | **No** | Currency's ticker. Example: BTC
 address | String | **No** | Can be used for filtering transactions by specific address or memo.
 uniqueId | String | **No** | Can be used for filtering transactions by specific unique id
