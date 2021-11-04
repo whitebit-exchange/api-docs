@@ -1046,8 +1046,8 @@ type | String | **No** | Address type, available for specific currencies list (s
 
 Currency | Types | Default 
 ---------|------|-------------
-BTC | p2sh-segwit, bech32 | p2sh-segwit
-LTC | p2sh-segwit, bech32 | p2sh-segwit
+BTC | p2sh-segwit, bech32 | bech32
+LTC | p2sh-segwit, bech32 | bech32
 
 
 **Request BODY raw:**
