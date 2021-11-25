@@ -165,4 +165,98 @@ Performed when deposit was canceled. Request example:
 
 ### WhiteBIT withdraw from main balance
 
-*Coming soon*
+Performed when withdraw was created. Request example:
+
+```json5
+{
+  method: "withdraw.unconfirmed",
+  params: {
+    "address": "wallet address",                  // withdraw address
+    "amount": "100.00",                           // amount of withdraw
+    "createdAt": 1593437922,                      // timestamp of withdraw
+    "currency": "Tether US",                      // withdraw currency
+    "ticker": "USDT",                             // withdraw currency ticker
+    "description": null,                            // withdraw description
+    "fee": "0.000000000000000000",                // withdraw fee
+    "memo": "",                                   // withdraw memo
+    "method": 2,                                  // called method 1 - deposit, 2 - withdraw
+    "network": "TRC20",                           // if currency is multi network, "null" if no multi network
+    "status": 15,                                 // transactions status
+    "transactionHash": "transaction hash",        // withdraw transaction hash
+    "uniqueId": null,                             // unique Id of withdraw
+  },
+  id: 'uuid'
+}
+```
+
+Performed when withdraw is pending. Request example:
+
+```json5
+{
+  method: "withdraw.pending",
+  params: {
+    "address": "wallet address",                  // withdraw address
+    "amount": "100.00",                           // amount of withdraw
+    "createdAt": 1593437922,                      // timestamp of withdraw
+    "currency": "Tether US",                      // withdraw currency
+    "ticker": "USDT",                             // withdraw currency ticker
+    "description": null,                            // withdraw description
+    "fee": "0.000000000000000000",                // withdraw fee
+    "memo": "",                                   // withdraw memo
+    "method": 2,                                  // called method 1 - deposit, 2 - withdraw
+    "network": "TRC20",                           // if currency is multi network, "null" if no multi network
+    "status": 15,                                 // transactions status
+    "transactionHash": "transaction hash",        // withdraw transaction hash
+    "uniqueId": null,                             // unique Id of withdraw
+  },
+  id: 'uuid'
+}
+```
+
+Performed when withdraw was canceled. Request example:
+
+```json5
+{
+  method: "withdraw.canceled",
+  params: {
+    "address": "wallet address",                  // withdraw address
+    "amount": "100.00",                           // amount of withdraw
+    "createdAt": 1593437922,                      // timestamp of withdraw
+    "currency": "Tether US",                      // withdraw currency
+    "ticker": "USDT",                             // withdraw currency ticker
+    "description": null,                            // withdraw description
+    "fee": "0.000000000000000000",                // withdraw fee
+    "memo": "",                                   // withdraw memo
+    "method": 2,                                  // called method 1 - deposit, 2 - withdraw
+    "network": "TRC20",                           // if currency is multi network, "null" if no multi network
+    "status": 15,                                 // transactions status
+    "transactionHash": "transaction hash",        // withdraw transaction hash
+    "uniqueId": null,                             // unique Id of withdraw
+  },
+  id: 'uuid'
+}
+```
+
+Performed when withdraw was completed. Request example:
+
+```json5
+{
+  method: "withdraw.successful",
+  params: {
+    "address": "wallet address",                  // withdraw address
+    "amount": "100.00",                           // amount of withdraw
+    "createdAt": 1593437922,                      // timestamp of withdraw
+    "currency": "Tether US",                      // withdraw currency
+    "ticker": "USDT",                             // withdraw currency ticker
+    "description": null,                            // withdraw description
+    "fee": "0.000000000000000000",                // withdraw fee
+    "memo": "",                                   // withdraw memo
+    "method": 2,                                  // called method 1 - deposit, 2 - withdraw
+    "network": "TRC20",                           // if currency is multi network, "null" if no multi network
+    "status": 15,                                 // transactions status
+    "transactionHash": "transaction hash",        // withdraw transaction hash
+    "uniqueId": null,                             // unique Id of withdraw
+  },
+  id: 'uuid'
+}
+```
