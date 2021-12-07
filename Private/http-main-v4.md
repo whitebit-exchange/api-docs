@@ -259,7 +259,7 @@ ___
 ```
 [POST] /api/v4/main-account/fiat-deposit-url
 ```
-This endpoint retrieves a deposit url of the fiat invoice. Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality. Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality.
+This endpoint retrieves a deposit url of the fiat invoice. Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality.
 
 **Rate limit:** 5 requests per minute
 

@@ -191,7 +191,7 @@ _1 second_
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 depth | int | **No** | Orders depth quantity:[0,5,10,20,50,100,500]. Not defined or 0 will return full order book
-limit | int | **No** | Optional parameter that allows API user to see different level of aggregation. Level 0 – default level, no aggregation. Starting from level 1 (lowest possible aggregation) and up to level 5 - different levels of aggregated orderbook.
+level | int | **No** | Optional parameter that allows API user to see different level of aggregation. Level 0 – default level, no aggregation. Starting from level 1 (lowest possible aggregation) and up to level 5 - different levels of aggregated orderbook.
 
 
 **Response:**
