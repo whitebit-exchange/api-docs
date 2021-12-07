@@ -253,7 +253,7 @@ _1 second_
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
-limit | int | **No** | Limit of results. Default: 100 Example: 100
+limit | int | **No** | Limit of results. Default: 100 Max: 100 Example: 100
 
 
 **Response:**

@@ -20,7 +20,7 @@ Auth request should be using `POST` method and should include:
 **JSON** that includes:
 1. **'request'** - a request path without the domain name. Example: `'/api/v4/trade-account/balance'`.
 2. **'nonce'** - a number that is always **greater** than the previous request’s nonce number. Example: `'1594297865'`. A good method of creating a **nonce** is to use the unix timestamp in milliseconds. This way you'll always get an incrementing number, but make sure not to send two API calls at the same time, otherwise their nonce will be identical.
-3. **'nonceWindow'** - boolean. In cases when you can’t guarantee consecutive increment of **nonce** you can use **nonceWindow** field. If it set to true nonce validation will be work a bit different. You have to passed nonce as unix timestamp in milliseconds. The api will validate that your nonce enter the range of current time +/- 5 seconds (5000 milliseconds). Also your nonce will be checked as unique, to avoid double spending. This feature can be useful in high-frequency concurrent systems when a lot of requests generate in short period of time.
+3. **'nonceWindow'** - boolean. In cases when you can’t guarantee consecutive increment of **nonce** you can use **nonceWindow** field. If it set to true nonce validation will be work a bit different. You have to passed nonce as unix timestamp in milliseconds. The api will validate that your nonce enter the range of current time +/- 5 seconds (5000 milliseconds). Also your nonce will be checked as unique, to avoid double spending. This feature can be useful in high-frequency concurrent systems when a lot of requests is being generated in a short period of time.
 4. **params of request** - Example: `'ticker': 'BTC'`
 ### Headers
 
@@ -137,13 +137,13 @@ ___
 }
 ```
 ---
-**"Your nonce is more than 5 seconds lesser than the current nonce"** - this error occurs if **nonceWindow** set to true, but you passed not valid time in **nonce** - it should be current timestamp in milliseconds.
+**"Your nonce is more than 5 seconds lesser than the current nonce"** - this error occurs if **nonceWindow** set to true, but you passed not a valid timestamp in **nonce** - it should be current timestamp in milliseconds.
 ___
 ```json5
 {
     "message": [
         [
-            "Nonce not provided."
+            "Your nonce is more than 5 seconds lesser than the current nonce"
         ]
     ],
     "result": [],
@@ -157,7 +157,7 @@ ___
 {
     "message": [
         [
-            "Nonce not provided."
+            "Invalid nonceWindow."
         ]
     ],
     "result": [],
