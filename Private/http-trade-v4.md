@@ -1438,7 +1438,7 @@ ___
 ```
 [POST] /api/v4/trade-account/executed-history
 ```
-This endpoint retrieves the orders history. Can be sorted by single market if needed.
+This endpoint retrieves the deals history. Can be sorted by single market if needed.
 
 **Parameters:**
 
@@ -1463,10 +1463,10 @@ offset | Int | **No** | If you want the request to return entries starting from 
 {
     "BTC_USDT": [
         {
-            "id": 160305483,               // orderID
+            "id": 160305483,               // deal ID
             "clientOrderId": "customId11", // custom order id; "clientOrderId": "" - if not specified.
-            "time": 1594667731.724403,     // Timestamp of the executed order
-            "side": "sell",                // Order side "sell" / "buy"
+            "time": 1594667731.724403,     // Timestamp of the executed deal
+            "side": "sell",                // Deal side "sell" / "buy"
             "role": 2,                     // Role - 1 - maker, 2 - taker
             "amount": "0.000076",          // amount in stock
             "price": "9264.21",            // price
@@ -1522,7 +1522,7 @@ ___
 ```
 [POST] /api/v4/trade-account/order
 ```
-This endpoint retrieves more details on order deals history.
+This endpoint retrieves deals history details on executed order.
 
 **Parameters:**
 
@@ -1545,7 +1545,6 @@ offset | Int | **No** | If you want the request to return entries starting from 
 
 **Response:**
 
-Empty response if order is not yours
 ```json5
 {
     "records": [
@@ -1554,7 +1553,7 @@ Empty response if order is not yours
             "fee": "0.00000419198",         // fee that you pay 
             "price": "0.00000701",          // price
             "amount": "598",                // amount in stock
-            "id": 149156519,                // trade id
+            "id": 149156519,                // deal id
             "dealOrderId": 3134995325,      // completed order Id
             "clientOrderId": "customId11",  // custom order id; "clientOrderId": "" - if not specified. 
             "role": 2,                      // Role - 1 - maker, 2 - taker
@@ -1569,6 +1568,21 @@ Empty response if order is not yours
 ```
 <details>
 <summary><b>Errors:</b></summary>
+
+```json5
+{
+    "response": null,
+    "status": 422,
+    "errors": {
+        "orderId": [
+            "Finished order id not found on your account"
+        ]
+    },
+    "notification": null,
+    "warning": "Finished order id not found on your account",
+    "_token": null
+}
+```
 
 ```json5
 {
