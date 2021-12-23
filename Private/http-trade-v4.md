@@ -560,8 +560,8 @@ This endpoint creates buy stock market trading order.
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
-side | String | **Yes** | Order type. Available variables: "buy"
-amount | String | **Yes** | ⚠️Amount in stock currency for buy or sell. Example: "0.0001".
+side | String | **Yes** | Order type. Available variables: "buy", "sell"
+amount | String | **Yes** | ⚠️ Amount in stock currency for buy or sell. Example: "0.0001".
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
