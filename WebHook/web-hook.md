@@ -54,7 +54,7 @@ All web-hook requests are performing with
 Also, all request contains additional data in headers:
 
 1. `'Content-type': 'application/json'`
-2. `'X-TXC-APIKEY': api_key` - where api_key is your public WhiteBit API key
+2. `'X-TXC-APIKEY': api_key` - where api_key is your WhiteBit webhook API key
 3. `'X-TXC-PAYLOAD': payload'` - where payload is base64-encoded body data
 4. `'X-TXC-SIGNATURE': signature` - where signature is `hex(HMAC_SHA512(payload), key=api_secret))`
 
