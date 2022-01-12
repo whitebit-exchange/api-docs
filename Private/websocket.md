@@ -187,11 +187,6 @@ After successful authorization you will be able to send requests for balances, o
 
 It only needs to be done successfully once.
 
-At this moment you can get the websocket token by using [this endpoint](#websocket-token) or from the Chrome DevTools:
-1. Open the [WhiteBIT](https://whitebit.com);
-2. Open devtools;
-3. Write in console `window.WEBSOCKET_TOKEN` and copy the result.
-
 ##### :arrow_heading_up: Request:
 
 ```json5
