@@ -12,7 +12,7 @@
 * [Query unexecuted orders](#query-unexecutedactive-orders)
 * [Query executed order history](#query-executed-order-history)
 * [Query executed order deals](#query-executed-order-deals)
-* [Query executed orders by market](#query-executed-orders-by-market)
+* [Query executed orders](#query-executed-orders)
     
 Base URL is https://whitebit.com
 
