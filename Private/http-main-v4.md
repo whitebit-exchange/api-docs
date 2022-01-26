@@ -268,6 +268,8 @@ Name | Type | Mandatory | Description
 ticker | String | **Yes** | Currencies ticker. Example: UAH ⚠ Currencies ticker should be: fiat and has "can_deposit" status must be "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.
 provider | String | **Yes** | Fiat currency provider. Example: VISAMASTER ⚠ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.
 amount | Numeric String | **Yes** | Deposit amount.
+email | String | **Yes, if currency is RUB with VISAMASTER provider** | Email entered by user for Fiat currency provider. ⚠ Field is **Mandatory** in case currency is **RUB** and provider **VISAMASTER**
+address | String | **Yes, if currency is RUB with VISAMASTER provider** | Credit card number that will be used for deposit. ⚠ Field is **Mandatory** in case currency is **RUB** and provider **VISAMASTER**
 uniqueId | String | **Yes** | Unique transaction identifier on client's side.
 successLink | String | **No** | Customer will be redirected to this URL by acquiring provider after success deposit. To activate this feature, please contact support
 failureLink | String | **No** | Customer will be redirected to this URL in case of fail or rejection on acquiring provider side. To activate this feature, please contact support
@@ -278,6 +280,8 @@ failureLink | String | **No** | Customer will be redirected to this URL in case 
     "ticker": "UAH",
     "provider": "VISAMASTER",
     "amount": "100",
+    "email": "test@email.com",
+    "address": "4111111111111111",
     "uniqueId": "{{generateID}}",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
@@ -475,6 +479,7 @@ Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 ticker | String | **Yes** | Currencies ticker. Example: BTC ⚠ Currencies ticker must have "can_deposit" status equal to "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.
 amount | Numeric string | **Yes** | Withdraw amount (including fee). If you want fee to be added to the specified amount, you need to use [/main-account/withdraw-pay](#create-withdraw-request-with-specifying-absolute-withdraw-amount) request (see examples there)
+email | String | **Yes, if currency is RUB with VISAMASTER provider** | Email entered by user for Fiat currency provider. ⚠ Field is **Mandatory** in case currency is **RUB** and provider **VISAMASTER**
 address | String | **Yes** | Target address (wallet address for cryptocurrencies, identifier/card number for fiat currencies)
 memo | String | **Yes, if currency is memoable** | Target address (wallet address for cryptocurrencies, identifier/card number for fiat currencies)
 uniqueId | String | **Yes** | Unique transaction identifier on client's side.
@@ -510,6 +515,20 @@ network | String | **No** | Cryptocurrency network. Available for multi network 
 ```json5
 {
     "ticker": "UAH",
+    "amount": "100",
+    "provider" : "VISAMASTER",
+    "uniqueId" : "24529041",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Request BODY (for fiat currency with email address) raw:**
+```json5
+{
+    "ticker": "RUB",
+    "email": "test@email.com",
+    "address": "4111111111111111",
     "amount": "100",
     "provider" : "VISAMASTER",
     "uniqueId" : "24529041",
