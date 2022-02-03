@@ -274,7 +274,7 @@ ___
     "providers": [], 
     "deposit": {                              // deposit fees
       "min_amount": "0.0005",                 // min deposit amount. 0 if there is no limitation
-      "max_amount": "0.1",                    // min deposit amount. 0 if there is no limitation
+      "max_amount": "0.1",                    // max deposit amount. 0 if there is no limitation
       "fixed": "0.0005",                      // fixed fee amount which applies for all transaction
       "flex": {
         "min_fee": "100",                     // min fee amount
