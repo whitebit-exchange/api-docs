@@ -361,18 +361,6 @@ Available statuses:
 
 ```json5
 {
-    "code": 0,
-    "message": "Validation failed",
-    "errors": {
-        "amount": [
-            "Amount is too little for deposit"
-        ]
-    }
-}
-```
-
-```json5
-{
     "code": 10,
     "message": "Failed to generate deposit url"
 }
@@ -413,20 +401,7 @@ Available statuses:
   }
 }
 ```
-```json5
-{
-      "code": 0,
-      "message": "Validation failed",
-      "errors": {
-            "successLink": [
-                  "Uri domain must have only https scheme"
-            ],
-            "failureLink": [
-                  "Uri domain must have only https scheme"
-            ]
-      }
-}
-```
+
 ```json5
 {
   "success": false,
@@ -448,18 +423,19 @@ Available statuses:
     }
 }
 ```
+
 ```json5
 {
-    "code": 0,
-    "message": "Validation failed",
-    "errors": {
-        "successLink": [
-            "Your domain is incorrect. Please contact support for more details"
-        ],
-        "failureLink": [
-            "Your domain is incorrect. Please contact support for more details"
-        ]
-    }
+   "code": 0,
+   "message": "Validation failed",
+   "errors": {
+      "email": [
+         "The email field is required."
+      ],
+      "address": [
+         "The address field is required."
+      ]
+   }
 }
 ```
 </details>
