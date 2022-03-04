@@ -1170,7 +1170,7 @@ Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 ticker | String | **Yes** | Currency's ticker. Example: BTC
 amount | Numeric string | **Yes** | Amount to transfer. Max precision = 8, value should be greater than zero and your main balance.
-passphrase | String | **No** | Passphrase that will used for applying codes. Max: 25 symbols.
+passphrase | String | **No** | Passphrase that will be used for applying codes. Passphrase must contain only latin letters, numbers and symbols (like !@#$%^, no whitespaces).  Max: 25 symbols.
 description | String | **No** | Additional text description for code. Visible only for creator Max: 75 symbols.
 
 **Request BODY raw:**
@@ -1292,7 +1292,19 @@ Also, fiat currencies can't be withdrawn without KYC:
     }
 }
 ```
-
+Passphrase must contain only latin letters, numbers and symbols (like !@#$%^, no whitespaces)
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "passphrase": [
+            "The passphrase format is invalid."
+        ]
+    }
+}
+   
+```
  
 
 </details>
