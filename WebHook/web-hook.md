@@ -107,6 +107,33 @@ Performed when deposit was accepted. Request example:
 }   
 ```
 
+Performed when deposit was update. Request example:
+
+```json5
+{
+  method: "deposit.update",
+  params: {
+    "address": "wallet address",                  // deposit address
+    "amount": "0.000600000000000000",             // amount of deposit
+    "createdAt": 1593437922,                      // timestamp of deposit
+    "currency": "Bitcoin",                        // deposit currency
+    "description": "update",                      // deposit description
+    "fee": "0.000000000000000000",                // deposit fee
+    "memo": "",                                   // deposit memo
+    "network": "TRC20",                           // if currency is multi network
+    "status": 15,                                 // transactions status
+    "ticker": "BTC",                              // deposit currency ticker
+    "transactionHash": "transaction hash",        // deposit transaction hash
+    "uniqueId": null,                             // unique Id of deposit
+    "confirmations": {                            // if transaction has confirmations info it will display here
+        "actual": 1,                              // current block confirmations
+        "required": 2                             // required block confirmation for successful deposit
+    }
+  },
+  id: 'uuid'
+}   
+```
+
 Performed when deposit was processed, so it is available on your balance. Request example:
 
 ```json5
@@ -162,6 +189,9 @@ Performed when deposit was canceled. Request example:
   id: 'uuid'
 }
 ```
+Deposit status codes:
+
+* Pending - 15
 
 ### WhiteBIT withdraw from main balance
 
