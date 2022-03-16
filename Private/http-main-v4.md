@@ -844,7 +844,23 @@ address | String | **No** | Can be used for filtering transactions by specific a
 uniqueId | String | **No** | Can be used for filtering transactions by specific unique id
 limit | Int | **Yes** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
 offset | Int | **Yes** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
-status | Array | **No** | Can be used for filtering transactions by status codes. :heavy_exclamation_mark: Caution: You must to use this parameter with the correct `transactionMethod` and use the valid status codes for this method. Example: `"status": [3,7]`
+status | Array | **No** | Can be used for filtering transactions by status codes. :heavy_exclamation_mark: Caution: You must use this parameter with appropriate `transactionMethod` and use valid status codes for this method. You can find them below. Example: `"status": [3,7]`
+
+| Deposit status codes: |
+| ------------ |
+| `Successful` - 3 and 7 |
+| `Canceled` - 4 and 9 |
+| `Unconfirmed by user` - 5 |
+| `Pending` - 15 |
+
+| Withdraw status codes: |
+| ------------ |
+| `Pending` - 1, 2, 6, 10, 11, 12, 13, 14 |
+| `Successful` - 3 and 7 |
+| `Canceled` - 4 |
+| `Unconfirmed by user` - 5 |
+| `Partially successful` - 15 |
+
 
 **Request BODY raw:**
 ```json5
@@ -869,18 +885,7 @@ Response error codes:
 * 1 - transfers from trade to main are disabled
 * 2 - transfers from main to trade are disabled
 * 3 - not enough balance
-   
-Deposit status codes:
-* `Pending` - 15
-* `Unconfirmed by user` - 5
-* `Canceled` - 9 and 4
-* `Successful` - 3 and 7
 
-Withdraw status codes:
-* `Pending` - 1, 2, 6, 10, 11, 12, 13, 14
-* `Unconfirmed by user` - 5
-* `Canceled` - 4
-* `Successful` - 3 and 7
 
 ```json5
 {
@@ -901,6 +906,14 @@ Withdraw status codes:
             "status": 15,                                                                                 // transactions status
             "network": null,                                                                              // if currency is multinetwork
             "transactionHash": "a275a514013e4e0f927fd0d1bed215e7f6f2c4c6ce762836fe135ec22529d886",        // deposit transaction hash
+            "details": {
+                "partial": {                                                                              // details about partially successful withdrawals
+                    "requestAmount": "50000",                                                             // requested withdrawal amount
+                    "processedAmount": "39000",                                                           // processed withdrawal amount
+                    "processedFee": "273",                                                                // fee for processed withdrawal amount
+                    "normalizeTransaction": ""                                                            // deposit id
+                }
+            },
             "confirmations": {                                                                            // if transaction status == 15 you can see this object
                 "actual": 1,                                                                              // current block confirmations
                 "required": 2                                                                             // required block confirmation for successful deposit
