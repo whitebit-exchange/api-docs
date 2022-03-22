@@ -855,11 +855,11 @@ status | Array | **No** | Can be used for filtering transactions by status codes
 
 | Withdraw status codes: |
 | ------------ |
-| `Pending` - 1, 2, 6, 10, 11, 12, 13, 14 |
+| `Pending` - 1, 2, 6, 10, 11, 12, 13, 14, 15, 16, 17 |
 | `Successful` - 3 and 7 |
 | `Canceled` - 4 |
 | `Unconfirmed by user` - 5 |
-| `Partially successful` - 15 |
+| `Partially successful` - 18 |
 
 
 **Request BODY raw:**
