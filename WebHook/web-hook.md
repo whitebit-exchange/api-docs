@@ -1,5 +1,11 @@
 # WebHook HTTP API
 
+* [How to use](#how-to-use)
+* [Requirements](#requirements)
+* [Webhook methods](#webhook-methods)
+* [WhiteBIT withdraw from main balance](#whitebit-withdraw-from-main-balance)
+
+
 ## How to use
 
 1. Go to your account on whitebit.com.
@@ -8,7 +14,7 @@
 4. Paste correct URI to your web server which will process web-hook calls.
 5. Press Generate a new key button and toggle the activation switcher to "Activated".
 
-Please pay attention that secret key will be show only one time, so make sure you save it in any secure key store
+ ⚠ Please pay attention that secret key will be shown only once, so make sure you save it in any secure key store
 
 ## Requirements:
 
