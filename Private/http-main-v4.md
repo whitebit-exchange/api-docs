@@ -14,6 +14,12 @@
     * [Apply code](#apply-code)
     * [Get my codes](#get-my-codes)
     * [Get codes history](#get-codes-history)
+* SMART
+    * [Get plans](#get-plans)
+    * [Invest](#invest)
+    * [Close investment](#close-investment)
+    * [Get investments history](#get-investments-history)
+    * [Get interest payments history](#get-interest-payments-history)
     
 Base URL is https://whitebit.com
 
@@ -1605,3 +1611,508 @@ Available statuses:
 </details>
 
 ___
+
+## SMART Staking
+
+This API provides endpoints for interacting with SMART Staking: getting active plans, creating/closing investments, retrieving investments/interest payments history.  
+These endpoints are not available by default, you need to contact support@whitebit.com in order to get permissions to use these endpoints.
+
+### Get plans
+
+```
+[POST] /api/v4/main-account/smart/plans
+```
+
+This endpoint retrieves all active SMART plans
+
+**Parameters:**
+
+Name | Type | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+ticker | String | **No** | Invest plan source currency's ticker. Example: BTC
+
+**Request BODY raw:**
+```json5
+{
+    "ticker": "USDT",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+* `Status 200`
+* `Status 400 if request validation failed`
+
+```json5
+[
+  {
+    "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51", // Invest plan identifier
+    "ticker": "USDT",                             // Source currency ticker
+    "status": 1,                                  // Status (1 - active, 2 - no coins left, 3 - inactive, 4 - pause)
+    "percent": "10",                              // Interest percent
+    "duration": 14400,                            // Investment duration (in minutes)
+    "interestTicker": "USDT",                     // Target currency ticker
+    "interestRatio": "1",                         // Target currency to source currency ratio, see note
+    "minInvestment": "100",                       // Min investment amount
+    "maxInvestment": "10000",                     // Max investment amount
+    "maxPossibleInvestment": "3000"               // Max investment amount due to current invest plan state
+  }
+]
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "ticker": [
+            "The selected ticker is invalid."
+        ]
+    }
+}
+```
+
+</details>
+
+_Note_: when target currency is different from source currency, interest amount in target currency will be calculated using `interestRatio` value.
+
+Examples:  
+* When source currency = USDT, target currency = BTC and interest ratio = 40000,
+it means that you will receive interest in BTC that equals interest amount in USDT divided by interest ratio (in this case 0.000025 BTC per each 1 USDT of interest amount).  
+* When source currency equals target currency, interest ratio equals 1.
+
+___
+
+### Invest
+
+```
+[POST] /api/v4/main-account/smart/investment
+```
+
+This endpoint creates a new investment to the specified invest plan
+
+**Parameters:**
+
+Name | Type | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+planId | String | **Yes** | Invest plan identifier
+amount | Numeric String | **Yes** | Investment amount
+
+**Request BODY raw:**
+```json5
+{
+    "planId": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
+    "amount": "100",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+* `Status 201`
+* `Status 400 if request validation failed`
+* `Status 422 if inner validation failed`
+
+```json5
+{
+  "id": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5" // Investment identifier
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+Request validation exceptions
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "planId": [
+            "The selected planId is invalid."
+        ],
+        "amount": [
+            "The amount must be a number.",
+            "Invalid number"
+        ]
+    }
+}
+```
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "amount": [
+            "The amount must be at least 0.000001."
+        ]
+    }
+}
+```
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "amount": [
+            "The amount you are trying to invest is bigger than the amount left in this SMART plan. Please try investing a smaller amount."
+        ]
+    }
+}
+```
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "planId": [
+            "Plan is disabled"
+        ]
+    }
+}
+```
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "planId": [
+            "Plan is inactive"
+        ]
+    }
+}
+```
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "planId": [
+            "There are no coins left in the plan"
+        ]
+    }
+}
+```
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "planId": [
+            "There are no coins left in the plan"
+        ]
+    }
+}
+```
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "planId": [
+            "Plan is paused"
+        ]
+    }
+}
+```
+
+Inner validation exceptions
+
+When investment already exists, and you don't have permissions to create multiple investments by plan
+```json5
+{
+    "code": 1,
+    "message": "Inner validation failed",
+    "errors": {
+        "planId": [
+            "The investment in this investment plan already exists"
+        ]
+    }
+}
+```
+
+When amount is less than min investment amount
+```json5
+{
+    "code": 2,
+    "message": "Inner validation failed",
+    "errors": {
+        "amount": [
+            "The amount you're trying to invest is lower than the minimum amount in this investment plan."
+        ]
+    }
+}
+```
+
+When amount is greater than max investment amount
+```json5
+{
+    "code": 3,
+    "message": "Inner validation failed",
+    "errors": {
+        "amount": [
+            "The amount you're trying to invest exceeds the maximum amount in this investment plan."
+        ]
+    }
+}
+```
+
+When there is not enough balance to create investment
+```json5
+{
+    "code": 4,
+    "message": "Inner validation failed",
+    "errors": {
+        "amount": [
+            "Insufficient coins on your balance. 9 available, you're trying to invest 10"
+        ]
+    }
+}
+```
+
+When there are no funds in plan to cover target interest amount
+```json5
+{
+    "code": 5,
+    "message": "Inner validation failed",
+    "errors": {
+        "amount": [
+            "Insufficient funds for the payment."
+        ]
+    }
+}
+```
+
+</details>
+
+___
+
+### Close investment
+
+```
+[POST] /api/v4/main-account/smart/investment/close
+```
+
+This endpoint closes active investment
+
+**Parameters:**
+
+Name | Type | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+id | String | **Yes** | Investment identifier
+
+**Request BODY raw:**
+```json5
+{
+    "id": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+* `Status 200`
+* `Status 400 if request validation failed`
+
+```json5
+{}
+``` 
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "id": [
+            "Investment not found"
+        ]
+    }
+}
+```
+
+</details>
+
+___
+
+### Get investments history
+
+```
+[POST] /api/v4/main-account/smart/investments
+```
+
+This endpoint retrieves an investments history
+
+**Parameters:**
+
+Name | Type | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+id | String | **No** | Investment identifier
+ticker | String | **No** | Invest plan source currency's ticker
+status | Integer | **No** | Investment status (1 - active, 2 - closed)
+limit | Int | **No** | LIMIT is a special clause used to limit records a particular query can return. Default: 100, Min: 1, Max: 100
+offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
+
+**Request BODY raw:**
+```json5
+{
+    "id": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5",
+    "ticker": "USDT",
+    "status": 1,
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+* `Status 200`
+* `Status 400 if request validation failed`
+
+```json5
+{
+    "offset": 0,
+    "limit": 100,
+    "records": [
+        {
+            "id": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5",     // Investment id
+            "plan": {                                         // Similar to the record from Get plans response
+                "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
+                "ticker": "USDT",
+                "status": 1,
+                "percent": "10",
+                "duration": 14400,
+                "interestTicker": "USDT",
+                "interestRatio": "1",
+                "minInvestment": "100",
+                "maxInvestment": "10000",
+                "maxPossibleInvestment": "3000"
+            },
+            "status": 1,                                      // Investment status (1 - active, 2 - closed)
+            "created": 1646825196,                            // Timestamp of investment creation
+            "updated": 1646825196,                            // Timestamp of investment update
+            "paymentTime": 1646839596,                        // Timestamp of the payment time
+            "amount": "100",                                  // Investment amount
+            "interestPaid": "0"                               // Interest paid amount
+        }
+    ]
+}
+``` 
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "id": [
+            "The selected id is invalid."
+        ],
+        "ticker": [
+            "The selected ticker is invalid."
+        ],
+        "status": [
+            "The selected status is invalid."
+        ]
+    }
+}
+```
+
+</details>
+
+---
+
+### Get interest payments history
+
+```
+[POST] /api/v4/main-account/smart/interest-payment-history
+```
+
+This endpoint retrieves the history of interest payments
+
+
+**Parameters:**
+
+Name | Type | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+planId | String | **No** | Invest plan identifier
+ticker | String | **No** | Invest plan target currency's ticker
+limit | Int | **No** | LIMIT is a special clause used to limit records a particular query can return. Default: 100, Min: 1, Max: 100
+offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
+
+**Request BODY raw:**
+```json5
+{
+    "planId": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
+    "ticker": "USDT",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+* `Status 200`
+* `Status 400 if request validation failed`
+
+```json5
+{
+    "offset": 0,
+    "limit": 100,
+    "records": [
+        {
+            "planId": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",         // Invest plan identifier
+            "investmentId": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5",   // Investment identifier
+            "amount": "10",                                           // Interest amount
+            "ticker": "USDT",                                         // Interest currency ticker
+            "timestamp": 1646839596                                   // Transaction timestamp
+        }
+    ]
+}
+``` 
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "planId": [
+            "The selected planId is invalid."
+        ],
+        "ticker": [
+            "The selected ticker is invalid."
+        ],
+    }
+}
+```
+
+</details>
+
+---
