@@ -20,7 +20,7 @@
     * [Close investment](#close-investment)
     * [Get investments history](#get-investments-history)
     * [Get interest payments history](#get-interest-payments-history)
-    
+
 Base URL is https://whitebit.com
 
 Endpoint example: https://whitebit.com/api/v4/{endpoint}
@@ -199,8 +199,8 @@ Available statuses:
             "minFee": "0",                                                            // minimum fixed fee that you will pay
             "percent": "0"                                                            // percent of deposit that you will pay
         },
-        "maxAmount": "0",                                                             // max amount of deposit that can be accepted by exchange - if you deposit more than that number, it won't be accepted by exchange 
-        "minAmount": "1"                                                              // min amount of deposit that can be accepted by exchange - if you will deposit less than that number, it won't be accepted by exchange 
+        "maxAmount": "0",                                                             // max amount of deposit that can be accepted by exchange - if you deposit more than that number, it won't be accepted by exchange
+        "minAmount": "1"                                                              // min amount of deposit that can be accepted by exchange - if you will deposit less than that number, it won't be accepted by exchange
     }
 }
 ```
@@ -530,7 +530,7 @@ Response error codes:
    * 2 - specified address is invalid
    * 3 - amount is too small
    * 4 - amount is too small for the payment system
-   * 5 - not enough balance 
+   * 5 - not enough balance
    * 6 - amount is less than or equals fee
    * 7 - amount should be integer (can happen for currencies with zero precision like Neo)
    * 8 - target withdraw amount without fee equals zero
@@ -673,7 +673,7 @@ ___
 [POST] /api/v4/main-account/withdraw-pay
 ```
 This endpoint has the similar logic as [/main-account/withdraw](#create-withdraw-request), but with the only difference: amount that is specified will not include fee (it will be calculated to make target withdraw amount equal to the specified amount).
-                 
+
 Example:
 * When you create base withdraw and set amount = 100 USD, receiver will recieve 100 USD - fee amount, and your balance will decrease by 100 USD.
 * When you use this endpoint and set amount = 100 USD, receiver will recieve 100 USD, and your balance will decrease by 100 USD + fee amount.
@@ -847,6 +847,7 @@ Name | Type | Mandatory | Description
 transactionMethod | Number | **No** | Method. Example: **1** to display deposits / **2** to display withdraws. Do not send this parameter in order to receive both deposits and withdraws.
 ticker | String | **No** | Currency's ticker. Example: BTC
 address | String | **No** | Can be used for filtering transactions by specific address or memo.
+addresses | Array | **No** | Can be used for filtering transactions by specific addresses or memos (max: 20).
 uniqueId | String | **No** | Can be used for filtering transactions by specific unique id
 limit | Int | **Yes** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
 offset | Int | **Yes** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
@@ -923,7 +924,7 @@ Response error codes:
             "confirmations": {                                                                            // if transaction status == 15 you can see this object
                 "actual": 1,                                                                              // current block confirmations
                 "required": 2                                                                             // required block confirmation for successful deposit
-            }                                                                                             
+            }
         },
         {...},
         {...},
@@ -1056,7 +1057,7 @@ type | String | **No** | Address type, available for specific currencies list (s
 
 **Address types:**
 
-Currency | Types | Default 
+Currency | Types | Default
 ---------|------|-------------
 BTC | p2sh-segwit, bech32 | bech32
 LTC | p2sh-segwit, bech32 | bech32
@@ -1104,8 +1105,8 @@ Available statuses:
         "memo": "48565488244493"                                                      // memo if currency requires memo
     },
     "required": {
-        "maxAmount": "0",                                                             // max amount of deposit that can be accepted by exchange - if you deposit more than that number, it won't be accepted by exchange 
-        "minAmount": "1",                                                             // min amount of deposit that accepted by exchange - if you deposit less than that number, it won't be accepted by exchange 
+        "maxAmount": "0",                                                             // max amount of deposit that can be accepted by exchange - if you deposit more than that number, it won't be accepted by exchange
+        "minAmount": "1",                                                             // min amount of deposit that accepted by exchange - if you deposit less than that number, it won't be accepted by exchange
         "fixedFee": "0",                                                              // fixed deposit fee
         "flexFee": {                                                                  // flexible fee - is fee that use percent rate
             "maxFee": "0",                                                            // maximum fixed fee that you will pay
@@ -1198,7 +1199,7 @@ description | String | **No** | Additional text description for code. Visible on
     "ticker" : "ETH",
     "amount" : "0.002",
     "passphrase": "some passphrase",
-    "description": "some description", 
+    "description": "some description",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
@@ -1322,9 +1323,9 @@ Passphrase must contain only latin letters, numbers and symbols (like !@#$%^, no
         ]
     }
 }
-   
+
 ```
- 
+
 
 </details>
 
@@ -1614,7 +1615,7 @@ ___
 
 ## SMART Staking
 
-This API provides endpoints for interacting with SMART Staking: getting active plans, creating/closing investments, retrieving investments/interest payments history.  
+This API provides endpoints for interacting with SMART Staking: getting active plans, creating/closing investments, retrieving investments/interest payments history.
 These endpoints are not available by default, you need to contact support@whitebit.com in order to get permissions to use these endpoints.
 
 ### Get plans
@@ -1682,9 +1683,9 @@ Available statuses:
 
 _Note_: when target currency is different from source currency, interest amount in target currency will be calculated using `interestRatio` value.
 
-Examples:  
+Examples:
 * When source currency = USDT, target currency = BTC and interest ratio = 40000,
-it means that you will receive interest in BTC that equals interest amount in USDT divided by interest ratio (in this case 0.000025 BTC per each 1 USDT of interest amount).  
+it means that you will receive interest in BTC that equals interest amount in USDT divided by interest ratio (in this case 0.000025 BTC per each 1 USDT of interest amount).
 * When source currency equals target currency, interest ratio equals 1.
 
 ___
@@ -1934,7 +1935,7 @@ Available statuses:
 
 ```json5
 {}
-``` 
+```
 
 <details>
 <summary><b>Errors:</b></summary>
@@ -2018,7 +2019,7 @@ Available statuses:
         }
     ]
 }
-``` 
+```
 
 <details>
 <summary><b>Errors:</b></summary>
@@ -2093,7 +2094,7 @@ Available statuses:
         }
     ]
 }
-``` 
+```
 
 <details>
 <summary><b>Errors:</b></summary>
