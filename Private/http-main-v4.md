@@ -464,9 +464,10 @@ amount | Numeric string | **Yes** | Withdraw amount (including fee). If you want
 email | String | **Yes, if currency is RUB with VISAMASTER_PAYCORE provider** | Email entered by user for Fiat currency provider. ⚠ Field is **Mandatory** in case currency is **RUB** and provider **VISAMASTER_PAYCORE**
 address | String | **Yes** | Target address (wallet address for cryptocurrencies, identifier/card number for fiat currencies)
 memo | String | **Yes, if currency is memoable** | Target address (wallet address for cryptocurrencies, identifier/card number for fiat currencies)
-uniqueId | String | **Yes** | Unique transaction identifier on client's side.
+uniqueId | String | **Yes** | Unique transaction identifier. ⚠ Note that you should generate new unique id for each withdrawal request.
 provider | String | **Yes, if currency is fiat** | Fiat currency provider. Example: VISAMASTER ⚠ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.
 network | String | **No** | Cryptocurrency network. Available for multi network currencies. Example: OMNI ⚠ Currency network should be taken from https://whitebit.com/api/v4/public/assets response. Default for USDT is ERC20
+partialEnable | Boolean | **No** | Optional parameter for FIAT withdrawals with increased Maximum Limit if set as “true”. In order to use this parameter your application should support “Partially successful” withdrawal status and latest updates in deposit/withdrawal history.
 
 **Request BODY raw:**
 ```json5
@@ -486,7 +487,7 @@ network | String | **No** | Cryptocurrency network. Available for multi network 
     "ticker": "USDT",
     "amount": "0.9",
     "address": "0x0964A6B8F794A4B8d61b62652dB27ddC9844FB4c",
-    "uniqueId" : "24529041",
+    "uniqueId" : "24529042",
     "network" : "ERC20",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
@@ -499,7 +500,7 @@ network | String | **No** | Cryptocurrency network. Available for multi network 
     "ticker": "UAH",
     "amount": "100",
     "provider" : "VISAMASTER",
-    "uniqueId" : "24529041",
+    "uniqueId" : "24529043",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
@@ -513,7 +514,21 @@ network | String | **No** | Cryptocurrency network. Available for multi network 
     "address": "4111111111111111",
     "amount": "100",
     "provider" : "VISAMASTER_PAYCORE",
-    "uniqueId" : "24529041",
+    "uniqueId" : "24529044",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Request BODY (for fiat currency with partialEnable) raw:**
+```json5
+{
+    "ticker": "UAH",
+    "amount": "50000",
+    "address": "4111111111111111",
+    "provider" : "VISAMASTER_PAYCORE",
+    "partialEnable": true,
+    "uniqueId" : "24529045",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
@@ -662,6 +677,18 @@ Also, fiat currencies can't be withdrawn without KYC:
 }
 ```
 
+```json5
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "partialEnable": [
+            "The partial enable field must be true or false."
+        ]
+    }
+}
+```
+   
 </details>
 
 ___
