@@ -1,9 +1,3 @@
----
-sidebar_position: 1
-sidebar_label: API Authentication
-collapsed: false
----
-
 # Private HTTP API Authentication
 
 ## How to use:

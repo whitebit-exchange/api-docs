@@ -1,9 +1,3 @@
----
-sidebar_position: 4
-sidebar_label: Trade API V4
----
-
-
 # Private HTTP API V4
 
 ## Private endpoints V4 for trading

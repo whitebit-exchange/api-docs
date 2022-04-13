@@ -1,8 +1,3 @@
----
-sidebar_position: 2
-sidebar_label: API V2
----
-
 # Public HTTP API V2
 
 ## Public endpoints V2

@@ -1,8 +1,3 @@
----
-sidebar_position: 3
-sidebar_label: API V4
----
-
 # Public HTTP API V4
 
 ## Public endpoints V4

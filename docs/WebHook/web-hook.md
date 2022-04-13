@@ -1,8 +1,3 @@
----
-sidebar_position: 1
-sidebar_label: API
----
-
 # WebHook HTTP API
 
 * [How to use](#how-to-use)

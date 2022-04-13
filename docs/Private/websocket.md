@@ -1,8 +1,3 @@
----
-sidebar_position: 5
-sidebar_label: WebSocket API
----
-
 # Private WebSocket API
 
 ## Methods
