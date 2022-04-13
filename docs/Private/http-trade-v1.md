@@ -1,9 +1,3 @@
----
-sidebar_position: 3
-sidebar_label: Main API V1
----
-
-
 # Private HTTP API V1
 
 ## Private endpoints V1
