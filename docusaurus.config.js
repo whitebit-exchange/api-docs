@@ -9,7 +9,7 @@ const config = {
   title: 'WhiteBIT API Documentation',
   tagline: '',
   url: 'https://whitebit-exchange.github.io',
-  baseUrl: '/',
+  baseUrl: '/api-docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
