@@ -1,3 +1,8 @@
+---
+sidebar_position: 2
+sidebar_label: API V2
+---
+
 # Public HTTP API V2
 
 ## Public endpoints V2
@@ -8,7 +13,7 @@
 * [Fee](#fee)
 * [Asset Status List](#asset-status-list)
 * [Orderbook](#orderbook)
-    
+
 Base endpoint is https://whitebit.com
 
 Example how to use: https://whitebit.com/api/v2/public/{endpoint}

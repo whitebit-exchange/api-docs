@@ -1,3 +1,9 @@
+---
+sidebar_position: 4
+sidebar_label: Trade API V4
+---
+
+
 # Private HTTP API V4
 
 ## Private endpoints V4 for trading
@@ -13,7 +19,7 @@
 * [Query executed order history](#query-executed-order-history)
 * [Query executed order deals](#query-executed-order-deals)
 * [Query executed orders](#query-executed-orders)
-    
+
 Base URL is https://whitebit.com
 
 Endpoint example: https://whitebit.com/api/v4/{endpoint}
@@ -136,7 +142,7 @@ market | String | **Yes** | Available market. Example: BTC_USDT
 side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
 amount | String | **Yes** | Amount of stock currency to buy or sell. Example: '0.001'
 price | String | **Yes** | Price in money currency. Example: '9800'
-clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.                 
+clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
 ```json5
@@ -169,7 +175,7 @@ Available statuses:
     "dealStock": "0",                  // if order finished - amount in stock currency that is finished
     "amount": "0.01",                  // amount
     "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero    
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
     "left": "0.001",                   // if order not finished - rest of the amount that must be finished
     "dealFee": "0",                    // fee in money that you pay if order is finished
     "price": "40000"                   // price
@@ -368,7 +374,7 @@ market | String | **Yes** | Available market. Example: BTC_USDT
 side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
 amount | String | **Yes** | ⚠️ Amount of money currency to buy or amount in stock currency to sell. Example: '5 USDT' for buy (min total) and '0.001 BTC' for sell (min amount).
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
-                                  
+
 **Request BODY raw:**
 ```json5
 {
@@ -410,7 +416,7 @@ Available statuses:
     "dealStock": "0",                  // amount in stock currency that finished
     "amount": "0.001",                 // amount
     "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
-    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
     "left": "0.001",                   // rest of amount that must be finished
     "dealFee": "0"                     // fee in money that you pay if order is finished
 }
@@ -594,7 +600,7 @@ Available statuses:
     "dealStock": "0",                  // amount in stock currency that finished
     "amount": "0.001",                 // amount
     "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
-    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
     "left": "0.001",                   // rest of amount that must be finished
     "dealFee": "0"                     // fee in money that you pay if order is finished
 }
@@ -762,7 +768,7 @@ amount | String | **Yes** | Amount of stock currency to buy or sell. Example: '0
 price | String | **Yes** | Price in money currency. Example: '9800'
 activation_price | String | **Yes** | Activation price in money currency. Example: '10000'
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
-                                  
+
 **Request BODY raw:**
 ```json5
 {
@@ -795,7 +801,7 @@ Available statuses:
     "dealStock": "0",                  // if order finished - amount in stock currency that finished
     "amount": "0.001",                 // amount
     "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero    
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
     "left": "0.001",                   // if order not finished - rest of amount that must be finished
     "dealFee": "0",                    // fee in money that you pay if order is finished
     "price": "40000",                  // price
@@ -994,7 +1000,7 @@ side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
 amount | String | **Yes** | ⚠️Amount of **`money`** currency to **buy** or amount in **`stock`** currency to **sell**. Example: '0.01' for buy and '0.0001' for sell.
 activation_price | String | **Yes** | Activation price in money currency. Example: '10000'
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
-                                  
+
 **Request BODY raw:**
 ```json5
 {
@@ -1036,7 +1042,7 @@ Available statuses:
     "dealStock": "0",                  // if order finished - amount in stock currency that finished
     "amount": "0.001",                 // amount
     "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero    
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
     "left": "0.001",                   // if order not finished - rest of amount that must be finished
     "dealFee": "0",                    // fee in money that you pay if order is finished
     "activation_price": "40000"        // activation price
@@ -1222,7 +1228,7 @@ Available statuses:
     "dealStock": "0",                  // if order finished - amount in stock currency that is finished
     "amount": "0.001",                 // amount
     "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero    
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
     "left": "0.001",                   // if order not finished - rest of the amount that must be finished
     "dealFee": "0",                    // fee in money that you pay if order is finished
     "price": "40000",                  // price if price isset
@@ -1339,7 +1345,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 [
     {
         "orderId": 3686033640,            // unexecuted order ID
-        "clientOrderId": "customId11",    // custom order id; "clientOrderId": "" - if not specified. 
+        "clientOrderId": "customId11",    // custom order id; "clientOrderId": "" - if not specified.
         "market": "BTC_USDT",             // currency market
         "side": "buy",                    // order side
         "type": "limit",                  // unexecuted order type
@@ -1347,8 +1353,8 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "dealMoney": "0",                 // executed amount in money
         "dealStock": "0",                 // executed amount in stock
         "amount": "2.241379",             // active order amount
-        "takerFee": "0.001",              // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero    
-        "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero    
+        "takerFee": "0.001",              // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+        "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
         "left": "2.241379",               // unexecuted amount in stock
         "dealFee": "0",                   // executed fee by deal
         "price": "40000"                  // unexecuted order price
@@ -1471,7 +1477,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
             "amount": "0.000076",          // amount in stock
             "price": "9264.21",            // price
             "deal": "0.70407996",          // amount in money
-            "fee": "0.00070407996"         // paid fee 
+            "fee": "0.00070407996"         // paid fee
         },
         {...}
     ],
@@ -1550,12 +1556,12 @@ offset | Int | **No** | If you want the request to return entries starting from 
     "records": [
         {
             "time": 1593342324.613711,      // Timestamp of executed order
-            "fee": "0.00000419198",         // fee that you pay 
+            "fee": "0.00000419198",         // fee that you pay
             "price": "0.00000701",          // price
             "amount": "598",                // amount in stock
             "id": 149156519,                // deal id
             "dealOrderId": 3134995325,      // completed order Id
-            "clientOrderId": "customId11",  // custom order id; "clientOrderId": "" - if not specified. 
+            "clientOrderId": "customId11",  // custom order id; "clientOrderId": "" - if not specified.
             "role": 2,                      // Role - 1 - maker, 2 - taker
             "deal": "0.00419198"            // amount in money
         }
@@ -1684,7 +1690,7 @@ Empty response if order is not yours
             "ctime": 1597486960.311311,       // timestamp of order creation
             "takerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero
             "ftime": 1597486960.311332,       // executed order timestamp
-            "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero  
+            "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero
             "dealFee": "0.041258268",         // paid fee if order is finished
             "dealStock": "0.0009",            // amount in stock currency that finished
             "dealMoney": "41.258268"          // amount in money currency that finished

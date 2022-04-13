@@ -1,3 +1,8 @@
+---
+sidebar_position: 2
+sidebar_label: Main API V4
+---
+
 # Private HTTP API V4
 
 ## Private endpoints V4 for Main balance changes

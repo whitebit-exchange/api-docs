@@ -1,3 +1,8 @@
+---
+sidebar_position: 5
+sidebar_label: WebSocket API
+---
+
 # Private WebSocket API
 
 ## Methods
@@ -24,10 +29,10 @@
     * [Query](#query-4)
     * [Subscribe](#subscribe-4)
     * [Unsubscribe](#unsubscribe-4)
-    
+
 WebSocket endpoint is wss://api.whitebit.com/ws
 
-The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol. 
+The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol.
 
 :warning: Connection will be closed by server in cause of inactivity after 60s.
 
@@ -72,7 +77,7 @@ JSON Structure of response message:
 * `error` - **Null** for success, **JSON Object** for failure:
     * `message` - Detailed text
     * `code` - Error code
-    
+
 Code | Message
 --- | ---
 **1** | invalid argument
@@ -106,7 +111,7 @@ Code | Message
 }
 ```
 
-#### :arrow_heading_down: Response: 
+#### :arrow_heading_down: Response:
 ```json
 {
     "id": 0,
@@ -129,7 +134,7 @@ Code | Message
 }
 ```
 
-#### :arrow_heading_down: Response: 
+#### :arrow_heading_down: Response:
 ```json
 {
     "id": 0,
@@ -140,12 +145,12 @@ Code | Message
 }
 ```
 
-#### :arrows_counterclockwise: Update events: 
+#### :arrows_counterclockwise: Update events:
 ```json5
 {
     "id": null,
     "method": "balanceSpot_update",
-    "params": [] // look below for params 
+    "params": [] // look below for params
 }
 ```
 
@@ -182,7 +187,7 @@ ___
 
 ### Authorize
 
-When you establish WS connection, you should authorize this ws connection via `authorize` method. 
+When you establish WS connection, you should authorize this ws connection via `authorize` method.
 After successful authorization you will be able to send requests for balances, orders etc.
 
 It only needs to be done successfully once.
@@ -328,7 +333,7 @@ Subscribe to receive updates in spot balances.
 
 #### Query
 
-Request for amount on margin balance. 
+Request for amount on margin balance.
 Balance available for margin trade is equal to `balance * leverage` and it depends on liquidity in orderbook and your open positions.
 When you open position, your balance will not change, but amount available for trade will decrease
 
@@ -533,7 +538,7 @@ If new order instantly matches an order from orderbook, then you will receive on
             "mtime": 1601475266.733574,  // Modified at in Unix time
             "price": "10646.12",         // Order price
             "amount": "0.01",            // Stock amount
-            "left": "0.008026",          // Stock amount that left to be executed. 
+            "left": "0.008026",          // Stock amount that left to be executed.
             "deal_stock": "0.001974",    // Stock amount that executed
             "deal_money": "21.01544088", // Money amount that executed
             "deal_fee": "2.101544088",   // Charged fee amount in money,
@@ -586,7 +591,7 @@ All possible [order types](#order-types)
         {
             "market": "BTC_USDT", // market
             "order_types": [1, 2]   // Order types filter. See above
-        },  
+        },
         0,                          // offset
         30                          // limit
     ]
@@ -678,7 +683,7 @@ All possible [order types](#order-types)
             "mtime": 1601478710.197917, // Modified at in Unix time
             "price": "10745.42",        // Order price
             "amount": "0.001",          // Stock amount
-            "left": "0",                // Stock amount that left to be executed. 
+            "left": "0",                // Stock amount that left to be executed.
             "deal_stock": "0.001",      // Stock amount that executed
             "deal_money": "10.74563",   // Money amount that executed
             "deal_fee": "0.01074563"    // Charged fee amount in money
@@ -726,7 +731,7 @@ Market should exist. The maximum limit is 100.
     "id": 14,
     "method": "deals_request",
     "params": [
-        "BTC_USDT", // market 
+        "BTC_USDT", // market
         0,          // offset
         30          // limit
     ]

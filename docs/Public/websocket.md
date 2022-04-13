@@ -1,3 +1,8 @@
+---
+sidebar_position: 4
+sidebar_label: WebSocket API
+---
+
 # Public WebSocket API
 
 ## Methods
@@ -29,10 +34,10 @@
     * [Query](#query-5)
     * [Subscribe](#subscribe-5)
     * [Unsubscribe](#unsubscribe-5)
-    
+
 WebSocket endpoint is wss://api.whitebit.com/ws
 
-The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol. 
+The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol.
 
 :warning: Connection will be closed by server in cause of inactivity after 60s.
 
@@ -64,7 +69,7 @@ JSON Structure of response message:
 * `error` - **Null** for success, **JSON Object** for failure:
     * `message` - Detailed text
     * `code` - Error code
-    
+
 Code | Message
 --- | ---
 **1** | invalid argument
@@ -95,7 +100,7 @@ Code | Message
 }
 ```
 
-#### :arrow_heading_down: Response: 
+#### :arrow_heading_down: Response:
 ```json
 {
     "id": 0,
@@ -116,7 +121,7 @@ Code | Message
 }
 ```
 
-#### :arrow_heading_down: Response: 
+#### :arrow_heading_down: Response:
 ```json
 {
     "id": 0,
@@ -127,12 +132,12 @@ Code | Message
 }
 ```
 
-#### :arrows_counterclockwise: Update events: 
+#### :arrows_counterclockwise: Update events:
 ```json5
 {
     "id": null,
     "method": "candles_update",
-    "params": [] // look below for params 
+    "params": [] // look below for params
 }
 ```
 
@@ -208,9 +213,9 @@ The requested interval must meet the following conditions:
     "method": "candles_request",
     "params": [
         "ETH_BTC",  // market
-        1579569940, // start time 
-        1580894800, // end time 
-        900         // interval in seconds 
+        1579569940, // start time
+        1580894800, // end time
+        900         // interval in seconds
     ]
 }
 ```
@@ -425,7 +430,7 @@ The requested interval must meet the following conditions:
 {
     "id": 5,
     "result": {
-        "period": 86400,         // period in seconds 
+        "period": 86400,         // period in seconds
         "last": "0.020981",      // last price
         "open": "0.02035",       // open price that was at 'now - period' time
         "close": "0.020981",     // price that closes this period
@@ -478,7 +483,7 @@ You can subscribe only for 86400s (24h from now).
     "params": [
         "ETH_BTC",                   // market
          {                           // response same as 'market_request'
-            "period": 86400,         // period in seconds 
+            "period": 86400,         // period in seconds
             "last": "0.020964",      // last price
             "open": "0.020349",      // open price that was at 'now - period' time
             "close": "0.020964",     // price that closes this period
@@ -702,7 +707,7 @@ You can subscribe only for 86400s (24h from now).
     "params": [
         "ETH_BTC",                         // market
          [                                 // response same as 'market_request'
-             {                            
+             {
                  "id": 41358530,           // trade id
                  "time": 1580905394.70332, // time in milliseconds
                  "price": "0.020857",      // trade price
@@ -765,11 +770,11 @@ You can subscribe only for 86400s (24h from now).
 {
     "id": 11,
     "result": {
-        "asks": [                   // sorted ascending         
+        "asks": [                   // sorted ascending
             ["0.020846", "29.369"], // [price, amount]
             ...
         ],
-        "bids": [                   // sorted descending 
+        "bids": [                   // sorted descending
             ["0.02083", "9.598"],   // [price, amount]
             ...
         ]

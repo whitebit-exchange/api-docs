@@ -1,3 +1,8 @@
+---
+sidebar_position: 1
+sidebar_label: API
+---
+
 # WebHook HTTP API
 
 * [How to use](#how-to-use)
@@ -25,15 +30,15 @@ Before starting using webhooks, you'll be asked to verify ownership of the domai
 2. You can add plain text file `whiteBIT-verification.txt` into your root domain folder and provide public web access to this file from your server. In this file should be placed your public webhook key.
 3. You can implement `/whiteBIT-verification` endpoint. This endpoint should respond with 200 OK and return JSON array which contains your public webhook key. For example: ```["<your-public-webhook-key>"]```
 
-Passing just one of these checks will be able you to switch webhook on 
+Passing just one of these checks will be able you to switch webhook on
 
 ### For processing web-hook requests
 
-All web hook requests are performing using POST method and with application/json content type. Consumer server should respond with 200 HTTP status code. If consumer was unable to handle web-hook, the request will be retry every 10 minutes but not more than 5 times.  
+All web hook requests are performing using POST method and with application/json content type. Consumer server should respond with 200 HTTP status code. If consumer was unable to handle web-hook, the request will be retry every 10 minutes but not more than 5 times.
 
 #### Body data
 
-All web-hook requests are performing with 
+All web-hook requests are performing with
 
 ```json5
 {
@@ -48,11 +53,11 @@ All web-hook requests are performing with
 
 **method** - string. The name of method which was evaluated. Web hooks API supports such web-hook methods:
 
-- **code.apply**. Performs when code owned by a customer was applied. 
+- **code.apply**. Performs when code owned by a customer was applied.
 
 **id** - string. Uuid to identify every request.
 
-**params** - the request payload. Here you can find useful data about passed actions, which triggered web hook call. Also in this field placed a nonce. **'nonce'** - a number that is always **greater** than the previous request’s nonce number 
+**params** - the request payload. Here you can find useful data about passed actions, which triggered web hook call. Also in this field placed a nonce. **'nonce'** - a number that is always **greater** than the previous request’s nonce number
 
 
 #### Request headers
@@ -80,7 +85,7 @@ Performed when code was applied. Request example:
        "nonce": 1
    },
    "id": "45a1d85d-2fdf-483e-8dfa-6d253148c730"
-} 
+}
 ```
 
 ### WhiteBIT deposit to main balance
@@ -110,7 +115,7 @@ Performed when deposit was accepted. Request example:
     }
   },
   id: 'uuid'
-}   
+}
 ```
 
 Performed when deposit was update. Request example:
@@ -137,7 +142,7 @@ Performed when deposit was update. Request example:
     }
   },
   id: 'uuid'
-}   
+}
 ```
 
 Performed when deposit was processed, so it is available on your balance. Request example:
@@ -165,7 +170,7 @@ Performed when deposit was processed, so it is available on your balance. Reques
     }
   },
   id: 'uuid'
-}   
+}
 ```
 
 Performed when deposit was canceled. Request example:

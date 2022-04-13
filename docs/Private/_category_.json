@@ -1,0 +1,10 @@
+{
+  "position": 2,
+  "label": "Private",
+  "collapsible": true,
+  "collapsed": false,
+  "link": {
+    "type": "generated-index",
+    "title": "Private API overview"
+  }
+}
