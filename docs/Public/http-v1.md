@@ -1,3 +1,9 @@
+---
+sidebar_position: 1
+sidebar_label: API V1
+---
+
+
 # Public HTTP API V1
 
 ## Public endpoints V1
@@ -9,7 +15,7 @@
 * [Symbols](#symbols)
 * [Order depth](#order-depth)
 * [Trade history](#trade-history)
-    
+
 Base URL is https://whitebit.com
 
 Endpoint example: https://whitebit.com/api/v1/public/{endpoint}

@@ -1,3 +1,8 @@
+---
+sidebar_position: 3
+sidebar_label: API V4
+---
+
 # Public HTTP API V4
 
 ## Public endpoints V4
@@ -9,7 +14,7 @@
 * [Fee](#fee)
 * [Server Time](#server-time)
 * [Server Status](#server-status)
-    
+
 Base URL is https://whitebit.com
 
 Endpoint example: https://whitebit.com/api/v4/public/{endpoint}
@@ -52,7 +57,7 @@ ___
 
 ___
 
-### Market activity 
+### Market activity
 
 ```
 [GET] /api/v4/public/ticker
@@ -168,7 +173,7 @@ NONE
           "min": "10"                         // If there is no max limit, it is not returned
         },
         ...
-      } 
+      }
     }
   },
   {...}
@@ -271,7 +276,7 @@ ___
   "USDT (ERC20)": {
     "ticker": "USDT",                         // currency ticker
     "name": "Tether US",                      // currency ticker
-    "providers": [], 
+    "providers": [],
     "deposit": {                              // deposit fees
       "min_amount": "0.0005",                 // min deposit amount. 0 if there is no limitation
       "max_amount": "0.1",                    // max deposit amount. 0 if there is no limitation
@@ -279,7 +284,7 @@ ___
       "flex": {
         "min_fee": "100",                     // min fee amount
         "max_fee": "1000",                    // max fee amount
-        "percent": "10" 
+        "percent": "10"
       },                                      // flex fee only applies for all transactions but according to min/max fee. Nullable if there is no flex fee
     },
     "withdraw": {
@@ -340,7 +345,7 @@ _1 second_
 **Response:**
 ```json5
 {
-  "time": 1631451591 
+  "time": 1631451591
 }
 ```
 ### Server Status

@@ -1,3 +1,9 @@
+---
+sidebar_position: 1
+sidebar_label: API Authentication
+collapsed: false
+---
+
 # Private HTTP API Authentication
 
 ## How to use:
@@ -46,7 +52,7 @@ To help you get started with our API, we've created the [API Quick start helper]
 ```
 
 ### Errors:
-    
+
 **"Too many requests."** - this error occurs if the **“nonce”** in your current request is equal or is lower than the one in the previous request.
 
 ___
@@ -79,7 +85,7 @@ ___
 ```
 ___
 
-**"You don't have permission to use this endpoint. Please contact support for more details"** - this error occurs when you are using an endpoint that is disabled for a specific API key in API key settings. You can enable endpoint by editing "Endpoint access restrictions" for this API key in account settings https://whitebit.com/settings/api. 
+**"You don't have permission to use this endpoint. Please contact support for more details"** - this error occurs when you are using an endpoint that is disabled for a specific API key in API key settings. You can enable endpoint by editing "Endpoint access restrictions" for this API key in account settings https://whitebit.com/settings/api.
 
 ___
 ```json5
@@ -122,7 +128,7 @@ ___
     "success": false
 }
 ```
-___ 
+___
 **"Nonce not provided."** - this error occurs if your request is missing **"nonce"** in the request body.
 ___
 ```json5
@@ -164,7 +170,7 @@ ___
     "success": false
 }
 ```
-___ 
+___
 **"Request not provided."** - this error occurs if your request is missing **"request"** path in the request body.
 ___
 ```json5
@@ -178,4 +184,4 @@ ___
     "success": false
 }
 ```
-___ 
+___

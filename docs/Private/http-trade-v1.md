@@ -1,3 +1,9 @@
+---
+sidebar_position: 3
+sidebar_label: Main API V1
+---
+
+
 # Private HTTP API V1
 
 ## Private endpoints V1
@@ -13,7 +19,7 @@
 * [Query order history by single market](#query-executed-order-history-by-single-market)
 * [Query order history by all markets](#query-executed-order-history-by-all-markets)
 * [Query executed order deals](#query-executed-order-deals)
-    
+
 Base URL is https://whitebit.com
 
 Endpoint example: https://whitebit.com/api/v1/{endpoint}
@@ -210,8 +216,8 @@ market | String | **Yes** | Available market. Example: BTC_USDT
 side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
 amount | String | **Yes** | Amount of stock currency to buy or sell. Example: '0.001'
 price | String | **Yes** | Price in money currency. Example: '9800'
-clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours. 
-                                
+clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
+
 
 **Request BODY raw:**
 ```json5
@@ -238,7 +244,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
     "dealMoney": "0",                  // if order finished - amount in money currency that finished
     "dealStock": "0",                  // if order finished - amount in stock currency that finished
     "amount": "0.001",                 // amount
-    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
     "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
     "left": "0.001",                   // if order not finished - rest of amount that must be finished
     "dealFee": "0",                    // fee in money that you pay if order is finished
@@ -435,7 +441,7 @@ orderId | Int | **Yes** | Order Id. Example: 4180284841
     "dealMoney": "0",                  // if order finished - amount in money currency that finished
     "dealStock": "0",                  // if order finished - amount in stock currency that finished
     "left": "0.001",                   // if order not finished - rest of amount that must be finished
-    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
     "market": "BTC_USDT",              // deal market
     "orderId": 4180284841,             // order id
     "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
@@ -559,8 +565,8 @@ offset | Int | **No** | If you want the request to return entries starting from 
         "dealMoney": "0",                 // executed amount in money
         "dealStock": "0",                 // executed amount in stock
         "amount": "2.241379",             // active order amount
-        "takerFee": "0.001",              // taker fee ratio. If the number less than 0.0001 - its rounded to zero    
-        "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
+        "takerFee": "0.001",              // taker fee ratio. If the number less than 0.0001 - its rounded to zero
+        "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero
         "left": "2.241379",               // unexecuted amount in stock
         "dealFee": "0",                   // executed fee by deal
         "price": "60000"                  // unexecuted order price
@@ -688,7 +694,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
                 "clientOrderId": "order11-23-3",  // custom client order ID; "clientOrderId": "" - if not specified.
                 "side": "sell",                   // executed order side
                 "ctime": 1594667731.724387,       // executed order creating time
-                "takerFee": "0.001",              // taker fee ratio. If the number less than 0.0001 - it is rounded to zero 
+                "takerFee": "0.001",              // taker fee ratio. If the number less than 0.0001 - it is rounded to zero
                 "ftime": 1594667731.724403,       // executed order finish time
                 "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero
                 "dealFee": "0",                   // executed order fee that user pay
@@ -815,7 +821,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
             "amount": "0.000076",             // amount in stock
             "price": "9264.21",               // price
             "deal": "0.70407996",             // amount in money
-            "fee": "0.00070407996"            // fee that you pay 
+            "fee": "0.00070407996"            // fee that you pay
         },
         {...}
     ]
