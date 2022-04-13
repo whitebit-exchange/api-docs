@@ -57,11 +57,6 @@ const sidebars = {
         },
         {
           type: "doc",
-          id: "Private/http-trade-v1",
-          label: "Trade API V1",
-        },
-        {
-          type: "doc",
           id: "Private/http-trade-v4",
           label: "Trade API V4",
         },
