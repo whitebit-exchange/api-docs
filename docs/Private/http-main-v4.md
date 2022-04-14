@@ -20,6 +20,7 @@
     * [Close investment](#close-investment)
     * [Get investments history](#get-investments-history)
     * [Get interest payments history](#get-interest-payments-history)
+* [Fees](#fees)
 
 Base URL is https://whitebit.com
 
@@ -2143,5 +2144,50 @@ Available statuses:
 ```
 
 </details>
+
+---
+
+## Fees
+
+This API provides an endpoint for getting deposit/withdrawal fees and limits by all currencies
+
+### Get fees 
+
+Returns an array of objects containing deposit/withdrawal settings for the corresponding currencies.
+Zero value in amount fields means that the setting is disabled.
+
+```
+[POST] /api/v4/main-account/fee
+```
+
+**Response:**
+
+Available statuses:
+* `Status 200`
+
+```json5
+[
+  {
+    "ticker": "BTC",          // Ticker
+    "name": "Bitcoin",        // Currency name
+    "deposit": {              // Deposit fees/limits
+      "minFlex": "0",         // Min fee amount when flex fee is enabled
+      "maxFlex": "0",         // Max fee amount when flex fee is enabled
+      "percentFlex": "0",     // Flex fee percent
+      "fixed": "0",           // Fixed fee
+      "minAmount": "0.0005",  // Min deposit amount
+      "maxAmount": "0"        // Max deposit amount
+    },
+    "withdraw": {             // Withdrawal fees/limits
+      "minFlex": "0",         // Min fee amount when flex fee is enabled
+      "maxFlex": "0",         // Max fee amount when flex fee is enabled
+      "percentFlex": "0",     // Flex fee percent
+      "fixed": "0.0004",      // Fixed fee
+      "minAmount": "0.001",   // Min withdrawal amount
+      "maxAmount": "0"        // Max withdrawal amount
+    }
+  }
+]
+```
 
 ---
