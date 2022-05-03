@@ -4,17 +4,19 @@
   --ifm-footer-background-color: var(--ifm-navbar-background-color);
   --ifm-footer-padding-horizontal: calc(var(--ifm-spacing-horizontal) * 1);
   --ifm-footer-padding-vertical: calc(var(--ifm-spacing-vertical) * 1);
+  --ifm-link-color: #096bec;
+  --doc-sidebar-width: 255px;
 }
 
 :root {
-  --ifm-color-primary: #c9aa4c;
+  --ifm-color-primary: #000000;
   --ifm-color-primary-dark: #c09e3a;
   --ifm-color-primary-darker: #b59637;
   --ifm-color-primary-darkest: #957b2d;
   --ifm-color-primary-light: #cfb461;
   --ifm-color-primary-lighter: #d3b96c;
   --ifm-color-primary-lightest: #dcc88c;
-  --ifm-background-color-reverted: #000000;
+  --ifm-color-title: #000000;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -27,7 +29,7 @@
   --ifm-color-primary-lighter: #f7e3b2;
   --ifm-color-primary-lightest: #fcf5e5;
   --ifm-background-color: #000000;
-  --ifm-background-color-reverted: #ffffff;
+  --ifm-color-title: #ffffff;
 }
 
 html,
@@ -91,6 +93,12 @@ main.hero {
   --ifm-color-secondary-dark: #efc45e;
 }
 
+@media screen and (min-width: 1280px) {
+  main:not(.hero) {
+    max-width: calc(100% - 255px);
+  }
+}
+
 button.aa-DetachedSearchButton {
   border: none;
 }
@@ -115,9 +123,7 @@ button.aa-DetachedSearchButton {
 .hero__title {
   --text-shadow-color: rgba(0, 0, 0, 0.125);
   font-size: 80px;
-  text-shadow: 0px 2px 0 var(--text-shadow-color),
-    -2px 0px 0 var(--text-shadow-color), 0px -2px 0 var(--text-shadow-color),
-    2px 2px 2px var(--text-shadow-color);
+  color: var(--ifm-color-title);
 }
 
 @media screen and (max-width: 768px) {
@@ -146,4 +152,23 @@ html[data-theme="dark"] .navbar-item-github:before {
     no-repeat;
   background-repeat: no-repeat;
   background-position: center;
+}
+.theme-doc-sidebar-container {
+  width: 255px;
+}
+
+.theme-doc-sidebar-container > div {
+  width: 255px;
+}
+
+.menu {
+  width: 255px;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 28px;
 }

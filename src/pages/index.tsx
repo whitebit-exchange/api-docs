@@ -10,11 +10,6 @@ function HomepageHeader() {
 
   return (
     <main className={clsx("hero hero--primary", styles.heroBanner)}>
-      <div role={"region"} className={styles.gradients}>
-        <div className={clsx(styles.gradient, styles.gradient1)} />
-        <div className={clsx(styles.gradient, styles.gradient2)} />
-        <div className={clsx(styles.gradient, styles.gradient3)} />
-      </div>
       <div className="container">
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
