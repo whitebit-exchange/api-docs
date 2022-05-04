@@ -82,6 +82,11 @@ html.plugin-pages .navbar {
   z-index: 5;
 }
 
+.navbar__logo {
+  width: 32px;
+  height: 32px;
+}
+
 .navbar__brand {
   margin-right: 0;
 }
@@ -91,12 +96,6 @@ main.hero {
   --ifm-heading-color: #f2d080;
   --ifm-color-secondary: #f2d080;
   --ifm-color-secondary-dark: #efc45e;
-}
-
-@media screen and (min-width: 1280px) {
-  main:not(.hero) {
-    max-width: calc(100% - 255px);
-  }
 }
 
 button.aa-DetachedSearchButton {
@@ -152,17 +151,6 @@ html[data-theme="dark"] .navbar-item-github:before {
     no-repeat;
   background-repeat: no-repeat;
   background-position: center;
-}
-.theme-doc-sidebar-container {
-  width: 255px;
-}
-
-.theme-doc-sidebar-container > div {
-  width: 255px;
-}
-
-.menu {
-  width: 255px;
 }
 
 h1 {

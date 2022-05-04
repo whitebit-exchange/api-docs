@@ -1,7 +1,7 @@
 // @ts-check
 
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
-const sidebars = {
+module.exports = {
   docs: [
     {
       type: "category",
@@ -86,5 +86,3 @@ const sidebars = {
     },
   ],
 };
-
-module.exports = sidebars;

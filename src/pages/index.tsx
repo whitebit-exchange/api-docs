@@ -4,7 +4,6 @@ import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import styles from "./index.module.css";
-import Head from "@docusaurus/Head";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -28,15 +27,8 @@ function HomepageHeader() {
 }
 
 export default function Home(): JSX.Element {
-  const { siteConfig } = useDocusaurusContext();
-
   return (
-    <Layout
-      description="WhiteBIT API documentation"
-    >
-      <Head>
-        <meta property="og:image" content="img/og-image.png" />
-      </Head>
+    <Layout description="WhiteBIT API documentation">
       <HomepageHeader />
     </Layout>
   );
