@@ -7,7 +7,6 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'WhiteBIT API Documentation',
-  tagline: '',
   url: 'https://whitebit-exchange.github.io',
   baseUrl: '/api-docs/',
   onBrokenLinks: 'throw',
@@ -28,6 +27,10 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
+        },
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
         },
@@ -40,6 +43,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      metadata: [{name: 'keywords', content: 'whitebit, api, docs, documentation'}],
       colorMode: {
         defaultMode: 'dark',
         respectPrefersColorScheme: true,
@@ -54,7 +58,7 @@ const config = {
             type: 'doc',
             docId: '/category/public',
             position: 'left',
-            label: 'Docs',
+            label: 'WhiteBIT API Docs',
           },
           {
             href: 'https://github.com/whitebit-exchange/api-docs',
