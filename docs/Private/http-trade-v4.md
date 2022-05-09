@@ -1522,7 +1522,7 @@ ___
 ```
 [POST] /api/v4/trade-account/order
 ```
-This endpoint retrieves deals history details on executed order.
+This endpoint retrieves deals history details on pending or executed order.
 
 **Parameters:**
 
