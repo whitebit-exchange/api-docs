@@ -2170,6 +2170,8 @@ Available statuses:
   {
     "ticker": "BTC",          // Ticker
     "name": "Bitcoin",        // Currency name
+    "can_deposit": "0",       // Status currency
+    "can_withdraw": "0",      // Status currency
     "deposit": {              // Deposit fees/limits
       "minFlex": "0",         // Min fee amount when flex fee is enabled
       "maxFlex": "0",         // Max fee amount when flex fee is enabled
