@@ -9,7 +9,8 @@
 * [Fee](#fee)
 * [Server Time](#server-time)
 * [Server Status](#server-status)
-
+* [Collateral Markets](#collateral-markets-list)
+    
 Base URL is https://whitebit.com
 
 Endpoint example: https://whitebit.com/api/v4/public/{endpoint}
@@ -360,3 +361,30 @@ _1 second_
 ]
 ```
 
+### Collateral Markets List
+
+```
+[GET] /api/v4/public/collateral/markets
+```
+This endpoint returns the list of markets that available for collateral trading
+
+**Response:**
+```json5
+[
+    "ADA_USDT",
+    "BCH_USDT",
+    "BTC_USDT",
+    "DOGE_USDT",
+    "EOS_USDT",
+    "ETH_BTC",
+    "ETH_USDT",
+    "LINK_USDT",
+    "LTC_USDT",
+    "SHIB_USDT",
+    "SOL_USDT",
+    "TRX_USDT",
+    "USDC_USDT",
+    "XLM_USDT",
+    "XRP_USDT"
+]
+```

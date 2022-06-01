@@ -719,8 +719,10 @@ This endpoint transfers the specified amount between main and trade balances
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-method | String | **Yes** | Method. Example: **deposit** if you need to transfer from main to trade / **withdraw** if you need to transfer from trade balance to main
-ticker | String | **Yes** | Currency's ticker. Example: BTC
+method | String | **No** if **from** and **to** are set | Method We highly recommend to use **from** and **to** fields, which provides more flexibility. This way will be deprecated in future. Example: **deposit** if you need to transfer from main to trade / **withdraw** if you need to transfer from trade balance to main. For collateral balances you can use **collateral-deposit** to transfer from main to collateral balance and **collateral-withdraw** to transfer from collateral balance to main
+from | String | **No** if **method** is set | Balance FROM which funds will move to. Acceptable values: **main**, **spot**, **collateral** 
+to | String | **No** if **method** is set | Balance TO which funds will move to. Acceptable values: **main**, **spot**, **collateral**
+ticker | String | **Yes** | Currency's ticker. Example: BTC 
 amount | Numeric string | **Yes** | Amount to transfer. Max precision = 8, value should be greater than zero and less or equal your available balance.
 
 **Request BODY raw:**
