@@ -1334,6 +1334,8 @@ This endpoint retrieves unexecuted orders only.
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
+orderId | String | **No** | Available orderId. Example: 3134995325
+clientOrderId | String | **No** | Available clientOrderId. Example: customId11
 limit | Int | **No** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
@@ -1341,6 +1343,8 @@ offset | Int | **No** | If you want the request to return entries starting from 
 ```json5
 {
     "market": "BTC_USDT",
+    "orderId": "3134995325",              //order Id (optional)
+    "clientOrderId": "customId11",      // custom order id; (optional)
     "offset": 0,
     "limit": 100,
     "request": "{{request}}",
@@ -1459,12 +1463,14 @@ This endpoint retrieves the deals history. Can be sorted by single market if nee
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **No** | Requested market. Example: BTC_USDT
+clientOrderId | String | **No** | Requested clientOrderId. Example: customId11
 limit | Int | **No** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
 **Request BODY raw:**
 ```json5
 {
+    "clientOrderId": "customId11",      // custom order id; (optional)
     "offset": 0,
     "limit": 100,
     "request": "{{request}}",
@@ -1668,6 +1674,8 @@ This endpoint retrieves executed order history by market.
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **No** | Requested available market. Example: BTC_USDT
+orderId | String | **No** | Requested available orderId. Example: 3134995325
+clientOrderId | String | **No** | Requested available clientOrderId. Example: clientOrderId
 limit | Int | **No** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
@@ -1675,6 +1683,8 @@ offset | Int | **No** | If you want the request to return entries starting from 
 ```json5
 {
     "market": "BTC_USDT",               //optional
+    "orderId": "3134995325",            //order Id (optional)
+    "clientOrderId": "clientOrderId",   // custom order id; (optional)
     "offset": 0,
     "limit": 100,
     "request": "{{request}}",
