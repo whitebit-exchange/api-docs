@@ -110,6 +110,8 @@ NONE
     "taker_fee": "0.1",                       // Taker fee in percentage
     "min_deposit": "0.0001",                  // Min deposit amount
     "max_deposit": "0",                       // Max deposit amount, will not be returned if there is no limit, 0 if unlimited
+    "currency_precision": 18,                // Max number of digits to the right of the decimal point
+    "is_memo": false,                           // Identifies if currency has memo address
   },
   "ETH": {
     "name": "Ethereum",
@@ -121,7 +123,9 @@ NONE
     "maker_fee": "0.1",
     "taker_fee": "0.1",
     "min_deposit": "0.1",
-    "max_deposit": "0"
+    "max_deposit": "0",
+    "currency_precision": 18,                
+    "is_memo": false,                         
   },
   "USDT": {
     "name": "Tether US",
@@ -134,6 +138,8 @@ NONE
     "taker_fee": "0.1",
     "min_deposit": "0",
     "max_deposit": "0",
+    "currency_precision": 6,
+    "is_memo": false,
     "networks": {                             // This object will be available in response if the currency is available on several networks
       "deposits": [                           // Networks available for depositing
         "ERC20",
