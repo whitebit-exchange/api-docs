@@ -280,6 +280,8 @@ address | String | **Yes, if currency is RUB with VISAMASTER_PAYCORE provider** 
 uniqueId | String | **Yes** | Unique transaction identifier on client's side.
 successLink | String | **No** | Customer will be redirected to this URL by acquiring provider after success deposit. To activate this feature, please contact support
 failureLink | String | **No** | Customer will be redirected to this URL in case of fail or rejection on acquiring provider side. To activate this feature, please contact support
+returnLink | String | **No** | Customer will be redirected to the URL defined if selects 'back' option after from the payment success or failure page. To activate this feature, define desired link. If not populated, option 'back' won't be displayed
+
 
 **Request BODY raw:**
 ```json5
