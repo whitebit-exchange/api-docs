@@ -140,7 +140,7 @@ NONE
     "max_deposit": "0",
     "currency_precision": 6,
     "is_memo": false,
-    "networks": {                             // This object will be available in response if the currency is available on several networks
+    "networks": {                             // Currency networks
       "deposits": [                           // Networks available for depositing
         "ERC20",
         "TRC20",
