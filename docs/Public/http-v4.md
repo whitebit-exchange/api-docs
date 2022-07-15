@@ -110,8 +110,29 @@ NONE
     "taker_fee": "0.1",                       // Taker fee in percentage
     "min_deposit": "0.0001",                  // Min deposit amount
     "max_deposit": "0",                       // Max deposit amount, will not be returned if there is no limit, 0 if unlimited
-    "currency_precision": 18,                // Max number of digits to the right of the decimal point
-    "is_memo": false,                           // Identifies if currency has memo address
+    "currency_precision": 18,                 // Max number of digits to the right of the decimal point
+    "is_memo": false,                         // Identifies if currency has memo address
+    "networks": {                             // Currency networks. It might be a list of networks for cryptocurrency networks or just a single item list for simple cryptocurrencies or tokens
+      "deposits": [                           // Networks available for depositing
+        "BTC"
+      ],
+      "withdraws": [                          // Networks available for withdrawing
+        "BTC"
+      ],
+      "default": "BTC"                        // Default network for depositing / withdrawing if available
+    },
+    "limits": {                               // Currency limits by each network
+      "deposit": {                            // Deposits limits
+        "BTC": {                              // Network
+          "min": "0.001"                      // Max deposit amount
+        },
+      },
+      "withdraw": {                           // Withdraws limits
+        "BTC": {                              // Network
+          "min": "0.002",                     // Min withdraw amount
+        },
+      }
+    }
   },
   "ETH": {
     "name": "Ethereum",
@@ -125,7 +146,28 @@ NONE
     "min_deposit": "0.1",
     "max_deposit": "0",
     "currency_precision": 18,                
-    "is_memo": false,                         
+    "is_memo": false,
+    "networks": {                             // Currency networks. It might be a list of networks for cryptocurrency networks or just a single item list for simple cryptocurrencies or tokens
+      "deposits": [                           // Networks available for depositing
+        "ETH"
+      ],
+      "withdraws": [                          // Networks available for withdrawing
+        "ETH"
+      ],
+      "default": "ETH"                        // Default network for depositing / withdrawing if available
+    },
+    "limits": {                               // Currency limits by each network
+      "deposit": {                            // Deposits limits
+        "ETH": {                              // Network
+          "min": "0.001"                      // Max deposit amount
+        },
+      },
+      "withdraw": {                           // Withdraws limits
+        "ETH": {                              // Network
+          "min": "0.002",                     // Min withdraw amount
+        },
+      }
+    }
   },
   "USDT": {
     "name": "Tether US",
@@ -140,7 +182,7 @@ NONE
     "max_deposit": "0",
     "currency_precision": 6,
     "is_memo": false,
-    "networks": {                             // Currency networks
+    "networks": {                             // Currency networks. It might be a list of networks for cryptocurrency networks or just a single item list for simple cryptocurrencies or tokens
       "deposits": [                           // Networks available for depositing
         "ERC20",
         "TRC20",
@@ -157,7 +199,7 @@ NONE
     },
     "limits": {                               // This object will be returned when currency has several networks/providers
       "deposit": {                            // Deposits limits
-        "ERC20": {                            // Network/provider
+        "ERC20": {                            // Network
           "min": "5",                         // Min deposit amount
           "max": "1000"                       // Max deposit amount
         },
@@ -167,12 +209,52 @@ NONE
         ...
       },
       "withdraw": {                           // Withdraws limits
-        "ERC20": {                            // Network/provider
+        "ERC20": {                            // Network
           "min": "10",                        // Min withdraw amount
           "max": "1000"                       // Max withdraw amount
         },
         "TRC20": {
           "min": "10"                         // If there is no max limit, it is not returned
+        },
+        ...
+      }
+    }
+  },
+  "UAH": {
+    "name": "Hryvnia",
+    "unified_cryptoasset_id": 0,
+    "can_withdraw": true,
+    "can_deposit": true,
+    "min_withdraw": "50",
+    "max_withdraw": "100000",
+    "maker_fee": "0.1",
+    "taker_fee": "0.1",
+    "min_deposit": "50",
+    "max_deposit": "100000",
+    "is_memo": false,
+    "providers": {                            // Fiat currency providers
+      "deposits": [                           // Providers available for depositing
+        "VISAMASTER",
+        "ADVCASH",
+        "GEOPAY"
+      ],
+      "withdraws": [                          // Providers available for withdrawing
+        "VISAMASTER",
+        "GEOPAY"
+      ],
+    },
+    "limits": {                               // This object will be returned when currency has several networks/providers
+      "deposit": {                            // Deposits limits
+        "VISAMASTER": {                       // Provider
+          "min": "50",                        // Min deposit amount
+          "max": "50000"                      // Max deposit amount
+        },
+      ...
+      },
+      "withdraw": {                          // Withdraws limits
+        "VISAMASTER": {                      // Provider
+          "min": "50",                       // Min withdraw amount
+          "max": "50000"                     // Max withdraw amount
         },
         ...
       }
