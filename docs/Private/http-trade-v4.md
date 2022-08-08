@@ -2897,6 +2897,12 @@ Available statuses:
 ```
 This endpoint returns past positions history. Each position represented by position states. Each of them means event that shows current position changes such order, position close, liquidation, etc.  
 
+If your request has a "positionId" field, you receive data only with this "positionId".
+If your request has a "market" field, you receive data only by this "market".
+
+**"positionId" field has higher priority then "market" field.**
+
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -2907,7 +2913,8 @@ positionId | Int | **No** | Requested position
 **Request BODY raw:**
 ```json5
 {
-    "market": "BTC_USDT",
+    "market": "BTC_USDT", //optional
+    "positionId": 1, //optional
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
