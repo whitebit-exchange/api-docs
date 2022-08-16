@@ -476,3 +476,39 @@ This endpoint returns the list of markets that available for collateral trading
     "XRP_USDT"
 ]
 ```
+
+### Available Futures Markets List
+
+```
+[GET] /api/v4/public/futures
+```
+This endpoint returns the list of available futures markets.
+
+**Response:**
+```json5
+{
+  "success": true,
+  "message": null,
+  "result": [
+    {
+      "ticker_id": "BTC_PERP",                        //Identifier of a ticker with delimiter to separate base/target
+      "stock_currency": "BTC",                        //Symbol/currency code of base pair
+      "money_currency": "USDT",                       //Symbol/currency code of target pair
+      "last_price": "24005.5",                        //Last transacted price of base currency based on given target currency
+      "stock_volume": "196965.591",                   //24 hour trading volume in base pair volume
+      "money_volume": "4737879075.7817",              //24 hour trading volume in target pair volume
+      "bid": "24005.4",                               //Current highest bid price
+      "ask": "24005.6",                               //Current lowest ask price
+      "high": "24295.1",                              //Rolling 24-hours highest transaction price
+      "low": "23765.3",                               //Rolling 24-hours lowest transaction price
+      "product_type": "Perpetual",                    //What product is this? Futures, Perpetual, Options?
+      "open_interest": "6000",                        //The open interest in the last 24 hours in contracts.
+      "index_price": "24019.25",                      //Underlying index price
+      "index_name": "Bitcoin",                        //Name of the underlying index if any
+      "index_currency": "BTC",                        //Underlying currency for index
+      "funding_rate": "0.000044889033693137",         //Current funding rate
+      "next_funding_rate_timestamp": "1660665600000"  //Timestamp of the next funding rate change
+    }
+  ]
+}
+```
