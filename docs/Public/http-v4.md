@@ -132,6 +132,9 @@ NONE
           "min": "0.002",                     // Min withdraw amount
         },
       }
+    },
+    "confirmations": {                        // Deposit confirmations count mapped by network
+      "BTC": 2
     }
   },
   "ETH": {
@@ -167,6 +170,9 @@ NONE
           "min": "0.002",                     // Min withdraw amount
         },
       }
+    },
+    "confirmations": {
+      "ETH": 20
     }
   },
   "USDT": {
@@ -218,6 +224,10 @@ NONE
         },
         ...
       }
+    },
+    "confirmations": {
+      "ERC20": 20,
+      "TRC20": 20
     }
   },
   "UAH": {
