@@ -442,7 +442,7 @@ This endpoint creates withdraw for the specified ticker.
 **Parameters:**
 
 Name | Type | Mandatory | Description
------------- | ------------ | ------------ | ------------
+------------|------------|------------|------------
 ticker | String | **Yes** | Currencies ticker. Example: BTC ⚠ Currencies ticker must have "can_deposit" status equal to "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.
 amount | Numeric string | **Yes** | Withdraw amount (including fee). If you want fee to be added to the specified amount, you need to use [/main-account/withdraw-pay](#create-withdraw-request-with-specifying-absolute-withdraw-amount) request (see examples there)
 address | String | **Yes** | Target address (wallet address for cryptocurrencies, identifier/card number for fiat currencies)
@@ -451,6 +451,11 @@ uniqueId | String | **Yes** | Unique transaction identifier. ⚠ Note that you s
 provider | String | **Yes, if currency is fiat** | Fiat currency provider. Example: VISAMASTER ⚠ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.
 network | String | **No** | Cryptocurrency network. Available for multi network currencies. Example: OMNI ⚠ Currency network should be taken from https://whitebit.com/api/v4/public/assets response. Default for USDT is ERC20
 partialEnable | Boolean | **No** | Optional parameter for FIAT withdrawals with increased Maximum Limit if set as “true”. In order to use this parameter your application should support “Partially successful” withdrawal status and latest updates in deposit/withdrawal history.
+beneficiary | Object | **Yes, if currency ticker is one of: UAH_IBAN, USD_VISAMASTER, EUR_VISAMASTER, USD, EUR** | Beneficiary information data array.
+beneficiary.firstName | String | **Yes, if currency ticker is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR** | Beneficiary first name. Max length: 40 symbols, latin letters and special characters.
+beneficiary.lastName | String | **Yes, if currency ticker is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR** | Beneficiary last name. Max length: 40 symbols, latin letters and special characters.
+beneficiary.tin | Integer | **Yes, if currency is UAH_IBAN** | Beneficiary TAX payer number. Integer, 10 digits.
+beneficiary.phone | String | **Yes, if currency ticker is one of: USD_VISAMASTER, EUR_VISAMASTER** | Beneficiary phone number. 
 
 **Request BODY raw:**
 ```json5
@@ -497,6 +502,41 @@ partialEnable | Boolean | **No** | Optional parameter for FIAT withdrawals with 
     "address": "4111111111111111",
     "provider" : "VISAMASTER_PAYCORE",
     "partialEnable": true,
+    "uniqueId" : "24529045",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Request BODY (for fiat IBAN currency) raw:**
+```json5
+{
+    "ticker": "UAH",
+    "amount": "50000",
+    "address": "UA213223130000026007233566001",
+    "beneficiary": {
+      "firstName": "Firstname",
+      "lastName": "Lastname",
+      "tin": 1000000000
+    },
+    "provider" : "UAH_IBAN",
+    "uniqueId" : "24529045",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+**Request BODY (for fiat USD_VISAMASTER, EUR_VISAMASTER payment providers) raw:**
+```json5
+{
+    "ticker": "USD",
+    "amount": "30000",
+    "address": "4111111111111111",
+    "beneficiary": {
+      "firstName": "Firstname",
+      "lastName": "Lastname",
+      "phone": "1234567891"
+    },
+    "provider" : "USD_VISAMASTER",
     "uniqueId" : "24529045",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
