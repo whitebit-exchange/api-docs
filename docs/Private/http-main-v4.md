@@ -276,6 +276,9 @@ ticker | String | **Yes** | Currencies ticker. Example: UAH ⚠ Currencies ticke
 provider | String | **Yes** | Fiat currency provider. Example: VISAMASTER ⚠ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.
 amount | Numeric String | **Yes** | Deposit amount.
 uniqueId | String | **Yes** | Unique transaction identifier on client's side.
+customer.firstName | String | **Yes, if currency USD or EUR with VISAMASTER provider** | Customer billing first name
+customer.lastName | String | **Yes, if currency USD or EUR with VISAMASTER provider** | Customer billing last name 
+customer.email | String | **Yes, if currency USD or EUR with VISAMASTER provider** | Customer billing email
 successLink | String | **No** | Customer will be redirected to this URL by acquiring provider after success deposit. To activate this feature, please contact support
 failureLink | String | **No** | Customer will be redirected to this URL in case of fail or rejection on acquiring provider side. To activate this feature, please contact support
 returnLink | String | **No** | Customer will be redirected to the URL defined if selects 'back' option after from the payment success or failure page. To activate this feature, define desired link. If not populated, option 'back' won't be displayed
@@ -288,6 +291,22 @@ returnLink | String | **No** | Customer will be redirected to the URL defined if
     "provider": "VISAMASTER",
     "amount": "100",
     "uniqueId": "{{generateID}}",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+**Request BODY with customer fields raw:**
+```json5
+{
+    "ticker": "UAH",
+    "provider": "VISAMASTER",
+    "amount": "100",
+    "uniqueId": "{{generateID}}",
+    "customer": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john_doe@email.com"
+    },
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
