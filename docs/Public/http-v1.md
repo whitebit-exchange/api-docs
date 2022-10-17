@@ -184,9 +184,9 @@ _1440_
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
-start | Timestamp | **No** | Start time in seconds, default value is current start day. Cannot be greater or equal to End Time. Example: 1596848400
-end | Timestamp | **No** | End time in seconds, default value is current time. Cannot be smaller or equal to Start Time. Example: 1596927600
-interval | String | **NO** | Possible values - 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M. Default value is 1h
+start | Timestamp | **No** | Start time in seconds, default value is one week earlier from the current time. Cannot be greater than end parameter. Example: 1596848400
+end | Timestamp | **No** | End time in seconds, default value is current time. Cannot be less than start parameter. Example: 1596927600
+interval | String | **NO** | Possible values - 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M. By default in case start and end parameters were not specified, for minutes intervals the server will return candlesticks for a period of 1 day. For hours intervals will return candlesticks for 1 week, for days and week intervals will return candlesticks for 1 month and for month interval will return candlesticks for 1 year. Default value is 1h. 
 limit | Integer | **NO** | Possible values from 1 to 1440. Default value is 1440
 
 **Response:**
