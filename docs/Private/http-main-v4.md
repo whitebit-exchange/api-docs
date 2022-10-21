@@ -915,6 +915,7 @@ status | Array | **No** | Can be used for filtering transactions by status codes
 | `Successful` - 3 and 7 |
 | `Canceled` - 4 and 9 |
 | `Unconfirmed by user` - 5 |
+| `Uncredited` - 22 |
 | `Pending` - 15 |
 
 | Withdraw status codes: |
