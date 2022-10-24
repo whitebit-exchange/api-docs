@@ -11,7 +11,7 @@ const config = {
   baseUrl: "/api-docs/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: "img/favicon.svg",
   organizationName: "whitebit-exchange",
   projectName: "api-docs",
   trailingSlash: false,
