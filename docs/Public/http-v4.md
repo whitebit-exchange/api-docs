@@ -124,7 +124,7 @@ NONE
     "limits": {                               // Currency limits by each network
       "deposit": {                            // Deposits limits
         "BTC": {                              // Network
-          "min": "0.001"                      // Max deposit amount
+          "min": "0.001"                      // Min deposit amount
         },
       },
       "withdraw": {                           // Withdraws limits
@@ -432,9 +432,6 @@ ___
 [GET] /api/v4/public/time
 ```
 This endpoint retrieves the current server time.
-
-**Response is cached for:**
-_1 second_
 
 **Response:**
 ```json5

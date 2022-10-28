@@ -2886,6 +2886,7 @@ Error codes:
 * `34` - incorrect taker fee (it is less than zero or its precision is too big)
 * `35` - incorrect maker fee (it is less than zero or its precision is too big)
 * `36` - incorrect clientOrderId (invalid string or not unique id)
+
 </details>
 
 ---
