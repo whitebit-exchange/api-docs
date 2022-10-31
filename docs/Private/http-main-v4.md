@@ -159,8 +159,8 @@ This endpoint retrieves a deposit address of the cryptocurrency.
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-ticker | String | **Yes** | Currencies ticker. Example: BTC ⚠ Currency ticker should be: not fiat and has "can_deposit" status must be "true". If currency has multiple networks like USDT - you need to use multinetwork ticker you can find it in https://whitebit.com/api/v4/public/assets request. Default network for USDT is Ethereum (ERC20).
-network | String | **No** | Cryptocurrency network. Available for multi network currencies. Example: ERC20 ⚠ Currency network should be taken from https://whitebit.com/api/v4/public/assets response. Default for USDT is Ethereum (ERC20).
+ticker | String | **Yes** | Currencies ticker. Example: BTC ⚠ Currency ticker should not be fiat and it's "can_deposit" status must be "true". You can find this status in https://whitebit.com/api/v4/public/assets respsonse.
+network | String | **Yes, if currency is multinetwork** | Cryptocurrency network. ⚠ If currency has multiple networks like USDT - you need to specify network to be used. You can find ticker networks list in “networks” field from response https://whitebit.com/api/v4/public/assets.
 
 **Request BODY raw:**
 ```json5
