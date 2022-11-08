@@ -1499,7 +1499,8 @@ Available statuses:
             "code": "WBe11f4fce-2a53-4edc-b195-66b693bd77e3ETH",        // code
             "date": 1598296332,                                         // code creation timestamp
             "status": "Activated",                                      // code status
-            "ticker": "ETH"                                             // code ticker
+            "ticker": "ETH",                                            // code ticker
+            "external_id": "cf7c3ff8-5eb0-11ed-9b6a-0242ac120002"       // code external id
         },
         {...}
     ],
@@ -1601,14 +1602,16 @@ Available statuses:
             "code": "WBe11f4fce-2a53-4edc-b195-66b693bd77e3ETH",          // code
             "date": 1598296734,                                           // code activation timestamp
             "status": "Activated",                                        // current code status
-            "ticker": "ETH"                                               // code ticker
+            "ticker": "ETH",                                              // code ticker
+            "external_id": "cf7c3ff8-5eb0-11ed-9b6a-0242ac120002"         // code external id
         },
         {
             "amount": "-0.002",                                           // code amount change; - is created; + is applied
             "code": "WBe11f4fce-2a53-4edc-b195-66b693bd77e3ETH",          // code
             "date": 1598296332,                                           // code creation timestamp
             "status": "Activated",                                        // current code status
-            "ticker": "ETH"                                               // code ticker
+            "ticker": "ETH",                                              // code ticker
+            "external_id": "52995812-5eb1-11ed-9b6a-0242ac120002"         // code external id
         },
         {...}
     ],
