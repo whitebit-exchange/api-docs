@@ -910,21 +910,21 @@ limit | Int | **Yes** | LIMIT is a special clause used to limit records a partic
 offset | Int | **Yes** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 status | Array | **No** | Can be used for filtering transactions by status codes. :heavy_exclamation_mark: Caution: You must use this parameter with appropriate `transactionMethod` and use valid status codes for this method. You can find them below. Example: `"status": [3,7]`
 
-| Deposit status codes: |
-| ------------ |
-| `Successful` - 3 and 7 |
-| `Canceled` - 4 and 9 |
+| Deposit status codes:     |
+|---------------------------|
+| `Successful` - 3, 7       |
+| `Canceled` - 4, 9         |
 | `Unconfirmed by user` - 5 |
-| `Uncredited` - 22 |
-| `Pending` - 15 |
+| `Uncredited` - 22         |
+| `Pending` - 15            |
 
-| Withdraw status codes: |
-| ------------ |
+| Withdraw status codes:                              |
+|-----------------------------------------------------|
 | `Pending` - 1, 2, 6, 10, 11, 12, 13, 14, 15, 16, 17 |
-| `Successful` - 3 and 7 |
-| `Canceled` - 4 |
-| `Unconfirmed by user` - 5 |
-| `Partially successful` - 18 |
+| `Successful` - 3, 7                                 |
+| `Canceled` - 4                                      |
+| `Unconfirmed by user` - 5                           |
+| `Partially successful` - 18                         |
 
 
 **Request BODY raw:**
