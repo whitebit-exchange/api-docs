@@ -1281,7 +1281,8 @@ Response error codes:
 ```json5
 {
     "code": "WBe11f4fce-2a53-4edc-b195-66b693bd77e3ETH",         // generated WhiteBIT code
-    "message": "Code was successfully created"
+    "message": "Code was successfully created",
+    "external_id": "be08a482-5faf-11ed-9b6a-0242ac120002"
 }
 
 ```
@@ -1424,7 +1425,8 @@ Available statuses:
 {
     "message": "Code was successfully applied",
     "ticker": "ETH",
-    "amount": "0.002"
+    "amount": "0.002",
+    "external_id": "be08a482-5faf-11ed-9b6a-0242ac120002"
 }
 
 ```
