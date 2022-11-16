@@ -226,7 +226,7 @@ ___
 ### Orderbook
 
 ```
-[GET] /v2/public/depth/{market}
+[GET] /api/v2/public/depth/{market}
 ```
 This endpoint retrievs the current order book as two arrays (bids / asks).
 
