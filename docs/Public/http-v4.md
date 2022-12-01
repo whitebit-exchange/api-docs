@@ -4,6 +4,7 @@
 
 * [Ticker](#market-activity)
 * [Assets](#asset-status-list)
+* [Market info](#market-info)
 * [Orderbook](#orderbook)
 * [Recent Trades](#recent-trades)
 * [Fee](#fee)
@@ -52,7 +53,43 @@ ___
 `Ask` - sell order
 
 ___
+### Market Info
 
+```
+[GET] /api/v4/public/markets
+```
+This endpoint retrieves all information about available spot and futures markets.
+
+**Response is cached for:**
+_1 second_
+
+**Parameters:**
+NONE
+
+**Response:**
+```json5
+[
+    {
+      "name": "SON_USD",         // Market pair name
+      "stock": "SON",            // Ticker of stock currency
+      "money": "USD",            // Ticker of money currency
+      "stockPrec": "3",          // Stock currency precision
+      "moneyPrec": "2",          // Precision of money currency
+      "feePrec": "4",            // Fee precision
+      "makerFee": "0.001",       // Default maker fee ratio
+      "takerFee": "0.001",       // Default taker fee ratio
+      "minAmount": "0.001",      // Minimal amount of stock to trade
+      "minTotal": "0.001",       // Minimal amount of money to trade
+      "tradesEnabled": true,     // Is trading enabled
+      "isCollateral": true,      // Is margin trading enabled
+      "type": "spot"             // Market type. Possible values: "spot", "futures" 
+    },
+    {
+      ...
+    }
+]
+```
+___
 ### Market activity
 
 ```
