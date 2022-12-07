@@ -34,7 +34,7 @@ For receiving responses from API calls please use http method __POST__
 
 #### Error messages V4 format:
 ___
-```json5
+```json
 {
     "code": 0,
     "message": "MESSAGE",
@@ -95,7 +95,7 @@ Name | Type | Mandatory | Description
 ticker | String | **No** | Currency's ticker. Example: BTC
 
 **Request BODY raw:**
-```json5
+```json
 {
     "request": "{{request}}",
     "nonce": "{{nonce}}"
@@ -109,7 +109,7 @@ Available statuses:
 * `Status 200`
 * `Status 400 if request validation failed`
 
-```json5
+```json
 {
     "BSV": {
         "main_balance": "0"           // main balance volume of BSV
@@ -133,7 +133,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -163,7 +163,7 @@ ticker | String | **Yes** | Currencies ticker. Example: BTC ⚠ Currency ticker 
 network | String | **Yes, if currency is multinetwork** | Cryptocurrency network. ⚠ If currency has multiple networks like USDT - you need to specify network to be used. You can find ticker networks list in “networks” field from response https://whitebit.com/api/v4/public/assets.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "ticker": "BTC",
     "request": "{{request}}",
@@ -172,7 +172,7 @@ network | String | **Yes, if currency is multinetwork** | Cryptocurrency network
 ```
 
 **Request BODY (for multinetwork currency) raw:**
-```json5
+```json
 {
     "ticker": "USDT",
     "network": "ERC20",
@@ -187,7 +187,7 @@ Available statuses:
 * `Status 400 if request validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
     "account": {
         "address": "GDTSOI56XNVAKJNJBLJGRNZIVOCIZJRBIDKTWSCYEYNFAZEMBLN75RMN",        // deposit address
@@ -208,7 +208,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -220,7 +220,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -232,7 +232,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -244,7 +244,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -277,7 +277,7 @@ provider | String | **Yes** | Fiat currency provider. Example: VISAMASTER ⚠ Cu
 amount | Numeric String | **Yes** | Deposit amount.
 uniqueId | String | **Yes** | Unique transaction identifier on client's side.
 customer.firstName | String | **Yes, if currency USD or EUR with VISAMASTER provider** | Customer billing first name
-customer.lastName | String | **Yes, if currency USD or EUR with VISAMASTER provider** | Customer billing last name 
+customer.lastName | String | **Yes, if currency USD or EUR with VISAMASTER provider** | Customer billing last name
 customer.email | String | **Yes, if currency USD or EUR with VISAMASTER provider** | Customer billing email
 successLink | String | **No** | Customer will be redirected to this URL by acquiring provider after success deposit. To activate this feature, please contact support
 failureLink | String | **No** | Customer will be redirected to this URL in case of fail or rejection on acquiring provider side. To activate this feature, please contact support
@@ -285,7 +285,7 @@ returnLink | String | **No** | Customer will be redirected to the URL defined if
 
 
 **Request BODY raw:**
-```json5
+```json
 {
     "ticker": "UAH",
     "provider": "VISAMASTER",
@@ -296,7 +296,7 @@ returnLink | String | **No** | Customer will be redirected to the URL defined if
 }
 ```
 **Request BODY with customer fields raw:**
-```json5
+```json
 {
     "ticker": "UAH",
     "provider": "VISAMASTER",
@@ -318,7 +318,7 @@ Available statuses:
 * `Status 400 if request validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
     "url": "https://someaddress.com"                  // address for deposit
 }
@@ -329,7 +329,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -341,7 +341,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -353,7 +353,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -365,7 +365,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -383,14 +383,14 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 10,
     "message": "Failed to generate deposit url"
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -411,7 +411,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -426,14 +426,14 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
   "success": false,
   "message": "You don't have permission to use this endpoint. Please contact support for more details",
   "code": 0
 }
 ```
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -474,10 +474,10 @@ beneficiary | Object | **Yes, if currency ticker is one of: UAH_IBAN, USD_VISAMA
 beneficiary.firstName | String | **Yes, if currency ticker is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR** | Beneficiary first name. Max length: 40 symbols, latin letters and special characters.
 beneficiary.lastName | String | **Yes, if currency ticker is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR** | Beneficiary last name. Max length: 40 symbols, latin letters and special characters.
 beneficiary.tin | Integer | **Yes, if currency is UAH_IBAN** | Beneficiary TAX payer number. Integer, 10 digits.
-beneficiary.phone | String | **Yes, if currency ticker is one of: USD_VISAMASTER, EUR_VISAMASTER** | Beneficiary phone number. 
+beneficiary.phone | String | **Yes, if currency ticker is one of: USD_VISAMASTER, EUR_VISAMASTER** | Beneficiary phone number.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "ticker": "ETH",
     "amount": "0.9",
@@ -489,7 +489,7 @@ beneficiary.phone | String | **Yes, if currency ticker is one of: USD_VISAMASTER
 ```
 
 **Request BODY (for multinetwork currency) raw:**
-```json5
+```json
 {
     "ticker": "USDT",
     "amount": "0.9",
@@ -502,7 +502,7 @@ beneficiary.phone | String | **Yes, if currency ticker is one of: USD_VISAMASTER
 ```
 
 **Request BODY (for fiat currency) raw:**
-```json5
+```json
 {
     "ticker": "UAH",
     "amount": "100",
@@ -514,7 +514,7 @@ beneficiary.phone | String | **Yes, if currency ticker is one of: USD_VISAMASTER
 ```
 
 **Request BODY (for fiat currency with partialEnable) raw:**
-```json5
+```json
 {
     "ticker": "UAH",
     "amount": "50000",
@@ -528,7 +528,7 @@ beneficiary.phone | String | **Yes, if currency ticker is one of: USD_VISAMASTER
 ```
 
 **Request BODY (for fiat IBAN currency) raw:**
-```json5
+```json
 {
     "ticker": "UAH",
     "amount": "50000",
@@ -545,7 +545,7 @@ beneficiary.phone | String | **Yes, if currency ticker is one of: USD_VISAMASTER
 }
 ```
 **Request BODY (for fiat USD_VISAMASTER, EUR_VISAMASTER payment providers) raw:**
-```json5
+```json
 {
     "ticker": "USD",
     "amount": "30000",
@@ -579,7 +579,7 @@ Response error codes:
    * 8 - target withdraw amount without fee equals zero
    * 9 - address is unavailable (occurs for withdraws to own address)
 
-```json5
+```json
 [
                                 // empty array - has success status - go to deposit/withdraw history and check you request status by uniqueId
 ]
@@ -587,7 +587,7 @@ Response error codes:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -608,7 +608,7 @@ Response error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -620,7 +620,7 @@ Response error codes:
 }
 ```
 Errors for unconfirmed users (without KYC):
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -633,7 +633,7 @@ Errors for unconfirmed users (without KYC):
 }
 ```
 Also, fiat currencies can't be withdrawn without KYC:
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -645,7 +645,7 @@ Also, fiat currencies can't be withdrawn without KYC:
 }
 ```
 
-```json5
+```json
 {
     "code": 2,
     "message": "Inner validation failed",
@@ -657,7 +657,7 @@ Also, fiat currencies can't be withdrawn without KYC:
 }
 ```
 
-```json5
+```json
 {
     "code": 5,
     "message": "Inner validation failed",
@@ -669,7 +669,7 @@ Also, fiat currencies can't be withdrawn without KYC:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -681,7 +681,7 @@ Also, fiat currencies can't be withdrawn without KYC:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -693,7 +693,7 @@ Also, fiat currencies can't be withdrawn without KYC:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -705,7 +705,7 @@ Also, fiat currencies can't be withdrawn without KYC:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -747,13 +747,13 @@ This endpoint transfers the specified amount between main and trade balances
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 method | String | **No** if **from** and **to** are set | Method We highly recommend to use **from** and **to** fields, which provides more flexibility. This way will be deprecated in future. Example: **deposit** if you need to transfer from main to trade / **withdraw** if you need to transfer from trade balance to main. For collateral balances you can use **collateral-deposit** to transfer from main to collateral balance and **collateral-withdraw** to transfer from collateral balance to main
-from | String | **No** if **method** is set | Balance FROM which funds will move to. Acceptable values: **main**, **spot**, **collateral** 
+from | String | **No** if **method** is set | Balance FROM which funds will move to. Acceptable values: **main**, **spot**, **collateral**
 to | String | **No** if **method** is set | Balance TO which funds will move to. Acceptable values: **main**, **spot**, **collateral**
-ticker | String | **Yes** | Currency's ticker. Example: BTC 
+ticker | String | **Yes** | Currency's ticker. Example: BTC
 amount | Numeric string | **Yes** | Amount to transfer. Max precision = 8, value should be greater than zero and less or equal your available balance.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "ticker": "XLM",
     "amount": "0.9",
@@ -774,7 +774,7 @@ Response error codes:
    * 2 - transfers from main to trade are disabled
    * 3 - not enough balance
 
-```json5
+```json
 [
                                 // empty array - has success status
 ]
@@ -782,7 +782,7 @@ Response error codes:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -800,7 +800,7 @@ Response error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -812,7 +812,7 @@ Response error codes:
 }
 ```
 Errors for unconfirmed users (without KYC):
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -825,7 +825,7 @@ Errors for unconfirmed users (without KYC):
 }
 ```
 Also, fiat currencies can't be withdrawn without KYC:
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -837,7 +837,7 @@ Also, fiat currencies can't be withdrawn without KYC:
 }
 ```
 
-```json5
+```json
 {
     "code": 3,
     "message": "Inner validation failed",
@@ -849,7 +849,7 @@ Also, fiat currencies can't be withdrawn without KYC:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -861,7 +861,7 @@ Also, fiat currencies can't be withdrawn without KYC:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -873,7 +873,7 @@ Also, fiat currencies can't be withdrawn without KYC:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -928,7 +928,7 @@ status | Array | **No** | Can be used for filtering transactions by status codes
 
 
 **Request BODY raw:**
-```json5
+```json
 {
     "transactionMethod": "1",
     "ticker": "BTC",
@@ -952,7 +952,7 @@ Response error codes:
 * 3 - not enough balance
 
 
-```json5
+```json
 {
     "limit": 100,
     "offset": 0,
@@ -995,7 +995,7 @@ Response error codes:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1013,7 +1013,7 @@ Response error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1025,7 +1025,7 @@ Response error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1037,7 +1037,7 @@ Response error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1052,7 +1052,7 @@ Response error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1067,7 +1067,7 @@ Response error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1082,7 +1082,7 @@ Response error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1122,7 +1122,7 @@ LTC | p2sh-segwit, bech32 | bech32
 
 
 **Request BODY raw:**
-```json5
+```json
 {
     "ticker": "XLM",
     "request": "{{request}}",
@@ -1131,7 +1131,7 @@ LTC | p2sh-segwit, bech32 | bech32
 ```
 
 **Request BODY (for multinetwork currency) raw:**
-```json5
+```json
 {
     "ticker": "USDT",
     "network": "ERC20",
@@ -1141,7 +1141,7 @@ LTC | p2sh-segwit, bech32 | bech32
 ```
 
 **Request BODY (for BTC with specific address type):**
-```json5
+```json
 {
     "ticker": "BTC",
     "type": "bech32",
@@ -1156,7 +1156,7 @@ Available statuses:
 * `Status 400 if request validation failed`
 * `Status 422 if inner validation failed`
 
-```json5
+```json
 {
     "account": {
         "address": "GDTSOI56XNVAKJNJBLJGRNZIVOCIZJRBIDKTWSCYEYNFAZEMBLN75RMN",        // deposit address
@@ -1178,7 +1178,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1190,7 +1190,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1202,7 +1202,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1214,7 +1214,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1252,7 +1252,7 @@ passphrase | String | **No** | Passphrase that will be used for applying codes. 
 description | String | **No** | Additional text description for code. Visible only for creator Max: 75 symbols.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "ticker" : "ETH",
     "amount" : "0.002",
@@ -1278,7 +1278,7 @@ Response error codes:
 * 5 - not enough balance
 * 6 - amount is less than or equals fee
 
-```json5
+```json
 {
     "code": "WBe11f4fce-2a53-4edc-b195-66b693bd77e3ETH",         // generated WhiteBIT code
     "message": "Code was successfully created",
@@ -1289,7 +1289,7 @@ Response error codes:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1304,7 +1304,7 @@ Response error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1326,7 +1326,7 @@ Response error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1347,7 +1347,7 @@ Response error codes:
 }
 ```
 Errors for unconfirmed users (without KYC):
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1360,7 +1360,7 @@ Errors for unconfirmed users (without KYC):
 }
 ```
 Also, fiat currencies can't be withdrawn without KYC:
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1372,7 +1372,7 @@ Also, fiat currencies can't be withdrawn without KYC:
 }
 ```
 Passphrase must contain only latin letters, numbers and symbols (like !@#$%^, no whitespaces)
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1405,7 +1405,7 @@ code | String | **Yes** | Code that will be applied.
 passphrase | String | **No** | Should be provided if the code was created with passphrase Max: 25 symbols.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "code" : "WBe11f4fce-2a53-4edc-b195-66b693bd77e3ETH",
     "passphrase": "some passphrase",
@@ -1421,7 +1421,7 @@ Available statuses:
 * `Status 422 if inner validation failed`
 
 
-```json5
+```json
 {
     "message": "Code was successfully applied",
     "ticker": "ETH",
@@ -1433,7 +1433,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1445,7 +1445,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1478,7 +1478,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 
 
 **Request BODY raw:**
-```json5
+```json
 {
     "request": "{{request}}",
     "nonce": "{{nonce}}"
@@ -1492,7 +1492,7 @@ Available statuses:
 * `Status 422 if inner validation failed`
 
 
-```json5
+```json
 {
     "total": 15,
     "data": [
@@ -1515,7 +1515,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1530,7 +1530,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1545,7 +1545,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1581,7 +1581,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 
 
 **Request BODY raw:**
-```json5
+```json
 {
     "request": "{{request}}",
     "nonce": "{{nonce}}"
@@ -1595,7 +1595,7 @@ Available statuses:
 * `Status 422 if inner validation failed`
 
 
-```json5
+```json
 {
     "total": 29,
     "data": [
@@ -1627,7 +1627,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1642,7 +1642,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1657,7 +1657,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1697,7 +1697,7 @@ Name | Type | Mandatory | Description
 ticker | String | **No** | Invest plan source currency's ticker. Example: BTC
 
 **Request BODY raw:**
-```json5
+```json
 {
     "ticker": "USDT",
     "request": "{{request}}",
@@ -1711,7 +1711,7 @@ Available statuses:
 * `Status 200`
 * `Status 400 if request validation failed`
 
-```json5
+```json
 [
   {
     "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51", // Invest plan identifier
@@ -1731,7 +1731,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1770,7 +1770,7 @@ planId | String | **Yes** | Invest plan identifier
 amount | Numeric String | **Yes** | Investment amount
 
 **Request BODY raw:**
-```json5
+```json
 {
     "planId": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
     "amount": "100",
@@ -1786,7 +1786,7 @@ Available statuses:
 * `Status 400 if request validation failed`
 * `Status 422 if inner validation failed`
 
-```json5
+```json
 {
   "id": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5" // Investment identifier
 }
@@ -1797,7 +1797,7 @@ Available statuses:
 
 Request validation exceptions
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1813,7 +1813,7 @@ Request validation exceptions
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1825,7 +1825,7 @@ Request validation exceptions
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1837,7 +1837,7 @@ Request validation exceptions
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1849,7 +1849,7 @@ Request validation exceptions
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1861,7 +1861,7 @@ Request validation exceptions
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1873,7 +1873,7 @@ Request validation exceptions
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1885,7 +1885,7 @@ Request validation exceptions
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1900,7 +1900,7 @@ Request validation exceptions
 Inner validation exceptions
 
 When investment already exists, and you don't have permissions to create multiple investments by plan
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -1913,7 +1913,7 @@ When investment already exists, and you don't have permissions to create multipl
 ```
 
 When amount is less than min investment amount
-```json5
+```json
 {
     "code": 2,
     "message": "Inner validation failed",
@@ -1926,7 +1926,7 @@ When amount is less than min investment amount
 ```
 
 When amount is greater than max investment amount
-```json5
+```json
 {
     "code": 3,
     "message": "Inner validation failed",
@@ -1939,7 +1939,7 @@ When amount is greater than max investment amount
 ```
 
 When there is not enough balance to create investment
-```json5
+```json
 {
     "code": 4,
     "message": "Inner validation failed",
@@ -1952,7 +1952,7 @@ When there is not enough balance to create investment
 ```
 
 When there are no funds in plan to cover target interest amount
-```json5
+```json
 {
     "code": 5,
     "message": "Inner validation failed",
@@ -1983,7 +1983,7 @@ Name | Type | Mandatory | Description
 id | String | **Yes** | Investment identifier
 
 **Request BODY raw:**
-```json5
+```json
 {
     "id": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5",
     "request": "{{request}}",
@@ -1997,14 +1997,14 @@ Available statuses:
 * `Status 200`
 * `Status 400 if request validation failed`
 
-```json5
+```json
 {}
 ```
 
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -2039,7 +2039,7 @@ limit | Int | **No** | LIMIT is a special clause used to limit records a particu
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
 **Request BODY raw:**
-```json5
+```json
 {
     "id": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5",
     "ticker": "USDT",
@@ -2055,7 +2055,7 @@ Available statuses:
 * `Status 200`
 * `Status 400 if request validation failed`
 
-```json5
+```json
 {
     "offset": 0,
     "limit": 100,
@@ -2088,7 +2088,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -2129,7 +2129,7 @@ limit | Int | **No** | LIMIT is a special clause used to limit records a particu
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
 **Request BODY raw:**
-```json5
+```json
 {
     "planId": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
     "ticker": "USDT",
@@ -2144,7 +2144,7 @@ Available statuses:
 * `Status 200`
 * `Status 400 if request validation failed`
 
-```json5
+```json
 {
     "offset": 0,
     "limit": 100,
@@ -2163,7 +2163,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -2186,7 +2186,7 @@ Available statuses:
 
 This API provides an endpoint for getting deposit/withdrawal fees and limits by all currencies
 
-### Get fees 
+### Get fees
 
 Returns an array of objects containing deposit/withdrawal settings for the corresponding currencies.
 Zero value in amount fields means that the setting is disabled.
@@ -2200,7 +2200,7 @@ Zero value in amount fields means that the setting is disabled.
 Available statuses:
 * `Status 200`
 
-```json5
+```json
 [
   {
     "ticker": "BTC",          // Ticker

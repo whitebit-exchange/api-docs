@@ -1,6 +1,3 @@
-# Dependencies
-/node_modules
-
 # Production
 /build
 .idea
@@ -19,3 +16,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.next
+node_modules

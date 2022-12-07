@@ -40,7 +40,7 @@ The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSoc
 
 All endpoints return time in Unix-time format.
 
-## :arrow_heading_up: Request message
+## ⤴️ Request message
 
 JSON Structure of request message:
 
@@ -55,7 +55,7 @@ JSON Structure of request message:
 * Query (`ping`, `candles_request`, etc)
 * Subscription (`candles_subscribe`, `lastprice_subscribe`, etc). Repeated subscription will be cancelled for the same data type.
 
-## :arrow_heading_down: Response message
+## ⤵️ Response message
 
 JSON Structure of response message:
 
@@ -85,7 +85,7 @@ Code | Message
 
 **Example** messages for request with response:
 
-#### :arrow_heading_up: Request:
+#### ⤴️ Request:
 
 ```json
 {
@@ -95,7 +95,7 @@ Code | Message
 }
 ```
 
-#### :arrow_heading_down: Response:
+#### ⤵️ Response:
 ```json
 {
     "id": 0,
@@ -106,7 +106,7 @@ Code | Message
 
 **Example** subscription:
 
-#### :arrow_heading_up: Request:
+#### ⤴️ Request:
 
 ```json
 {
@@ -116,7 +116,7 @@ Code | Message
 }
 ```
 
-#### :arrow_heading_down: Response:
+#### ⤵️ Response:
 ```json
 {
     "id": 0,
@@ -127,8 +127,8 @@ Code | Message
 }
 ```
 
-#### :arrows_counterclockwise: Update events:
-```json5
+#### 🔄 Update events:
+```json
 {
     "id": null,
     "method": "candles_update",
@@ -144,7 +144,7 @@ Code | Message
 
 #### Ping
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
 ```json
 {
@@ -154,7 +154,7 @@ Code | Message
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -166,7 +166,7 @@ Code | Message
 
 #### Time
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
 ```json
 {
@@ -176,7 +176,7 @@ Code | Message
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -200,9 +200,9 @@ The requested interval must meet the following conditions:
    * Equal to 86400 * 7;
    * Equal to 86400 * 30.
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 2,
     "method": "candles_request",
@@ -215,9 +215,9 @@ The requested interval must meet the following conditions:
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
-```json5
+```json
 {
     "id": 2,
     "result": [
@@ -239,9 +239,9 @@ The requested interval must meet the following conditions:
 
 #### Subscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 3,
     "method": "candles_subscribe",
@@ -252,7 +252,7 @@ The requested interval must meet the following conditions:
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -264,9 +264,9 @@ The requested interval must meet the following conditions:
 }
 ```
 
-##### :arrows_counterclockwise: Update events:
+##### 🔄 Update events:
 
-```json5
+```json
 {
     "id": null,
     "method": "candles_update",
@@ -285,9 +285,9 @@ The requested interval must meet the following conditions:
 
 #### Unsubscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 4,
     "method": "candles_unsubscribe",
@@ -295,7 +295,7 @@ The requested interval must meet the following conditions:
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -313,9 +313,9 @@ The requested interval must meet the following conditions:
 
 #### Query
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 5,
     "method": "lastprice_request",
@@ -325,9 +325,9 @@ The requested interval must meet the following conditions:
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
-```json5
+```json
 {
     "id": 5,
     "result": "0.020553",
@@ -337,9 +337,9 @@ The requested interval must meet the following conditions:
 
 #### Subscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 6,
     "method": "lastprice_subscribe",
@@ -351,7 +351,7 @@ The requested interval must meet the following conditions:
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -363,9 +363,9 @@ The requested interval must meet the following conditions:
 }
 ```
 
-##### :arrows_counterclockwise: Update events:
+##### 🔄 Update events:
 
-```json5
+```json
 {
     "id": null,
     "method": "lastprice_update",
@@ -378,9 +378,9 @@ The requested interval must meet the following conditions:
 
 #### Unsubscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 7,
     "method": "lastprice_unsubscribe",
@@ -388,7 +388,7 @@ The requested interval must meet the following conditions:
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -406,9 +406,9 @@ The requested interval must meet the following conditions:
 
 #### Query
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 5,
     "method": "market_request",
@@ -419,9 +419,9 @@ The requested interval must meet the following conditions:
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
-```json5
+```json
 {
     "id": 5,
     "result": {
@@ -443,9 +443,9 @@ The requested interval must meet the following conditions:
 
 You can subscribe only for 86400s (24h from now).
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 6,
     "method": "market_subscribe",
@@ -457,7 +457,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -469,9 +469,9 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### :arrows_counterclockwise: Update events:
+##### 🔄 Update events:
 
-```json5
+```json
 {
     "id": null,
     "method": "market_update",
@@ -493,9 +493,9 @@ You can subscribe only for 86400s (24h from now).
 
 #### Unsubscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 7,
     "method": "market_unsubscribe",
@@ -503,7 +503,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -521,9 +521,9 @@ You can subscribe only for 86400s (24h from now).
 
 #### Query
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 14,
     "method": "marketToday_query",
@@ -533,9 +533,9 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
-```json5
+```json
 {
     "id": 14,
     "result": {
@@ -553,9 +553,9 @@ You can subscribe only for 86400s (24h from now).
 
 #### Subscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 15,
     "method": "marketToday_subscribe",
@@ -567,7 +567,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -579,9 +579,9 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### :arrows_counterclockwise: Update events:
+##### 🔄 Update events:
 
-```json5
+```json
 {
     "id": null,
     "method": "marketToday_update",
@@ -601,9 +601,9 @@ You can subscribe only for 86400s (24h from now).
 
 #### Unsubscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 16,
     "method": "marketToday_unsubscribe",
@@ -611,7 +611,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -629,9 +629,9 @@ You can subscribe only for 86400s (24h from now).
 
 #### Query
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 8,
     "method": "trades_request",
@@ -643,9 +643,9 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
-```json5
+```json
 {
     "id": 8,
     "result": [
@@ -667,9 +667,9 @@ You can subscribe only for 86400s (24h from now).
 
 :heavy_exclamation_mark: For each websocket connection, you can subscribe only to one market. Every following subscription will replace the existing one.
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 9,
     "method": "trades_subscribe",
@@ -681,7 +681,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -693,9 +693,9 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### :arrows_counterclockwise: Update events:
+##### 🔄 Update events:
 
-```json5
+```json
 {
     "id": null,
     "method": "trades_update",
@@ -717,9 +717,9 @@ You can subscribe only for 86400s (24h from now).
 
 #### Unsubscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 10,
     "method": "trades_unsubscribe",
@@ -727,7 +727,7 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -745,9 +745,9 @@ You can subscribe only for 86400s (24h from now).
 
 #### Query
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 11,
     "method": "depth_request",
@@ -759,9 +759,9 @@ You can subscribe only for 86400s (24h from now).
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
-```json5
+```json
 {
     "id": 11,
     "result": {
@@ -781,9 +781,9 @@ You can subscribe only for 86400s (24h from now).
 
 #### Subscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 12,
     "method": "depth_subscribe",
@@ -798,7 +798,7 @@ You can subscribe only for 86400s (24h from now).
 
 The last parameter - Multiple subscription flag - allows you to subscribe to market depths as many markets as you want. The only restriction is one subscription with specific parameters per market.
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -810,9 +810,9 @@ The last parameter - Multiple subscription flag - allows you to subscribe to mar
 }
 ```
 
-##### :arrows_counterclockwise: Update events:
+##### 🔄 Update events:
 
-```json5
+```json
 {
     "id": null,
     "method": "depth_update",
@@ -835,9 +835,9 @@ The last parameter - Multiple subscription flag - allows you to subscribe to mar
 
 #### Unsubscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 13,
     "method": "depth_unsubscribe",
@@ -845,7 +845,7 @@ The last parameter - Multiple subscription flag - allows you to subscribe to mar
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {

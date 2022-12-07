@@ -34,7 +34,7 @@ With every request you need to provide next **headers**:
 ### Examples of auth
 
 To help you get started with our API, we've created the [API Quick start helper](https://github.com/whitebit-exchange/api-quickstart) library. It supports the following languages:
-```json5
+```json
 1. Python
 2. PHP
 3. JavaScript
@@ -50,7 +50,7 @@ To help you get started with our API, we've created the [API Quick start helper]
 **"Too many requests."** - this error occurs if the **“nonce”** in your current request is equal or is lower than the one in the previous request.
 
 ___
-```json5
+```json
 {
     "message": [
         [
@@ -66,7 +66,7 @@ ___
 **"This action is unauthorized. Enable your key in API settings"** - this error occurs when you are using disabled API key. You can enable your API key in account API settings https://whitebit.com/settings/api. Note: Your API key is disabled automatically after disabling 2FA. Also, the API key will be disabled if the request is received from unknown IP (if IP access restrictions are turned on).
 
 ___
-```json5
+```json
 {
     "message": [
         [
@@ -82,7 +82,7 @@ ___
 **"You don't have permission to use this endpoint. Please contact support for more details"** - this error occurs when you are using an endpoint that is disabled for a specific API key in API key settings. You can enable endpoint by editing "Endpoint access restrictions" for this API key in account settings https://whitebit.com/settings/api.
 
 ___
-```json5
+```json
 {
     "message": [
         [
@@ -97,7 +97,7 @@ ___
 
 **"Invalid payload"** - this error occurs when the data that was provided in the body of the request doesn't match the **base64-decoded** payload.
 ___
-```json5
+```json
 {
      "message": [
          [
@@ -111,7 +111,7 @@ ___
 ___
 **"Unauthorized request."** - this error occurs if the request was signed incorrectly.
 ___
-```json5
+```json
 {
     "message": [
         [
@@ -125,7 +125,7 @@ ___
 ___
 **"Nonce not provided."** - this error occurs if your request is missing **"nonce"** in the request body.
 ___
-```json5
+```json
 {
     "message": [
         [
@@ -139,7 +139,7 @@ ___
 ---
 **"Your nonce is more than 5 seconds lesser than the current nonce"** - this error occurs if **nonceWindow** set to true, but you passed not a valid timestamp in **nonce** - it should be current timestamp in milliseconds.
 ___
-```json5
+```json
 {
     "message": [
         [
@@ -153,7 +153,7 @@ ___
 ---
 **"Invalid nonceWindow."** - this error occurs if **nonceWindow** is not boolean.
 ___
-```json5
+```json
 {
     "message": [
         [
@@ -167,7 +167,7 @@ ___
 ___
 **"Request not provided."** - this error occurs if your request is missing **"request"** path in the request body.
 ___
-```json5
+```json
 {
     "message": [
         [

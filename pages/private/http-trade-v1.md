@@ -26,7 +26,7 @@ For receiving responses from API calls please use http method __POST__
 
 #### Error messages V1 format:
 ___
-```json5
+```json
 {
     "code": 0,
     "message": "MESSAGE",
@@ -78,7 +78,7 @@ Name | Type | Mandatory | Description
 currency | String | **Yes** | Currency's ticker. Example: BTC
 
 **Request BODY raw:**
-```json5
+```json
 {
     "currency": "BTC",
     "request": "{{request}}",
@@ -87,7 +87,7 @@ currency | String | **Yes** | Currency's ticker. Example: BTC
 ```
 
 **Response:**
-```json5
+```json
 {
     "available": "0.2",    // Available balance of currency for trading
     "freeze": "1.02"       // Balance of currency on orders
@@ -97,13 +97,13 @@ currency | String | **Yes** | Currency's ticker. Example: BTC
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "message": "Currency not found"
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -130,7 +130,7 @@ This endpoint retrieves all available balances for trading.
 NONE
 
 **Request BODY raw:**
-```json5
+```json
 {
     "request": "{{request}}",
     "nonce": "{{nonce}}"
@@ -138,7 +138,7 @@ NONE
 ```
 
 **Response:**
-```json5
+```json
 {
     "success": true,
     "message": "",
@@ -214,7 +214,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "buy",
@@ -227,7 +227,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 ```
 
 **Response:**
-```json5
+```json
 {
     "orderId": 4180284841,             // order id
     "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
@@ -248,7 +248,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -269,7 +269,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -281,7 +281,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -293,7 +293,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -305,7 +305,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -317,7 +317,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -329,7 +329,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -345,7 +345,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -358,7 +358,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -371,7 +371,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -384,7 +384,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -418,7 +418,7 @@ market | String | **Yes** | Available market. Example: BTC_USDT
 orderId | Int | **Yes** | Order Id. Example: 4180284841
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "orderId": 4180284841,
@@ -428,7 +428,7 @@ orderId | Int | **Yes** | Order Id. Example: 4180284841
 ```
 
 **Response:**
-```json5
+```json
 {
     "amount": "0.001",                 // amount
     "dealFee": "0",                    // fee in money that you pay if order is finished
@@ -449,7 +449,7 @@ orderId | Int | **Yes** | Order Id. Example: 4180284841
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -464,7 +464,7 @@ orderId | Int | **Yes** | Order Id. Example: 4180284841
 }
 ```
 
-```json5
+```json
 {
     "code": 2,
     "message": "Inner validation failed",
@@ -476,7 +476,7 @@ orderId | Int | **Yes** | Order Id. Example: 4180284841
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -488,7 +488,7 @@ orderId | Int | **Yes** | Order Id. Example: 4180284841
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -500,7 +500,7 @@ orderId | Int | **Yes** | Order Id. Example: 4180284841
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -536,7 +536,7 @@ limit | Int | **No** | LIMIT is a special clause used to limit records a particu
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "offset": 0,
@@ -547,7 +547,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 ```
 
 **Response:**
-```json5
+```json
 [
     {
         "orderId": 3686033640,            // unexecuted order ID
@@ -572,7 +572,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -584,7 +584,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -596,7 +596,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -611,7 +611,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -626,7 +626,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -664,7 +664,7 @@ limit | Int | **No** | LIMIT is a special clause used to limit records a particu
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
 **Request BODY raw:**
-```json5
+```json
 {
     "offset": 0,
     "limit": 100,
@@ -674,7 +674,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 ```
 
 **Response:**
-```json5
+```json
 {
     "success": true,
     "message": "",
@@ -710,7 +710,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "success": false,
     "message": {
@@ -723,7 +723,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -738,7 +738,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -753,7 +753,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -790,7 +790,7 @@ limit | Int | **No** | LIMIT is a special clause used to limit records that a pa
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "offset": 0,
@@ -801,7 +801,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 ```
 
 **Response:**
-```json5
+```json
 {
     "success": true,
     "message": "",
@@ -826,7 +826,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "success": false,
     "message": {
@@ -839,7 +839,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 }
 ```
 
-```json5
+```json
 {
     "success": false,
     "message": {
@@ -851,7 +851,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -866,7 +866,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -903,7 +903,7 @@ limit | Int | **No** | LIMIT is a special clause used to limit records a particu
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
 **Request BODY raw:**
-```json5
+```json
 {
     "offset": 0,
     "limit": 100,
@@ -913,7 +913,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 ```
 
 **Response:**
-```json5
+```json
 {
     "success": true,
     "message": "",
@@ -943,7 +943,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "success": false,
     "message": {
@@ -956,7 +956,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 }
 ```
 
-```json5
+```json
 {
     "success": false,
     "message": {
@@ -968,7 +968,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -983,7 +983,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
@@ -1020,7 +1020,7 @@ limit | Int | **No** | LIMIT is a special clause used to limit records a particu
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
 **Request BODY raw:**
-```json5
+```json
 {
     "orderId": 3135554375,
     "offset": 0,
@@ -1033,7 +1033,7 @@ offset | Int | **No** | If you want the request to return entries starting from 
 **Response:**
 
 Empty response if order is not yours
-```json5
+```json
 {
     "success": true,
     "message": "",
@@ -1061,7 +1061,7 @@ Empty response if order is not yours
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "success": false,
     "message": {
@@ -1073,7 +1073,7 @@ Empty response if order is not yours
 }
 ```
 
-```json5
+```json
 {
     "success": false,
     "message": {
@@ -1085,7 +1085,7 @@ Empty response if order is not yours
 }
 ```
 
-```json5
+```json
 {
     "success": false,
     "message": {
@@ -1100,7 +1100,7 @@ Empty response if order is not yours
 }
 ```
 
-```json5
+```json
 {
     "code": 0,
     "message": "Validation failed",
