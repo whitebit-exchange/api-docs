@@ -24,7 +24,7 @@
   * [Position History](#positions-history)
   * [Change Collateral Account Leverage](#change-collateral-account-leverage)
 
-    
+
 Base URL is https://whitebit.com
 
 Endpoint example: https://whitebit.com/api/v4/{endpoint}
@@ -37,7 +37,7 @@ For receiving responses from API calls please use http method __POST__
 
 #### Error messages V4 format:
 ___
-```json5
+```json
 {
     "code": 0,
     "message": "MESSAGE",
@@ -93,7 +93,7 @@ Name | Type | Mandatory | Description
 ticker | String | **No** | Currency's ticker. Example: BTC
 
 **Request BODY raw:**
-```json5
+```json
 {
     "request": "{{request}}",
     "nonce": "{{nonce}}"
@@ -109,7 +109,7 @@ Available statuses:
 * `Status 400 if inner validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
     "...": {...},
     "BTC": {
@@ -128,7 +128,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -140,7 +140,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -152,7 +152,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -185,7 +185,7 @@ clientOrderId | String        | **No** | Identifier should be unique and contain
 postOnly | boolean       | **No** | Orders are guaranteed to be the maker order when executed. Variables: 'true' / 'false' Example: 'false'.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "buy",
@@ -205,7 +205,7 @@ Available statuses:
 * `Status 422 if request validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
     "orderId": 4180284841,             // order id
     "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
@@ -235,7 +235,7 @@ Error codes:
 * `35` - incorrect maker fee (it is less than zero or its precision is too big)
 * `36` - clientOrderId validation failed
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -256,7 +256,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -268,7 +268,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -280,7 +280,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 33,
     "message": "Validation failed",
@@ -292,7 +292,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 31,
     "message": "Validation failed",
@@ -304,7 +304,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -316,7 +316,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -330,7 +330,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -343,7 +343,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -356,7 +356,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -368,7 +368,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -380,7 +380,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -393,7 +393,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
   "code": 33,
   "message": "Validation failed",
@@ -406,7 +406,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 33,
   "message": "Validation failed",
@@ -418,7 +418,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 34,
   "message": "Validation failed",
@@ -430,7 +430,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 35,
   "message": "Validation failed",
@@ -443,7 +443,7 @@ Error codes:
 ```
 
 
-```json5
+```json
 {
     "code": 10,
     "message": "Inner validation failed",
@@ -455,7 +455,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -467,7 +467,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 11,
     "message": "Inner validation failed",
@@ -479,7 +479,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 13,
     "message": "Inner validation failed",
@@ -512,7 +512,7 @@ amount | String/Number | **Yes** | ⚠️ Amount of money currency to buy or amo
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "buy",
@@ -523,7 +523,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 }
 ```
 
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "sell",
@@ -541,7 +541,7 @@ Available statuses:
 * `Status 422 if request validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
     "orderId": 4180284841,             // order id
     "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
@@ -568,7 +568,7 @@ Error codes:
 * `34` - incorrect taker fee (it is less than zero or its precision is too big)
 * `36` - clientOrderId validation failed
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -586,7 +586,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 30,
   "message": "Validation failed",
@@ -598,7 +598,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -610,7 +610,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 31,
     "message": "Validation failed",
@@ -622,7 +622,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -634,7 +634,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -647,7 +647,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -661,7 +661,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -674,7 +674,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -687,7 +687,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -700,7 +700,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -713,7 +713,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
   "code": 32,
   "message": "Validation failed",
@@ -726,7 +726,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
   "code": 32,
   "message": "Validation failed",
@@ -739,7 +739,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
   "code": 34,
   "message": "Validation failed",
@@ -752,7 +752,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 10,
     "message": "Inner validation failed",
@@ -765,7 +765,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -778,7 +778,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 11,
     "message": "Inner validation failed",
@@ -811,7 +811,7 @@ amount | String/Number | **Yes** | ⚠️ Amount in stock currency for buy or se
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "buy",
@@ -829,7 +829,7 @@ Available statuses:
 * `Status 422 if request validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
     "orderId": 4180284841,             // order id
     "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
@@ -856,7 +856,7 @@ Error codes:
 * `34` - incorrect taker fee (it is less than zero or its precision is too big)
 * `36` - clientOrderId validation failed
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -874,7 +874,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 30,
   "message": "Validation failed",
@@ -886,7 +886,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -898,7 +898,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 31,
     "message": "Validation failed",
@@ -910,7 +910,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -922,7 +922,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -935,7 +935,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -949,7 +949,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -962,7 +962,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -975,7 +975,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -988,7 +988,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
   "code": 32,
   "message": "Validation failed",
@@ -1001,7 +1001,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
   "code": 34,
   "message": "Validation failed",
@@ -1014,7 +1014,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 10,
     "message": "Inner validation failed",
@@ -1027,7 +1027,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -1040,7 +1040,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
   "code": 11,
   "message": "Inner validation failed",
@@ -1075,7 +1075,7 @@ activation_price | String/Number | **Yes** | Activation price in money currency.
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "buy",
@@ -1095,7 +1095,7 @@ Available statuses:
 * `Status 422 if request validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
     "orderId": 4180284841,             // order id
     "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
@@ -1126,7 +1126,7 @@ Error codes:
 * `35` - incorrect maker fee (it is less than zero or its precision is too big)
 * `36` - clientOrderId validation failed
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1150,7 +1150,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 30,
   "message": "Validation failed",
@@ -1162,7 +1162,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -1174,7 +1174,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 33,
     "message": "Validation failed",
@@ -1186,7 +1186,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 31,
     "message": "Validation failed",
@@ -1198,7 +1198,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -1210,7 +1210,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -1222,7 +1222,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -1235,7 +1235,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1247,7 +1247,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -1259,7 +1259,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -1272,7 +1272,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -1285,7 +1285,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
   "code": 32,
   "message": "Validation failed",
@@ -1298,7 +1298,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
   "code": 33,
   "message": "Validation failed",
@@ -1311,7 +1311,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 33,
   "message": "Validation failed",
@@ -1323,7 +1323,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 34,
   "message": "Validation failed",
@@ -1335,7 +1335,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 35,
   "message": "Validation failed",
@@ -1347,7 +1347,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1359,7 +1359,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1371,7 +1371,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1383,7 +1383,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1395,7 +1395,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1407,7 +1407,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1419,7 +1419,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1431,7 +1431,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1443,7 +1443,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 10,
     "message": "Inner validation failed",
@@ -1455,7 +1455,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -1467,7 +1467,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 11,
   "message": "Inner validation failed",
@@ -1501,7 +1501,7 @@ activation_price | String/Number | **Yes** | Activation price in money currency.
 clientOrderId | String        | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "buy",
@@ -1512,7 +1512,7 @@ clientOrderId | String        | **No** | Identifier should be unique and contain
     "nonce": "{{nonce}}"
 }
 ```
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "sell",
@@ -1529,7 +1529,7 @@ Available statuses:
 * `Status 422 if inner validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
     "orderId": 4180284841,             // order id
     "clientOrderId": "order1987111",   // custom order identifier; "clientOrderId": "" - if not specified.
@@ -1557,7 +1557,7 @@ Error codes:
 * `34` - incorrect taker fee (it is less than zero or its precision is too big)
 * `36` - clientOrderId validation failed
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1578,7 +1578,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 30,
   "message": "Validation failed",
@@ -1590,7 +1590,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -1602,7 +1602,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 31,
     "message": "Validation failed",
@@ -1614,7 +1614,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -1626,7 +1626,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -1639,7 +1639,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -1653,7 +1653,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -1666,7 +1666,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -1679,7 +1679,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -1692,7 +1692,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
   "code": 32,
   "message": "Validation failed",
@@ -1705,7 +1705,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
   "code": 34,
   "message": "Validation failed",
@@ -1718,7 +1718,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1730,7 +1730,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1742,7 +1742,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1754,7 +1754,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1766,7 +1766,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1778,7 +1778,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1790,7 +1790,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1802,7 +1802,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1814,7 +1814,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 10,
     "message": "Inner validation failed",
@@ -1826,7 +1826,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -1838,7 +1838,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 11,
   "message": "Inner validation failed",
@@ -1869,7 +1869,7 @@ market | String     | **Yes** | Available market. Example: BTC_USDT
 orderId | String/Int | **Yes** | Order Id. Example: 4180284841 or "4180284841"
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "orderId": 4180284841,
@@ -1887,7 +1887,7 @@ Available statuses:
 * `Status 503 if service temporary unavailable`
 
 
-```json5
+```json
 {
     "orderId": 4180284841,             // order id
     "clientOrderId": "customId11",     // custom order identifier; "clientOrderId": "" - if not specified.
@@ -1910,10 +1910,10 @@ Available statuses:
 <summary><b>Errors:</b></summary>
 
 Error codes:
-* `30` - default validation error code 
+* `30` - default validation error code
 * `31` - market validation failed
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1928,7 +1928,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 31,
     "message": "Validation failed",
@@ -1940,7 +1940,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1952,7 +1952,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -1965,7 +1965,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 2,
     "message": "Inner validation failed",
@@ -1977,7 +1977,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -2010,7 +2010,7 @@ limit | Int | **No** | LIMIT is a special clause used to limit records a particu
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "orderId": "3134995325",              //order Id (optional)
@@ -2029,7 +2029,7 @@ Available statuses:
 * `Status 422 if request validation failed`
 * `Status 400 if inner validation failed`
 * `Status 503 if service temporary unavailable`
-```json5
+```json
 [
     {
         "orderId": 3686033640,            // unexecuted order ID
@@ -2054,7 +2054,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 31,
     "message": "Validation failed",
@@ -2066,7 +2066,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -2078,7 +2078,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -2090,7 +2090,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -2103,7 +2103,7 @@ Available statuses:
 ```
 
 
-```json5
+```json
 {
     "message": "Validation failed",
     "code": 31,
@@ -2115,7 +2115,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2130,7 +2130,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2145,7 +2145,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2160,7 +2160,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -2193,7 +2193,7 @@ limit | Int | **No** | LIMIT is a special clause used to limit records a particu
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
 **Request BODY raw:**
-```json5
+```json
 {
     "clientOrderId": "customId11",      // custom order id; (optional)
     "offset": 0,
@@ -2210,7 +2210,7 @@ Available statuses:
 * `Status 422 if request validation failed`
 * `Status 400 if inner validation failed`
 * `Status 503 if service temporary unavailable`
-```json5
+```json
 {
     "BTC_USDT": [
         {
@@ -2234,7 +2234,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2249,7 +2249,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -2261,7 +2261,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 31,
     "message": "Validation failed",
@@ -2273,7 +2273,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2288,7 +2288,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2303,7 +2303,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -2335,7 +2335,7 @@ limit | Int | **No** | LIMIT is a special clause used to limit records a particu
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
 **Request BODY raw:**
-```json5
+```json
 {
     "orderId": 3135554375,
     "offset": 0,
@@ -2353,7 +2353,7 @@ Available statuses:
 * `Status 400 if inner validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
     "records": [
         {
@@ -2377,7 +2377,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
   "code": 30,
   "message": "Validation failed",
@@ -2389,7 +2389,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2401,7 +2401,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2413,7 +2413,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2428,7 +2428,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2443,7 +2443,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -2455,7 +2455,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -2489,7 +2489,7 @@ limit | Int | **No** | LIMIT is a special clause used to limit records a particu
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",               //optional
     "orderId": "3134995325",            //order Id (optional)
@@ -2510,7 +2510,7 @@ Available statuses:
 * `Status 503 if service temporary unavailable`
 
 Empty response if order is not yours
-```json5
+```json
 {
     "BTC_USDT": [
         {
@@ -2537,7 +2537,7 @@ Empty response if order is not yours
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2552,7 +2552,7 @@ Empty response if order is not yours
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -2564,7 +2564,7 @@ Empty response if order is not yours
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2576,7 +2576,7 @@ Empty response if order is not yours
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2591,7 +2591,7 @@ Empty response if order is not yours
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -2606,7 +2606,7 @@ Empty response if order is not yours
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -2638,7 +2638,7 @@ ticker | String | **No**    | Asset to be filtered. For example: BTC
 
 **Request BODY raw:**
 
-```json5
+```json
 {
     "ticker": "BTC",
     "request": "{{request}}",
@@ -2651,7 +2651,7 @@ Available statuses:
 * `Status 422 if inner validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
     "BTC": 1,
     "USDT": 1000
@@ -2677,7 +2677,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 postOnly | boolean       | **No** | Orders are guaranteed to be the maker order when executed. Variables: true / false Example: false.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "buy",
@@ -2696,7 +2696,7 @@ Available statuses:
 * `Status 422 if inner validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
     "orderId": 4180284841,             // order id
     "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
@@ -2708,7 +2708,7 @@ Available statuses:
     "dealStock": "0",                  // if order finished - amount in stock currency that is finished
     "amount": "0.01",                  // amount
     "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero    
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
     "left": "0.001",                   // if order not finished - rest of the amount that must be finished
     "dealFee": "0",                    // fee in money that you pay if order is finished
     "price": "40000"                   // price
@@ -2749,7 +2749,7 @@ amount | String | **Yes** | ⚠️Amount of **`stock`** currency to **buy** or *
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "buy",
@@ -2760,7 +2760,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
 }
 ```
 
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "sell",
@@ -2777,7 +2777,7 @@ Available statuses:
 * `Status 422 if internal validation failed`
 * `Status 503 if service is temporary unavailable`
 
-```json5
+```json
 {
     "orderId": 4180284841,             // order id
     "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
@@ -2789,7 +2789,7 @@ Available statuses:
     "dealStock": "0",                  // amount in stock currency that finished
     "amount": "0.001",                 // amount
     "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
-    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero    
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - its rounded to zero
     "left": "0.001",                   // rest of amount that must be finished
     "dealFee": "0"                     // fee in money that you pay if order is finished
 }
@@ -2812,437 +2812,10 @@ Detailed information about errors response you can find in  [Create market order
 ---
 ___
 
-### Collateral Stop-Limit Order
-
-```
-[POST] /api/v4/order/collateral/stop-limit
-```
-This endpoint creates collateral stop-limit trading order
-
-**Parameters:**
-
-Name | Type | Mandatory | Description
------------- | ------------ | ------------ | ------------
-market | String | **Yes** | Available market. Example: BTC_USDT
-side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
-amount | String/Number | **Yes** | Amount of stock currency to buy or sell. Example: '0.001' or 0.001
-price | String/Number | **Yes** | Price in money currency. Example: '9800' or 9800
-activation_price | String/Number | **Yes** | Activation price in money currency. Example: '10000' or 10000
-clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
-
-**Request BODY raw:**
-```json5
-{
-    "market": "BTC_USDT",
-    "side": "buy",
-    "amount": "0.001",
-    "price": "40000",
-    "activation_price": "40000",
-    "clientOrderId": "order1987111",
-    "request": "{{request}}",
-    "nonce": "{{nonce}}"
-}
-```
-
-**Response:**
-Available statuses:
-* `Status 200`
-* `Status 400 if inner validation failed`
-* `Status 422 if request validation failed`
-* `Status 503 if service temporary unavailable`
-
-```json5
-{
-    "orderId": 4180284841,             // order id
-    "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
-    "market": "BTC_USDT",              // deal market
-    "side": "buy",                     // order side
-    "type": "stop limit",              // order type
-    "timestamp": 1595792396.165973,    // current timestamp
-    "dealMoney": "0",                  // if order finished - amount in money currency that finished
-    "dealStock": "0",                  // if order finished - amount in stock currency that finished
-    "amount": "0.001",                 // amount
-    "takerFee": "0.001",               // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "left": "0.001",                   // if order not finished - rest of amount that must be finished
-    "dealFee": "0",                    // fee in money that you pay if order is finished
-    "price": "40000",                  // price
-    "activation_price": "40000"        // activation price
-}
-```
-<details>
-<summary><b>Errors:</b></summary>
-
-Error codes:
-* `30` - default validation error code
-* `31` - market validation failed
-* `32` - amount validation failed
-* `33` - price validation failed
-* `34` - incorrect taker fee (it is less than zero or its precision is too big)
-* `35` - incorrect maker fee (it is less than zero or its precision is too big)
-* `36` - clientOrderId validation failed
-
-```json5
-{
-    "code": 30,
-    "message": "Validation failed",
-    "errors": {
-        "activation_price": [
-            "Activation price field is required."
-        ],
-        "amount": [
-            "Amount field is required."
-        ],
-        "market": [
-            "Market field is required."
-        ],
-        "price": [
-            "Price field is required."
-        ],
-        "side": [
-            "Side field is required."
-        ]
-    }
-}
-```
-
-```json5
-{
-  "code": 30,
-  "message": "Validation failed",
-  "errors": {
-    "side": [
-      "Side field should contain only 'buy' or 'sell' values."
-    ]
-  }
-}
-```
-
-```json5
-{
-    "code": 32,
-    "message": "Validation failed",
-    "errors": {
-        "amount": [
-            "Amount field should be numeric string or number."
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 33,
-    "message": "Validation failed",
-    "errors": {
-        "price": [
-            "Price field should be numeric string or number."
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 31,
-    "message": "Validation failed",
-    "errors": {
-        "market": [
-            "Market is not available."
-        ]
-    }
-}
-```
-
-```json5
-{
-  "code": 31,
-  "message": "Validation failed",
-  "errors": {
-    "market": [
-      "Market field should not be empty string."
-    ]
-  }
-}
-```
-
-```json5
-{
-    "code": 32,
-    "message": "Validation failed",
-    "errors": {
-        "amount": [
-            "Not enough balance."
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 32,
-    "message": "Validation failed",
-    "errors": {
-        "amount": [
-            "Given amount is less than min amount 0.001",
-            "Min amount step = 0.000001"
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 30,
-    "message": "Validation failed",
-    "errors": {
-        "total": [
-            "Total(amount * price) is less than 5.05"
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 36,
-    "message": "Validation failed",
-    "errors": {
-        "clientOrderId": [
-            "ClientOrderId field should be a string."
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 36,
-    "message": "Validation failed",
-    "errors": {
-        "clientOrderId": [
-            "ClientOrderId field field should contain only latin letters, numbers and dashes."
-        ]
-    }
-}
-
-```
-
-```json5
-{
-    "code": 36,
-    "message": "Validation failed",
-    "errors": {
-        "clientOrderId": [
-            "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
-        ]
-    }
-}
-
-```
-
-```json5
-{
-  "code": 32,
-  "message": "Validation failed",
-  "errors": {
-    "amount": [
-      "Amount should be greater than 0."
-    ]
-  }
-}
-
-```
-
-```json5
-{
-  "code": 33,
-  "message": "Validation failed",
-  "errors": {
-    "price": [
-      "Price field should be at least 10",
-      "Min price step = 0.000001"
-    ]
-  }
-}
-```
-
-```json5
-{
-  "code": 33,
-  "message": "Validation failed",
-  "errors": {
-    "price": [
-      "Price should be greater than 0."
-    ]
-  }
-}
-```
-
-```json5
-{
-  "code": 34,
-  "message": "Validation failed",
-  "errors": {
-    "taker_fee": [
-      "Incorrect taker fee"
-    ]
-  }
-}
-```
-
-```json5
-{
-  "code": 35,
-  "message": "Validation failed",
-  "errors": {
-    "maker_fee": [
-      "Incorrect maker fee"
-    ]
-  }
-}
-```
-
-```json5
-{
-    "code": 30,
-    "message": "Validation failed",
-    "errors": {
-        "activationPrice": [
-            "Activation price should not be equal to the last price"
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 30,
-    "message": "Validation failed",
-    "errors": {
-        "activation_price": [
-            "Activation price should be numeric string."
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 30,
-    "message": "Validation failed",
-    "errors": {
-        "activationPrice": [
-            "Activation price should be greater than 0."
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 30,
-    "message": "Validation failed",
-    "errors": {
-        "activationPrice": [
-            "Empty history"
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 30,
-    "message": "Validation failed",
-    "errors": {
-        "activationPrice": [
-            "Min activation price = 10"
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 30,
-    "message": "Validation failed",
-    "errors": {
-        "activationPrice": [
-            "Min activation price step = 0.00001"
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 30,
-    "message": "Validation failed",
-    "errors": {
-        "activationPrice": [
-            "Activation price should not be equal to the last price"
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 30,
-    "message": "Validation failed",
-    "errors": {
-        "lastPrice": [
-            "internal error"
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 10,
-    "message": "Inner validation failed",
-    "errors": {
-        "amount": [
-            "Not enough balance."
-        ]
-    }
-}
-```
-
-```json5
-{
-    "code": 1,
-    "message": "Inner validation failed",
-    "errors": {
-        "amount": [
-            "Invalid argument."
-        ]
-    }
-}
-```
-
-```json5
-{
-  "code": 11,
-  "message": "Inner validation failed",
-  "errors": {
-    "amount": [
-      "Amount too small."
-    ]
-  }
-}
-```
-
-</details>
-
-___
-
 ### Collateral Trigger Market Order
 
 ```
-[POST] /api/v4/order/collateral/trigger-market
+[POST] /api/v4/order/collateral/trigger_market
 ```
 This endpoint creates margin trigger market order
 
@@ -3257,7 +2830,7 @@ activation_price | String | **Yes** | Activation price in money currency. Exampl
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "buy",
@@ -3268,7 +2841,7 @@ clientOrderId | String | **No** | Identifier should be unique and contain letter
     "nonce": "{{nonce}}"
 }
 ```
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "sell",
@@ -3285,7 +2858,7 @@ Available statuses:
 * `Status 422 if inner validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
     "orderId": 4180284841,             // order id
     "clientOrderId": "order1987111",   // custom order identifier; "clientOrderId": "" - if not specified.
@@ -3297,7 +2870,7 @@ Available statuses:
     "dealStock": "0",                  // if order finished - amount in stock currency that finished
     "amount": "0.001",                 // amount
     "takerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero    
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
     "left": "0.001",                   // if order not finished - rest of amount that must be finished
     "dealFee": "0",                    // fee in money that you pay if order is finished
     "activation_price": "40000"        // activation price
@@ -3326,7 +2899,7 @@ Error codes:
 This endpoint retrieves summary of collateral account
 
 **Request BODY raw:**
-```json5
+```json
 {
     "request": "{{request}}",
     "nonce": "{{nonce}}"
@@ -3338,12 +2911,12 @@ Available statuses:
 * `Status 200`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
   "equity": "130970.8947456254113367",       // total equity of collateral balance including lending funds in USDT
   "margin": "456.58349",                     // amount of funds in open position USDT
-  "freeMargin": "129681.3285348840110099",   // free funds for trading according to 
-  "unrealizedFunding": "0.0292207414003268", // funding that will be paid on next position stage change (order, liquidation, etc) 
+  "freeMargin": "129681.3285348840110099",   // free funds for trading according to
+  "unrealizedFunding": "0.0292207414003268", // funding that will be paid on next position stage change (order, liquidation, etc)
   "pnl": "-832.9535",                        // curren profit and loss in USDT
   "leverage": 10                             // current leverage of account which affect amount of lending funds
 }
@@ -3365,7 +2938,7 @@ Name | Type | Mandatory | Description
 market | String | **No** | Requested market. Example: BTC_USDT
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "request": "{{request}}",
@@ -3379,7 +2952,7 @@ Available statuses:
 * `Status 422 if inner validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 [
   {
     "positionId": 527,                         // position ID
@@ -3388,13 +2961,13 @@ Available statuses:
     "modifyDate": 1651568067.789679,           // date of position modifying (this is date of current event)
     "amount": "0.1",                           // amount of order
     "basePrice": "45658.349",                  // base price of position
-    "liquidationPrice": null,                  // liquidation price according to current state of position 
+    "liquidationPrice": null,                  // liquidation price according to current state of position
     "liquidationState": null,                  // state of liquidation. Possible values: null, Margin_call, Liquidation
     "leverage": "5",                           // current collateral balance leverage
     "pnl": "-168.42",                          // current profit and loss in **money**
     "pnlPercent": "-0.43",                     // current profit and loss in percentage
     "margin": "8316.74",                       // amount of funds in open position **money**
-    "freeMargin": "619385.67",                 // free funds for trading according to 
+    "freeMargin": "619385.67",                 // free funds for trading according to
     "funding": "0",                            // funding that will be paid on next position stage change (order, liquidation, etc)
     "unrealizedFunding": "0.0019142920201966", // funding that will be paid on next position stage change (order, liquidation, etc)
   },
@@ -3402,7 +2975,7 @@ Available statuses:
 ]
 ```
 
-* NOTE: In case of position opening using trigger or limit order you can get situation when `basePrice`, `liquidationPrice`, `amount`, `pnl`, `pnlPercent` returns with null value. It happens when funds are lending, and you start to pay funding fee, but position is not completely opened, cos activation price hadn't been triggered yet. 
+* NOTE: In case of position opening using trigger or limit order you can get situation when `basePrice`, `liquidationPrice`, `amount`, `pnl`, `pnlPercent` returns with null value. It happens when funds are lending, and you start to pay funding fee, but position is not completely opened, cos activation price hadn't been triggered yet.
 
 ---
 
@@ -3411,7 +2984,7 @@ Available statuses:
 ```
 [POST] /api/v4/collateral-account/positions/history
 ```
-This endpoint returns past positions history. Each position represented by position states. Each of them means event that shows current position changes such order, position close, liquidation, etc.  
+This endpoint returns past positions history. Each position represented by position states. Each of them means event that shows current position changes such order, position close, liquidation, etc.
 
 If your request has a "positionId" field, you receive data only with this "positionId".
 If your request has a "market" field, you receive data only by this "market".
@@ -3427,7 +3000,7 @@ market | String | **No** | Requested market. Example: BTC_USDT
 positionId | Int | **No** | Requested position
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT", //optional
     "positionId": 1, //optional
@@ -3442,9 +3015,9 @@ Available statuses:
 * `Status 422 if inner validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 [
-  
+
   {
       "positionId": 111,               // position ID
       "market": "BTC_USDT",            // position market
@@ -3453,7 +3026,7 @@ Available statuses:
       "amount": "0.1",                 // amount of order
       "basePrice": "45658.349",        // base price of position
       "realizedFunding": "0",          // funding fee for whole position lifetime till current state
-      "liquidationPrice": null,        // liquidation price according to current state of position 
+      "liquidationPrice": null,        // liquidation price according to current state of position
       "liquidationState": null,        // state of liquidation. Possible values: null, Margin_call, Liquidation
       "orderDetail": {                 // details of order which changes position
         "id": 97067934,                // order ID
@@ -3462,8 +3035,8 @@ Available statuses:
         "tradeFee": "415.07",          // order's trade fee
         "fundingFee": null             // funding fee which was captured by this position change (order)
       }
-    }, 
-    ... 
+    },
+    ...
 ]
 ```
 
@@ -3483,7 +3056,7 @@ Name | Type | Mandatory | Description
 leverage | Int | **Yes** | New collateral account leverage value. Acceptable values: 1, 2, 3, 5, 10, 20
 
 **Request BODY raw:**
-```json5
+```json
 {
     "leverage": 5,
     "request": "{{request}}",
@@ -3497,7 +3070,7 @@ Available statuses:
 * `Status 422 if inner validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
   "leverage": 5 // current collateral balance leverage
 }
@@ -3521,7 +3094,7 @@ limit | Int | **No** | LIMIT is a special clause used to limit records a particu
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "offset": 0,
@@ -3538,12 +3111,12 @@ Available statuses:
 * `Status 422 if request validation failed`
 * `Status 400 if inner validation failed`
 * `Status 503 if service temporary unavailable`
-```json5
+```json
 [
   {
     "id": 117703764513,                   // oco order id
     "stop_loss": {
-      "orderId": 117703764514,            // unexecuted order ID              
+      "orderId": 117703764514,            // unexecuted order ID
       "clientOrderId": "",                // custom order id; "clientOrderId": "" - if not specified.
       "market": "BTC_USDT",               // currency market
       "side": "buy",                      // order side
@@ -3589,7 +3162,7 @@ Available statuses:
 <details>
 <summary><b>Errors:</b></summary>
 
-```json5
+```json
 {
     "code": 31,
     "message": "Validation failed",
@@ -3601,7 +3174,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -3613,7 +3186,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -3625,7 +3198,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -3638,7 +3211,7 @@ Available statuses:
 ```
 
 
-```json5
+```json
 {
     "message": "Validation failed",
     "code": 31,
@@ -3650,7 +3223,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -3665,7 +3238,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -3680,7 +3253,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -3695,7 +3268,7 @@ Available statuses:
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -3732,7 +3305,7 @@ stop_limit_price | String/Number | **Yes** | Price in money currency for stop li
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "side": "buy",
@@ -3753,11 +3326,11 @@ Available statuses:
 * `Status 422 if request validation failed`
 * `Status 503 if service temporary unavailable`
 
-```json5
+```json
 {
   "id": 117703764513,                   // oco order id
   "stop_loss": {
-    "orderId": 117703764514,            // unexecuted order ID              
+    "orderId": 117703764514,            // unexecuted order ID
     "clientOrderId": "",                // custom order id; "clientOrderId": "" - if not specified.
     "market": "BTC_USDT",               // currency market
     "side": "buy",                      // order side
@@ -3809,7 +3382,7 @@ Error codes:
 * `35` - incorrect maker fee (it is less than zero or its precision is too big)
 * `36` - clientOrderId validation failed
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -3833,7 +3406,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 30,
   "message": "Validation failed",
@@ -3845,7 +3418,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -3857,7 +3430,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 33,
     "message": "Validation failed",
@@ -3869,7 +3442,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 33,
     "message": "Validation failed",
@@ -3881,7 +3454,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 31,
     "message": "Validation failed",
@@ -3893,7 +3466,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 31,
   "message": "Validation failed",
@@ -3905,7 +3478,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -3917,7 +3490,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 32,
     "message": "Validation failed",
@@ -3930,7 +3503,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -3942,7 +3515,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -3954,7 +3527,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -3967,7 +3540,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
     "code": 36,
     "message": "Validation failed",
@@ -3980,7 +3553,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
   "code": 32,
   "message": "Validation failed",
@@ -3993,7 +3566,7 @@ Error codes:
 
 ```
 
-```json5
+```json
 {
   "code": 33,
   "message": "Validation failed",
@@ -4006,7 +3579,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 33,
   "message": "Validation failed",
@@ -4019,7 +3592,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 33,
   "message": "Validation failed",
@@ -4031,7 +3604,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 33,
   "message": "Validation failed",
@@ -4043,7 +3616,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 34,
   "message": "Validation failed",
@@ -4055,7 +3628,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 35,
   "message": "Validation failed",
@@ -4067,7 +3640,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -4079,7 +3652,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -4091,7 +3664,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -4103,7 +3676,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -4115,7 +3688,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -4127,7 +3700,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -4139,7 +3712,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -4151,7 +3724,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -4163,7 +3736,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 10,
     "message": "Inner validation failed",
@@ -4175,7 +3748,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",
@@ -4187,7 +3760,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 11,
   "message": "Inner validation failed",
@@ -4199,7 +3772,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 16,
   "message": "Inner validation failed",
@@ -4211,7 +3784,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 15,
   "message": "Inner validation failed",
@@ -4223,7 +3796,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 14,
   "message": "Inner validation failed",
@@ -4235,7 +3808,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 153,
   "message": "Inner validation failed",
@@ -4247,7 +3820,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 150,
   "message": "Inner validation failed",
@@ -4259,7 +3832,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 151,
   "message": "Inner validation failed",
@@ -4271,13 +3844,440 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
   "code": 152,
   "message": "Inner validation failed",
   "errors": {
     "price": [
       "Not enough balance for stop limit order."
+    ]
+  }
+}
+```
+
+</details>
+
+___
+
+### Create collateral stop-limit order
+
+```
+[POST] /api/v4/order/collateral/stop-limit
+```
+This endpoint creates collateral stop-limit trading order
+
+**Parameters:**
+
+Name | Type | Mandatory | Description
+------------ | ------------ | ------------ | ------------
+market | String | **Yes** | Available market. Example: BTC_USDT
+side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
+amount | String/Number | **Yes** | Amount of stock currency to buy or sell. Example: '0.001' or 0.001
+price | String/Number | **Yes** | Price in money currency. Example: '9800' or 9800
+activation_price | String/Number | **Yes** | Activation price in money currency. Example: '10000' or 10000
+clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
+
+**Request BODY raw:**
+```json
+{
+    "market": "BTC_USDT",
+    "side": "buy",
+    "amount": "0.001",
+    "price": "40000",
+    "activation_price": "40000",
+    "clientOrderId": "order1987111",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+Available statuses:
+* `Status 200`
+* `Status 400 if inner validation failed`
+* `Status 422 if request validation failed`
+* `Status 503 if service temporary unavailable`
+
+```json
+{
+    "orderId": 4180284841,             // order id
+    "clientOrderId": "order1987111",   // custom client order id; "clientOrderId": "" - if not specified.
+    "market": "BTC_USDT",              // deal market
+    "side": "buy",                     // order side
+    "type": "stop limit",              // order type
+    "timestamp": 1595792396.165973,    // current timestamp
+    "dealMoney": "0",                  // if order finished - amount in money currency that finished
+    "dealStock": "0",                  // if order finished - amount in stock currency that finished
+    "amount": "0.001",                 // amount
+    "takerFee": "0.001",               // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+    "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+    "left": "0.001",                   // if order not finished - rest of amount that must be finished
+    "dealFee": "0",                    // fee in money that you pay if order is finished
+    "price": "40000",                  // price
+    "activation_price": "40000"        // activation price
+}
+```
+<details>
+<summary><b>Errors:</b></summary>
+
+Error codes:
+* `30` - default validation error code
+* `31` - market validation failed
+* `32` - amount validation failed
+* `33` - price validation failed
+* `34` - incorrect taker fee (it is less than zero or its precision is too big)
+* `35` - incorrect maker fee (it is less than zero or its precision is too big)
+* `36` - clientOrderId validation failed
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "activation_price": [
+            "Activation price field is required."
+        ],
+        "amount": [
+            "Amount field is required."
+        ],
+        "market": [
+            "Market field is required."
+        ],
+        "price": [
+            "Price field is required."
+        ],
+        "side": [
+            "Side field is required."
+        ]
+    }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "side": [
+      "Side field should contain only 'buy' or 'sell' values."
+    ]
+  }
+}
+```
+
+```json
+{
+    "code": 32,
+    "message": "Validation failed",
+    "errors": {
+        "amount": [
+            "Amount field should be numeric string or number."
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 33,
+    "message": "Validation failed",
+    "errors": {
+        "price": [
+            "Price field should be numeric string or number."
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 31,
+    "message": "Validation failed",
+    "errors": {
+        "market": [
+            "Market is not available."
+        ]
+    }
+}
+```
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": [
+      "Market field should not be empty string."
+    ]
+  }
+}
+```
+
+```json
+{
+    "code": 32,
+    "message": "Validation failed",
+    "errors": {
+        "amount": [
+            "Not enough balance."
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 32,
+    "message": "Validation failed",
+    "errors": {
+        "amount": [
+            "Given amount is less than min amount 0.001",
+            "Min amount step = 0.000001"
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "total": [
+            "Total(amount * price) is less than 5.05"
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 36,
+    "message": "Validation failed",
+    "errors": {
+        "clientOrderId": [
+            "ClientOrderId field should be a string."
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 36,
+    "message": "Validation failed",
+    "errors": {
+        "clientOrderId": [
+            "ClientOrderId field field should contain only latin letters, numbers and dashes."
+        ]
+    }
+}
+
+```
+
+```json
+{
+    "code": 36,
+    "message": "Validation failed",
+    "errors": {
+        "clientOrderId": [
+            "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+        ]
+    }
+}
+
+```
+
+```json
+{
+  "code": 32,
+  "message": "Validation failed",
+  "errors": {
+    "amount": [
+      "Amount should be greater than 0."
+    ]
+  }
+}
+
+```
+
+```json
+{
+  "code": 33,
+  "message": "Validation failed",
+  "errors": {
+    "price": [
+      "Price field should be at least 10",
+      "Min price step = 0.000001"
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 33,
+  "message": "Validation failed",
+  "errors": {
+    "price": [
+      "Price should be greater than 0."
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 34,
+  "message": "Validation failed",
+  "errors": {
+    "taker_fee": [
+      "Incorrect taker fee"
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 35,
+  "message": "Validation failed",
+  "errors": {
+    "maker_fee": [
+      "Incorrect maker fee"
+    ]
+  }
+}
+```
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "activationPrice": [
+            "Activation price should not be equal to the last price"
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "activation_price": [
+            "Activation price should be numeric string."
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "activationPrice": [
+            "Activation price should be greater than 0."
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "activationPrice": [
+            "Empty history"
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "activationPrice": [
+            "Min activation price = 10"
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "activationPrice": [
+            "Min activation price step = 0.00001"
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "activationPrice": [
+            "Activation price should not be equal to the last price"
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "lastPrice": [
+            "internal error"
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 10,
+    "message": "Inner validation failed",
+    "errors": {
+        "amount": [
+            "Not enough balance."
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 1,
+    "message": "Inner validation failed",
+    "errors": {
+        "amount": [
+            "Invalid argument."
+        ]
+    }
+}
+```
+
+```json
+{
+  "code": 11,
+  "message": "Inner validation failed",
+  "errors": {
+    "amount": [
+      "Amount too small."
     ]
   }
 }
@@ -4302,7 +4302,7 @@ market | String     | **Yes** | Available market. Example: BTC_USDT
 orderId | String/Int | **Yes** | OCO order Id. Example: 4180284841 or "4180284841"
 
 **Request BODY raw:**
-```json5
+```json
 {
     "market": "BTC_USDT",
     "orderId": 117703764514,
@@ -4320,11 +4320,11 @@ Available statuses:
 * `Status 503 if service temporary unavailable`
 
 
-```json5
+```json
 {
   "id": 117703764513,                   // oco order id
-  "stop_loss": {                        
-    "orderId": 117703764514,            // unexecuted order ID              
+  "stop_loss": {
+    "orderId": 117703764514,            // unexecuted order ID
     "clientOrderId": "",                // custom order id; "clientOrderId": "" - if not specified.
     "market": "BTC_USDT",               // currency market
     "side": "buy",                      // order side
@@ -4371,7 +4371,7 @@ Error codes:
 * `30` - default validation error code
 * `31` - market validation failed
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -4386,7 +4386,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 31,
     "message": "Validation failed",
@@ -4398,7 +4398,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -4410,7 +4410,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 30,
     "message": "Validation failed",
@@ -4423,7 +4423,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 2,
     "message": "Inner validation failed",
@@ -4435,7 +4435,7 @@ Error codes:
 }
 ```
 
-```json5
+```json
 {
     "code": 1,
     "message": "Inner validation failed",

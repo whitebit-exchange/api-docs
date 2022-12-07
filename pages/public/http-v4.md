@@ -11,7 +11,7 @@
 * [Server Time](#server-time)
 * [Server Status](#server-status)
 * [Collateral Markets](#collateral-markets-list)
-    
+
 Base URL is https://whitebit.com
 
 Endpoint example: https://whitebit.com/api/v4/public/{endpoint}
@@ -26,7 +26,7 @@ If an endpoint requires parameters you should send them as `query string`
 
 #### Error messages V4 format:
 ___
-```json5
+```json
 {
     "success": false,
     "message": "ERROR MESSAGE",
@@ -67,7 +67,7 @@ _1 second_
 NONE
 
 **Response:**
-```json5
+```json
 [
     {
       "name": "SON_USD",         // Market pair name
@@ -82,7 +82,7 @@ NONE
       "minTotal": "0.001",       // Minimal amount of money to trade
       "tradesEnabled": true,     // Is trading enabled
       "isCollateral": true,      // Is margin trading enabled
-      "type": "spot"             // Market type. Possible values: "spot", "futures" 
+      "type": "spot"             // Market type. Possible values: "spot", "futures"
     },
     {
       ...
@@ -104,7 +104,7 @@ _1 second_
 NONE
 
 **Response:**
-```json5
+```json
 {
   "BTC_USDT": {
     "base_id": 1,                           // CoinmarketCap Id of base currency; 0 - if unknown
@@ -134,7 +134,7 @@ _1 second_
 NONE
 
 **Response:**
-```json5
+```json
 {
   "BTC": {
     "name": "Bitcoin",                        // Full name of cryptocurrency.
@@ -185,7 +185,7 @@ NONE
     "taker_fee": "0.1",
     "min_deposit": "0.1",
     "max_deposit": "0",
-    "currency_precision": 18,                
+    "currency_precision": 18,
     "is_memo": false,
     "networks": {                             // Currency networks. It might be a list of networks for cryptocurrency networks or just a single item list for simple cryptocurrencies or tokens
       "deposits": [                           // Networks available for depositing
@@ -331,7 +331,7 @@ level | int | **No** | Optional parameter that allows API user to see different 
 
 
 **Response:**
-```json5
+```json
 {
   "timestamp": 1594391413,        // Current timestamp
   "asks": [                       // Array of ask orders
@@ -370,7 +370,7 @@ type | String | **No** | Can be buy or sell
 
 
 **Response:**
-```json5
+```json
 [
   {
     "tradeID": 158056419,             // A unique ID associated with the trade for the currency pair transaction Note: Unix timestamp does not qualify as trade_id.
@@ -402,7 +402,7 @@ This endpoint retrieves the list of fees and min/max amount for deposits and wit
 ___
 
 **Response:**
-```json5
+```json
 {
   "USDT (ERC20)": {
     "ticker": "USDT",                         // currency ticker
@@ -471,7 +471,7 @@ ___
 This endpoint retrieves the current server time.
 
 **Response:**
-```json5
+```json
 {
   "time": 1631451591
 }
@@ -487,7 +487,7 @@ This endpoint retrieves the current API life-state.
 _1 second_
 
 **Response:**
-```json5
+```json
 [
   "pong"
 ]
@@ -501,7 +501,7 @@ _1 second_
 This endpoint returns the list of markets that available for collateral trading
 
 **Response:**
-```json5
+```json
 [
     "ADA_USDT",
     "BCH_USDT",
@@ -529,7 +529,7 @@ This endpoint returns the list of markets that available for collateral trading
 This endpoint returns the list of available futures markets.
 
 **Response:**
-```json5
+```json
 {
   "success": true,
   "message": null,

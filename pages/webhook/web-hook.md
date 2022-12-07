@@ -35,7 +35,7 @@ All web hook requests are performing using POST method and with application/json
 
 All web-hook requests are performing with
 
-```json5
+```json
 {
    "method": "string",
    "params": {
@@ -72,7 +72,7 @@ On consumer side you can process security headers to be sure request was perform
 
 Performed when code was applied. Request example:
 
-```json5
+```json
 {
    "method": "code.apply",
    "params": {
@@ -87,7 +87,7 @@ Performed when code was applied. Request example:
 
 Performed when deposit was accepted. Request example:
 
-```json5
+```json
 {
   method: "deposit.accepted",
   params: {
@@ -115,7 +115,7 @@ Performed when deposit was accepted. Request example:
 
 Performed when deposit was update. Request example:
 
-```json5
+```json
 {
   method: "deposit.update",
   params: {
@@ -142,7 +142,7 @@ Performed when deposit was update. Request example:
 
 Performed when deposit was processed, so it is available on your balance. Request example:
 
-```json5
+```json
 {
   method: "deposit.processed",
   params: {
@@ -170,7 +170,7 @@ Performed when deposit was processed, so it is available on your balance. Reques
 
 Performed when deposit was canceled. Request example:
 
-```json5
+```json
 {
   method: "deposit.canceled",
   params: {
@@ -203,7 +203,7 @@ Deposit status codes:
 
 Performed when withdraw was created. Request example:
 
-```json5
+```json
 {
   method: "withdraw.unconfirmed",
   params: {
@@ -227,7 +227,7 @@ Performed when withdraw was created. Request example:
 
 Performed when withdraw is pending. Request example:
 
-```json5
+```json
 {
   method: "withdraw.pending",
   params: {
@@ -251,7 +251,7 @@ Performed when withdraw is pending. Request example:
 
 Performed when withdraw was canceled. Request example:
 
-```json5
+```json
 {
   method: "withdraw.canceled",
   params: {
@@ -275,7 +275,7 @@ Performed when withdraw was canceled. Request example:
 
 Performed when withdraw was completed. Request example:
 
-```json5
+```json
 {
   method: "withdraw.successful",
   params: {

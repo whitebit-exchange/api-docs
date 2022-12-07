@@ -24,7 +24,7 @@ If an endpoint requires parameters you should send them as `query string`
 
 #### Error messages V1 format:
 ___
-```json5
+```json
 {
     "success": false,
     "message": "ERROR MESSAGE",
@@ -65,7 +65,7 @@ _1 second_
 NONE
 
 **Response:**
-```json5
+```json
 {
   "success": true,
   "message": null,
@@ -103,7 +103,7 @@ _1 second_
 NONE
 
 **Response:**
-```json5
+```json
 {
   "success": true,
   "message": null,
@@ -146,7 +146,7 @@ Name | Type | Mandatory | Description
 market | String | **Yes** | Available market. Example: BTC_USDT
 
 **Response:**
-```json5
+```json
 {
   "success": true,
   "message": null,
@@ -186,11 +186,11 @@ Name | Type | Mandatory | Description
 market | String | **Yes** | Available market. Example: BTC_USDT
 start | Timestamp | **No** | Start time in seconds, default value is one week earlier from the current time. Cannot be greater than end parameter. Example: 1596848400
 end | Timestamp | **No** | End time in seconds, default value is current time. Cannot be less than start parameter. Example: 1596927600
-interval | String | **NO** | Possible values - 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M. By default in case start and end parameters were not specified, for minutes intervals the server will return candlesticks for a period of 1 day. For hours intervals will return candlesticks for 1 week, for days and week intervals will return candlesticks for 1 month and for month interval will return candlesticks for 1 year. Default value is 1h. 
+interval | String | **NO** | Possible values - 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M. By default in case start and end parameters were not specified, for minutes intervals the server will return candlesticks for a period of 1 day. For hours intervals will return candlesticks for 1 week, for days and week intervals will return candlesticks for 1 month and for month interval will return candlesticks for 1 year. Default value is 1h.
 limit | Integer | **NO** | Possible values from 1 to 1440. Default value is 1440
 
 **Response:**
-```json5
+```json
 {
   "success": true,
   "message": null,
@@ -224,7 +224,7 @@ _1 second_
 NONE
 
 **Response:**
-```json5
+```json
 {
   "success": true,
   "message": null,
@@ -257,7 +257,7 @@ limit | int | **No** | Limit of results. Default: 100 Max: 100 Example: 100
 
 
 **Response:**
-```json5
+```json
 {
   "asks": [
     [
@@ -305,7 +305,7 @@ limit | int | **No** | Limit of results. Default: 50 Example: 100
 
 
 **Response:**
-```json5
+```json
 {
   "success": true,
   "message": null,

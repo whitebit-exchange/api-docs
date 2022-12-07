@@ -1,0 +1,11 @@
+{
+  "public": "Public",
+  "private": "Private",
+  "webhook":  "Webhook",
+  "contact": {
+    "title": "Contact ↗",
+    "type": "page",
+    "href": "mailto:support@whitebit.com",
+    "newWindow": true
+  }
+}

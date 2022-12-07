@@ -23,7 +23,7 @@ If endpoint required parameters you will need to send them as `query string`
 
 #### Error messages V2 format:
 ___
-```json5
+```json
 {
     "success": false,
     "message": "ERROR MESSAGE",
@@ -64,7 +64,7 @@ _1 second_
 NONE
 
 **Response:**
-```json5
+```json
 {
   "success": true,
   "message": null,
@@ -104,7 +104,7 @@ _1 second_
 NONE
 
 **Response:**
-```json5
+```json
 {
   "success": true,
   "message": null,
@@ -141,7 +141,7 @@ _1 second_
 NONE
 
 **Response:**
-```json5
+```json
 {
   "success": true,
   "message": null,
@@ -175,7 +175,7 @@ _1 second_
 NONE
 
 **Response:**
-```json5
+```json
 {
   "success": true,
   "message": null,
@@ -201,7 +201,7 @@ _1 second_
 NONE
 
 **Response:**
-```json5
+```json
 {
   "success": true,
   "message": null,
@@ -237,7 +237,7 @@ _1 second_
 NONE
 
 **Response:**
-```json5
+```json
 {
   "success": true,
   "message": null,

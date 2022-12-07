@@ -48,7 +48,7 @@ All endpoints return time in Unix-time format.
 | 8 | Margin market |
 | 10 | Margin trigger-stop market |
 
-## :arrow_heading_up: Request message
+## ⤴️ Request message
 
 JSON Structure of request message:
 
@@ -63,7 +63,7 @@ JSON Structure of request message:
 * Query (`balanceSpot_request`, `ordersPending_request`, etc)
 * Subscription (`balanceSpot_subscribe`, `ordersPending_subscribe`, etc). Repeated subscription will be cancelled for the same data type.
 
-## :arrow_heading_down: Response message
+## ⤵️ Response message
 
 JSON Structure of response message:
 
@@ -93,7 +93,7 @@ Code | Message
 
 **Example** messages for request with response:
 
-#### :arrow_heading_up: Request:
+#### ⤴️ Request:
 
 ```json
 {
@@ -106,7 +106,7 @@ Code | Message
 }
 ```
 
-#### :arrow_heading_down: Response:
+#### ⤵️ Response:
 ```json
 {
     "id": 0,
@@ -119,7 +119,7 @@ Code | Message
 
 **Example** subscription:
 
-#### :arrow_heading_up: Request:
+#### ⤴️ Request:
 
 ```json
 {
@@ -129,7 +129,7 @@ Code | Message
 }
 ```
 
-#### :arrow_heading_down: Response:
+#### ⤵️ Response:
 ```json
 {
     "id": 0,
@@ -140,8 +140,8 @@ Code | Message
 }
 ```
 
-#### :arrows_counterclockwise: Update events:
-```json5
+#### 🔄 Update events:
+```json
 {
     "id": null,
     "method": "balanceSpot_update",
@@ -161,7 +161,7 @@ Code | Message
 This V4 endpoint can be used to retrieve the websocket token for user.
 
 **Request BODY raw:**
-```json5
+```json
 {
     "request": "{{request}}",
     "nonce": "{{nonce}}"
@@ -173,7 +173,7 @@ This V4 endpoint can be used to retrieve the websocket token for user.
 Available statuses:
 * `Status 200`
 
-```json5
+```json
 {
     "websocket_token": "your_current_token"
 }
@@ -187,9 +187,9 @@ After successful authorization you will be able to send requests for balances, o
 
 It only needs to be done successfully once.
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 0,
     "method": "authorize",
@@ -200,7 +200,7 @@ It only needs to be done successfully once.
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -218,9 +218,9 @@ It only needs to be done successfully once.
 
 #### Query
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 2,
     "method": "balanceSpot_request",
@@ -232,9 +232,9 @@ It only needs to be done successfully once.
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
-```json5
+```json
 {
     "id": 2,
     "result": {
@@ -255,9 +255,9 @@ It only needs to be done successfully once.
 
 Subscribe to receive updates in spot balances.
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 3,
     "method": "balanceSpot_subscribe",
@@ -269,7 +269,7 @@ Subscribe to receive updates in spot balances.
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -281,9 +281,9 @@ Subscribe to receive updates in spot balances.
 }
 ```
 
-##### :arrows_counterclockwise: Update events:
+##### 🔄 Update events:
 
-```json5
+```json
 {
     "id": null,
     "method": "balanceSpot_update",
@@ -301,9 +301,9 @@ Subscribe to receive updates in spot balances.
 
 #### Unsubscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 4,
     "method": "balanceSpot_unsubscribe",
@@ -311,7 +311,7 @@ Subscribe to receive updates in spot balances.
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -332,9 +332,9 @@ Request for amount on margin balance.
 Balance available for margin trade is equal to `balance * leverage` and it depends on liquidity in orderbook and your open positions.
 When you open position, your balance will not change, but amount available for trade will decrease
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 2,
     "method": "balanceMargin_request",
@@ -345,9 +345,9 @@ When you open position, your balance will not change, but amount available for t
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
-```json5
+```json
 {
     "id": 2,
     "result": {
@@ -362,9 +362,9 @@ When you open position, your balance will not change, but amount available for t
 
 Subscribe to receive updates in spot balances.
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 3,
     "method": "balanceMargin_subscribe",
@@ -375,7 +375,7 @@ Subscribe to receive updates in spot balances.
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -387,9 +387,9 @@ Subscribe to receive updates in spot balances.
 }
 ```
 
-##### :arrows_counterclockwise: Update events:
+##### 🔄 Update events:
 
-```json5
+```json
 {
     "id": null,
     "method": "balanceMargin_update",
@@ -403,9 +403,9 @@ Subscribe to receive updates in spot balances.
 
 #### Unsubscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 4,
     "method": "balanceMargin_unsubscribe",
@@ -413,7 +413,7 @@ Subscribe to receive updates in spot balances.
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -431,11 +431,11 @@ Subscribe to receive updates in spot balances.
 
 #### Query
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
 Market should exist. The maximum limit is 100.
 
-```json5
+```json
 {
     "id": 8,
     "method": "ordersPending_request",
@@ -447,11 +447,11 @@ Market should exist. The maximum limit is 100.
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 All possible [order types](#order-types)
 
-```json5
+```json
 {
     "id": 8,
     "result": {
@@ -483,9 +483,9 @@ All possible [order types](#order-types)
 
 #### Subscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 9,
     "method": "ordersPending_subscribe",
@@ -496,7 +496,7 @@ All possible [order types](#order-types)
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -508,7 +508,7 @@ All possible [order types](#order-types)
 }
 ```
 
-##### :arrows_counterclockwise: Update events:
+##### 🔄 Update events:
 
 | Update event ID | Description |
 | --- | --- |
@@ -518,7 +518,7 @@ All possible [order types](#order-types)
 
 If new order instantly matches an order from orderbook, then you will receive only one message with update event ID equal to 3.
 
-```json5
+```json
 {
     "id": null,
     "method": "ordersPending_update",
@@ -545,9 +545,9 @@ If new order instantly matches an order from orderbook, then you will receive on
 
 #### Unsubscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 10,
     "method": "ordersPending_unsubscribe",
@@ -555,7 +555,7 @@ If new order instantly matches an order from orderbook, then you will receive on
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -573,12 +573,12 @@ If new order instantly matches an order from orderbook, then you will receive on
 
 #### Query
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
 Market should exist. The maximum limit is 100.
 All possible [order types](#order-types)
 
-```json5
+```json
 {
     "id": 11,
     "method": "ordersExecuted_request",
@@ -593,11 +593,11 @@ All possible [order types](#order-types)
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 All possible [order types](#order-types)
 
-```json5
+```json
 {
     "id": 11,
     "result": {
@@ -628,9 +628,9 @@ All possible [order types](#order-types)
 
 #### Subscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 12,
     "method": "ordersExecuted_subscribe",
@@ -650,7 +650,7 @@ All possible [order types](#order-types)
 | 1 | Limit |
 | 2 | Market |
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -662,9 +662,9 @@ All possible [order types](#order-types)
 }
 ```
 
-##### :arrows_counterclockwise: Update events:
+##### 🔄 Update events:
 
-```json5
+```json
 {
     "id": null,
     "method": "ordersExecuted_update",
@@ -689,9 +689,9 @@ All possible [order types](#order-types)
 
 #### Unsubscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 13,
     "method": "ordersExecuted_unsubscribe",
@@ -699,7 +699,7 @@ All possible [order types](#order-types)
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -717,11 +717,11 @@ All possible [order types](#order-types)
 
 #### Query
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
 Market should exist. The maximum limit is 100.
 
-```json5
+```json
 {
     "id": 14,
     "method": "deals_request",
@@ -733,9 +733,9 @@ Market should exist. The maximum limit is 100.
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
-```json5
+```json
 {
     "id": 14,
     "result": {
@@ -764,9 +764,9 @@ Market should exist. The maximum limit is 100.
 
 #### Subscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 15,
     "method": "deals_subscribe",
@@ -779,7 +779,7 @@ Market should exist. The maximum limit is 100.
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
@@ -791,9 +791,9 @@ Market should exist. The maximum limit is 100.
 }
 ```
 
-##### :arrows_counterclockwise: Update events:
+##### 🔄 Update events:
 
-```json5
+```json
 {
     "id": null,
     "method": "deals_update",
@@ -812,9 +812,9 @@ Market should exist. The maximum limit is 100.
 
 #### Unsubscribe
 
-##### :arrow_heading_up: Request:
+##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 16,
     "method": "deals_unsubscribe",
@@ -822,7 +822,7 @@ Market should exist. The maximum limit is 100.
 }
 ```
 
-##### :arrow_heading_down: Response:
+##### ⤵️ Response:
 
 ```json
 {
