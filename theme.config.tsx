@@ -18,6 +18,7 @@ const config: DocsThemeConfig = {
       }
     }
   },
+  primaryHue: 43,
   head: (
     <>
       <link rel="icon" href="/static/img/favicon.svg" />
