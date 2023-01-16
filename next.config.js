@@ -3,6 +3,9 @@ const withNextra = require("nextra")({
   themeConfig: "./theme.config.tsx",
 });
 
+const isProduction = process.env.NODE_ENV === "production";
+const assetPrefix = isProduction ? "/reading-notes" : "";
+
 module.exports = {
   ...withNextra(),
   async redirects() {
@@ -17,4 +20,9 @@ module.exports = {
   images: {
     unoptimized: true,
   },
+  reactStrictMode: true,
+  swcMinify: true,
+  trailingSlash: true,
+  assetPrefix,
+  basePath: assetPrefix,
 };
