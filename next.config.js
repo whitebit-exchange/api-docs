@@ -8,15 +8,6 @@ const assetPrefix = isProduction ? "/api-documentation" : "";
 
 module.exports = {
   ...withNextra(),
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/public/http-v1",
-        permanent: true,
-      },
-    ];
-  },
   images: {
     unoptimized: true,
   },
