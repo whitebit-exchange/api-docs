@@ -14,7 +14,7 @@ const config: DocsThemeConfig = {
   project: {
     link: "https://github.com/whitebit-exchange/api-documentation",
   },
-  docsRepositoryBase: "https://github.com/whitebit-exchange/api-documentation",
+  docsRepositoryBase: "https://github.com/whitebit-exchange/api-documentation/blob/main",
   useNextSeoProps() {
     return {
       titleTemplate: "%s | WhiteBIT API Documentation",
