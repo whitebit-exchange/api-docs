@@ -971,6 +971,7 @@ Response error codes:
             "status": 15,                                                                                 // transactions status
             "network": null,                                                                              // if currency is multinetwork
             "transactionHash": "a275a514013e4e0f927fd0d1bed215e7f6f2c4c6ce762836fe135ec22529d886",        // deposit transaction hash
+            "transactionId": "5e112b38-9652-11ed-a1eb-0242ac120002",                                      // transaction id
             "details": {
                 "partial": {                                                                              // details about partially successful withdrawals
                     "requestAmount": "50000",                                                             // requested withdrawal amount
