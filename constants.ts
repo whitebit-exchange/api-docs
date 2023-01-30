@@ -1,2 +1,2 @@
 const isProduction = process.env.NODE_ENV === "production";
-export const assetPrefix = isProduction ? "/api-documentation/static" : "/static";
+export const assetPrefix = isProduction ? "/api-docs/static" : "/static";
