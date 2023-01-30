@@ -476,6 +476,8 @@ beneficiary.lastName | String | **Yes, if currency ticker is one of: UAH_IBAN, U
 beneficiary.tin | Integer | **Yes, if currency is UAH_IBAN** | Beneficiary TAX payer number. Integer, 10 digits.
 beneficiary.phone | String | **Yes, if currency ticker is one of: USD_VISAMASTER, EUR_VISAMASTER** | Beneficiary phone number.
 
+*Please note that this endpoint has necessary limitation to avoid spam attack. The limit is 100 requests per minute. In case the limit is exceeded you will receive an 429 error code. *
+
 **Request BODY raw:**
 ```json
 {
@@ -717,6 +719,13 @@ Also, fiat currencies can't be withdrawn without KYC:
 }
 ```
 
+```json
+{
+    "message": "Too Many Attempts.", // In case of throttling
+    "code": 0
+}
+```
+
 </details>
 
 ___
@@ -751,6 +760,8 @@ from | String | **No** if **method** is set | Balance FROM which funds will move
 to | String | **No** if **method** is set | Balance TO which funds will move to. Acceptable values: **main**, **spot**, **collateral**
 ticker | String | **Yes** | Currency's ticker. Example: BTC
 amount | Numeric string | **Yes** | Amount to transfer. Max precision = 8, value should be greater than zero and less or equal your available balance.
+
+*Please note that this endpoint has necessary limitation to avoid spam attack. The limit is 100 requests per minute. In case the limit is exceeded you will receive an 429 error code. *
 
 **Request BODY raw:**
 ```json
@@ -883,6 +894,13 @@ Also, fiat currencies can't be withdrawn without KYC:
             "Invalid number"
         ]
     }
+}
+```
+
+```json
+{
+    "message": "Too Many Attempts.", // In case of throttling
+    "code": 0
 }
 ```
 
@@ -1677,9 +1695,9 @@ Available statuses:
 
 ___
 
-## SMART Staking
+## Crypto Lеnding
 
-This API provides endpoints for interacting with SMART Staking: getting active plans, creating/closing investments, retrieving investments/interest payments history.
+This API provides endpoints for interacting with Crypto Lеnding: getting active plans, creating/closing investments, retrieving investments/interest payments history.
 
 These endpoints are available only for B2B partner services, you need to contact support@whitebit.com in order to get permissions to use these endpoints.
 
@@ -1689,7 +1707,7 @@ These endpoints are available only for B2B partner services, you need to contact
 [POST] /api/v4/main-account/smart/plans
 ```
 
-This endpoint retrieves all active SMART plans
+This endpoint retrieves all active plans
 
 **Parameters:**
 
