@@ -12,9 +12,9 @@ const config: DocsThemeConfig = {
     />
   ),
   project: {
-    link: "https://github.com/whitebit-exchange/api-documentation",
+    link: "https://github.com/whitebit-exchange/api-docs",
   },
-  docsRepositoryBase: "https://github.com/whitebit-exchange/api-documentation/blob/main",
+  docsRepositoryBase: "https://github.com/whitebit-exchange/api-docs/blob/main",
   useNextSeoProps() {
     return {
       titleTemplate: "%s | WhiteBIT API Documentation",
