@@ -40,6 +40,7 @@ const config: DocsThemeConfig = {
       <link rel="icon" href={`${assetPrefix}/img/favicon.svg`} />
     </>
   ),
+  navigation: false
 };
 
 export default config;
