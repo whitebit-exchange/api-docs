@@ -1,59 +1,25 @@
 # Official Documentation of WhiteBIT API
 
-### Latest releases:
-- *Sep 13, 2021* minor fixes and updates to all docs
-- *Jun 17, 2021* added webhook response examples
-- *Jun 14, 2021* added buy stock market order to API v4
 
-___
-
-## WS
-
-### `Public WS`
-
-[Public WebSocket API](./public/websocket) - General methods
-
-### `Private WS`
-
-[Private WebSocket API](./private/websocket) - Authentication + private methods (trade balance, orders, deals methods)
-
-___
-
-## HTTP
-
-### `Public endpoints`
-
-[Public API V1 Documentation](./public/http-v1) - General endpoints.
-
-[Public API V2 Documentation](./public/http-v2) - Modified general endpoints + new endpoints.
-
-[Public API V4 Documentation](./public/http-v4) - Modified general endpoints + new endpoints.
-
-### `Private endpoints`
-
-[Private API Documentation - Authentication ](./private/http-auth) - How to use requests that require authentication on WhiteBIT.
-
-[Private API V4 Documentation - Main balance](./private/http-main-v4) - Main balance & deposit/withdraw endpoints.
-
-[Private API V1 Documentation - Trade balance](./private/http-trade-v1) - **Deprecated** use [V4 alternatives](./private/http-trade-v4). Documentation for making private trading requests
-
-[Private API V4 Documentation - Trade balance](./private/http-trade-v4) - Additional endpoints.
-
-### `Webhooks`
-
-[Private Webhooks Documentation - Main balance](./webhook/web-hook) - Documentation for processing webhooks
-
----
 
 ### `General info`
 
-1. WhiteBIT API supports `private` and `public` endpoints.
-2. Available API versions: `V1`, `V2`, `V4`.
-3. Using **Public endpoints**:
+1. ### WhiteBIT API supports `private` and `public` endpoints.
+2. ### Available API versions: `V1`, `V2`, `V4`.
+3. ### Using **Public endpoints**:
     1. Public endpoints are cached. You can find specific cache refresh interval for each particular request in API documentation.
     2. Use HTTP method `GET` method when making a request.
     3. Use `query string` if you need to send additional data.
-4. Using **Private endpoints** - full guide [Private API Authentication Documentation](./private/http-auth):
+
+ + **Public endpoints:**
+
+    [Public API V1 Documentation](./public/http-v1) - General endpoints.
+
+    [Public API V2 Documentation](./public/http-v2) - Modified general endpoints + new endpoints.
+
+    [Public API V4 Documentation](./public/http-v4) - Modified general endpoints + new endpoints.
+
+4. ### Using **Private endpoints** - full guide [Private API Authentication Documentation](./private/http-auth):
     1. To make private API calls:
         1. Go to your account on whitebit.com and navigate to account settings.
         2. Click on the API keys tab.
@@ -81,3 +47,25 @@ ___
         7. ``DotNet``
         8. ``Ruby``
         9. ``C++``
+
+**Private endpoints:**
+
+[Private API Documentation - Authentication ](./private/http-auth) - How to use requests that require authentication on WhiteBIT.
+
+[Private API V4 Documentation - Main balance](./private/http-main-v4) - Main balance & deposit/withdraw endpoints.
+
+[Private API V1 Documentation - Trade balance](./private/http-trade-v1) - **Deprecated** use [V4 alternatives](./private/http-trade-v4). Documentation for making private trading requests
+
+[Private API V4 Documentation - Trade balance](./private/http-trade-v4) - Additional endpoints.
+
+5. ### WhiteBIT API supports `private` and `public` websockets.
+
+
+[Public WebSocket API](./public/websocket) - General methods, Kline, Last Price, Market Statistics for current day UTC, Market Trades, Market depth
+
+[Private WebSocket API](./private/websocket) - Authentication + private methods (trade balance, orders, deals methods)
+
+
+6. ### WhiteBIT API supports **Webhooks**
+
+[Private Webhooks Documentation - Main balance](./webhook/web-hook) - Documentation for processing webhooks
