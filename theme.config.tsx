@@ -38,6 +38,7 @@ const config: DocsThemeConfig = {
   head: (
     <>
       <link rel="icon" href={`${assetPrefix}/img/favicon.svg`} />
+      <link rel="stylesheet" href={`${assetPrefix}/styles.css`} />
     </>
   ),
   navigation: false
