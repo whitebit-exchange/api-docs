@@ -41,12 +41,14 @@ All endpoints return time in Unix-time format.
 |------|-----|
 | 1 | Limit |
 | 2 | Market |
+| 202 | Market stock |
 | 3 | Stop limit |
 | 4 | Stop market |
-| 5 | Conditional limit |
-| 6 | Conditional market |
+| 7 | Margin limit |
 | 8 | Margin market |
+| 9 | Margin stop limit |
 | 10 | Margin trigger-stop market |
+| 14 | Margin normalization |
 
 ## ⤴️ Request message
 
