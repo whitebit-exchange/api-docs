@@ -271,14 +271,16 @@ The requested interval must meet the following conditions:
     "id": null,
     "method": "candles_update",
     "params": [
-        1580895000,     // time
-        "0.020683",     // open
-        "0.020683",     // close
-        "0.020683",     // high
-        "0.020666",     // low
-        "504.701",      // volume in stock
-        "10.433600491", // volume in money (deal)
-        "ETH_BTC"       // market
+        [
+            1580895000,     // time
+            "0.020683",     // open
+            "0.020683",     // close
+            "0.020683",     // high
+            "0.020666",     // low
+            "504.701",      // volume in stock
+            "10.433600491", // volume in money (deal)
+            "ETH_BTC"       // market
+        ]
     ]
 }
 ```
