@@ -445,7 +445,7 @@ Market should exist. The maximum limit is 100.
         "BTC_USDT", // market
         0,          // offset
         30          // limit
-    ],
+    ]
 }
 ```
 
@@ -807,7 +807,8 @@ Market should exist. The maximum limit is 100.
         "11399.24",        // Price
         "0.008256",        // Stock amount
         "0.094112125440",  // Deal fee
-        "1234"             // Custom client order id
+        "1234",            // Custom client order id
+        1                  // Side 1 - sell, 2 - bid
     ]
 }
 ```
