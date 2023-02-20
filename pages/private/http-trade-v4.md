@@ -3390,7 +3390,7 @@ Available statuses:
     "amount": "0.1",                           // amount of order
     "basePrice": "45658.349",                  // base price of position
     "liquidationPrice": null,                  // liquidation price according to current state of position
-    "liquidationState": null,                  // state of liquidation. Possible values: null, Margin_call, Liquidation
+    "liquidationState": null,                  // state of liquidation. Possible values: null, margin_call, liquidation
     "leverage": "5",                           // current collateral balance leverage
     "pnl": "-168.42",                          // current profit and loss in **money**
     "pnlPercent": "-0.43",                     // current profit and loss in percentage
@@ -3455,7 +3455,7 @@ Available statuses:
       "basePrice": "45658.349",        // base price of position
       "realizedFunding": "0",          // funding fee for whole position lifetime till current state
       "liquidationPrice": null,        // liquidation price according to current state of position
-      "liquidationState": null,        // state of liquidation. Possible values: null, Margin_call, Liquidation
+      "liquidationState": null,        // state of liquidation. Possible values: null, margin_call, liquidation
       "orderDetail": {                 // details of order which changes position
         "id": 97067934,                // order ID
         "tradeAmount": "0.1",          // trade amount of order
