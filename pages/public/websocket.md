@@ -207,10 +207,10 @@ The requested interval must meet the following conditions:
     "id": 2,
     "method": "candles_request",
     "params": [
-        "ETH_BTC",  // market
-        1579569940, // start time
-        1580894800, // end time
-        900         // interval in seconds
+        "ETH_BTC",   // market
+        1659569940,  // start time
+        1660894800,  // end time
+        3600         // interval in seconds
     ]
 }
 ```
