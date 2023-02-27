@@ -37,12 +37,14 @@ To help you get started with our API, we've created the [API Quick start helper]
 ```json
 1. Python
 2. PHP
-3. JavaScript
+3. NodeJS
 4. Go
-5. Kotlin
-6. DotNet
-7. Ruby
-8. C++
+5. JavaScript
+6. Kotlin
+7. DotNet
+8. Ruby
+9. C++
+10. Rust
 ```
 
 ### Errors:

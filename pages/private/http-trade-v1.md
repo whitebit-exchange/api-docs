@@ -2,13 +2,13 @@
 
 ## Private endpoints V1
 
-#### Those endpoints are deprecated use [V4 alternatives](./http-trade-v4)
+#### Those endpoints are deprecated. Use [V4 alternatives](./http-trade-v4) instead.
 
 * [Trading balance by currency](#trading-balance-by-currency)
 * [Trading balances](#trading-balances)
 * [Create limit order](#create-limit-order)
 * [Cancel order](#cancel-order)
-* [Query unexecuted orders](#query-unexecutedactive-orders)
+* [Query unexecuted(active) orders](#query-unexecutedactive-orders)
 * [Query order history](#query-order-history)
 * [Query order history by single market](#query-executed-order-history-by-single-market)
 * [Query order history by all markets](#query-executed-order-history-by-all-markets)
@@ -24,8 +24,8 @@ All endpoints return either a __JSON__ object or array.
 
 For receiving responses from API calls please use http method __POST__
 
-#### Error messages V1 format:
 ___
+#### Error messages V1 format:
 ```json
 {
     "code": 0,
@@ -40,27 +40,6 @@ ___
     }
 }
 ```
-___
-### Terminology
-
-#### Pair:
-
-`Stock` - currency that you want to buy or sell
-
-`Money` - currency that you are using to buy or sell something
-
-`Maker` - person who puts an order and waiting till this order will be finished
-
-`Taker` - person who finishes existing order
-
-`Precision` - is the number of digits to the right of the decimal point
-
-`Bid` - buy order
-
-`Ask` - sell order
-
-`Limit order` - to place this order, you need to fill the 'Price' and 'Amount' fields. If this order finds a corresponding order on the opposite side, it will be executed. Otherwise it will be placed into the orderbook.
-
 ___
 ### Trading balance by currency
 

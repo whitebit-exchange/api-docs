@@ -1,16 +1,19 @@
 # Public HTTP API V4
 
-## Public endpoints V4
+### Public endpoints V4:
 
-* [Ticker](#market-activity)
-* [Assets](#asset-status-list)
-* [Market info](#market-info)
-* [Orderbook](#orderbook)
-* [Recent Trades](#recent-trades)
-* [Fee](#fee)
-* [Server Time](#server-time)
-* [Server Status](#server-status)
-* [Collateral Markets](#collateral-markets-list)
+
+
+* - [Market Info](#market-info)
+* - [Market activity](#market-activity)
+* - [Asset status list](#asset-status-list)
+* - [Orderbook](#orderbook)
+* - [Recent Trades](#recent-trades)
+* - [Fee](#fee)
+    - [Server Time](#server-time)
+    - [Server Status](#server-status)
+    - [Collateral Markets List](#collateral-markets-list)
+    - [Available Futures Markets List](#available-futures-markets-list)
 
 Base URL is https://whitebit.com
 
@@ -24,8 +27,8 @@ For receiving responses from API calls please use http method __GET__
 
 If an endpoint requires parameters you should send them as `query string`
 
-#### Error messages V4 format:
 ___
+#### Error messages V4 format:
 ```json
 {
     "success": false,
@@ -33,24 +36,6 @@ ___
     "params": []
 }
 ```
-___
-### Terminology
-
-#### Pair:
-
-`Stock` - currency that you want to buy or sell
-
-`Money` - currency that you are using to buy or sell something
-
-`Maker` - person who puts an order and waiting till this order will be finished
-
-`Taker` - person who finishes existing order
-
-`Precision` - is the number of digits to the right of the decimal point
-
-`Bid` - buy order
-
-`Ask` - sell order
 
 ___
 ### Market Info
