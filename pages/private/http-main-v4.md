@@ -2,25 +2,30 @@
 
 ## Private endpoints V4 for Main balance changes
 
-* [Main balance](#main-balance)
-* [Get cryptocurrency deposit address](#get-cryptocurrency-deposit-address)
-* [Get fiat deposit address](#get-fiat-deposit-address)
-* [Create withdraw request](#create-withdraw-request)
-* [Transfer between main and trade balances](#transfer-between-main-and-trade-balances)
-* [Get deposit/withdraw history](#get-depositwithdraw-history)
-* [Create new address for deposit](#create-new-address-for-deposit)
-* Codes
-    * [Create code](#create-code)
-    * [Apply code](#apply-code)
-    * [Get my codes](#get-my-codes)
-    * [Get codes history](#get-codes-history)
-* SMART
-    * [Get plans](#get-plans)
-    * [Invest](#invest)
-    * [Close investment](#close-investment)
-    * [Get investments history](#get-investments-history)
-    * [Get interest payments history](#get-interest-payments-history)
-* [Fees](#fees)
+- [Private HTTP API V4](#private-http-api-v4)
+  - [Private endpoints V4 for Main balance changes](#private-endpoints-v4-for-main-balance-changes)
+      - [Error messages V4 format:](#error-messages-v4-format)
+    - [Main balance](#main-balance)
+    - [Get cryptocurrency deposit address](#get-cryptocurrency-deposit-address)
+    - [Get fiat deposit address](#get-fiat-deposit-address)
+    - [Create withdraw request](#create-withdraw-request)
+    - [Create withdraw request with the specific withdraw amount (fee is not included)](#create-withdraw-request-with-the-specific-withdraw-amount-fee-is-not-included)
+    - [Transfer between main and trade balances](#transfer-between-main-and-trade-balances)
+    - [Get deposit/withdraw history](#get-depositwithdraw-history)
+    - [Create new address for deposit](#create-new-address-for-deposit)
+  - [Codes](#codes)
+    - [Create code](#create-code)
+    - [Apply code](#apply-code)
+    - [Get my codes](#get-my-codes)
+    - [Get codes history](#get-codes-history)
+  - [SMART Staking](#smart-staking)
+    - [Get plans](#get-plans)
+    - [Invest](#invest)
+    - [Close investment](#close-investment)
+    - [Get investments history](#get-investments-history)
+    - [Get interest payments history](#get-interest-payments-history)
+  - [Fees](#fees)
+    - [Get fees](#get-fees)
 
 Base URL is https://whitebit.com
 
@@ -48,38 +53,6 @@ ___
     }
 }
 ```
-___
-### Terminology
-
-#### Pair:
-
-`Stock` - currency that you want to buy or sell
-
-`Money` - currency that you are using to buy or sell something
-
-`Maker` - person who puts an order and waiting till this order will be finished
-
-`Taker` - person who finishes the existing order
-
-`Precision` - is the number of digits to the right of the decimal point
-
-`Bid` - buy order
-
-`Ask` - sell order
-
-`Limit order` - to place this order, you need to fill in the 'Price' and 'Amount' fields. If this order finds a corresponding order on the opposite side, it will be executed. Otherwise it will be placed into the orderbook.
-
-`Fiat` - is a currency (a medium of exchange) established as money, often by government regulation, but that does not have intrinsic value (value independent of the nominal value, such as a precious metal might have).
-
-`Provider` - fiat currencies has different providers that helps people making deposits and withdraws by bank transfers.
-
-`Multinetwork` - cryptocurrency like USDT obtained in different networks, like: OMNI, Tron, Ethereum etc. Network should be selected in order to make a deposit or withdraw.
-
-`Main balance` - balance on exchange that accepts deposits and/or withdraws.
-
-`Memo` - some currencies like XLM can create only one address for exchange. So for detecting which transaction is yours exchanges uses additional data - memo.
-
-
 ___
 ### Main balance
 
