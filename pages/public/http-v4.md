@@ -2,15 +2,21 @@
 
 ## Public endpoints V4
 
-* [Ticker](#market-activity)
-* [Assets](#asset-status-list)
-* [Market info](#market-info)
-* [Orderbook](#orderbook)
-* [Recent Trades](#recent-trades)
-* [Fee](#fee)
-* [Server Time](#server-time)
-* [Server Status](#server-status)
-* [Collateral Markets](#collateral-markets-list)
+- [Public HTTP API V4](#public-http-api-v4)
+  - [Public endpoints V4](#public-endpoints-v4)
+      - [Error messages V4 format:](#error-messages-v4-format)
+    - [Terminology](#terminology)
+      - [Pair:](#pair)
+    - [Market Info](#market-info)
+    - [Market activity](#market-activity)
+    - [Asset status list](#asset-status-list)
+    - [Orderbook](#orderbook)
+    - [Recent Trades](#recent-trades)
+    - [Fee](#fee)
+    - [Server Time](#server-time)
+    - [Server Status](#server-status)
+    - [Collateral Markets List](#collateral-markets-list)
+    - [Available Futures Markets List](#available-futures-markets-list)
 
 Base URL is https://whitebit.com
 
@@ -61,10 +67,12 @@ ___
 This endpoint retrieves all information about available spot and futures markets.
 
 **Response is cached for:**
-_1 second_
+_5 second_
 
 **Parameters:**
 NONE
+
+:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
 
 **Response:**
 ```json
@@ -98,10 +106,12 @@ ___
 This endpoint retrieves a 24-hour pricing and volume summary for each market pair available on the exchange.
 
 **Response is cached for:**
-_1 second_
+_5 second_
 
 **Parameters:**
 NONE
+
+:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
 
 **Response:**
 ```json
@@ -128,10 +138,12 @@ ___
 This endpoint retrieves the assets status.
 
 **Response is cached for:**
-_1 second_
+_5 second_
 
 **Parameters:**
 NONE
+
+:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
 
 **Response:**
 ```json
@@ -320,7 +332,9 @@ ___
 This endpoint retrieves the current order book as two arrays (bids / asks) with additional parameters.
 
 **Response is cached for:**
-_1 second_
+_5 second_
+
+:heavy_exclamation_mark: Rate limit 600 requests/10 sec.
 
 **Parameters:**
 
@@ -360,7 +374,9 @@ ___
 This endpoint retrieves the trades that have been executed recently on the requested market.
 
 **Response is cached for:**
-_1 second_
+_5 second_
+
+:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
 
 **Parameters:**
 
@@ -399,6 +415,11 @@ ___
 [GET] /api/v4/public/fee
 ```
 This endpoint retrieves the list of fees and min/max amount for deposits and withdraws
+
+**Response is cached for:**
+_5 second_
+
+:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
 ___
 
 **Response:**
@@ -470,6 +491,11 @@ ___
 ```
 This endpoint retrieves the current server time.
 
+**Response is cached for:**
+_5 second_
+
+:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
+
 **Response:**
 ```json
 {
@@ -483,8 +509,10 @@ This endpoint retrieves the current server time.
 ```
 This endpoint retrieves the current API life-state.
 
+:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
+
 **Response is cached for:**
-_1 second_
+_5 second_
 
 **Response:**
 ```json
@@ -499,6 +527,11 @@ _1 second_
 [GET] /api/v4/public/collateral/markets
 ```
 This endpoint returns the list of markets that available for collateral trading
+
+:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
+
+**Response is cached for:**
+_5 second_
 
 **Response:**
 ```json
@@ -527,6 +560,11 @@ This endpoint returns the list of markets that available for collateral trading
 [GET] /api/v4/public/futures
 ```
 This endpoint returns the list of available futures markets.
+
+:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
+
+**Response is cached for:**
+_5 second_
 
 **Response:**
 ```json
