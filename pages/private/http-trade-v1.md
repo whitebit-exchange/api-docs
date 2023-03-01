@@ -71,6 +71,11 @@ ___
 ```
 This endpoint retrieves the trade balance by currency ticker.
 
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -125,6 +130,11 @@ ___
 [POST] /api/v1/account/balances
 ```
 This endpoint retrieves all available balances for trading.
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 NONE
@@ -201,6 +211,11 @@ ___
 [POST] /api/v1/order/new
 ```
 This endpoint creates limit trading order.
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -410,6 +425,11 @@ ___
 ```
 This endpoint cancels the existing order.
 
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -526,6 +546,11 @@ ___
 [POST] /api/v1/orders
 ```
 This endpoint retrieves unexecuted orders only.
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -655,6 +680,11 @@ ___
 ```
 This endpoint retrieves orders history sorted by all markets
 
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -781,6 +811,11 @@ ___
 ```
 This endpoint retrieves deals history sorted by single market
 
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -894,6 +929,11 @@ ___
 [POST] /api/v1/account/executed_history/all
 ```
 This endpoint retrieves orders history sorted by all markets.
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -1010,6 +1050,11 @@ ___
 [POST] /api/v1/account/order
 ```
 This endpoint retrieves more details on order deals history.
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 

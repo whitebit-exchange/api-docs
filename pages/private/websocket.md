@@ -31,7 +31,7 @@ The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSoc
 
 :warning: Connection will be closed by server in cause of inactivity after 60s.
 
-:heavy_exclamation_mark: Rate limit 100 ws connections per minute.
+:heavy_exclamation_mark: Rate limit 1000 ws connections per minute.
 
 All endpoints return time in Unix-time format.
 
@@ -765,6 +765,8 @@ Market should exist. The maximum limit is 100.
 ```
 
 #### Subscribe
+
+Update interval: 0,5 sec
 
 ##### ⤴️ Request:
 
