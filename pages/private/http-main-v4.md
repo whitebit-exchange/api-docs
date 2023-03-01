@@ -2,25 +2,32 @@
 
 ## Private endpoints V4 for Main balance changes
 
-* [Main balance](#main-balance)
-* [Get cryptocurrency deposit address](#get-cryptocurrency-deposit-address)
-* [Get fiat deposit address](#get-fiat-deposit-address)
-* [Create withdraw request](#create-withdraw-request)
-* [Transfer between main and trade balances](#transfer-between-main-and-trade-balances)
-* [Get deposit/withdraw history](#get-depositwithdraw-history)
-* [Create new address for deposit](#create-new-address-for-deposit)
-* Codes
-    * [Create code](#create-code)
-    * [Apply code](#apply-code)
-    * [Get my codes](#get-my-codes)
-    * [Get codes history](#get-codes-history)
-* SMART
-    * [Get plans](#get-plans)
-    * [Invest](#invest)
-    * [Close investment](#close-investment)
-    * [Get investments history](#get-investments-history)
-    * [Get interest payments history](#get-interest-payments-history)
-* [Fees](#fees)
+- [Private HTTP API V4](#private-http-api-v4)
+  - [Private endpoints V4 for Main balance changes](#private-endpoints-v4-for-main-balance-changes)
+      - [Error messages V4 format:](#error-messages-v4-format)
+    - [Terminology](#terminology)
+      - [Pair:](#pair)
+    - [Main balance](#main-balance)
+    - [Get cryptocurrency deposit address](#get-cryptocurrency-deposit-address)
+    - [Get fiat deposit address](#get-fiat-deposit-address)
+    - [Create withdraw request](#create-withdraw-request)
+    - [Create withdraw request with the specific withdraw amount (fee is not included)](#create-withdraw-request-with-the-specific-withdraw-amount-fee-is-not-included)
+    - [Transfer between main and trade balances](#transfer-between-main-and-trade-balances)
+    - [Get deposit/withdraw history](#get-depositwithdraw-history)
+    - [Create new address for deposit](#create-new-address-for-deposit)
+  - [Codes](#codes)
+    - [Create code](#create-code)
+    - [Apply code](#apply-code)
+    - [Get my codes](#get-my-codes)
+    - [Get codes history](#get-codes-history)
+  - [Crypto Lеnding](#crypto-lеnding)
+    - [Get plans](#get-plans)
+    - [Invest](#invest)
+    - [Close investment](#close-investment)
+    - [Get investments history](#get-investments-history)
+    - [Get interest payments history](#get-interest-payments-history)
+  - [Fees](#fees)
+    - [Get fees](#get-fees)
 
 Base URL is https://whitebit.com
 
@@ -88,6 +95,11 @@ ___
 ```
 This endpoint retrieves the main balance by currency ticker or all balances.
 
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -154,6 +166,11 @@ ___
 [POST] /api/v4/main-account/address
 ```
 This endpoint retrieves a deposit address of the cryptocurrency.
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -267,6 +284,11 @@ ___
 [POST] /api/v4/main-account/fiat-deposit-url
 ```
 This endpoint retrieves a deposit url of the fiat invoice. Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality.
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -457,6 +479,11 @@ ___
 [POST] /api/v4/main-account/withdraw
 ```
 This endpoint creates withdraw for the specified ticker.
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -738,6 +765,11 @@ ___
 ```
 This endpoint has the similar logic as [/main-account/withdraw](#create-withdraw-request), but with the only difference: amount that is specified will not include fee (it will be calculated to make target withdraw amount equal to the specified amount).
 
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 Example:
 * When you create base withdraw and set amount = 100 USD, receiver will recieve 100 USD - fee amount, and your balance will decrease by 100 USD.
 * When you use this endpoint and set amount = 100 USD, receiver will recieve 100 USD, and your balance will decrease by 100 USD + fee amount.
@@ -750,6 +782,11 @@ Example:
 [POST] /api/v4/main-account/transfer
 ```
 This endpoint transfers the specified amount between main and trade balances
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -914,6 +951,11 @@ ___
 [POST] /api/v4/main-account/history
 ```
 This endpoint retrieves the history of deposits and withdraws
+
+:heavy_exclamation_mark: Rate limit 200 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -1124,6 +1166,11 @@ ___
 ```
 This endpoint creates a new address even when the last created address is not used. This endpoint is not available by default, you need to contact support@whitebit.com in order to get permissions to use this endpoint.
 
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -1260,6 +1307,11 @@ ___
 [POST] /api/v4/main-account/codes
 ```
 This endpoint creates WhiteBIT code.
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -1416,6 +1468,11 @@ ___
 ```
 This endpoint applies WhiteBIT code.
 
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -1486,6 +1543,11 @@ ___
 [POST] /api/v4/main-account/codes/my
 ```
 This endpoint retrieves the list of WhiteBIT codes created by my account.
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 
 **Parameters:**
@@ -1589,6 +1651,11 @@ ___
 [POST] /api/v4/main-account/codes/history
 ```
 This endpoint retrieves the whole codes history on your account.
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 
 **Parameters:**
@@ -1709,6 +1776,11 @@ These endpoints are available only for B2B partner services, you need to contact
 
 This endpoint retrieves all active plans
 
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -1780,6 +1852,11 @@ ___
 ```
 
 This endpoint creates a new investment to the specified invest plan
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -1995,6 +2072,11 @@ ___
 
 This endpoint closes active investment
 
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -2046,6 +2128,11 @@ ___
 ```
 
 This endpoint retrieves an investments history
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -2137,6 +2224,11 @@ Available statuses:
 
 This endpoint retrieves the history of interest payments
 
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 
 **Parameters:**
 
@@ -2212,6 +2304,11 @@ Zero value in amount fields means that the setting is disabled.
 
 ```
 [POST] /api/v4/main-account/fee
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 ```
 
 **Response:**

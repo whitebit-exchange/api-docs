@@ -2,13 +2,18 @@
 
 ## Public endpoints V1
 
-* [Market info](#market-info)
-* [Market activity](#market-activity)
-* [Single market activity](#single-market-activity)
-* [Kline](#kline)
-* [Symbols](#symbols)
-* [Order depth](#order-depth)
-* [Trade history](#trade-history)
+- [Public HTTP API V1](#public-http-api-v1)
+  - [Public endpoints V1](#public-endpoints-v1)
+      - [Error messages V1 format:](#error-messages-v1-format)
+    - [Terminology](#terminology)
+      - [Pair:](#pair)
+    - [Market Info](#market-info)
+    - [Market Activity](#market-activity)
+    - [Single market activity](#single-market-activity)
+    - [Kline](#kline)
+    - [Symbols](#symbols)
+    - [Order depth](#order-depth)
+    - [Trade History](#trade-history)
 
 Base URL is https://whitebit.com
 
@@ -59,10 +64,12 @@ ___
 This endpoint retrieves all information about available markets.
 
 **Response is cached for:**
-_1 second_
+_5 second_
 
 **Parameters:**
 NONE
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
 
 **Response:**
 ```json
@@ -97,10 +104,12 @@ ___
 This endpoint retrieves information about recent trading activity on all markets.
 
 **Response is cached for:**
-_1 second_
+_5 second_
 
 **Parameters:**
 NONE
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
 
 **Response:**
 ```json
@@ -137,7 +146,9 @@ ___
 This endpoint retrieves information about recent trading activity on the requested market.
 
 **Response is cached for:**
-_1 second_
+_5 second_
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
 
 **Parameters:**
 
@@ -174,7 +185,9 @@ ___
 This endpoint retrieves information about market kline.
 
 **Response is cached for:**
-_1 second_
+_5 second_
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
 
 **Max numbers of candles cannot exceed:**
 _1440_
@@ -218,7 +231,9 @@ ___
 This endpoint retrieves information about all available markets for trading.
 
 **Response is cached for:**
-_1 second_
+_5 second_
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
 
 **Parameters:**
 NONE
@@ -246,7 +261,9 @@ ___
 This endpoint retrieves the current order book as two arrays (bids / asks)
 
 **Response is cached for:**
-_1 second_
+_5 second_
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
 
 **Parameters:**
 
@@ -293,7 +310,9 @@ ___
 This endpoint retrieves trades that have been executed for the requested market.
 
 **Response is cached for:**
-_1 second_
+_5 second_
+
+:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
 
 **Parameters:**
 
