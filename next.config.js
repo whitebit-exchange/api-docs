@@ -4,6 +4,7 @@ const withNextra = require("nextra")({
 });
 
 const isProduction = process.env.NODE_ENV === "production";
+
 const assetPrefix = isProduction ? "/api-docs" : "";
 
 module.exports = {

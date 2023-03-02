@@ -466,6 +466,7 @@ All possible [order types](#order-types)
                 "market": "BTC_USDT",       // Market
                 "type": 1,                  // Order type. All types in table above
                 "side": 1,                  // Side 1 - sell, 2 - bid
+                "post_only": true,          // Post only flag
                 "ctime": 1601464682.998461, // Created at in Unix time
                 "mtime": 1601464682.998461, // Modified at in Unix time
                 "price": "10900",           // Order price
@@ -614,6 +615,7 @@ All possible [order types](#order-types)
                 "market": "BTC_USDT",         // Market
                 "type": 1,                    // Order type. All types in table above
                 "side": 2,                    // Side 1 - sell, 2 - bid
+                "post_only": true,            // Post only flag
                 "price": "9157.95",           // Order price
                 "amount": "0.633232",         // Stock amount
                 "deal_stock": "0.633232",     // Stock amount that executed
