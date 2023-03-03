@@ -1,96 +1,96 @@
-### 0-9
 ### A
 
-Active orders - ordera that are running for the duration of the trading day
+Active orders - orders that are running for the duration of the trading day
 
 Ask - sell order
 
 Assets - a digital representation of value that you can transfer, store, or trade electronically
 
-Authorize REWRITE - When you establish WS connection, you should authorize this ws connection via autho rize method. After successful authorization you will be able to send requests for balances, orders etc.
-
 ### B
 
 Bid - buy order
 
-Balance Margin - Request for amount on margin balance. Balance available for margin trade is equal to balance * leverage and it depends on liquidity in orderbook and your open positions. When you open position, your balance will not change, but amount available for trade will decrease (collatoral ballance???)
-
-Balance transfer - 
+Balance Margin - balance available for margin trade
 
 Balance Spot - banalce for spot trading
 
-Balance Collateral - otal balance for margin and futures trading
+Balance Collateral - total balance for margin and futures trading
+
+Balance Main - balance that accepts deposits and/or withdraws cryptocurrency and national currency.
+
+Balance Trade - this balance is intended solely for non-marginal trading (placing orders), as well as for the currency exchange
+
+Balance Total - contains general information of all balances, it is always shown in USDT, as an equivalent the value is displayed in BTC
 
 ### C
 
-Collateral - something pledged as security for repayment of a loan
+Collateral - the cryptocurrency asset that the borrower pledges as a guarantee that the loan is going to be repaid
 
 ### D
 
-Deal(trade) - время віпоолнения, amount, price
+Deal(trade) - taking a financial position on the price direction of individual cryptocurrencies against the dollar (in crypto/dollar pairs) or against another crypto, via crypto to crypto pairs. Consists of amount, price and the duration
 
-Deriative - a tradeable financial instrument that derives its value from an underlying asset, such as a cryptocurrency
+Deriative - crypto derivatives are contracts that derive their value from a primary underlying asset. In the case of crypto derivatives, the primary asset would be a cryptocurrency such as Bitcoin
 
 ### E
 ### F
 
 Fiat - is a currency (a medium of exchange) established as money, often by government regulation, but that does not have intrinsic value (value independent of the nominal value, such as a precious metal might have).
 
-Finished orders - 
+Finished orders - completed buy or sell orders
 
 Futures - contracts between two investors that bet on a cryptocurrency's future price
 
-Fee (Get fees) - Returns an array of objects containing deposit/withdrawal settings for the corresponding currencies. Zero value in amount fields means that the setting is disabled.
+Futures trading - users can open Long and Short positions and use leverage and they pay a fee for using borrowed funds not to the exchange but to each other.  
 
-Fee(trade) - 
-
-Fee(finance) - 
+Fee(trading fee) - a cryptocurrency transaction fee that is charged to users when performing crypto transactions. WhiteBit trading fee never exceeds 0,1%. In margin trading, users are charged a daily fee of 0.098% for the use of borrowed funds. Fees are also charged for most withdrawals and for several types of deposits. 
 
 ### G
-
 ### H
 ### I
 ### J
 ### K
 ### L
 
-Limit order - to place this order, you need to fill in the 'Price' and 'Amount' fields. If this order finds a corresponding order on the opposite side, it will be executed. Otherwise it will be placed into th  e orderbook.
+Leverage - the ratio of the margin to the borrowed funds used to open a position. In other words, it shows the number of times the credit exceeds your assets.
 
+Limit order - this order allows you to buy or sell an asset at a fixed price
 
 ### M
 
-Main balance - balance on exchange that accepts deposits and/or withdraws.
-
 Maker - person who puts an order and waiting till this order will be finished
 
-Margin - 
+Market - assets that can be traded for each other on an exchange.
 
-Memo - some currencies like XLM can create only one address for exchange. So for detecting which transaction is yours exchanges uses additional data - memo.
+Market activity - trading activity on all markets
+
+Market order - this order allows you to buy or sell an asset immediately at the current market price.
+
+Margin - the capital that an investor borrows from a broker to purchase an investment
+
+Margin trading - the use of borrowed funds to trade assets, which allows placing orders for sums exceeding the initial deposit several times. The latter is called “margin” and its size depends on the leverage.
+
+Memo(destination tag) - a special identifier used in transactions. To deposit and withdraw some cryptocurrencies, such as Ripple (XRP) and Stellar (XLM), you must specify a memo.
 
 Money - currency that you are using to buy or sell something
 
 Multinetwork - cryptocurrency like USDT obtained in different networks, like: OMNI, Tron, Ethereum etc. Network should be selected in order to make a deposit or withdraw.
 
-Market Pair - єто одно и то же
-
-market statistics = маркет активити = паир активити. Оставить маркет активити, а маркет паир = маркет
-маркет - действия между двумя активами (не валютами) 
-
-Market depth = order book
-
-Market order - 
-
-Trades(deals) - 
-
 ### N
 
-Nonce - an arbitrary number that can be used just once in a cryptographic communication
+Nonce - an arbitrary number that can be used just once in a cryptographic communication. 
 
 ### O
 
-Order - 
+OCO orders - this order allows you to place a combination of two orders at the same time. It combines the limit order with a stop-limit, on condition that only one of them will be executed. The feature of this order is that as soon as one of the orders is partially or completely executed, the second order is automatically canceled.
 
-Orders Pending - ???????
+Order - simple contract that allow you to specify which crypto you want to buy, how much of it and for what price.
+
+Order Book - the market’s ability to sustain relatively large market orders without impacting the price of the asset. It is calculated from the number of buy and sell orders at various price levels on each side of the mid price.
+
+Order Book - a separated list of buy (bids) and sell (asks) open orders for a specific trading pair.
+
+Orders Pending - orders that request an exchange to buy or sell an asset at a set price.
 
 ### P
 
@@ -98,22 +98,21 @@ Precision - is the number of digits to the right of the decimal point
 
 Provider - fiat currencies has different providers that helps people making deposits and withdraws by bank transfers.
 
-
 ### Q
-
 ### R
-
 ### S
 
 Stock - currency that you want to buy or sell
 
-Stop market order - 
+Stop limit order - this order has both the stop and the limit prices. When the specified market price at this pair is reached the order gets activated and is being completed as a basic limit order.
 
+Stop market order - this order is completed when the market price reaches a price set by you in advance (the stop price). This type of order is often used to prevent losses in the context of market volatility.
 
-Spot trading(Spot)- фактическая торговля на месте ; сток - что продвётся, мани - что покупается
+Stop price - a price set by you in advance
+
+Spot trading - buying/selling assets at the current market price.
 
 Smart plans(landing plans) - It allows you to make profit by lending your funds to the exchange in a certain cryptocurrency by using one of the available plans
-
 
 SMART Staking(Crypto landing) - a unique tool for passive income that allows depositing funds in specific plans and receiving a percentage from holding them for particular periods
 
@@ -138,6 +137,8 @@ Ticker - an alphabetic and/or numeric abbreviation of the name of a digital asse
 
 ### Y
 ### Z
+
+
 
 
 
