@@ -36,7 +36,7 @@ The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSoc
 
 :warning: Connection will be closed by server in cause of inactivity after 60s.
 
-:heavy_exclamation_mark: Rate limit 1000 ws connections per minute.
+❗ Rate limit 1000 ws connections per minute.
 
 All endpoints return time in Unix-time format.
 
@@ -675,7 +675,7 @@ Update interval: 0,5 sec
 
 #### Subscribe
 
-:heavy_exclamation_mark: For each websocket connection, you can subscribe only to one market. Every following subscription will replace the existing one.
+❗ For each websocket connection, you can subscribe only to one market. Every following subscription will replace the existing one.
 
 ##### ⤴️ Request:
 
@@ -791,7 +791,7 @@ Update interval: 0,5 sec
 
 #### Subscribe
 
-Update interval: 1 sec 
+Update interval: 1 sec
 
 ##### ⤴️ Request:
 

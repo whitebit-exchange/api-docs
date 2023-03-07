@@ -95,7 +95,7 @@ ___
 ```
 This endpoint retrieves the main balance by currency ticker or all balances.
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -167,7 +167,7 @@ ___
 ```
 This endpoint retrieves a deposit address of the cryptocurrency.
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -285,7 +285,7 @@ ___
 ```
 This endpoint retrieves a deposit url of the fiat invoice. Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality.
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -480,7 +480,7 @@ ___
 ```
 This endpoint creates withdraw for the specified ticker.
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -765,7 +765,7 @@ ___
 ```
 This endpoint has the similar logic as [/main-account/withdraw](#create-withdraw-request), but with the only difference: amount that is specified will not include fee (it will be calculated to make target withdraw amount equal to the specified amount).
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -783,7 +783,7 @@ Example:
 ```
 This endpoint transfers the specified amount between main and trade balances
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -952,7 +952,7 @@ ___
 ```
 This endpoint retrieves the history of deposits and withdraws
 
-:heavy_exclamation_mark: Rate limit 200 requests/10 sec.
+❗ Rate limit 200 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -968,7 +968,7 @@ addresses | Array | **No** | Can be used for filtering transactions by specific 
 uniqueId | String | **No** | Can be used for filtering transactions by specific unique id
 limit | Int | **Yes** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
 offset | Int | **Yes** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
-status | Array | **No** | Can be used for filtering transactions by status codes. :heavy_exclamation_mark: Caution: You must use this parameter with appropriate `transactionMethod` and use valid status codes for this method. You can find them below. Example: `"status": [3,7]`
+status | Array | **No** | Can be used for filtering transactions by status codes. ❗ Caution: You must use this parameter with appropriate `transactionMethod` and use valid status codes for this method. You can find them below. Example: `"status": [3,7]`
 
 | Deposit status codes:     |
 |---------------------------|
@@ -1166,7 +1166,7 @@ ___
 ```
 This endpoint creates a new address even when the last created address is not used. This endpoint is not available by default, you need to contact support@whitebit.com in order to get permissions to use this endpoint.
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -1308,7 +1308,7 @@ ___
 ```
 This endpoint creates WhiteBIT code.
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -1468,7 +1468,7 @@ ___
 ```
 This endpoint applies WhiteBIT code.
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -1544,7 +1544,7 @@ ___
 ```
 This endpoint retrieves the list of WhiteBIT codes created by my account.
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -1652,7 +1652,7 @@ ___
 ```
 This endpoint retrieves the whole codes history on your account.
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -1776,7 +1776,7 @@ These endpoints are available only for B2B partner services, you need to contact
 
 This endpoint retrieves all active plans
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -1853,7 +1853,7 @@ ___
 
 This endpoint creates a new investment to the specified invest plan
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -2072,7 +2072,7 @@ ___
 
 This endpoint closes active investment
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -2129,7 +2129,7 @@ ___
 
 This endpoint retrieves an investments history
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -2224,7 +2224,7 @@ Available statuses:
 
 This endpoint retrieves the history of interest payments
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -2305,7 +2305,7 @@ Zero value in amount fields means that the setting is disabled.
 ```
 [POST] /api/v4/main-account/fee
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE

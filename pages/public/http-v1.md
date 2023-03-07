@@ -69,7 +69,7 @@ _5 second_
 **Parameters:**
 NONE
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response:**
 ```json
@@ -109,7 +109,7 @@ _5 second_
 **Parameters:**
 NONE
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response:**
 ```json
@@ -148,7 +148,7 @@ This endpoint retrieves information about recent trading activity on the request
 **Response is cached for:**
 _5 second_
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Parameters:**
 
@@ -187,7 +187,7 @@ This endpoint retrieves information about market kline.
 **Response is cached for:**
 _5 second_
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Max numbers of candles cannot exceed:**
 _1440_
@@ -233,7 +233,7 @@ This endpoint retrieves information about all available markets for trading.
 **Response is cached for:**
 _5 second_
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Parameters:**
 NONE
@@ -263,7 +263,7 @@ This endpoint retrieves the current order book as two arrays (bids / asks)
 **Response is cached for:**
 _5 second_
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Parameters:**
 
@@ -312,7 +312,7 @@ This endpoint retrieves trades that have been executed for the requested market.
 **Response is cached for:**
 _5 second_
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Parameters:**
 
