@@ -87,7 +87,7 @@ ___
 ```
 This endpoint retrieves the trade balance by currency ticker or all balances.
 
-:heavy_exclamation_mark: Rate limit 12000 requests/10 sec.
+❗ Rate limit 12000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -179,7 +179,7 @@ ___
 ```
 This endpoint creates limit trading order.
 
-:heavy_exclamation_mark: Rate limit 10000 requests/10 sec.
+❗ Rate limit 10000 requests/10 sec.
 
 **Parameters:**
 
@@ -496,7 +496,7 @@ ___
 ```
 This endpoint creates market trading order.
 
-:heavy_exclamation_mark: Rate limit 10000 requests/10 sec.
+❗ Rate limit 10000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -786,7 +786,7 @@ ___
 ```
 This endpoint creates buy stock market trading order.
 
-:heavy_exclamation_mark: Rate limit 10000 requests/10 sec.
+❗ Rate limit 10000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -1039,7 +1039,7 @@ ___
 ```
 This endpoint creates stop-limit trading order
 
-:heavy_exclamation_mark: Rate limit 10000 requests/10 sec.
+❗ Rate limit 10000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -1457,7 +1457,7 @@ ___
 ```
 This endpoint creates stop-market trading order
 
-:heavy_exclamation_mark: Rate limit 10000 requests/10 sec.
+❗ Rate limit 10000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -1819,7 +1819,7 @@ ___
 ```
 Cancel existing order
 
-:heavy_exclamation_mark: Rate limit 10000 requests/10 sec.
+❗ Rate limit 10000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -1962,7 +1962,7 @@ ___
 ```
 This endpoint retrieves unexecuted orders only.
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -2151,7 +2151,7 @@ ___
 ```
 This endpoint retrieves the deals history. Can be sorted by single market if needed.
 
-:heavy_exclamation_mark: Rate limit 12000 requests/10 sec.
+❗ Rate limit 12000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -2299,7 +2299,7 @@ ___
 ```
 This endpoint retrieves deals history details on pending or executed order.
 
-:heavy_exclamation_mark: Rate limit 12000 requests/10 sec.
+❗ Rate limit 12000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -2456,7 +2456,7 @@ ___
 ```
 This endpoint retrieves executed order history by market.
 
-:heavy_exclamation_mark: Rate limit 12000 requests/10 sec.
+❗ Rate limit 12000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -2613,7 +2613,7 @@ Empty response if order is not yours
 
 This endpoint returns a current collateral balance
 
-:heavy_exclamation_mark: Rate limit 12000 requests/10 sec.
+❗ Rate limit 12000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -2653,7 +2653,7 @@ Available statuses:
 ```
 This endpoint creates limit order using collateral balance
 
-:heavy_exclamation_mark: Rate limit 10000 requests/10 sec.
+❗ Rate limit 10000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -2730,7 +2730,7 @@ Detailed information about errors response you can find in [Create limit order](
 ```
 This endpoint creates market trading order.
 
-:heavy_exclamation_mark: Rate limit 10000 requests/10 sec.
+❗ Rate limit 10000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -2813,7 +2813,7 @@ ___
 ```
 This endpoint creates collateral stop-limit trading order
 
-:heavy_exclamation_mark: Rate limit 10000 requests/10 sec.
+❗ Rate limit 10000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -3231,7 +3231,7 @@ ___
 ```
 This endpoint creates margin trigger market order
 
-:heavy_exclamation_mark: Rate limit 10000 requests/10 sec.
+❗ Rate limit 10000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -3313,7 +3313,7 @@ Error codes:
 ```
 This endpoint retrieves summary of collateral account
 
-:heavy_exclamation_mark: Rate limit 12000 requests/10 sec.
+❗ Rate limit 12000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -3351,7 +3351,7 @@ Available statuses:
 ```
 This endpoint returns all open positions
 
-:heavy_exclamation_mark: Rate limit 12000 requests/10 sec.
+❗ Rate limit 12000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -3414,7 +3414,7 @@ This endpoint returns past positions history. Each position represented by posit
 If your request has a "positionId" field, you receive data only with this "positionId".
 If your request has a "market" field, you receive data only by this "market".
 
-:heavy_exclamation_mark: Rate limit 12000 requests/10 sec.
+❗ Rate limit 12000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -3479,7 +3479,7 @@ Available statuses:
 ```
 This endpoint changes the current leverage of account.
 
-:heavy_exclamation_mark: Rate limit 12000 requests/10 sec.
+❗ Rate limit 12000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -3520,7 +3520,7 @@ Available statuses:
 ```
 This endpoint retrieves unexecuted oco orders only.
 
-:heavy_exclamation_mark: Rate limit 1000 requests/10 sec.
+❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -3732,7 +3732,7 @@ ___
 ```
 This endpoint creates collateral trading OCO order
 
-:heavy_exclamation_mark: Rate limit 10000 requests/10 sec.
+❗ Rate limit 10000 requests/10 sec.
 
 **Response is cached for:**
 NONE
@@ -4298,7 +4298,7 @@ ___
 ```
 Cancel existing order
 
-:heavy_exclamation_mark: Rate limit 10000 requests/10 sec.
+❗ Rate limit 10000 requests/10 sec.
 
 **Response is cached for:**
 NONE

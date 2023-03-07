@@ -72,7 +72,7 @@ _5 second_
 **Parameters:**
 NONE
 
-:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
+❗ Rate limit 2000 requests/10 sec.
 
 **Response:**
 ```json
@@ -111,7 +111,7 @@ _5 second_
 **Parameters:**
 NONE
 
-:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
+❗ Rate limit 2000 requests/10 sec.
 
 **Response:**
 ```json
@@ -143,7 +143,7 @@ _5 second_
 **Parameters:**
 NONE
 
-:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
+❗ Rate limit 2000 requests/10 sec.
 
 **Response:**
 ```json
@@ -334,7 +334,7 @@ This endpoint retrieves the current order book as two arrays (bids / asks) with 
 **Response is cached for:**
 _5 second_
 
-:heavy_exclamation_mark: Rate limit 600 requests/10 sec.
+❗ Rate limit 600 requests/10 sec.
 
 **Parameters:**
 
@@ -376,7 +376,7 @@ This endpoint retrieves the trades that have been executed recently on the reque
 **Response is cached for:**
 _5 second_
 
-:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
+❗ Rate limit 2000 requests/10 sec.
 
 **Parameters:**
 
@@ -419,7 +419,7 @@ This endpoint retrieves the list of fees and min/max amount for deposits and wit
 **Response is cached for:**
 _5 second_
 
-:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
+❗ Rate limit 2000 requests/10 sec.
 ___
 
 **Response:**
@@ -494,7 +494,7 @@ This endpoint retrieves the current server time.
 **Response is cached for:**
 _5 second_
 
-:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
+❗ Rate limit 2000 requests/10 sec.
 
 **Response:**
 ```json
@@ -509,7 +509,7 @@ _5 second_
 ```
 This endpoint retrieves the current API life-state.
 
-:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
+❗ Rate limit 2000 requests/10 sec.
 
 **Response is cached for:**
 _5 second_
@@ -528,7 +528,7 @@ _5 second_
 ```
 This endpoint returns the list of markets that available for collateral trading
 
-:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
+❗ Rate limit 2000 requests/10 sec.
 
 **Response is cached for:**
 _5 second_
@@ -561,7 +561,7 @@ _5 second_
 ```
 This endpoint returns the list of available futures markets.
 
-:heavy_exclamation_mark: Rate limit 2000 requests/10 sec.
+❗ Rate limit 2000 requests/10 sec.
 
 **Response is cached for:**
 _5 second_
