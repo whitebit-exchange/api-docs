@@ -2,7 +2,7 @@
 
 ## Private endpoints V1
 
-#### Those endpoints are deprecated. Use [V4 alternatives](./http-trade-v4) instead.
+#### Those endpoints are deprecated. Use [V4 alternatives](./http-trade-v4) instead
 
 * [Trading balance by currency](#trading-balance-by-currency)
 * [Trading balances](#trading-balances)
@@ -43,7 +43,7 @@ ___
 ___
 ### Trading balance by currency
 
-#### This endpoint is deprecated use [V4 endpoint](./http-trade-v4#trading-balance)
+#### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#trading-balance) instead
 
 ```
 [POST] /api/v1/account/balance
@@ -98,7 +98,7 @@ ___
 
 ### Trading balances
 
-#### This endpoint is deprecated use [V4 endpoint](./http-trade-v4#trading-balance)
+#### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#trading-balance) instead
 
 ```
 [POST] /api/v1/account/balances
@@ -174,7 +174,7 @@ ___
 
 ### Create limit order
 
-#### This endpoint is deprecated use [V4 endpoint](./http-trade-v4#create-limit-order)
+#### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#create-limit-order) instead
 
 ```
 [POST] /api/v1/order/new
@@ -382,7 +382,7 @@ ___
 
 ### Cancel order
 
-#### This endpoint is deprecated use [V4 endpoint](./http-trade-v4#cancel-order)
+#### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#cancel-order) instead
 
 ```
 [POST] /api/v1/order/cancel
@@ -499,7 +499,7 @@ ___
 
 ### Query unexecuted(active) orders
 
-#### This endpoint is deprecated use [V4 endpoint](./http-trade-v4#query-unexecutedactive-orders)
+#### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#query-unexecutedactive-orders) instead
 
 ```
 [POST] /api/v1/orders
@@ -627,7 +627,7 @@ ___
 
 ### Query order history
 
-#### This endpoint is deprecated use [V4 endpoint](./http-trade-v4#query-executed-orders)
+#### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#query-executed-orders) instead
 
 ```
 [POST] /api/v1/account/order_history
@@ -753,7 +753,7 @@ ___
 
 ### Query executed order history by single market
 
-#### This endpoint is deprecated use [V4 endpoint](./http-trade-v4#query-executed-order-history)
+#### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#query-executed-order-history) instead
 
 ```
 [POST] /api/v1/account/executed_history
@@ -867,7 +867,7 @@ ___
 
 ### Query executed order history by all markets
 
-#### This endpoint is deprecated use [V4 endpoint](./http-trade-v4#query-executed-order-history)
+#### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#query-executed-order-history) instead
 
 ```
 [POST] /api/v1/account/executed_history/all
@@ -983,7 +983,7 @@ ___
 
 ### Query executed order deals
 
-#### This endpoint is deprecated use [V4 endpoint](./http-trade-v4#query-executed-order-deals)
+#### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#query-executed-order-deals) instead
 
 ```
 [POST] /api/v1/account/order
