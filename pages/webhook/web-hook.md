@@ -1,9 +1,9 @@
 # WebHook HTTP API
 
-* [How to use](#how-to-use)
-* [Requirements](#requirements)
-* [Webhook methods](#webhook-methods)
-* [WhiteBIT withdraw from main balance](#whitebit-withdraw-from-main-balance)
+- [How to use](#how-to-use)
+- [Requirements](#requirements)
+- [Webhook methods](#webhook-methods)
+- [WhiteBIT withdraw from main balance](#whitebit-withdraw-from-main-balance)
 
 
 ## How to use
@@ -89,8 +89,8 @@ Performed when deposit was accepted. Request example:
 
 ```json
 {
-  method: "deposit.accepted",
-  params: {
+  "method": "deposit.accepted",
+  "params": {
     "address": "wallet address",                  // deposit address
     "amount": "0.000600000000000000",             // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
@@ -109,7 +109,7 @@ Performed when deposit was accepted. Request example:
         "required": 2                             // required block confirmation for successful deposit
     }
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 
@@ -117,8 +117,8 @@ Performed when deposit was update. Request example:
 
 ```json
 {
-  method: "deposit.update",
-  params: {
+  "method": "deposit.update",
+  "params": {
     "address": "wallet address",                  // deposit address
     "amount": "0.000600000000000000",             // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
@@ -136,7 +136,7 @@ Performed when deposit was update. Request example:
         "required": 2                             // required block confirmation for successful deposit
     }
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 
@@ -144,8 +144,8 @@ Performed when deposit was processed, so it is available on your balance. Reques
 
 ```json
 {
-  method: "deposit.processed",
-  params: {
+  "method": "deposit.processed",
+  "params": {
     "address": "wallet address",                  // deposit address
     "amount": "0.000600000000000000",             // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
@@ -164,7 +164,7 @@ Performed when deposit was processed, so it is available on your balance. Reques
         "required": 2                             // required block confirmation for successful deposit
     }
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 
@@ -172,8 +172,8 @@ Performed when deposit was canceled. Request example:
 
 ```json
 {
-  method: "deposit.canceled",
-  params: {
+  "method": "deposit.canceled",
+  "params": {
     "address": "wallet address",                  // deposit address
     "amount": "100.00",                           // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
@@ -192,7 +192,7 @@ Performed when deposit was canceled. Request example:
         "required": 32                             // required block confirmation for successful deposit
     }
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 Deposit status codes:
@@ -205,8 +205,8 @@ Performed when withdraw was created. Request example:
 
 ```json
 {
-  method: "withdraw.unconfirmed",
-  params: {
+  "method": "withdraw.unconfirmed",
+  "params": {
     "address": "wallet address",                  // withdraw address
     "amount": "100.00",                           // amount of withdraw
     "createdAt": 1593437922,                      // timestamp of withdraw
@@ -221,7 +221,7 @@ Performed when withdraw was created. Request example:
     "transactionHash": "transaction hash",        // withdraw transaction hash
     "uniqueId": null,                             // unique Id of withdraw
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 
@@ -229,8 +229,8 @@ Performed when withdraw is pending. Request example:
 
 ```json
 {
-  method: "withdraw.pending",
-  params: {
+  "method": "withdraw.pending",
+  "params": {
     "address": "wallet address",                  // withdraw address
     "amount": "100.00",                           // amount of withdraw
     "createdAt": 1593437922,                      // timestamp of withdraw
@@ -245,7 +245,7 @@ Performed when withdraw is pending. Request example:
     "transactionHash": "transaction hash",        // withdraw transaction hash
     "uniqueId": null,                             // unique Id of withdraw
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 
@@ -253,8 +253,8 @@ Performed when withdraw was canceled. Request example:
 
 ```json
 {
-  method: "withdraw.canceled",
-  params: {
+  "method": "withdraw.canceled",
+  "params": {
     "address": "wallet address",                  // withdraw address
     "amount": "100.00",                           // amount of withdraw
     "createdAt": 1593437922,                      // timestamp of withdraw
@@ -269,7 +269,7 @@ Performed when withdraw was canceled. Request example:
     "transactionHash": "transaction hash",        // withdraw transaction hash
     "uniqueId": null,                             // unique Id of withdraw
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 
@@ -277,8 +277,8 @@ Performed when withdraw was completed. Request example:
 
 ```json
 {
-  method: "withdraw.successful",
-  params: {
+  "method": "withdraw.successful",
+  "params": {
     "address": "wallet address",                  // withdraw address
     "amount": "100.00",                           // amount of withdraw
     "createdAt": 1593437922,                      // timestamp of withdraw
@@ -293,6 +293,6 @@ Performed when withdraw was completed. Request example:
     "transactionHash": "transaction hash",        // withdraw transaction hash
     "uniqueId": null,                             // unique Id of withdraw
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
