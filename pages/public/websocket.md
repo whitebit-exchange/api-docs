@@ -1,24 +1,22 @@
 # Public WebSocket API
 
-## Methods
-
-* [Service](#service)
-    * [Ping](#ping)
-    * [Time](#time)
-* [Kline](#kline)
-* [Last price](#last-price)
-* [Market statistics](#market-statistics)
-* [Market statistics for current day UTC](#market-statistics-for-current-day-utc)
-* [Market trades](#market-trades)
-* [Market depth](#market-depth)
+- [Service](#service)
+- [Ping](#ping)
+- [Time](#time)
+- [Kline](#kline)
+- [Last price](#last-price)
+- [Market statistics](#market-statistics)
+- [Market statistics for current day UTC](#market-statistics-for-current-day-utc)
+- [Market trades](#market-trades)
+- [Market depth](#market-depth)
 
 WebSocket endpoint is wss://api.whitebit.com/ws
 
 The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol.
 
-:warning: Connection will be closed by server in cause of inactivity after 60s.
+⚠️ Connection will be closed by server in cause of inactivity after 60s.
 
-:heavy_exclamation_mark: Rate limit 100 ws connections per minute.
+❗ Rate limit 1000 ws connections per minute.
 
 All endpoints return time in Unix-time format.
 
@@ -30,7 +28,7 @@ JSON Structure of request message:
 * `method` - **String**. Name of request.
 * `params` - **Array**. Here you pass params for method.
 
-:no_entry_sign: WebSocket connection will be closed if invalid JSON was sent.
+🚫 WebSocket connection will be closed if invalid JSON was sent.
 
 ### Types of request messages
 
@@ -189,10 +187,10 @@ The requested interval must meet the following conditions:
     "id": 2,
     "method": "candles_request",
     "params": [
-        "ETH_BTC",  // market
-        1579569940, // start time
-        1580894800, // end time
-        900         // interval in seconds
+        "ETH_BTC",   // market
+        1659569940,  // start time
+        1660894800,  // end time
+        3600         // interval in seconds
     ]
 }
 ```
@@ -220,6 +218,8 @@ The requested interval must meet the following conditions:
 ```
 
 #### Subscribe
+
+Update interval: 0,5 sec
 
 ##### ⤴️ Request:
 
@@ -253,14 +253,16 @@ The requested interval must meet the following conditions:
     "id": null,
     "method": "candles_update",
     "params": [
-        1580895000,     // time
-        "0.020683",     // open
-        "0.020683",     // close
-        "0.020683",     // high
-        "0.020666",     // low
-        "504.701",      // volume in stock
-        "10.433600491", // volume in money (deal)
-        "ETH_BTC"       // market
+        [
+            1580895000,     // time
+            "0.020683",     // open
+            "0.020683",     // close
+            "0.020683",     // high
+            "0.020666",     // low
+            "504.701",      // volume in stock
+            "10.433600491", // volume in money (deal)
+            "ETH_BTC"       // market
+        ]
     ]
 }
 ```
@@ -318,6 +320,8 @@ The requested interval must meet the following conditions:
 ```
 
 #### Subscribe
+
+Update interval: 1 sec
 
 ##### ⤴️ Request:
 
@@ -424,6 +428,8 @@ The requested interval must meet the following conditions:
 #### Subscribe
 
 You can subscribe only for 86400s (24h from now).
+
+Update interval: 1 sec
 
 ##### ⤴️ Request:
 
@@ -534,6 +540,8 @@ You can subscribe only for 86400s (24h from now).
 ```
 
 #### Subscribe
+
+Update interval: 0,5 sec
 
 ##### ⤴️ Request:
 
@@ -647,7 +655,7 @@ You can subscribe only for 86400s (24h from now).
 
 #### Subscribe
 
-:heavy_exclamation_mark: For each websocket connection, you can subscribe only to one market. Every following subscription will replace the existing one.
+❗ For each websocket connection, you can subscribe only to one market. Every following subscription will replace the existing one.
 
 ##### ⤴️ Request:
 
@@ -762,6 +770,8 @@ You can subscribe only for 86400s (24h from now).
 ```
 
 #### Subscribe
+
+Update interval: 1 sec
 
 ##### ⤴️ Request:
 

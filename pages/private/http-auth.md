@@ -1,17 +1,17 @@
 # Private HTTP API Authentication
 
-## How to use:
+### How to use:
 
-1. Go to your account on whitebit.com and navigate to account settings.
-2. Click on the API keys tab.
-3. Select the appropriate configuration tab for your API keys. Different API keys allow access to different API calls.
-4. Generate an API key.
-5. Enable IP restrictions by specifying up to 5 trusted IPs *(optional, **recommended**)*
-6. Enable Endpoint access restrictions. Select only those endpoints, that you are going to use and click "Apply" button.
+1. Go to your account on [whitebit.com/settings/api](https://whitebit.com/settings/api).
+2. Select the appropriate configuration tab for your API keys. Different API keys allow access to different API calls.
+3. Generate an API key.
+4. Enable IP restrictions by specifying up to 5 trusted IPs *(optional, **recommended**)*
+5. Enable Endpoint access restrictions. Select only those endpoints, that you are going to use and click "Apply" button.
 
-## Requirements:
+### Requirements:
 
 Auth request should be using `POST` method and should include:
+
 1. [Body data](#body-data)
 2. [Headers](#headers)
 

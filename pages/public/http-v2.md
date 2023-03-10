@@ -1,16 +1,12 @@
 # Public HTTP API V2
 
-## Public endpoints V2
-
-- [Public HTTP API V2](#public-http-api-v2)
-  - [Public endpoints V2](#public-endpoints-v2)
-      - [Error messages V2 format:](#error-messages-v2-format)
-    - [Market Info](#market-info)
-    - [Market activity](#market-activity)
-    - [Recent Trades](#recent-trades)
-    - [Fee](#fee)
-    - [Asset Status List](#asset-status-list)
-    - [Orderbook](#orderbook)
+- [Error messages V2 format](#error-messages-v2-format)
+- [Market Info](#market-info)
+- [Market activity](#market-activity)
+- [Recent Trades](#recent-trades)
+- [Fee](#fee)
+- [Asset Status List](#asset-status-list)
+- [Orderbook](#orderbook)
 
 Base endpoint is https://whitebit.com
 
@@ -25,7 +21,8 @@ For receiving responses from API calls please use http method __GET__
 If endpoint required parameters you will need to send them as `query string`
 
 ___
-#### Error messages V2 format:
+### Error messages V2 format
+
 ```json
 {
     "success": false,
@@ -42,7 +39,7 @@ ___
 This endpoint retrieves all information about available markets.
 
 **Response is cached for:**
-_1 second_
+_5 second_
 
 **Parameters:**
 NONE
@@ -82,7 +79,7 @@ ___
 This endpoint retrieves information on recent trading activity on all markets.
 
 **Response is cached for:**
-_1 second_
+_5 second_
 
 **Parameters:**
 NONE
@@ -119,7 +116,7 @@ ___
 This endpoint retrieves the trades that have been executed recently on the requested market
 
 **Response is cached for:**
-_1 second_
+_5 second_
 
 **Parameters:**
 NONE
@@ -153,7 +150,7 @@ ___
 This endpoint retrieves the trading fee.
 
 **Response is cached for:**
-_1 second_
+_5 second_
 
 **Parameters:**
 NONE
@@ -179,7 +176,7 @@ ___
 This endpoint retrieves the assets status.
 
 **Response is cached for:**
-_1 second_
+_5 second_
 
 **Parameters:**
 NONE
@@ -215,7 +212,7 @@ ___
 This endpoint retrievs the current order book as two arrays (bids / asks).
 
 **Response is cached for:**
-_1 second_
+_5 second_
 
 **Parameters:**
 NONE

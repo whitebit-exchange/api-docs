@@ -1,18 +1,16 @@
 # Private HTTP API V1
 
-## Private endpoints V1
-
 #### Those endpoints are deprecated. Use [V4 alternatives](./http-trade-v4) instead
 
-* [Trading balance by currency](#trading-balance-by-currency)
-* [Trading balances](#trading-balances)
-* [Create limit order](#create-limit-order)
-* [Cancel order](#cancel-order)
-* [Query unexecuted(active) orders](#query-unexecutedactive-orders)
-* [Query order history](#query-order-history)
-* [Query order history by single market](#query-executed-order-history-by-single-market)
-* [Query order history by all markets](#query-executed-order-history-by-all-markets)
-* [Query executed order deals](#query-executed-order-deals)
+- [Trading balance by currency](#trading-balance-by-currency)
+- [Trading balances](#trading-balances)
+- [Create limit order](#create-limit-order)
+- [Cancel order](#cancel-order)
+- [Query unexecuted(active) orders](#query-unexecutedactive-orders)
+- [Query order history](#query-order-history)
+- [Query order history by single market](#query-executed-order-history-by-single-market)
+- [Query order history by all markets](#query-executed-order-history-by-all-markets)
+- [Query executed order deals](#query-executed-order-deals)
 
 Base URL is https://whitebit.com
 
@@ -25,7 +23,8 @@ All endpoints return either a __JSON__ object or array.
 For receiving responses from API calls please use http method __POST__
 
 ___
-#### Error messages V1 format:
+### Error messages V1 format
+
 ```json
 {
     "code": 0,
@@ -49,6 +48,11 @@ ___
 [POST] /api/v1/account/balance
 ```
 This endpoint retrieves the trade balance by currency ticker.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -104,6 +108,11 @@ ___
 [POST] /api/v1/account/balances
 ```
 This endpoint retrieves all available balances for trading.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 NONE
@@ -180,6 +189,11 @@ ___
 [POST] /api/v1/order/new
 ```
 This endpoint creates limit trading order.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -389,6 +403,11 @@ ___
 ```
 This endpoint cancels the existing order.
 
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -505,6 +524,11 @@ ___
 [POST] /api/v1/orders
 ```
 This endpoint retrieves unexecuted orders only.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -634,6 +658,11 @@ ___
 ```
 This endpoint retrieves orders history sorted by all markets
 
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -760,6 +789,11 @@ ___
 ```
 This endpoint retrieves deals history sorted by single market
 
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -873,6 +907,11 @@ ___
 [POST] /api/v1/account/executed_history/all
 ```
 This endpoint retrieves orders history sorted by all markets.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -989,6 +1028,11 @@ ___
 [POST] /api/v1/account/order
 ```
 This endpoint retrieves more details on order deals history.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
