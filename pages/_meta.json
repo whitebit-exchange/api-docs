@@ -3,6 +3,7 @@
   "public": "Public",
   "private": "Private",
   "webhook":  "Webhook",
+  "glossary":  "Glossary",
   "contact": {
     "title": "Contact ↗",
     "type": "page",
