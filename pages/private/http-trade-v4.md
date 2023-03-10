@@ -1,8 +1,6 @@
-# Private HTTP API V4
+# Private HTTP API V4 for trading
 
-## Private endpoints V4 for trading
-
-* Spot
+## Spot
   * [Trading balance](#trading-balance)
   * [Create limit order](#create-limit-order)
   * [Create market order](#create-market-order)
@@ -10,21 +8,27 @@
   * [Create stop-limit order](#create-stop-limit-order)
   * [Create stop-market order](#create-stop-market-order)
   * [Cancel order](#cancel-order)
-  * [Query unexecuted orders](#query-unexecutedactive-orders)
+  * [Query unexecuted(active/open) orders](#query-unexecutedactive-orders)
   * [Query executed order history](#query-executed-order-history)
   * [Query executed order deals](#query-executed-order-deals)
   * [Query executed orders](#query-executed-orders)
-* Collateral
+
+## Collateral
   * [Collateral Account Balance](#collateral-account-balance)
   * [Collateral Limit Order](#collateral-limit-order)
   * [Collateral Market Order](#collateral-market-order)
-  * [Collateral Trigger Market Order](#collateral-market-order)
+  * [Collateral Trigger Market Order](#collateral-trigger-market-order)
   * [Collateral Stop-Limit Order](#collateral-stop-limit-order)
   * [Collateral Account Summary](#collateral-account-summary)
   * [Open Positions](#open-positions)
   * [Position History](#positions-history)
   * [Change Collateral Account Leverage](#change-collateral-account-leverage)
+  * [Query unexecuted(active/open) OCO orders](#query-unexecutedactive-oco-orders)
+  * [Create collateral OCO order](#create-collateral-oco-order)
+  * [Create collateral stop-limit order](#create-collateral-stop-limit-order)
+  * [Cancel OCO order](#cancel-oco-order)
 
+---
 
 Base URL is https://whitebit.com
 
@@ -36,7 +40,7 @@ All endpoints return either a __JSON__ object or array.
 
 For receiving responses from API calls please use http method __POST__
 
-#### Error messages V4 format:
+### Error messages V4 format
 ___
 ```json
 {
@@ -52,30 +56,6 @@ ___
     }
 }
 ```
-___
-### Terminology
-
-#### Pair:
-
-`Stock` - currency that you want to buy or sell
-
-`Money` - currency that you are using to buy or sell something
-
-`Maker` - person who puts an order and waiting till this order will be finished
-
-`Taker` - person who finishes existing order
-
-`Precision` - is the number of digits to the right of the decimal point
-
-`Bid` - buy order
-
-`Ask` - sell order
-
-`Limit order` - to place this order, you need to fill in the 'Price' and 'Amount' fields. If this order finds a corresponding order on the opposite side, it will be executed. Otherwise it will be placed into the orderbook.
-
-`Market order` - to place this order, you need to fill 'Amount' field using **Money** value. This order finds a corresponding order on the opposite side and executes. Otherwise it will be cancelled.
-
-`Stock market order` - to place this order, you need to fill 'Amount' field using **Stock** value. This order finds a corresponding order on the opposite side and executes. Otherwise it will be cancelled.
 ___
 
 ## Spot
@@ -779,7 +759,7 @@ Error codes:
 
 ___
 
-### Create stock market order
+### Create buy stock market order
 
 ```
 [POST] /api/v4/order/stock_market
@@ -2449,7 +2429,7 @@ Available statuses:
 
 ___
 
-### Query executed orders
+### Query executed orders by market
 
 ```
 [POST] /api/v4/trade-account/order/history

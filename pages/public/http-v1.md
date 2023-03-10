@@ -1,19 +1,13 @@
 # Public HTTP API V1
 
-## Public endpoints V1
-
-- [Public HTTP API V1](#public-http-api-v1)
-  - [Public endpoints V1](#public-endpoints-v1)
-      - [Error messages V1 format:](#error-messages-v1-format)
-    - [Terminology](#terminology)
-      - [Pair:](#pair)
-    - [Market Info](#market-info)
-    - [Market Activity](#market-activity)
-    - [Single market activity](#single-market-activity)
-    - [Kline](#kline)
-    - [Symbols](#symbols)
-    - [Order depth](#order-depth)
-    - [Trade History](#trade-history)
+- [Error messages V1 format](#error-messages-v1-format)
+- [Market Info](#market-info)
+- [Market Activity](#market-activity)
+- [Single market activity](#single-market-activity)
+- [Kline](#kline)
+- [Symbols](#symbols)
+- [Order depth](#order-depth)
+- [Trade History](#trade-history)
 
 Base URL is https://whitebit.com
 
@@ -27,8 +21,9 @@ For receiving responses from API calls please use http method __GET__
 
 If an endpoint requires parameters you should send them as `query string`
 
-#### Error messages V1 format:
 ___
+### Error messages V1 format
+
 ```json
 {
     "success": false,
@@ -36,25 +31,6 @@ ___
     "params": []
 }
 ```
-___
-### Terminology
-
-#### Pair:
-
-`Stock` - currency that you want to buy or sell
-
-`Money` - currency that you are using to buy or sell something
-
-`Maker` - person who puts an order and waiting till this order will be finished
-
-`Taker` - person who finishes existing order
-
-`Precision` - is the number of digits to the right of the decimal point
-
-`Bid` - buy order
-
-`Ask` - sell order
-
 ___
 ### Market Info
 

@@ -1,35 +1,18 @@
 # Private WebSocket API
 
-## Methods
-
-* [Websocket token](#websocket-token)
-* [Authorize](#authorize)
-* [Balance Spot](#balance-spot)
-    * [Query](#query)
-    * [Subscribe](#subscribe)
-    * [Unsubscribe](#unsubscribe)
-* [Balance Margin](#balance-margin)
-    * [Query](#query-1)
-    * [Subscribe](#subscribe-1)
-    * [Unsubscribe](#unsubscribe-1)
-* [Orders Pending](#orders-pending)
-    * [Query](#query-2)
-    * [Subscribe](#subscribe-2)
-    * [Unsubscribe](#unsubscribe-2)
-* [Orders Executed](#orders-executed)
-    * [Query](#query-3)
-    * [Subscribe](#subscribe-3)
-    * [Unsubscribe](#unsubscribe-3)
-* [Deals](#deals)
-    * [Query](#query-4)
-    * [Subscribe](#subscribe-4)
-    * [Unsubscribe](#unsubscribe-4)
+- [Websocket token](#websocket-token)
+- [Authorize](#authorize)
+- [Balance Spot](#balance-spot)
+- [Balance Margin](#balance-margin)
+- [Orders Pending](#orders-pending)
+- [Orders Executed](#orders-executed)
+- [Deals](#deals)
 
 WebSocket endpoint is wss://api.whitebit.com/ws
 
 The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol.
 
-:warning: Connection will be closed by server in cause of inactivity after 60s.
+⚠️ Connection will be closed by server in cause of inactivity after 60s.
 
 ❗ Rate limit 1000 ws connections per minute.
 
@@ -58,7 +41,7 @@ JSON Structure of request message:
 * `method` - **String**. Name of request.
 * `params` - **Array**. Here you pass params for method.
 
-:no_entry_sign: WebSocket connection will be closed if invalid JSON was sent.
+🚫 WebSocket connection will be closed if invalid JSON was sent.
 
 ### Types of request messages
 

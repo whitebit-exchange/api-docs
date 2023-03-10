@@ -1,40 +1,20 @@
 # Public WebSocket API
 
-## Methods
-
-* [Service](#service)
-    * [Ping](#ping)
-    * [Time](#time)
-* [Kline](#kline)
-    * [Query](#query)
-    * [Subscribe](#subscribe)
-    * [Unsubscribe](#unsubscribe)
-* [Last price](#last-price)
-    * [Query](#query-1)
-    * [Subscribe](#subscribe-1)
-    * [Unsubscribe](#unsubscribe-1)
-* [Market statistics](#market-statistics)
-    * [Query](#query-2)
-    * [Subscribe](#subscribe-2)
-    * [Unsubscribe](#unsubscribe-2)
-* [Market statistics for current day UTC](#market-statistics-for-current-day-utc)
-    * [Query](#query-3)
-    * [Subscribe](#subscribe-3)
-    * [Unsubscribe](#unsubscribe-3)
-* [Market trades](#market-trades)
-    * [Query](#query-4)
-    * [Subscribe](#subscribe-4)
-    * [Unsubscribe](#unsubscribe-4)
-* [Market depth](#market-depth)
-    * [Query](#query-5)
-    * [Subscribe](#subscribe-5)
-    * [Unsubscribe](#unsubscribe-5)
+- [Service](#service)
+- [Ping](#ping)
+- [Time](#time)
+- [Kline](#kline)
+- [Last price](#last-price)
+- [Market statistics](#market-statistics)
+- [Market statistics for current day UTC](#market-statistics-for-current-day-utc)
+- [Market trades](#market-trades)
+- [Market depth](#market-depth)
 
 WebSocket endpoint is wss://api.whitebit.com/ws
 
 The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol.
 
-:warning: Connection will be closed by server in cause of inactivity after 60s.
+⚠️ Connection will be closed by server in cause of inactivity after 60s.
 
 ❗ Rate limit 1000 ws connections per minute.
 
@@ -48,7 +28,7 @@ JSON Structure of request message:
 * `method` - **String**. Name of request.
 * `params` - **Array**. Here you pass params for method.
 
-:no_entry_sign: WebSocket connection will be closed if invalid JSON was sent.
+🚫 WebSocket connection will be closed if invalid JSON was sent.
 
 ### Types of request messages
 
