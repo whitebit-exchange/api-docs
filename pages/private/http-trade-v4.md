@@ -1,8 +1,6 @@
-# Private HTTP API V4
+# Private HTTP API V4 for trading
 
-## Private endpoints V4 for trading
-
-* Spot
+## Spot
   * [Trading balance](#trading-balance)
   * [Create limit order](#create-limit-order)
   * [Create market order](#create-market-order)
@@ -10,21 +8,27 @@
   * [Create stop-limit order](#create-stop-limit-order)
   * [Create stop-market order](#create-stop-market-order)
   * [Cancel order](#cancel-order)
-  * [Query unexecuted orders](#query-unexecutedactive-orders)
+  * [Query unexecuted(active/open) orders](#query-unexecutedactive-orders)
   * [Query executed order history](#query-executed-order-history)
   * [Query executed order deals](#query-executed-order-deals)
   * [Query executed orders](#query-executed-orders)
-* Collateral
+
+## Collateral
   * [Collateral Account Balance](#collateral-account-balance)
   * [Collateral Limit Order](#collateral-limit-order)
   * [Collateral Market Order](#collateral-market-order)
-  * [Collateral Trigger Market Order](#collateral-market-order)
+  * [Collateral Trigger Market Order](#collateral-trigger-market-order)
   * [Collateral Stop-Limit Order](#collateral-stop-limit-order)
   * [Collateral Account Summary](#collateral-account-summary)
   * [Open Positions](#open-positions)
   * [Position History](#positions-history)
   * [Change Collateral Account Leverage](#change-collateral-account-leverage)
+  * [Query unexecuted(active/open) OCO orders](#query-unexecutedactive-oco-orders)
+  * [Create collateral OCO order](#create-collateral-oco-order)
+  * [Create collateral stop-limit order](#create-collateral-stop-limit-order)
+  * [Cancel OCO order](#cancel-oco-order)
 
+---
 
 Base URL is https://whitebit.com
 
@@ -36,7 +40,7 @@ All endpoints return either a __JSON__ object or array.
 
 For receiving responses from API calls please use http method __POST__
 
-#### Error messages V4 format:
+### Error messages V4 format
 ___
 ```json
 {
@@ -53,30 +57,6 @@ ___
 }
 ```
 ___
-### Terminology
-
-#### Pair:
-
-`Stock` - currency that you want to buy or sell
-
-`Money` - currency that you are using to buy or sell something
-
-`Maker` - person who puts an order and waiting till this order will be finished
-
-`Taker` - person who finishes existing order
-
-`Precision` - is the number of digits to the right of the decimal point
-
-`Bid` - buy order
-
-`Ask` - sell order
-
-`Limit order` - to place this order, you need to fill in the 'Price' and 'Amount' fields. If this order finds a corresponding order on the opposite side, it will be executed. Otherwise it will be placed into the orderbook.
-
-`Market order` - to place this order, you need to fill 'Amount' field using **Money** value. This order finds a corresponding order on the opposite side and executes. Otherwise it will be cancelled.
-
-`Stock market order` - to place this order, you need to fill 'Amount' field using **Stock** value. This order finds a corresponding order on the opposite side and executes. Otherwise it will be cancelled.
-___
 
 ## Spot
 
@@ -86,6 +66,11 @@ ___
 [POST] /api/v4/trade-account/balance
 ```
 This endpoint retrieves the trade balance by currency ticker or all balances.
+
+❗ Rate limit 12000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -173,6 +158,8 @@ ___
 [POST] /api/v4/order/new
 ```
 This endpoint creates limit trading order.
+
+❗ Rate limit 10000 requests/10 sec.
 
 **Parameters:**
 
@@ -489,6 +476,11 @@ ___
 ```
 This endpoint creates market trading order.
 
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -767,12 +759,17 @@ Error codes:
 
 ___
 
-### Create stock market order
+### Create buy stock market order
 
 ```
 [POST] /api/v4/order/stock_market
 ```
 This endpoint creates buy stock market trading order.
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -1021,6 +1018,11 @@ ___
 [POST] /api/v4/order/stop_limit
 ```
 This endpoint creates stop-limit trading order
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -1435,6 +1437,11 @@ ___
 ```
 This endpoint creates stop-market trading order
 
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type          | Mandatory | Description
@@ -1792,6 +1799,11 @@ ___
 ```
 Cancel existing order
 
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type       | Mandatory | Description
@@ -1929,6 +1941,11 @@ ___
 [POST] /api/v4/orders
 ```
 This endpoint retrieves unexecuted orders only.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -2114,6 +2131,11 @@ ___
 ```
 This endpoint retrieves the deals history. Can be sorted by single market if needed.
 
+❗ Rate limit 12000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -2256,6 +2278,11 @@ ___
 [POST] /api/v4/trade-account/order
 ```
 This endpoint retrieves deals history details on pending or executed order.
+
+❗ Rate limit 12000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -2402,12 +2429,17 @@ Available statuses:
 
 ___
 
-### Query executed orders
+### Query executed orders by market
 
 ```
 [POST] /api/v4/trade-account/order/history
 ```
 This endpoint retrieves executed order history by market.
+
+❗ Rate limit 12000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -2561,6 +2593,11 @@ Empty response if order is not yours
 
 This endpoint returns a current collateral balance
 
+❗ Rate limit 12000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters**
 
 Name | Type | Mandatory | Description
@@ -2595,6 +2632,11 @@ Available statuses:
 [POST] /api/v4/order/collateral/limit
 ```
 This endpoint creates limit order using collateral balance
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -2667,6 +2709,11 @@ Detailed information about errors response you can find in [Create limit order](
 [POST] /api/v4/order/collateral/market
 ```
 This endpoint creates market trading order.
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -2745,6 +2792,11 @@ ___
 [POST] /api/v4/order/collateral/stop-limit
 ```
 This endpoint creates collateral stop-limit trading order
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -3159,6 +3211,11 @@ ___
 ```
 This endpoint creates margin trigger market order
 
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -3236,6 +3293,11 @@ Error codes:
 ```
 This endpoint retrieves summary of collateral account
 
+❗ Rate limit 12000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Request BODY raw:**
 ```json
 {
@@ -3268,6 +3330,11 @@ Available statuses:
 [POST] /api/v4/collateral-account/positions/open
 ```
 This endpoint returns all open positions
+
+❗ Rate limit 12000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -3326,6 +3393,11 @@ This endpoint returns past positions history. Each position represented by posit
 
 If your request has a "positionId" field, you receive data only with this "positionId".
 If your request has a "market" field, you receive data only by this "market".
+
+❗ Rate limit 12000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **"positionId" field has higher priority then "market" field.**
 
@@ -3387,6 +3459,11 @@ Available statuses:
 ```
 This endpoint changes the current leverage of account.
 
+❗ Rate limit 12000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -3422,6 +3499,11 @@ Available statuses:
 [POST] /api/v4/oco-orders
 ```
 This endpoint retrieves unexecuted oco orders only.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -3629,6 +3711,11 @@ ___
 [POST] /api/v4/order/collateral/oco
 ```
 This endpoint creates collateral trading OCO order
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -4190,6 +4277,11 @@ ___
 [POST] /api/v4/order/oco-cancel
 ```
 Cancel existing order
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 

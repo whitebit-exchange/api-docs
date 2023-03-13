@@ -1,26 +1,27 @@
-# Private HTTP API V4
+# Private HTTP API V4 for Main balance changes
 
-## Private endpoints V4 for Main balance changes
-
-* [Main balance](#main-balance)
-* [Get cryptocurrency deposit address](#get-cryptocurrency-deposit-address)
-* [Get fiat deposit address](#get-fiat-deposit-address)
-* [Create withdraw request](#create-withdraw-request)
-* [Transfer between main and trade balances](#transfer-between-main-and-trade-balances)
-* [Get deposit/withdraw history](#get-depositwithdraw-history)
-* [Create new address for deposit](#create-new-address-for-deposit)
-* Codes
-    * [Create code](#create-code)
-    * [Apply code](#apply-code)
-    * [Get my codes](#get-my-codes)
-    * [Get codes history](#get-codes-history)
-* SMART
-    * [Get plans](#get-plans)
-    * [Invest](#invest)
-    * [Close investment](#close-investment)
-    * [Get investments history](#get-investments-history)
-    * [Get interest payments history](#get-interest-payments-history)
-* [Fees](#fees)
+- [Error messages V4 format](#error-messages-v4-format)
+- [Main balance](#main-balance)
+- [Get cryptocurrency deposit address](#get-cryptocurrency-deposit-address)
+- [Get fiat deposit address](#get-fiat-deposit-address)
+- [Create withdraw request](#create-withdraw-request)
+- [Create withdraw request with the specific withdraw amount (fee is not included)](#create-withdraw-request-with-the-specific-withdraw-amount-fee-is-not-included)
+- [Transfer between main and trade balances](#transfer-between-main-and-trade-balances)
+- [Get deposit/withdraw history](#get-depositwithdraw-history)
+- [Create new address for deposit](#create-new-address-for-deposit)
+- [Codes](#codes)
+- [Create code](#create-code)
+- [Apply code](#apply-code)
+- [Get my codes](#get-my-codes)
+- [Get codes history](#get-codes-history)
+- [Crypto Lеnding](#crypto-lеnding)
+- [Get plans](#get-plans)
+- [Invest](#invest)
+- [Close investment](#close-investment)
+- [Get investments history](#get-investments-history)
+- [Get interest payments history](#get-interest-payments-history)
+- [Fees](#fees)
+- [Get fees](#get-fees)
 
 Base URL is https://whitebit.com
 
@@ -32,7 +33,7 @@ All endpoints return either a __JSON__ object or array.
 
 For receiving responses from API calls please use http method __POST__
 
-#### Error messages V4 format:
+### Error messages V4 format
 ___
 ```json
 {
@@ -49,44 +50,17 @@ ___
 }
 ```
 ___
-### Terminology
-
-#### Pair:
-
-`Stock` - currency that you want to buy or sell
-
-`Money` - currency that you are using to buy or sell something
-
-`Maker` - person who puts an order and waiting till this order will be finished
-
-`Taker` - person who finishes the existing order
-
-`Precision` - is the number of digits to the right of the decimal point
-
-`Bid` - buy order
-
-`Ask` - sell order
-
-`Limit order` - to place this order, you need to fill in the 'Price' and 'Amount' fields. If this order finds a corresponding order on the opposite side, it will be executed. Otherwise it will be placed into the orderbook.
-
-`Fiat` - is a currency (a medium of exchange) established as money, often by government regulation, but that does not have intrinsic value (value independent of the nominal value, such as a precious metal might have).
-
-`Provider` - fiat currencies has different providers that helps people making deposits and withdraws by bank transfers.
-
-`Multinetwork` - cryptocurrency like USDT obtained in different networks, like: OMNI, Tron, Ethereum etc. Network should be selected in order to make a deposit or withdraw.
-
-`Main balance` - balance on exchange that accepts deposits and/or withdraws.
-
-`Memo` - some currencies like XLM can create only one address for exchange. So for detecting which transaction is yours exchanges uses additional data - memo.
-
-
-___
 ### Main balance
 
 ```
 [POST] /api/v4/main-account/balance
 ```
 This endpoint retrieves the main balance by currency ticker or all balances.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -154,6 +128,11 @@ ___
 [POST] /api/v4/main-account/address
 ```
 This endpoint retrieves a deposit address of the cryptocurrency.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -267,6 +246,11 @@ ___
 [POST] /api/v4/main-account/fiat-deposit-url
 ```
 This endpoint retrieves a deposit url of the fiat invoice. Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -457,6 +441,11 @@ ___
 [POST] /api/v4/main-account/withdraw
 ```
 This endpoint creates withdraw for the specified ticker.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -738,6 +727,11 @@ ___
 ```
 This endpoint has the similar logic as [/main-account/withdraw](#create-withdraw-request), but with the only difference: amount that is specified will not include fee (it will be calculated to make target withdraw amount equal to the specified amount).
 
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 Example:
 * When you create base withdraw and set amount = 100 USD, receiver will recieve 100 USD - fee amount, and your balance will decrease by 100 USD.
 * When you use this endpoint and set amount = 100 USD, receiver will recieve 100 USD, and your balance will decrease by 100 USD + fee amount.
@@ -750,6 +744,11 @@ Example:
 [POST] /api/v4/main-account/transfer
 ```
 This endpoint transfers the specified amount between main and trade balances
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -915,6 +914,11 @@ ___
 ```
 This endpoint retrieves the history of deposits and withdraws
 
+❗ Rate limit 200 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -926,7 +930,7 @@ addresses | Array | **No** | Can be used for filtering transactions by specific 
 uniqueId | String | **No** | Can be used for filtering transactions by specific unique id
 limit | Int | **Yes** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
 offset | Int | **Yes** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
-status | Array | **No** | Can be used for filtering transactions by status codes. :heavy_exclamation_mark: Caution: You must use this parameter with appropriate `transactionMethod` and use valid status codes for this method. You can find them below. Example: `"status": [3,7]`
+status | Array | **No** | Can be used for filtering transactions by status codes. ❗ Caution: You must use this parameter with appropriate `transactionMethod` and use valid status codes for this method. You can find them below. Example: `"status": [3,7]`
 
 | Deposit status codes:     |
 |---------------------------|
@@ -1124,6 +1128,11 @@ ___
 ```
 This endpoint creates a new address even when the last created address is not used. This endpoint is not available by default, you need to contact support@whitebit.com in order to get permissions to use this endpoint.
 
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -1260,6 +1269,11 @@ ___
 [POST] /api/v4/main-account/codes
 ```
 This endpoint creates WhiteBIT code.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -1416,6 +1430,11 @@ ___
 ```
 This endpoint applies WhiteBIT code.
 
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -1486,6 +1505,11 @@ ___
 [POST] /api/v4/main-account/codes/my
 ```
 This endpoint retrieves the list of WhiteBIT codes created by my account.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 
 **Parameters:**
@@ -1589,6 +1613,11 @@ ___
 [POST] /api/v4/main-account/codes/history
 ```
 This endpoint retrieves the whole codes history on your account.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 
 **Parameters:**
@@ -1709,6 +1738,11 @@ These endpoints are available only for B2B partner services, you need to contact
 
 This endpoint retrieves all active plans
 
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -1780,6 +1814,11 @@ ___
 ```
 
 This endpoint creates a new investment to the specified invest plan
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -1995,6 +2034,11 @@ ___
 
 This endpoint closes active investment
 
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -2046,6 +2090,11 @@ ___
 ```
 
 This endpoint retrieves an investments history
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -2137,6 +2186,11 @@ Available statuses:
 
 This endpoint retrieves the history of interest payments
 
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
 
 **Parameters:**
 
@@ -2212,6 +2266,11 @@ Zero value in amount fields means that the setting is disabled.
 
 ```
 [POST] /api/v4/main-account/fee
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 ```
 
 **Response:**
