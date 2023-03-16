@@ -171,6 +171,7 @@ amount | String/Number | **Yes** | Amount of stock currency to buy or sell. Exam
 price | String/Number | **Yes** | Price in money currency. Example: '9800' or 9800
 clientOrderId | String        | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 postOnly | boolean       | **No** | Orders are guaranteed to be the maker order when executed. Variables: 'true' / 'false' Example: 'false'.
+ioc | boolean       | **No** | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.
 
 **Request BODY raw:**
 ```json
@@ -180,6 +181,7 @@ postOnly | boolean       | **No** | Orders are guaranteed to be the maker order 
     "amount": "0.01",
     "price": "40000",
     "postOnly": false,
+    "ioc": false,
     "clientOrderId": "order1987111",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
@@ -208,7 +210,9 @@ Available statuses:
     "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
     "left": "0.001",                   // if order not finished - rest of the amount that must be finished
     "dealFee": "0",                    // fee in money that you pay if order is finished
-    "price": "40000"                   // price
+    "price": "40000",                  // price
+    "potOnly": false,                  // PostOnly
+    "ioc": false                       // IOC
 }
 ```
 <details>
@@ -220,6 +224,7 @@ Error codes:
 * `32` - amount validation failed
 * `33` - price validation failed
 * `36` - clientOrderId validation failed
+* `37` - ioc and postOnly flags are both true
 
 ```json
 {
@@ -349,6 +354,18 @@ Error codes:
     "errors": {
         "clientOrderId": [
             "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 37,
+    "message": "Validation failed",
+    "errors": {
+        "ioc": [
+            "Either IOC or PostOnly flag in true state is allowed."
         ]
     }
 }
@@ -2489,7 +2506,9 @@ Empty response if order is not yours
             "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero
             "dealFee": "0.041258268",         // paid fee if order is finished
             "dealStock": "0.0009",            // amount in stock currency that finished
-            "dealMoney": "41.258268"          // amount in money currency that finished
+            "dealMoney": "41.258268",         // amount in money currency that finished
+            "postOnly": false,                // PostOnly flag
+            "ioc": false                      // IOC flag
         },
         {...}
     ]
@@ -2626,6 +2645,47 @@ Available statuses:
 }
 ```
 
+### Collateral Account Balance Summary
+
+```
+[POST] /api/v4/collateral-account/balance-summary
+```
+
+This endpoint returns a current collateral balance summary
+
+**Parameters**
+
+Name | Type | Mandatory | Description
+------------ | ------------ |-----------| ------------
+ticker | String | **No**    | Filter by requested asset. For example: BTC
+
+**Request BODY raw:**
+
+```json
+{
+    "ticker": "BTC",
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+**Response:**
+Available statuses:
+* `Status 200`
+* `Status 422 if inner validation failed`
+* `Status 503 if service temporary unavailable`
+
+```json
+[
+  {
+    "asset": "BTC",
+    "balance": "0",
+    "borrow": "0",
+    "availableWithoutBorrow": "0",
+    "availableWithBorrow": "123.456"
+  }
+]
+```
+
 ### Collateral Limit Order
 
 ```
@@ -2648,6 +2708,7 @@ amount | String | **Yes** | ⚠️Amount of **`stock`** currency to **buy** or *
 price | String | **Yes** | Price in money currency. Example: '9800'
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 postOnly | boolean       | **No** | Orders are guaranteed to be the maker order when executed. Variables: true / false Example: false.
+ioc | boolean       | **No** | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.
 
 **Request BODY raw:**
 ```json
@@ -2657,6 +2718,7 @@ postOnly | boolean       | **No** | Orders are guaranteed to be the maker order 
     "amount": "0.01",
     "price": "40000",
     "postOnly": false,
+    "ioc": false,
     "clientOrderId": "order1987111",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
@@ -2684,7 +2746,9 @@ Available statuses:
     "makerFee": "0.001",               // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
     "left": "0.001",                   // if order not finished - rest of the amount that must be finished
     "dealFee": "0",                    // fee in money that you pay if order is finished
-    "price": "40000"                   // price
+    "price": "40000",                  // price
+    "potOnly": false,                  // PostOnly
+    "ioc": false                       // IOC
 }
 ```
 <details>
@@ -2695,6 +2759,7 @@ Error codes:
 * `32` - incorrect amount (it is less than or equals zero or its precision is too big)
 * `33` - incorrect price (it is less than or equals zero or its precision is too big)
 * `36` - incorrect clientOrderId (invalid string or not unique id)
+* `37` - ioc and postOnly flags are both true
 ___
 </details>
 
@@ -3318,7 +3383,8 @@ Available statuses:
   "freeMargin": "129681.3285348840110099",   // free funds for trading according to
   "unrealizedFunding": "0.0292207414003268", // funding that will be paid on next position stage change (order, liquidation, etc)
   "pnl": "-832.9535",                        // curren profit and loss in USDT
-  "leverage": 10                             // current leverage of account which affect amount of lending funds
+  "leverage": 10,                            // current leverage of account which affect amount of lending funds
+  "marginFraction": "6.2446758120916304"     // margin fraction
 }
 ```
 
@@ -3443,7 +3509,8 @@ Available statuses:
         "tradeAmount": "0.1",          // trade amount of order
         "basePrice": "41507.59",       // order's base price
         "tradeFee": "415.07",          // order's trade fee
-        "fundingFee": null             // funding fee which was captured by this position change (order)
+        "fundingFee": null,            // funding fee which was captured by this position change (order)
+        "realizedPnl": null            // realized pnl
       }
     },
     ...
