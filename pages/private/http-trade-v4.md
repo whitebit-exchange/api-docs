@@ -4,7 +4,7 @@
   * [Trading balance](#trading-balance)
   * [Create limit order](#create-limit-order)
   * [Create market order](#create-market-order)
-  * [Create buy stock market order](#create-stock-market-order)
+  * [Create buy stock market order](#create-buy-stock-market-order)
   * [Create stop-limit order](#create-stop-limit-order)
   * [Create stop-market order](#create-stop-market-order)
   * [Cancel order](#cancel-order)
@@ -25,7 +25,6 @@
   * [Change Collateral Account Leverage](#change-collateral-account-leverage)
   * [Query unexecuted(active/open) OCO orders](#query-unexecutedactive-oco-orders)
   * [Create collateral OCO order](#create-collateral-oco-order)
-  * [Create collateral stop-limit order](#create-collateral-stop-limit-order)
   * [Cancel OCO order](#cancel-oco-order)
 
 ---
@@ -2446,7 +2445,7 @@ Available statuses:
 
 ___
 
-### Query executed orders by market
+### Query executed orders
 
 ```
 [POST] /api/v4/trade-account/order/history
@@ -4338,7 +4337,7 @@ Error codes:
 
 ___
 
-### Cancel Oco order
+### Cancel OCO order
 
 ```
 [POST] /api/v4/order/oco-cancel

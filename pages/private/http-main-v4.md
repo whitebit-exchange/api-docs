@@ -2266,12 +2266,12 @@ Zero value in amount fields means that the setting is disabled.
 
 ```
 [POST] /api/v4/main-account/fee
+```
 
 ❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
 NONE
-```
 
 **Response:**
 
