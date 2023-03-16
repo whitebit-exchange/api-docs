@@ -319,7 +319,7 @@ When you open position, your balance will not change, but amount available for t
 
 ##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 2,
     "method": "balanceMargin_request",
@@ -332,7 +332,7 @@ When you open position, your balance will not change, but amount available for t
 
 ##### ⤵️ Response:
 
-```json5
+```json
 {
     "error": null,
     "result": {
@@ -359,7 +359,7 @@ Subscribe to receive updates in spot balances.
 
 ##### ⤴️ Request:
 
-```json5
+```json
 {
     "id": 3,
     "method": "balanceMargin_subscribe",
@@ -384,7 +384,7 @@ Subscribe to receive updates in spot balances.
 
 ##### 🔄 Update events:
 
-```json5
+```json
 {
     "method": "balanceMargin_update",
     "params": [
