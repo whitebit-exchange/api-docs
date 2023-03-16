@@ -319,7 +319,7 @@ When you open position, your balance will not change, but amount available for t
 
 ##### ⤴️ Request:
 
-```json
+```json5
 {
     "id": 2,
     "method": "balanceMargin_request",
@@ -332,14 +332,24 @@ When you open position, your balance will not change, but amount available for t
 
 ##### ⤵️ Response:
 
-```json
+```json5
 {
-    "id": 2,
+    "error": null,
     "result": {
-        "BTC": "0", // Amount on margin balance
-        "USDT": "0" // Amount on margin balance
+        "BTC": {
+            "balance": "0.0006092",                   // total amount on collateral balance
+            "borrow": "0",                            // borrowed amount
+            "available_without_borrow": "0.0006092",  // available amount to transfer from collateral balance without borrowing
+            "available_with_borrow": "0.00288701"     // available amount to transfer  from collateral balance with borrowing
+        },
+        "USDT": {
+            "balance": "0.00538073",                  // total amount on collateral balance
+            "borrow": "0",                            // borrowed amount
+            "available_without_borrow": "0.00538073", // available amount to transfer from collateral balance without borrowing
+            "available_with_borrow": "28.43739825"    // available amount to transfer  from collateral balance with borrowing
+        }
     },
-    "error": null
+    "id": 1
 }
 ```
 
@@ -349,7 +359,7 @@ Subscribe to receive updates in spot balances.
 
 ##### ⤴️ Request:
 
-```json
+```json5
 {
     "id": 3,
     "method": "balanceMargin_subscribe",
@@ -374,15 +384,26 @@ Subscribe to receive updates in spot balances.
 
 ##### 🔄 Update events:
 
-```json
+```json5
 {
-    "id": null,
     "method": "balanceMargin_update",
     "params": [
         {
-            "USDT": "100.1885" // Amount on margin balance
+            "a": "BTC",         // asset ticker
+            "B": "0.0006092",   // total amount on collateral balance
+            "b": "0",           // borrowed amount
+            "av": "0.0006092",  // available amount to transfer from collateral balance without borrowing
+            "ab": "0.00288701"  // available amount to transfer  from collateral balance with borrowing
+        },
+        {
+            "a": "USDT",        // asset ticker
+            "B": "0.00538073",  // total amount on collateral balance
+            "b": "0",           // borrowed amount
+            "av": "0.00538073", // available amount to transfer from collateral balance without borrowing
+            "ab": "28.43739825" // available amount to transfer  from collateral balance with borrowing
         }
-    ]
+    ],
+    "id": null
 }
 ```
 
