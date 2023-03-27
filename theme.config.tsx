@@ -37,7 +37,9 @@ const config: DocsThemeConfig = {
   },
   head: (
     <>
-      <link rel="icon" href={`${assetPrefix}/img/favicon.svg`} />
+      <link rel="shortcut icon" type="image/x-icon" href={`${assetPrefix}/img/favicon.ico`} />
+      <link rel="icon" type="image/x-icon" sizes="16x16" href={`${assetPrefix}/img/favicon-16x16.png`} />
+      <link rel="icon" type="image/x-icon" sizes="32x32" href={`${assetPrefix}/img/favicon-32x32.png`} />
       <link rel="stylesheet" href={`${assetPrefix}/styles.css`} />
     </>
   ),
