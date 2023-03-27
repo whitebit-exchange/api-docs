@@ -1,5 +1,6 @@
 # Public HTTP API V4
 
+- [Error messages V4 format](#error-messages-v4-format)
 - [Market Info](#market-info)
 - [Market activity](#market-activity)
 - [Asset status list](#asset-status-list)
