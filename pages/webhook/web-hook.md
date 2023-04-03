@@ -94,7 +94,7 @@ Performed when deposit was accepted. Request example:
     "address": "wallet address",                  // deposit address
     "amount": "0.000600000000000000",             // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
-    "currency": "Bitcoin",                        // deposit currency
+    "currency": "Tether US",                        // deposit currency
     "description": "",                            // deposit description
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
@@ -122,7 +122,7 @@ Performed when deposit was update. Request example:
     "address": "wallet address",                  // deposit address
     "amount": "0.000600000000000000",             // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
-    "currency": "Bitcoin",                        // deposit currency
+    "currency": "Tether US",                        // deposit currency
     "description": "update",                      // deposit description
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
@@ -149,7 +149,7 @@ Performed when deposit was processed, so it is available on your balance. Reques
     "address": "wallet address",                  // deposit address
     "amount": "0.000600000000000000",             // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
-    "currency": "Bitcoin",                        // deposit currency
+    "currency": "Tether US",                        // deposit currency
     "description": "",                            // deposit description
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
