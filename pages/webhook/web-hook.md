@@ -99,9 +99,9 @@ Performed when deposit was accepted. Request example:
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
     "method": 1,                                  // called method 1 - deposit, 2 - withdraw
-    "network": "TRC20",                           // if currency is multi network
+    "network": "ERC20",                           // if currency is multi network
     "status": 15,                                 // transactions status
-    "ticker": "BTC",                              // deposit currency ticker
+    "ticker": "USDT_ETH",                         // deposit currency ticker
     "transactionHash": "transaction hash",        // deposit transaction hash
     "uniqueId": null,                             // unique Id of deposit
     "confirmations": {                            // if transaction has confirmations info it will display here
@@ -126,9 +126,9 @@ Performed when deposit was update. Request example:
     "description": "update",                      // deposit description
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
-    "network": "TRC20",                           // if currency is multi network
+    "network": "ERC20",                           // if currency is multi network
     "status": 15,                                 // transactions status
-    "ticker": "BTC",                              // deposit currency ticker
+    "ticker": "USDT_ETH",                         // deposit currency ticker
     "transactionHash": "transaction hash",        // deposit transaction hash
     "uniqueId": null,                             // unique Id of deposit
     "confirmations": {                            // if transaction has confirmations info it will display here
@@ -156,7 +156,7 @@ Performed when deposit was processed, so it is available on your balance. Reques
     "method": 1,                                  // called method 1 - deposit, 2 - withdraw
     "network": "ERC20",                           // if currency is multi network
     "status": 15,                                 // transactions status
-    "ticker": "BTC",                              // deposit currency ticker
+    "ticker": "USDT_ETH",                         // deposit currency ticker
     "transactionHash": "transaction hash",        // deposit transaction hash
     "uniqueId": null,                             // unique Id of deposit
     "confirmations": {                            // if transaction has confirmations info it will display here
@@ -182,14 +182,14 @@ Performed when deposit was canceled. Request example:
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
     "method": 1,                                  // called method 1 - deposit, 2 - withdraw
-    "network": "TRC20",                           // if currency is multi network, "null" if no multi network
+    "network": "ERC20",                           // if currency is multi network, "null" if no multi network
     "status": 15,                                 // transactions status
-    "ticker": "USDT",                             // deposit currency ticker
+    "ticker": "USDT_ETH",                         // deposit currency ticker
     "transactionHash": "transaction hash",        // deposit transaction hash
     "uniqueId": null,                             // unique Id of deposit
     "confirmations": {                            // if transaction has confirmations info it will display here
         "actual": 1,                              // current block confirmations
-        "required": 32                             // required block confirmation for successful deposit
+        "required": 32                            // required block confirmation for successful deposit
     }
   },
   "id": "uuid"
