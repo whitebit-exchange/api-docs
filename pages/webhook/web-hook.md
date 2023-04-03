@@ -39,7 +39,6 @@ All web-hook requests are performing with
 {
    "method": "string",
    "params": {
-
        "nonce": 0
    },
    "id": "uniqueID"
@@ -94,7 +93,7 @@ Performed when deposit was accepted. Request example:
     "address": "wallet address",                  // deposit address
     "amount": "0.000600000000000000",             // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
-    "currency": "Tether US",                        // deposit currency
+    "currency": "Tether US",                      // deposit currency
     "description": "",                            // deposit description
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
@@ -122,7 +121,7 @@ Performed when deposit was update. Request example:
     "address": "wallet address",                  // deposit address
     "amount": "0.000600000000000000",             // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
-    "currency": "Tether US",                        // deposit currency
+    "currency": "Tether US",                      // deposit currency
     "description": "update",                      // deposit description
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
@@ -149,7 +148,7 @@ Performed when deposit was processed, so it is available on your balance. Reques
     "address": "wallet address",                  // deposit address
     "amount": "0.000600000000000000",             // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
-    "currency": "Tether US",                        // deposit currency
+    "currency": "Tether US",                      // deposit currency
     "description": "",                            // deposit description
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
@@ -212,7 +211,7 @@ Performed when withdraw was created. Request example:
     "createdAt": 1593437922,                      // timestamp of withdraw
     "currency": "Tether US",                      // withdraw currency
     "ticker": "USDT",                             // withdraw currency ticker
-    "description": null,                            // withdraw description
+    "description": null,                          // withdraw description
     "fee": "0.000000000000000000",                // withdraw fee
     "memo": "",                                   // withdraw memo
     "method": 2,                                  // called method 1 - deposit, 2 - withdraw
@@ -236,7 +235,7 @@ Performed when withdraw is pending. Request example:
     "createdAt": 1593437922,                      // timestamp of withdraw
     "currency": "Tether US",                      // withdraw currency
     "ticker": "USDT",                             // withdraw currency ticker
-    "description": null,                            // withdraw description
+    "description": null,                          // withdraw description
     "fee": "0.000000000000000000",                // withdraw fee
     "memo": "",                                   // withdraw memo
     "method": 2,                                  // called method 1 - deposit, 2 - withdraw
@@ -260,7 +259,7 @@ Performed when withdraw was canceled. Request example:
     "createdAt": 1593437922,                      // timestamp of withdraw
     "currency": "Tether US",                      // withdraw currency
     "ticker": "USDT",                             // withdraw currency ticker
-    "description": null,                            // withdraw description
+    "description": null,                          // withdraw description
     "fee": "0.000000000000000000",                // withdraw fee
     "memo": "",                                   // withdraw memo
     "method": 2,                                  // called method 1 - deposit, 2 - withdraw
@@ -284,7 +283,7 @@ Performed when withdraw was completed. Request example:
     "createdAt": 1593437922,                      // timestamp of withdraw
     "currency": "Tether US",                      // withdraw currency
     "ticker": "USDT",                             // withdraw currency ticker
-    "description": null,                            // withdraw description
+    "description": null,                          // withdraw description
     "fee": "0.000000000000000000",                // withdraw fee
     "memo": "",                                   // withdraw memo
     "method": 2,                                  // called method 1 - deposit, 2 - withdraw
