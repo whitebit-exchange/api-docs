@@ -57,8 +57,8 @@ NONE
       "stockPrec": "3",          // Stock currency precision
       "moneyPrec": "2",          // Precision of money currency
       "feePrec": "4",            // Fee precision
-      "makerFee": "0.001",       // Default maker fee ratio
-      "takerFee": "0.001",       // Default taker fee ratio
+      "makerFee": "0.1",       // Default maker fee percent
+      "takerFee": "0.1",       // Default taker fee percent
       "minAmount": "0.001",      // Minimal amount of stock to trade
       "minTotal": "0.001",       // Minimal amount of money to trade
       "tradesEnabled": true      // Is trading enabled
