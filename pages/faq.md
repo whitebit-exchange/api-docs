@@ -1,38 +1,43 @@
 ## F.A.Q.
 
-1. Q: Почему я получаю ошибку 429 и не могу делать запросы?			
+1. Q: Why am I getting a 429 error and can't make requests?
 
-    A: сли превышен лимит в rate limit  запросов в минуту пользователь получит 429 ошибку и вынужден будет подождать
+A: If the rate limit for an endpoint is exceeded, you will receive a 429 error. To fix the error, you need to wait a bit. The rate limit value for a specific request can be found in the endpoint description.
 
-2. Q: почему при запросе на метод whitebit.com/api/v4/public/ticker я получаю  CORS ошибку? 
+2. Q: Why do I get a CORS error when requesting the [whitebit.com/api/v4/public/ticker](http://whitebit.com/api/v4/public/ticker) method?
 
-    A: Корс запросы на этот ендпоинт запрещены в целях безопасности. Делайте запрос с бекенда, не с фронтенда
-3. Q: Почему я получаю ошибку 403 когда делаю запрос на ендпоинты смартплана?
+A: CORS requests to this endpoint are forbidden for security reasons. Make the request from the backend.
 
-    A: these endpoints are available only for B2B partner services, you need to contact support@whitebit.com in order to get permissions to use these endpoints.
-https://whitebit-exchange.github.io/api-docs/docs/Private/http-main-v4#smart-staking
+3. Q: Why am I getting a 403 error when making requests to the Smartplan endpoints?
 
-4. Q: Как можно получить инфу по парам по нескольким временным отрезкам, а не одному в методе https://whitebit-exchange.github.io/api-docs/public/websocket/#kline?
+A: These endpoints are available only for B2B partner services. You need to contact [support@whitebit.com](mailto:support@whitebit.com) in order to get permissions to use these endpoints.
 
-    A: Откройте несколько веб сокет соединений, или вызовите аналогичный http метод
+[https://whitebit-exchange.github.io/api-docs/private/http-main-v4/#crypto-lеnding](https://whitebit-exchange.github.io/api-docs/private/http-main-v4/#crypto-l%D0%B5nding)
 
-5. Q: Почему я не могу видеть трейд хистори по паре за последние 24 часа?
+4. Q: Can I get information on pairs for multiple time periods in the [https://whitebit-exchange.github.io/api-docs/public/websocket/#kline](https://whitebit-exchange.github.io/api-docs/public/websocket/#kline) method?
 
-    A: вы можете видеть только последние 100 дилов. Если вы хотите видеть больше, подпшитесь на наш вебсокет и акумулируйте информацию у себя - CHECK IF 100
+A: Open multiple WebSocket connections or call an equivalent HTTP method.
 
-6. Q: Почему я получаю ошибки с нонсом?
+5. Q: Why can't I see trade history for a pair in the last 24 hours?
 
-    A: Проблема решается дебагом своего кода а также пересозданием ключей. 
+A: You can only see the last 100 deals. If you want to see more, subscribe to our WebSocket and accumulate information on your side.
 
-7. Q: Почему при переводе средств по АПИ между балансами самого перевода не происходит? Я сделал трансфер с торгового на основной аккаунт и сделал запрос на вывод, но получил ошибку гле указали что средств на балансе нету
+1. Q: Why am I getting nonce errors?
 
-    A: Переводу происходит немного позже, подождите его окончания. Вы сделали вывод то того, как выполнился трансфер
+A: The problem is solved by debugging your code and recreating the keys.
 
-8. Q: приходит ошибка что недостаточно средств для вывода, хотя на балансе есть
+7. Q: Why doesn't the transfer between balances occur when transferring assets via API? Example: I made a transfer from a trading account to a main account and made a withdrawal request, but I received an error indicating that there were no funds in the balance.
 
-    A: для метода withdraw-pay необходимо учитывать комиссию на вывод https://github.com/whitebit-exchange/api-docs/blob/main/docs/Private/http-main-v4.md#fees
-Сумма + комиссия была больше, чем баланс
+A: You made a withdrawal before the transfer was completed. Wait for it to finish (about 2 seconds).
 
-9. Q: Для Webhook API обязательна связь через https, через какой порт происходит эта связь?
+8. Q: I get an error that there are insufficient funds for withdrawal, even though there are assets on the balance.
 
-    A: Да, https обязателен. Связь происходит через 443 порт
+A: The amount plus the fee was greater than the balance. For the withdraw-pay method, you need to take into account the withdrawal fee [https://github.com/whitebit-exchange/api-docs/blob/main/docs/Private/http-main-v4.md#fees](https://github.com/whitebit-exchange/api-docs/blob/main/docs/Private/http-main-v4.md#fees)
+
+9. Q: Is https required for Webhook API communication? What port is used for this communication?
+
+A: Yes, https is required. Communication takes place through port 443.
+
+10. Q: How can I find out if deposits and withdrawals of a specific currency are working through the API?
+
+A: You can find this information at [https://whitebit.com/api/v4/public/assets](https://whitebit.com/api/v4/public/assets)
