@@ -52,5 +52,6 @@
 
 > [Private Webhooks Documentation - Main balance](./webhook/web-hook) - Documentation for processing webhooks
 
-### [Glossary](./glossary)
+### [Glossary](./glossary/)
 
+### [F.A.Q.](./faq/)
