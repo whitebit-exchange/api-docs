@@ -24,7 +24,7 @@ Balance that accepts deposits and/or withdraws cryptocurrency and national curre
 
 ### Balance Spot(Balance Trade)
 
-Balance for [spot trading](./Glossary#spot-trading), this balance is intended solely for non-marginal trading (placing orders), as well as for the currency exchange
+Balance for [spot trading](./Glossary#spot-trading), this balance is intended solely for non-marginal trading (placing [orders](./glossary#orders)), as well as for the currency exchange
 
 ### Bid
 
