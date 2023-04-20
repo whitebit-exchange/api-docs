@@ -214,6 +214,10 @@ A price set by you in advance
 
 A trader who accepts an existing [order](./Glossary#orders) from the [order book](./Glossary#order-book), which means they take liquidity from the [market](./Glossary#market)
 
+### Ticker
+
+An alphabetic and/or numeric abbreviation of the name of a digital [asset](./Glossary#assets). (BTC - Bitcoin ticker).
+
 ### Trade
 
 See [Deal](./Glossary#deal-trade)
@@ -237,11 +241,6 @@ The total number of shares or contracts exchanged between buyers and sellers of 
 Free alphanumeric codes with the [assets](./Glossary#assets) packaged in it
 
 ## X
-
-### Ticker
-
-An alphabetic and/or numeric abbreviation of the name of a digital [asset](./Glossary#assets). (BTC - Bitcoin ticker).
-
 ## Y
 ## Z
 
