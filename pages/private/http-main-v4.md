@@ -1,27 +1,28 @@
 # Private HTTP API V4 for Main balance changes
 
-- [Error messages V4 format](#error-messages-v4-format)
-- [Main balance](#main-balance)
-- [Get cryptocurrency deposit address](#get-cryptocurrency-deposit-address)
-- [Get fiat deposit address](#get-fiat-deposit-address)
-- [Create withdraw request](#create-withdraw-request)
-- [Create withdraw request with the specific withdraw amount (fee is not included)](#create-withdraw-request-with-the-specific-withdraw-amount-fee-is-not-included)
-- [Transfer between main and trade balances](#transfer-between-main-and-trade-balances)
-- [Get deposit/withdraw history](#get-depositwithdraw-history)
-- [Create new address for deposit](#create-new-address-for-deposit)
-- [Codes](#codes)
-- [Create code](#create-code)
-- [Apply code](#apply-code)
-- [Get my codes](#get-my-codes)
-- [Get codes history](#get-codes-history)
-- [Crypto Lеnding](#crypto-lеnding)
-- [Get plans](#get-plans)
-- [Invest](#invest)
-- [Close investment](#close-investment)
-- [Get investments history](#get-investments-history)
-- [Get interest payments history](#get-interest-payments-history)
-- [Fees](#fees)
-- [Get fees](#get-fees)
+- [Private HTTP API V4 for Main balance changes](#private-http-api-v4-for-main-balance-changes)
+    - [Error messages V4 format](#error-messages-v4-format)
+    - [Main balance](#main-balance)
+    - [Get cryptocurrency deposit address](#get-cryptocurrency-deposit-address)
+    - [Get fiat deposit address](#get-fiat-deposit-address)
+    - [Create withdraw request](#create-withdraw-request)
+    - [Create withdraw request with the specific withdraw amount (fee is not included)](#create-withdraw-request-with-the-specific-withdraw-amount-fee-is-not-included)
+    - [Transfer between main and trade balances](#transfer-between-main-and-trade-balances)
+    - [Get deposit/withdraw history](#get-depositwithdraw-history)
+    - [Create new address for deposit](#create-new-address-for-deposit)
+  - [Codes](#codes)
+    - [Create code](#create-code)
+    - [Apply code](#apply-code)
+    - [Get my codes](#get-my-codes)
+    - [Get codes history](#get-codes-history)
+  - [Crypto Lеnding](#crypto-lеnding)
+    - [Get plans](#get-plans)
+    - [Invest](#invest)
+    - [Close investment](#close-investment)
+    - [Get investments history](#get-investments-history)
+    - [Get interest payments history](#get-interest-payments-history)
+  - [Fees](#fees)
+    - [Get fees](#get-fees)
 
 Base URL is https://whitebit.com
 
@@ -55,7 +56,7 @@ ___
 ```
 [POST] /api/v4/main-account/balance
 ```
-This endpoint retrieves the main balance by currency ticker or all balances.
+This endpoint retrieves the [main balance](./../glossary.md#balance-main) by currency [ticker](./../glossary.md#ticker) or all balances.
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -66,7 +67,7 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-ticker | String | **No** | Currency's ticker. Example: BTC
+ticker | String | **No** | Currency's [ticker](./../glossary.md#ticker). Example: BTC
 
 **Request BODY raw:**
 ```json
@@ -138,8 +139,8 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-ticker | String | **Yes** | Currencies ticker. Example: BTC ⚠ Currency ticker should not be fiat and it's "can_deposit" status must be "true". You can find this status in https://whitebit.com/api/v4/public/assets respsonse.
-network | String | **Yes, if currency is multinetwork** | Cryptocurrency network. ⚠ If currency has multiple networks like USDT - you need to specify network to be used. You can find ticker networks list in “networks” field from response https://whitebit.com/api/v4/public/assets.
+ticker | String | **Yes** | Currencies [ticker](./../glossary.md#ticker). Example: BTC ⚠ Currency ticker should not be [fiat](./../glossary.md#fiat) and it's "can_deposit" status must be "true". You can find this status in https://whitebit.com/api/v4/public/assets respsonse.
+network | String | **Yes, if currency is [multinetwork](./../glossary.md#multinetwork)** | Cryptocurrency network. ⚠ If currency has multiple networks like USDT - you need to specify network to be used. You can find [ticker](./../glossary.md#ticker) networks list in “networks” field from response https://whitebit.com/api/v4/public/assets.
 
 **Request BODY raw:**
 ```json
@@ -245,7 +246,7 @@ ___
 ```
 [POST] /api/v4/main-account/fiat-deposit-url
 ```
-This endpoint retrieves a deposit url of the fiat invoice. Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality.
+This endpoint retrieves a deposit url of the [fiat](./../glossary.md#fiat) invoice. Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality.
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -256,15 +257,15 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-ticker | String | **Yes** | Currencies ticker. Example: UAH ⚠ Currencies ticker should be: fiat and has "can_deposit" status must be "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.
-provider | String | **Yes** | Fiat currency provider. Example: VISAMASTER ⚠ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.
+ticker | String | **Yes** | Currencies [ticker](./../glossary.md#ticker). Example: UAH ⚠ Currencies ticker should be: [fiat](./../glossary.md#fiat) and has "can_deposit" status must be "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.
+provider | String | **Yes** | [Fiat](./../glossary.md#fiat) currency provider. Example: VISAMASTER ⚠ Currency [provider](./../glossary.md#provider) should be taken from https://whitebit.com/api/v4/public/assets response.
 amount | Numeric String | **Yes** | Deposit amount.
 uniqueId | String | **Yes** | Unique transaction identifier on client's side.
-customer.firstName | String | **Yes, if currency USD or EUR with VISAMASTER provider** | Customer billing first name
-customer.lastName | String | **Yes, if currency USD or EUR with VISAMASTER provider** | Customer billing last name
-customer.email | String | **Yes, if currency USD or EUR with VISAMASTER provider** | Customer billing email
-successLink | String | **No** | Customer will be redirected to this URL by acquiring provider after success deposit. To activate this feature, please contact support
-failureLink | String | **No** | Customer will be redirected to this URL in case of fail or rejection on acquiring provider side. To activate this feature, please contact support
+customer.firstName | String | **Yes, if currency USD or EUR with VISAMASTER [provider](./../glossary.md#provider)** | Customer billing first name
+customer.lastName | String | **Yes, if currency USD or EUR with VISAMASTER [provider](./../glossary.md#provider)** | Customer billing last name
+customer.email | String | **Yes, if currency USD or EUR with VISAMASTER [provider](./../glossary.md#provider)** | Customer billing email
+successLink | String | **No** | Customer will be redirected to this URL by acquiring [provider](./../glossary.md#provider) after success deposit. To activate this feature, please contact support
+failureLink | String | **No** | Customer will be redirected to this URL in case of fail or rejection on acquiring [provider](./../glossary.md#provider) side. To activate this feature, please contact support
 returnLink | String | **No** | Customer will be redirected to the URL defined if selects 'back' option after from the payment success or failure page. To activate this feature, define desired link. If not populated, option 'back' won't be displayed
 
 
@@ -308,7 +309,7 @@ Available statuses:
 }
 ```
 
-**⚠ If you have used VISAMASTER as provider, you must pass [referer header](https://developer.mozilla.org/ru/docs/Web/HTTP/Headers/Referer) when you go to the invoice link (for example, pass `referer` header when you go to `https://someaddress.com`). Otherwise if there is no header (for example, you go to `https://someaddress.com` from Telegram message) you will be redirected to the WhiteBIT homepage**
+**⚠ If you have used VISAMASTER as [provider](./../glossary.md#provider), you must pass [referer header](https://developer.mozilla.org/ru/docs/Web/HTTP/Headers/Referer) when you go to the invoice link (for example, pass `referer` header when you go to `https://someaddress.com`). Otherwise if there is no header (for example, you go to `https://someaddress.com` from Telegram message) you will be redirected to the WhiteBIT homepage**
 
 <details>
 <summary><b>Errors:</b></summary>
@@ -451,19 +452,19 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------|------------|------------|------------
-ticker | String | **Yes** | Currencies ticker. Example: BTC ⚠ Currencies ticker must have "can_deposit" status equal to "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.
-amount | Numeric string | **Yes** | Withdraw amount (including fee). If you want fee to be added to the specified amount, you need to use [/main-account/withdraw-pay](#create-withdraw-request-with-specifying-absolute-withdraw-amount) request (see examples there)
-address | String | **Yes** | Target address (wallet address for cryptocurrencies, identifier/card number for fiat currencies)
-memo | String | **Yes, if currency is memoable** | Target address (wallet address for cryptocurrencies, identifier/card number for fiat currencies)
+ticker | String | **Yes** | Currencies [ticker](./../glossary.md#ticker). Example: BTC ⚠ Currencies ticker must have "can_deposit" status equal to "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.
+amount | Numeric string | **Yes** | Withdraw amount (including [fee](./../glossary.md#fee)). If you want fee to be added to the specified amount, you need to use [/main-account/withdraw-pay](#create-withdraw-request-with-specifying-absolute-withdraw-amount) request (see examples there)
+address | String | **Yes** | Target address (wallet address for cryptocurrencies, identifier/card number for [fiat](./../glossary.md#fiat) currencies)
+memo | String | **Yes, if currency is memoable** | Target address (wallet address for cryptocurrencies, identifier/card number for [fiat](./../glossary.md#fiat) currencies)
 uniqueId | String | **Yes** | Unique transaction identifier. ⚠ Note that you should generate new unique id for each withdrawal request.
-provider | String | **Yes, if currency is fiat** | Fiat currency provider. Example: VISAMASTER ⚠ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.
+provider | String | **Yes, if currency is fiat** | [Fiat](./../glossary.md#fiat) currency [provider](./../glossary.md#provider). Example: VISAMASTER ⚠ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.
 network | String | **No** | Cryptocurrency network. Available for multi network currencies. Example: OMNI ⚠ Currency network should be taken from https://whitebit.com/api/v4/public/assets response. Default for USDT is ERC20
-partialEnable | Boolean | **No** | Optional parameter for FIAT withdrawals with increased Maximum Limit if set as “true”. In order to use this parameter your application should support “Partially successful” withdrawal status and latest updates in deposit/withdrawal history.
-beneficiary | Object | **Yes, if currency ticker is one of: UAH_IBAN, USD_VISAMASTER, EUR_VISAMASTER, USD, EUR** | Beneficiary information data array.
-beneficiary.firstName | String | **Yes, if currency ticker is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR** | Beneficiary first name. Max length: 40 symbols, latin letters and special characters.
-beneficiary.lastName | String | **Yes, if currency ticker is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR** | Beneficiary last name. Max length: 40 symbols, latin letters and special characters.
+partialEnable | Boolean | **No** | Optional parameter for [FIAT](./../glossary.md#fiat) withdrawals with increased Maximum Limit if set as “true”. In order to use this parameter your application should support “Partially successful” withdrawal status and latest updates in deposit/withdrawal history.
+beneficiary | Object | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: UAH_IBAN, USD_VISAMASTER, EUR_VISAMASTER, USD, EUR** | Beneficiary information data array.
+beneficiary.firstName | String | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR** | Beneficiary first name. Max length: 40 symbols, latin letters and special characters.
+beneficiary.lastName | String | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR** | Beneficiary last name. Max length: 40 symbols, latin letters and special characters.
 beneficiary.tin | Integer | **Yes, if currency is UAH_IBAN** | Beneficiary TAX payer number. Integer, 10 digits.
-beneficiary.phone | String | **Yes, if currency ticker is one of: USD_VISAMASTER, EUR_VISAMASTER** | Beneficiary phone number.
+beneficiary.phone | String | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: USD_VISAMASTER, EUR_VISAMASTER** | Beneficiary phone number.
 
 *Please note that this endpoint has necessary limitation to avoid spam attack. The limit is 100 requests per minute. In case the limit is exceeded you will receive an 429 error code. *
 
@@ -565,9 +566,9 @@ Response error codes:
    * 3 - amount is too small
    * 4 - amount is too small for the payment system
    * 5 - not enough balance
-   * 6 - amount is less than or equals fee
-   * 7 - amount should be integer (can happen for currencies with zero precision like Neo)
-   * 8 - target withdraw amount without fee equals zero
+   * 6 - amount is less than or equals [fee](./../glossary.md#fee)
+   * 7 - amount should be integer (can happen for currencies with zero [precision](./../glossary.md#precision) like Neo)
+   * 8 - target withdraw amount without [fee](./../glossary.md#fee) equals zero
    * 9 - address is unavailable (occurs for withdraws to own address)
 
 ```json
@@ -725,7 +726,7 @@ ___
 ```
 [POST] /api/v4/main-account/withdraw-pay
 ```
-This endpoint has the similar logic as [/main-account/withdraw](#create-withdraw-request), but with the only difference: amount that is specified will not include fee (it will be calculated to make target withdraw amount equal to the specified amount).
+This endpoint has the similar logic as [/main-account/withdraw](#create-withdraw-request), but with the only difference: amount that is specified will not include [fee](./../glossary.md#fee) (it will be calculated to make target withdraw amount equal to the specified amount).
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -734,7 +735,7 @@ NONE
 
 Example:
 * When you create base withdraw and set amount = 100 USD, receiver will recieve 100 USD - fee amount, and your balance will decrease by 100 USD.
-* When you use this endpoint and set amount = 100 USD, receiver will recieve 100 USD, and your balance will decrease by 100 USD + fee amount.
+* When you use this endpoint and set amount = 100 USD, receiver will recieve 100 USD, and your balance will decrease by 100 USD + [fee](./../glossary.md#fee) amount.
 
 ---
 
@@ -743,7 +744,7 @@ Example:
 ```
 [POST] /api/v4/main-account/transfer
 ```
-This endpoint transfers the specified amount between main and trade balances
+This endpoint transfers the specified amount between [main](./../glossary.md#balance-main) and [trade](./../glossary.md#balance-spotbalance-trade) balances
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -754,11 +755,11 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-method | String | **No** if **from** and **to** are set | Method We highly recommend to use **from** and **to** fields, which provides more flexibility. This way will be deprecated in future. Example: **deposit** if you need to transfer from main to trade / **withdraw** if you need to transfer from trade balance to main. For collateral balances you can use **collateral-deposit** to transfer from main to collateral balance and **collateral-withdraw** to transfer from collateral balance to main
-from | String | **No** if **method** is set | Balance FROM which funds will move to. Acceptable values: **main**, **spot**, **collateral**
-to | String | **No** if **method** is set | Balance TO which funds will move to. Acceptable values: **main**, **spot**, **collateral**
-ticker | String | **Yes** | Currency's ticker. Example: BTC
-amount | Numeric string | **Yes** | Amount to transfer. Max precision = 8, value should be greater than zero and less or equal your available balance.
+method | String | **No** if **from** and **to** are set | Method We highly recommend to use **from** and **to** fields, which provides more flexibility. This way will be deprecated in future. Example: **deposit** if you need to transfer from main to trade / **withdraw** if you need to transfer from [trade](./../glossary.md#balance-spotbalance-trade) balance to [main](./../glossary.md#balance-main). For [collateral balances](./../glossary.md#balance-collateral) you can use **collateral-deposit** to transfer from main to collateral balance and **collateral-withdraw** to transfer from collateral balance to main
+from | String | **No** if **method** is set | Balance FROM which funds will move to. Acceptable values: [**main**](./../glossary.md#balance-main), [**spot**](./../glossary.md#balance-spotbalance-trade), [**collateral**](./../glossary.md#balance-collateral)
+to | String | **No** if **method** is set | Balance TO which funds will move to. Acceptable values: [**main**](./../glossary.md#balance-main), [**spot**](./../glossary.md#balance-spotbalance-trade), [**collateral**](./../glossary.md#balance-collateral)
+ticker | String | **Yes** | Currency's [ticker](./../glossary.md#ticker). Example: BTC
+amount | Numeric string | **Yes** | Amount to transfer. Max [precision](./../glossary.md#precision) = 8, value should be greater than zero and less or equal your available balance.
 
 *Please note that this endpoint has necessary limitation to avoid spam attack. The limit is 100 requests per minute. In case the limit is exceeded you will receive an 429 error code. *
 
@@ -780,7 +781,7 @@ Available statuses:
 * `Status 422 if inner validation failed`
 
 Response error codes:
-   * 1 - transfers from trade to main are disabled
+   * 1 - transfers from [trade](./../glossary.md#balance-spotbalance-trade) to [main](./../glossary.md#balance-main) are disabled
    * 2 - transfers from main to trade are disabled
    * 3 - not enough balance
 
@@ -924,9 +925,9 @@ NONE
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 transactionMethod | Number | **No** | Method. Example: **1** to display deposits / **2** to display withdraws. Do not send this parameter in order to receive both deposits and withdraws.
-ticker | String | **No** | Currency's ticker. Example: BTC
-address | String | **No** | Can be used for filtering transactions by specific address or memo.
-addresses | Array | **No** | Can be used for filtering transactions by specific addresses or memos (max: 20).
+ticker | String | **No** | Currency's [ticker](./../glossary.md#ticker). Example: BTC
+address | String | **No** | Can be used for filtering transactions by specific address or [memo](./../glossary.md#memodestination-tag).
+addresses | Array | **No** | Can be used for filtering transactions by specific addresses or [memos](./../glossary.md#memodestination-tag) (max: 20).
 uniqueId | String | **No** | Can be used for filtering transactions by specific unique id
 limit | Int | **Yes** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
 offset | Int | **Yes** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
@@ -1137,8 +1138,8 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-ticker | String | **Yes** | Currency's ticker. Example: BTC
-network | String | **No** | Currency's network if it multinetwork currency. Example: OMNI or TRC20 or ERC20. For USDT default network is ERC20(ETH).
+ticker | String | **Yes** | Currency's [ticker](./../glossary.md#ticker). Example: BTC
+network | String | **No** | Currency's network if it is [multinetwork](./../glossary.md#multinetwork) currency. Example: OMNI or TRC20 or ERC20. For USDT default network is ERC20(ETH).
 type | String | **No** | Address type, available for specific currencies list (see address types table below)
 
 **Address types:**
@@ -1268,7 +1269,7 @@ ___
 ```
 [POST] /api/v4/main-account/codes
 ```
-This endpoint creates WhiteBIT code.
+This endpoint creates [WhiteBIT code](./../glossary.md#whitebit-codescodes).
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -1279,10 +1280,10 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-ticker | String | **Yes** | Currency's ticker. Example: BTC
-amount | Numeric string | **Yes** | Amount to transfer. Max precision = 8, value should be greater than zero and your main balance.
-passphrase | String | **No** | Passphrase that will be used for applying codes. Passphrase must contain only latin letters, numbers and symbols (like !@#$%^, no whitespaces).  Max: 25 symbols.
-description | String | **No** | Additional text description for code. Visible only for creator Max: 75 symbols.
+ticker | String | **Yes** | Currency's [ticker](./../glossary.md#ticker). Example: BTC
+amount | Numeric string | **Yes** | Amount to transfer. Max [precision](./../glossary.md#precision) = 8, value should be greater than zero and your [main balance](./../glossary.md#balance-main).
+passphrase | String | **No** | Passphrase that will be used for applying [codes](./../glossary.md#whitebit-codescodes). Passphrase must contain only latin letters, numbers and symbols (like !@#$%^, no whitespaces).  Max: 25 symbols.
+description | String | **No** | Additional text description for [code](./../glossary.md#whitebit-codescodes). Visible only for creator Max: 75 symbols.
 
 **Request BODY raw:**
 ```json
@@ -1303,13 +1304,13 @@ Available statuses:
 * `Status 422 if inner validation failed`
 
 Response error codes:
-* 0 - Fiat are available on the front-end only
+* 0 - [Fiat](./../glossary.md#fiat) are available on the front-end only
 * 1 - currency is not withdrawable
 * 2 - specified address is invalid
 * 3 - amount is too small
 * 4 - amount is too small for the payment system
 * 5 - not enough balance
-* 6 - amount is less than or equals fee
+* 6 - amount is less than or equals [fee](./../glossary.md#fee)
 
 ```json
 {
@@ -1428,7 +1429,7 @@ ___
 ```
 [POST] /api/v4/main-account/codes/apply
 ```
-This endpoint applies WhiteBIT code.
+This endpoint applies [WhiteBIT code](./../glossary.md#whitebit-codescodes).
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -1439,8 +1440,8 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-code | String | **Yes** | Code that will be applied.
-passphrase | String | **No** | Should be provided if the code was created with passphrase Max: 25 symbols.
+code | String | **Yes** | [Code](./../glossary.md#whitebit-codescodes) that will be applied.
+passphrase | String | **No** | Should be provided if the [code](./../glossary.md#whitebit-codescodes) was created with passphrase Max: 25 symbols.
 
 **Request BODY raw:**
 ```json
@@ -1504,7 +1505,7 @@ ___
 ```
 [POST] /api/v4/main-account/codes/my
 ```
-This endpoint retrieves the list of WhiteBIT codes created by my account.
+This endpoint retrieves the list of [WhiteBIT codes](./../glossary.md#whitebit-codescodes) created by my account.
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -1612,7 +1613,7 @@ ___
 ```
 [POST] /api/v4/main-account/codes/history
 ```
-This endpoint retrieves the whole codes history on your account.
+This endpoint retrieves the whole [codes](./../glossary.md#whitebit-codescodes) history on your account.
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -1726,7 +1727,7 @@ ___
 
 ## Crypto Lеnding
 
-This API provides endpoints for interacting with Crypto Lеnding: getting active plans, creating/closing investments, retrieving investments/interest payments history.
+This API provides endpoints for interacting with [Crypto Lеnding](./../glossary.md#crypto-lendingsmart-staking): getting active plans, creating/closing investments, retrieving investments/interest payments history.
 
 These endpoints are available only for B2B partner services, you need to contact support@whitebit.com in order to get permissions to use these endpoints.
 
@@ -1736,7 +1737,7 @@ These endpoints are available only for B2B partner services, you need to contact
 [POST] /api/v4/main-account/smart/plans
 ```
 
-This endpoint retrieves all active plans
+This endpoint retrieves all active [plans](./../glossary.md#crypto-lendingsmart-staking)
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -1747,7 +1748,7 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-ticker | String | **No** | Invest plan source currency's ticker. Example: BTC
+ticker | String | **No** | [Invest plan](./../glossary.md#crypto-lendingsmart-staking) source currency's [ticker](./../glossary.md#ticker). Example: BTC
 
 **Request BODY raw:**
 ```json
@@ -1813,7 +1814,7 @@ ___
 [POST] /api/v4/main-account/smart/investment
 ```
 
-This endpoint creates a new investment to the specified invest plan
+This endpoint creates a new investment to the specified [invest plan](./../glossary.md#crypto-lendingsmart-staking)
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -1824,7 +1825,7 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-planId | String | **Yes** | Invest plan identifier
+planId | String | **Yes** | [Invest plan](./../glossary.md#crypto-lendingsmart-staking) identifier
 amount | Numeric String | **Yes** | Investment amount
 
 **Request BODY raw:**
@@ -2101,7 +2102,7 @@ NONE
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 id | String | **No** | Investment identifier
-ticker | String | **No** | Invest plan source currency's ticker
+ticker | String | **No** | [Invest plan](./../glossary.md#crypto-lendingsmart-staking) source currency's [ticker](./../glossary.md#ticker)
 status | Integer | **No** | Investment status (1 - active, 2 - closed)
 limit | Int | **No** | LIMIT is a special clause used to limit records a particular query can return. Default: 100, Min: 1, Max: 100
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
@@ -2196,8 +2197,8 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-planId | String | **No** | Invest plan identifier
-ticker | String | **No** | Invest plan target currency's ticker
+planId | String | **No** | [Invest plan](./../glossary.md#crypto-lendingsmart-staking) identifier
+ticker | String | **No** | [Invest plan](./../glossary.md#crypto-lendingsmart-staking) target currency's [ticker](./../glossary.md#ticker)
 limit | Int | **No** | LIMIT is a special clause used to limit records a particular query can return. Default: 100, Min: 1, Max: 100
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
@@ -2257,7 +2258,7 @@ Available statuses:
 
 ## Fees
 
-This API provides an endpoint for getting deposit/withdrawal fees and limits by all currencies
+This API provides an endpoint for getting deposit/withdrawal [fees](./../glossary.md#fee) and limits by all currencies
 
 ### Get fees
 
