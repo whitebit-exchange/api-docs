@@ -51,7 +51,7 @@ All web-hook requests are performing with
 
 **id** - string. Uuid to identify every request.
 
-**params** - the request payload. Here you can find useful data about passed actions, which triggered web hook call. Also in this field placed a nonce. **'nonce'** - a number that is always **greater** than the previous request’s nonce number
+**params** - the request payload. Here you can find useful data about passed actions, which triggered web hook call. Also in this field placed a [nonce](./../glossary.md#nonce). **'nonce'** - a number that is always **greater** than the previous request’s nonce number
 
 
 #### Request headers
@@ -69,7 +69,7 @@ On consumer side you can process security headers to be sure request was perform
 
 ### WhiteBIT code apply
 
-Performed when code was applied. Request example:
+Performed when [code](./../glossary.md#whitebit-codescodes) was applied. Request example:
 
 ```json
 {
