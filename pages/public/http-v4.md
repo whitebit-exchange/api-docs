@@ -65,6 +65,7 @@ NONE
       "takerFee": "0.001",       // Default taker fee ratio
       "minAmount": "0.001",      // Minimal amount of stock to trade
       "minTotal": "0.001",       // Minimal amount of money to trade
+      "maxTotal": "10000000000", // Maximum total(amount * price) of money to trade
       "tradesEnabled": true,     // Is trading enabled
       "isCollateral": true,      // Is margin trading enabled
       "type": "spot"             // Market type. Possible values: "spot", "futures"
