@@ -980,38 +980,38 @@ Response error codes:
     "offset": 0,
     "records": [
         {
-            "address": "3ApEASLcrQtZpg1TsssFgYF5V5YQJAKvuE",                                              // deposit address
-            "uniqueId": null,                                                                             // unique Id of deposit
-            "createdAt": 1593437922,                                                                      // timestamp of deposit
-            "currency": "Bitcoin",                                                                        // deposit currency
-            "ticker": "BTC",                                                                              // deposit currency ticker
-            "method": 1,                                                                                  // called method 1 - deposit, 2 - withdraw
-            "amount": "0.0006",                                                                           // amount of deposit
-            "description": "",                                                                            // deposit description
-            "memo": "",                                                                                   // deposit memo
-            "fee": "0",                                                                                   // deposit fee
-            "status": 15,                                                                                 // transactions status
-            "network": null,                                                                              // if currency is multinetwork
-            "transactionHash": "a275a514013e4e0f927fd0d1bed215e7f6f2c4c6ce762836fe135ec22529d886",        // deposit transaction hash
-            "transactionId": "5e112b38-9652-11ed-a1eb-0242ac120002",                                      // transaction id
+            "address": "3ApEASLcrQtZpg1TsssFgYF5V5YQJAKvuE",                                        // deposit address
+            "uniqueId": null,                                                                       // unique Id of deposit
+            "createdAt": 1593437922,                                                                // timestamp of deposit
+            "currency": "Bitcoin",                                                                  // deposit currency
+            "ticker": "BTC",                                                                        // deposit currency ticker
+            "method": 1,                                                                            // called method 1 - deposit, 2 - withdraw
+            "amount": "0.0006",                                                                     // amount of deposit
+            "description": "",                                                                      // deposit description
+            "memo": "",                                                                             // deposit memo
+            "fee": "0",                                                                             // deposit fee
+            "status": 15,                                                                           // transactions status
+            "network": null,                                                                        // if currency is multinetwork
+            "transactionHash": "a275a514013e4e0f927fd0d1bed215e7f6f2c4c6ce762836fe135ec22529d886",  // deposit transaction hash
+            "transactionId": "5e112b38-9652-11ed-a1eb-0242ac120002",                                // transaction id
             "details": {
-                "partial": {                                                                              // details about partially successful withdrawals
-                    "requestAmount": "50000",                                                             // requested withdrawal amount
-                    "processedAmount": "39000",                                                           // processed withdrawal amount
-                    "processedFee": "273",                                                                // fee for processed withdrawal amount
-                    "normalizeTransaction": ""                                                            // deposit id
+                "partial": {                                                                        // details about partially successful withdrawals
+                    "requestAmount": "50000",                                                       // requested withdrawal amount
+                    "processedAmount": "39000",                                                     // processed withdrawal amount
+                    "processedFee": "273",                                                          // fee for processed withdrawal amount
+                    "normalizeTransaction": ""                                                      // deposit id
                 }
             },
-            "confirmations": {                                                                            // if transaction status == 15 you can see this object
-                "actual": 1,                                                                              // current block confirmations
-                "required": 2                                                                             // required block confirmation for successful deposit
+            "confirmations": {                                                                      // if transaction status == 15 (Pending) you can see this object
+                "actual": 1,                                                                        // current block confirmations
+                "required": 2                                                                       // required block confirmation for successful deposit
             }
         },
         {...},
         {...},
         {...}
     ],
-    "total": 300                                                                                             // total number of  transactions, use this for calculating ‘limit’ and ‘offset'
+    "total": 300                                                                                    // total number of  transactions, use this for calculating ‘limit’ and ‘offset'
 }
 
 ```
