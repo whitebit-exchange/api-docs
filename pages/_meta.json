@@ -1,9 +1,39 @@
 {
-  "index": "Introduction",
-  "public": "Public",
-  "private": "Private",
-  "webhook":  "Webhook",
-  "glossary":  "Glossary",
+  "index": {
+    "title": "Introduction",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
+  "public": {
+    "title": "Public",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
+  "private": {
+    "title": "Private",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
+  "webhook": {
+    "title": "Webhook",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
+  "glossary": {
+    "title": "Glossary",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
   "contact": {
     "title": "Contact ↗",
     "type": "page",
