@@ -40,7 +40,7 @@ ___
 This endpoint retrieves all information about available markets.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Parameters:**
 NONE
@@ -80,7 +80,7 @@ ___
 This endpoint retrieves information about recent trading activity on all markets.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Parameters:**
 NONE
@@ -122,7 +122,7 @@ ___
 This endpoint retrieves information about recent trading activity on the requested market.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -161,7 +161,7 @@ ___
 This endpoint retrieves information about market kline.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -207,7 +207,7 @@ ___
 This endpoint retrieves information about all available markets for trading.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -237,7 +237,7 @@ ___
 This endpoint retrieves the current [order book](./../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask))
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -286,7 +286,7 @@ ___
 This endpoint retrieves [trades](./../glossary.md#trade) that have been executed for the requested [market](./../glossary.md#market).
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 ❗ Rate limit 1000 requests/10 sec.
 
