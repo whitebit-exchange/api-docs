@@ -47,7 +47,7 @@ ___
 ```
 [POST] /api/v1/account/balance
 ```
-This endpoint retrieves the trade balance by currency ticker.
+This endpoint retrieves the [trade balance](./../glossary.md#balance-spotbalance-trade) by currency [ticker](./../glossary.md#ticker).
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -58,7 +58,7 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-currency | String | **Yes** | Currency's ticker. Example: BTC
+currency | String | **Yes** | Currency's [ticker](./../glossary.md#ticker). Example: BTC
 
 **Request BODY raw:**
 ```json
@@ -107,7 +107,7 @@ ___
 ```
 [POST] /api/v1/account/balances
 ```
-This endpoint retrieves all available balances for trading.
+This endpoint retrieves all available [balances for trading](./../glossary.md#balance-spotbalance-trade).
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -188,7 +188,7 @@ ___
 ```
 [POST] /api/v1/order/new
 ```
-This endpoint creates limit trading order.
+This endpoint creates [limit trading order](./../glossary.md#orders).
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -201,8 +201,8 @@ Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
 side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
-amount | String | **Yes** | Amount of stock currency to buy or sell. Example: '0.001'
-price | String | **Yes** | Price in money currency. Example: '9800'
+amount | String | **Yes** | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001'
+price | String | **Yes** | Price in [money](./../glossary.md#money) currency. Example: '9800'
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 
@@ -401,7 +401,7 @@ ___
 ```
 [POST] /api/v1/order/cancel
 ```
-This endpoint cancels the existing order.
+This endpoint cancels the existing [order](./../glossary.md#orders).
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -523,7 +523,7 @@ ___
 ```
 [POST] /api/v1/orders
 ```
-This endpoint retrieves unexecuted orders only.
+This endpoint retrieves [unexecuted orders](./../glossary.md#active-orders) only.
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -656,7 +656,7 @@ ___
 ```
 [POST] /api/v1/account/order_history
 ```
-This endpoint retrieves orders history sorted by all markets
+This endpoint retrieves [orders](./../glossary.md#orders) history sorted by all markets
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -787,7 +787,7 @@ ___
 ```
 [POST] /api/v1/account/executed_history
 ```
-This endpoint retrieves deals history sorted by single market
+This endpoint retrieves [deals](./../glossary.md#deal-trade) history sorted by single market
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -906,7 +906,7 @@ ___
 ```
 [POST] /api/v1/account/executed_history/all
 ```
-This endpoint retrieves orders history sorted by all markets.
+This endpoint retrieves [orders](./../glossary.md#orders) history sorted by all markets.
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -1027,7 +1027,7 @@ ___
 ```
 [POST] /api/v1/account/order
 ```
-This endpoint retrieves more details on order deals history.
+This endpoint retrieves more details on [order](./../glossary.md#orders) deals history.
 
 ❗ Rate limit 1000 requests/10 sec.
 

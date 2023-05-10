@@ -1,13 +1,13 @@
 # Public HTTP API V1
 
 - [Error messages V1 format](#error-messages-v1-format)
-- [Market Info](#market-info)
-- [Market Activity](#market-activity)
-- [Single market activity](#single-market-activity)
-- [Kline](#kline)
-- [Symbols](#symbols)
-- [Order depth](#order-depth)
-- [Trade History](#trade-history)
+    - [Market Info](#market-info)
+    - [Market Activity](#market-activity)
+    - [Single market activity](#single-market-activity)
+    - [Kline](#kline)
+    - [Symbols](#symbols)
+    - [Order depth](#order-depth)
+    - [Trade History](#trade-history)
 
 Base URL is https://whitebit.com
 
@@ -234,7 +234,7 @@ ___
 ```
 [GET] /api/v1/public/depth/result?market=BTC_USDT
 ```
-This endpoint retrieves the current order book as two arrays (bids / asks)
+This endpoint retrieves the current [order book](./../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask))
 
 **Response is cached for:**
 _5 second_
@@ -283,7 +283,7 @@ ___
 ```
 [GET] /api/v1/public/history?market=BTC_USDT&lastId=1
 ```
-This endpoint retrieves trades that have been executed for the requested market.
+This endpoint retrieves [trades](./../glossary.md#trade) that have been executed for the requested [market](./../glossary.md#market).
 
 **Response is cached for:**
 _5 second_
@@ -295,7 +295,7 @@ _5 second_
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
-lastId | int | **Yes** | Largest id of last returned result. Example: request deals starting from id equals to 6
+lastId | int | **Yes** | Largest id of last returned result. Example: request [deals](./../glossary.md#deal-trade) starting from id equals to 6
 limit | int | **No** | Limit of results. Default: 50 Example: 100
 
 
