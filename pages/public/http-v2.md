@@ -1,12 +1,12 @@
 # Public HTTP API V2
 
-- [Error messages V2 format](#error-messages-v2-format)
-- [Market Info](#market-info)
-- [Market activity](#market-activity)
-- [Recent Trades](#recent-trades)
-- [Fee](#fee)
-- [Asset Status List](#asset-status-list)
-- [Orderbook](#orderbook)
+ - [Error messages V2 format](#error-messages-v2-format)
+    - [Market Info](#market-info)
+    - [Market activity](#market-activity)
+    - [Recent Trades](#recent-trades)
+    - [Fee](#fee)
+    - [Asset Status List](#asset-status-list)
+    - [Orderbook](#orderbook)
 
 Base endpoint is https://whitebit.com
 
@@ -36,7 +36,7 @@ ___
 ```
 [GET] /api/v2/public/markets
 ```
-This endpoint retrieves all information about available markets.
+This endpoint retrieves all information about available [markets](./../glossary.md#market).
 
 **Response is cached for:**
 _5 second_
@@ -76,7 +76,7 @@ ___
 ```
 [GET] /api/v2/public/ticker
 ```
-This endpoint retrieves information on recent trading activity on all markets.
+This endpoint retrieves information on recent trading activity on all [markets](./../glossary.md#market).
 
 **Response is cached for:**
 _5 second_
@@ -113,7 +113,7 @@ ___
 ```
 [GET] /api/v2/public/trades/{market}
 ```
-This endpoint retrieves the trades that have been executed recently on the requested market
+This endpoint retrieves the [trades](./../glossary.md#deal-trade) that have been executed recently on the requested [market](./../glossary.md#market)
 
 **Response is cached for:**
 _5 second_
@@ -147,7 +147,7 @@ ___
 ```
 [GET] /api/v2/public/fee
 ```
-This endpoint retrieves the trading fee.
+This endpoint retrieves the trading [fee](./../glossary.md#fee).
 
 **Response is cached for:**
 _5 second_
@@ -173,7 +173,7 @@ ___
 ```
 [GET] /api/v2/public/assets
 ```
-This endpoint retrieves the assets status.
+This endpoint retrieves the [assets](./../glossary.md#assets) status.
 
 **Response is cached for:**
 _5 second_
@@ -209,7 +209,7 @@ ___
 ```
 [GET] /api/v2/public/depth/{market}
 ```
-This endpoint retrievs the current order book as two arrays (bids / asks).
+This endpoint retrievs the current [order book](../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)).
 
 **Response is cached for:**
 _5 second_

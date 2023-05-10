@@ -1,16 +1,16 @@
 # Public HTTP API V4
 
-- [Error messages V4 format](#error-messages-v4-format)
-- [Market Info](#market-info)
-- [Market activity](#market-activity)
-- [Asset status list](#asset-status-list)
-- [Orderbook](#orderbook)
-- [Recent Trades](#recent-trades)
-- [Fee](#fee)
-- [Server Time](#server-time)
-- [Server Status](#server-status)
-- [Collateral Markets List](#collateral-markets-list)
-- [Available Futures Markets List](#available-futures-markets-list)
+ - [Error messages V4 format](#error-messages-v4-format)
+    - [Market Info](#market-info)
+    - [Market activity](#market-activity)
+    - [Asset status list](#asset-status-list)
+    - [Orderbook](#orderbook)
+    - [Recent Trades](#recent-trades)
+    - [Fee](#fee)
+    - [Server Time](#server-time)
+    - [Server Status](#server-status)
+    - [Collateral Markets List](#collateral-markets-list)
+    - [Available Futures Markets List](#available-futures-markets-list)
 
 Base URL is https://whitebit.com
 
@@ -307,7 +307,7 @@ ___
 ```
 [GET] /api/v4/public/orderbook/{market}?limit=100&level=2
 ```
-This endpoint retrieves the current order book as two arrays (bids / asks) with additional parameters.
+This endpoint retrieves the current [order book](./../glossary.md#order-book as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)) with additional parameters.
 
 **Response is cached for:**
 _5 second_
@@ -319,7 +319,7 @@ _5 second_
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 limit | int | **No** | Orders depth quantity: 0 - 100. Not defined or 0 will return 100 entries.
-level | int | **No** | Optional parameter that allows API user to see different level of aggregation. Level 0 – default level, no aggregation. Starting from level 1 (lowest possible aggregation) and up to level 5 - different levels of aggregated orderbook.
+level | int | **No** | Optional parameter that allows API user to see different level of aggregation. Level 0 – default level, no aggregation. Starting from level 1 (lowest possible aggregation) and up to level 5 - different levels of aggregated [orderbook](./../glossary.md#order-book).
 
 
 **Response:**
@@ -349,7 +349,7 @@ ___
 ```
 [GET] /api/v4/public/trades/{market}?type=sell
 ```
-This endpoint retrieves the trades that have been executed recently on the requested market.
+This endpoint retrieves the [trades](./../glossary.md#deal-trade) that have been executed recently on the requested [market](./../glossary.md#market).
 
 **Response is cached for:**
 _5 second_
@@ -392,7 +392,7 @@ ___
 ```
 [GET] /api/v4/public/fee
 ```
-This endpoint retrieves the list of fees and min/max amount for deposits and withdraws
+This endpoint retrieves the list of [fees](./../glossary.md#fee) and min/max amount for deposits and withdraws
 
 **Response is cached for:**
 _5 second_
@@ -504,7 +504,7 @@ _5 second_
 ```
 [GET] /api/v4/public/collateral/markets
 ```
-This endpoint returns the list of markets that available for collateral trading
+This endpoint returns the list of [markets](./../glossary.md#market) that available for [collateral](./../glossary.md#collateral) trading
 
 ❗ Rate limit 2000 requests/10 sec.
 

@@ -1,31 +1,32 @@
 # Private HTTP API V4 for trading
 
-## Spot
-  * [Trading balance](#trading-balance)
-  * [Create limit order](#create-limit-order)
-  * [Create market order](#create-market-order)
-  * [Create buy stock market order](#create-buy-stock-market-order)
-  * [Create stop-limit order](#create-stop-limit-order)
-  * [Create stop-market order](#create-stop-market-order)
-  * [Cancel order](#cancel-order)
-  * [Query unexecuted(active/open) orders](#query-unexecutedactive-orders)
-  * [Query executed order history](#query-executed-order-history)
-  * [Query executed order deals](#query-executed-order-deals)
-  * [Query executed orders](#query-executed-orders)
-
-## Collateral
-  * [Collateral Account Balance](#collateral-account-balance)
-  * [Collateral Limit Order](#collateral-limit-order)
-  * [Collateral Market Order](#collateral-market-order)
-  * [Collateral Trigger Market Order](#collateral-trigger-market-order)
-  * [Collateral Stop-Limit Order](#collateral-stop-limit-order)
-  * [Collateral Account Summary](#collateral-account-summary)
-  * [Open Positions](#open-positions)
-  * [Position History](#positions-history)
-  * [Change Collateral Account Leverage](#change-collateral-account-leverage)
-  * [Query unexecuted(active/open) OCO orders](#query-unexecutedactive-oco-orders)
-  * [Create collateral OCO order](#create-collateral-oco-order)
-  * [Cancel OCO order](#cancel-oco-order)
+- [Error messages V4 format](#error-messages-v4-format)
+  - [Spot](#spot)
+    - [Trading balance](#trading-balance)
+    - [Create limit order](#create-limit-order)
+    - [Create market order](#create-market-order)
+    - [Create buy stock market order](#create-buy-stock-market-order)
+    - [Create stop-limit order](#create-stop-limit-order)
+    - [Create stop-market order](#create-stop-market-order)
+    - [Cancel order](#cancel-order)
+    - [Query unexecuted(active) orders](#query-unexecutedactive-orders)
+    - [Query executed order history](#query-executed-order-history)
+    - [Query executed order deals](#query-executed-order-deals)
+    - [Query executed orders](#query-executed-orders)
+  - [Collateral](#collateral)
+    - [Collateral Account Balance](#collateral-account-balance)
+    - [Collateral Account Balance Summary](#collateral-account-balance-summary)
+    - [Collateral Limit Order](#collateral-limit-order)
+    - [Collateral Market Order](#collateral-market-order)
+    - [Collateral Stop-Limit Order](#collateral-stop-limit-order)
+    - [Collateral Trigger Market Order](#collateral-trigger-market-order)
+    - [Collateral Account Summary](#collateral-account-summary)
+    - [Open Positions](#open-positions)
+    - [Positions History](#positions-history)
+    - [Change Collateral Account Leverage](#change-collateral-account-leverage)
+    - [Query unexecuted(active) OCO orders](#query-unexecutedactive-oco-orders)
+    - [Create collateral OCO order](#create-collateral-oco-order)
+    - [Cancel OCO order](#cancel-oco-order)
 
 ---
 
@@ -64,7 +65,7 @@ ___
 ```
 [POST] /api/v4/trade-account/balance
 ```
-This endpoint retrieves the trade balance by currency ticker or all balances.
+This endpoint retrieves the [trade balance](./../glossary.md#balance-spotbalance-trade) by currency [ticker](./../glossary.md#ticker) or all balances.
 
 ❗ Rate limit 12000 requests/10 sec.
 
@@ -75,7 +76,7 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-ticker | String | **No** | Currency's ticker. Example: BTC
+ticker | String | **No** | Currency's [ticker](./../glossary.md#ticker). Example: BTC
 
 **Request BODY raw:**
 ```json
@@ -156,7 +157,7 @@ ___
 ```
 [POST] /api/v4/order/new
 ```
-This endpoint creates limit trading order.
+This endpoint creates [limit trading order](./../glossary.md#limit-order).
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -164,12 +165,12 @@ This endpoint creates limit trading order.
 
 Name | Type          | Mandatory | Description
 ------------ |---------------| ------------ | ------------
-market | String        | **Yes** | Available market. Example: BTC_USDT
+market | String        | **Yes** | Available [market](./../glossary.md#market). Example: BTC_USDT
 side | String        | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
-amount | String/Number | **Yes** | Amount of stock currency to buy or sell. Example: '0.001' or 0.001
+amount | String/Number | **Yes** | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001
 price | String/Number | **Yes** | Price in money currency. Example: '9800' or 9800
 clientOrderId | String        | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
-postOnly | boolean       | **No** | Orders are guaranteed to be the maker order when executed. Variables: 'true' / 'false' Example: 'false'.
+postOnly | boolean       | **No** | [Orders](./../glossary.md#orders) are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: 'true' / 'false' Example: 'false'.
 ioc | boolean       | **No** | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.
 
 **Request BODY raw:**
@@ -490,7 +491,7 @@ ___
 ```
 [POST] /api/v4/order/market
 ```
-This endpoint creates market trading order.
+This endpoint creates [market trading order](./../glossary.md#market-order).
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -501,9 +502,9 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-market | String | **Yes** | Available market. Example: BTC_USDT
+market | String | **Yes** | Available [market](./../glossary.md#market). Example: BTC_USDT
 side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
-amount | String/Number | **Yes** | ⚠️ Amount of money currency to buy or amount in stock currency to sell. Example: '5 USDT' for buy (min total) and '0.001 BTC' for sell (min amount).
+amount | String/Number | **Yes** | ⚠️ Amount of [money](./../glossary.md#money) currency to buy or amount in [stock](./../glossary.md#stock) currency to sell. Example: '5 USDT' for buy (min total) and '0.001 BTC' for sell (min amount).
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
@@ -558,7 +559,7 @@ Available statuses:
 
 Error codes:
 * `30` - default validation error code
-* `31` - market validation failed
+* `31` - [market](./../glossary.md#market) validation failed
 * `32` - amount validation failed
 * `36` - clientOrderId validation failed
 
@@ -780,7 +781,7 @@ ___
 ```
 [POST] /api/v4/order/stock_market
 ```
-This endpoint creates buy stock market trading order.
+This endpoint creates buy [stock](./../glossary.md#stock) market trading [order](./../glossary.md#orders).
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -793,7 +794,7 @@ Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
 side | String | **Yes** | Order type. Available variables: "buy", "sell"
-amount | String/Number | **Yes** | ⚠️ Amount in stock currency for buy or sell. Example: "0.0001" or 0.0001.
+amount | String/Number | **Yes** | ⚠️ Amount in [stock](./../glossary.md#stock) currency for buy or sell. Example: "0.0001" or 0.0001.
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
@@ -1033,7 +1034,7 @@ ___
 ```
 [POST] /api/v4/order/stop_limit
 ```
-This endpoint creates stop-limit trading order
+This endpoint creates [stop-limit trading order](./../glossary.md#stop-limit-order)
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -1046,9 +1047,9 @@ Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
 side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
-amount | String/Number | **Yes** | Amount of stock currency to buy or sell. Example: '0.001' or 0.001
-price | String/Number | **Yes** | Price in money currency. Example: '9800' or 9800
-activation_price | String/Number | **Yes** | Activation price in money currency. Example: '10000' or 10000
+amount | String/Number | **Yes** | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001
+price | String/Number | **Yes** | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800
+activation_price | String/Number | **Yes** | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
@@ -1451,7 +1452,7 @@ ___
 ```
 [POST] /api/v4/order/stop_market
 ```
-This endpoint creates stop-market trading order
+This endpoint creates [stop-market trading order](./../glossary.md#stop-market-order)
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -1464,8 +1465,8 @@ Name | Type          | Mandatory | Description
 ------------ |---------------| ------------ | ------------
 market | String        | **Yes** | Available market. Example: BTC_USDT
 side | String        | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
-amount | String/Number | **Yes** | ⚠️Amount of **`money`** currency to **buy** or amount in **`stock`** currency to **sell**. Example: '0.01' or 0.01 for buy and '0.0001' for sell.
-activation_price | String/Number | **Yes** | Activation price in money currency. Example: '10000' or 10000
+amount | String/Number | **Yes** | ⚠️Amount of [**`money`**](./../glossary.md#money) currency to **buy** or amount in [**`stock`**](./../glossary.md#stock) currency to **sell**. Example: '0.01' or 0.01 for buy and '0.0001' for sell.
+activation_price | String/Number | **Yes** | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000
 clientOrderId | String        | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
@@ -1813,7 +1814,7 @@ ___
 ```
 [POST] /api/v4/order/cancel
 ```
-Cancel existing order
+Cancel existing [order](./../glossary.md#orders)
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -1824,7 +1825,7 @@ NONE
 
 Name | Type       | Mandatory | Description
 ------------ |------------| ------------ | ------------
-market | String     | **Yes** | Available market. Example: BTC_USDT
+market | String     | **Yes** | Available [market](./../glossary.md#market). Example: BTC_USDT
 orderId | String/Int | **Yes** | Order Id. Example: 4180284841 or "4180284841"
 
 **Request BODY raw:**
@@ -1956,7 +1957,7 @@ ___
 ```
 [POST] /api/v4/orders
 ```
-This endpoint retrieves unexecuted orders only.
+This endpoint retrieves [unexecuted orders](./../glossary.md#active-orders) only.
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -1967,7 +1968,7 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-market | String | **Yes** | Available market. Example: BTC_USDT
+market | String | **Yes** | Available [market](./../glossary.md#market). Example: BTC_USDT
 orderId | String | **No** | Available orderId. Example: 3134995325
 clientOrderId | String | **No** | Available clientOrderId. Example: customId11
 limit | Int | **No** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
@@ -2293,7 +2294,7 @@ ___
 ```
 [POST] /api/v4/trade-account/order
 ```
-This endpoint retrieves deals history details on pending or executed order.
+This endpoint retrieves [deals](./../glossary.md#deal-trade) history details on pending or [executed order](./../glossary.md#finished-orders).
 
 ❗ Rate limit 12000 requests/10 sec.
 
@@ -2450,7 +2451,7 @@ ___
 ```
 [POST] /api/v4/trade-account/order/history
 ```
-This endpoint retrieves executed order history by market.
+This endpoint retrieves [executed order](./../glossary.md#finished-orders) history by [market](./../glossary.md#market).
 
 ❗ Rate limit 12000 requests/10 sec.
 
@@ -2609,7 +2610,7 @@ Empty response if order is not yours
 [POST] /api/v4/collateral-account/balance
 ```
 
-This endpoint returns a current collateral balance
+This endpoint returns a current [collateral balance](./../glossary.md#balance-collateral)
 
 ❗ Rate limit 12000 requests/10 sec.
 
@@ -2620,7 +2621,7 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ |-----------| ------------
-ticker | String | **No**    | Asset to be filtered. For example: BTC
+ticker | String | **No**    | [Asset](./../glossary.md#assets) to be filtered. For example: BTC
 
 **Request BODY raw:**
 
@@ -2650,7 +2651,7 @@ Available statuses:
 [POST] /api/v4/collateral-account/balance-summary
 ```
 
-This endpoint returns a current collateral balance summary
+This endpoint returns a current [collateral balance](./../glossary.md#balance-collateral) summary
 
 **Parameters**
 
@@ -2690,7 +2691,7 @@ Available statuses:
 ```
 [POST] /api/v4/order/collateral/limit
 ```
-This endpoint creates limit order using collateral balance
+This endpoint creates [limit order](./../glossary.md#limit-order) using [collateral balance](./../glossary.md#balance-collateral)
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -2702,11 +2703,11 @@ NONE
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available margin market. Example: BTC_USDT
-side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite order with current position amount.
-amount | String | **Yes** | ⚠️Amount of **`stock`** currency to **buy** or **sell**.
-price | String | **Yes** | Price in money currency. Example: '9800'
+side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite [order](./../glossary.md#orders) with current position amount.
+amount | String | **Yes** | ⚠️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.
+price | String | **Yes** | Price in [money](./../glossary.md#money) currency. Example: '9800'
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
-postOnly | boolean       | **No** | Orders are guaranteed to be the maker order when executed. Variables: true / false Example: false.
+postOnly | boolean       | **No** | Orders are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: true / false Example: false.
 ioc | boolean       | **No** | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.
 
 **Request BODY raw:**
@@ -2772,7 +2773,7 @@ Detailed information about errors response you can find in [Create limit order](
 ```
 [POST] /api/v4/order/collateral/market
 ```
-This endpoint creates market trading order.
+This endpoint creates [market trading order](./../glossary.md#market-order).
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -2784,8 +2785,8 @@ NONE
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available margin market. Example: BTC_USDT
-side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite order with current position amount.
-amount | String | **Yes** | ⚠️Amount of **`stock`** currency to **buy** or **sell**.
+side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite [order](./../glossary.md#orders) with current position amount.
+amount | String | **Yes** | ⚠️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
@@ -2855,7 +2856,7 @@ ___
 ```
 [POST] /api/v4/order/collateral/stop-limit
 ```
-This endpoint creates collateral stop-limit trading order
+This endpoint creates collateral [stop-limit trading order](./../glossary.md#stop-limit-order)
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -2866,11 +2867,11 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-market | String | **Yes** | Available market. Example: BTC_USDT
+market | String | **Yes** | Available [market](./../glossary.md#market). Example: BTC_USDT
 side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
-amount | String/Number | **Yes** | Amount of stock currency to buy or sell. Example: '0.001' or 0.001
-price | String/Number | **Yes** | Price in money currency. Example: '9800' or 9800
-activation_price | String/Number | **Yes** | Activation price in money currency. Example: '10000' or 10000
+amount | String/Number | **Yes** | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001
+price | String/Number | **Yes** | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800
+activation_price | String/Number | **Yes** | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
@@ -3273,7 +3274,7 @@ ___
 ```
 [POST] /api/v4/order/collateral/trigger-market
 ```
-This endpoint creates margin trigger market order
+This endpoint creates margin trigger [market order](./../glossary.md#market-order)
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -3286,8 +3287,8 @@ Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available margin market. Example: BTC_USDT
 side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite order with current position amount.
-amount | String | **Yes** | ⚠️Amount of **`stock`** currency to **buy** or **sell**.
-activation_price | String | **Yes** | Activation price in money currency. Example: '10000'
+amount | String | **Yes** | ⚠️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.
+activation_price | String | **Yes** | Activation price in [money](./../glossary.md#money) currency. Example: '10000'
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
@@ -3355,7 +3356,7 @@ Error codes:
 ```
 [POST] /api/v4/collateral-account/summary
 ```
-This endpoint retrieves summary of collateral account
+This endpoint retrieves summary of [collateral](./../glossary.md#collateral) account
 
 ❗ Rate limit 12000 requests/10 sec.
 
@@ -3405,7 +3406,7 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-market | String | **No** | Requested market. Example: BTC_USDT
+market | String | **No** | Requested [market](./../glossary.md#market). Example: BTC_USDT
 
 **Request BODY raw:**
 ```json
@@ -3445,7 +3446,7 @@ Available statuses:
 ]
 ```
 
-* NOTE: In case of position opening using trigger or limit order you can get situation when `basePrice`, `liquidationPrice`, `amount`, `pnl`, `pnlPercent` returns with null value. It happens when funds are lending, and you start to pay funding fee, but position is not completely opened, cos activation price hadn't been triggered yet.
+* NOTE: In case of position opening using trigger or [limit order](./../glossary.md#limit-order) you can get situation when `basePrice`, `liquidationPrice`, `amount`, `pnl`, `pnlPercent` returns with null value. It happens when funds are lending, and you start to pay funding [fee](./../glossary.md#fee), but position is not completely opened, cos activation price hadn't been triggered yet.
 
 ---
 
@@ -3454,10 +3455,10 @@ Available statuses:
 ```
 [POST] /api/v4/collateral-account/positions/history
 ```
-This endpoint returns past positions history. Each position represented by position states. Each of them means event that shows current position changes such order, position close, liquidation, etc.
+This endpoint returns past positions history. Each position represented by position states. Each of them means event that shows current position changes such [order](./../glossary.md#orders), position close, liquidation, etc.
 
 If your request has a "positionId" field, you receive data only with this "positionId".
-If your request has a "market" field, you receive data only by this "market".
+If your request has a "market" field, you receive data only by this "[market](./../glossary.md#market)".
 
 ❗ Rate limit 12000 requests/10 sec.
 
@@ -3471,7 +3472,7 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-market | String | **No** | Requested market. Example: BTC_USDT
+market | String | **No** | Requested [market](./../glossary.md#market). Example: BTC_USDT
 positionId | Int | **No** | Requested position
 
 **Request BODY raw:**
@@ -3534,7 +3535,7 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-leverage | Int | **Yes** | New collateral account leverage value. Acceptable values: 1, 2, 3, 5, 10, 20
+leverage | Int | **Yes** | New [collateral](./../glossary.md#collateral) account leverage value. Acceptable values: 1, 2, 3, 5, 10, 20
 
 **Request BODY raw:**
 ```json
@@ -3564,7 +3565,7 @@ Available statuses:
 ```
 [POST] /api/v4/oco-orders
 ```
-This endpoint retrieves unexecuted oco orders only.
+This endpoint retrieves unexecuted [oco orders](./../glossary.md#oco-orders) only.
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -3575,7 +3576,7 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-market | String | **Yes** | Available market. Example: BTC_USDT
+market | String | **Yes** | Available [market](./../glossary.md#market). Example: BTC_USDT
 limit | Int | **No** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
 offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
 
@@ -3776,7 +3777,7 @@ ___
 ```
 [POST] /api/v4/order/collateral/oco
 ```
-This endpoint creates collateral trading OCO order
+This endpoint creates [collateral](./../glossary.md#collateral) trading [OCO order](./../glossary.md#oco-orders)
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -3787,12 +3788,12 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-market | String | **Yes** | Available market. Example: BTC_USDT
+market | String | **Yes** | Available [market](./../glossary.md#market). Example: BTC_USDT
 side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
-amount | String/Number | **Yes** | Amount of stock currency to buy or sell. Example: '0.001' or 0.001
-price | String/Number | **Yes** | Price in money currency for limit order. Example: '9800' or 9800
-activation_price | String/Number | **Yes** | Activation price in money currency. Example: '10000' or 10000
-stop_limit_price | String/Number | **Yes** | Price in money currency for stop limit order. Example: '10100' or 10100
+amount | String/Number | **Yes** | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001
+price | String/Number | **Yes** | Price in [money](./../glossary.md#money) currency for [limit order](./../glossary.md#limit-order). Example: '9800' or 9800
+activation_price | String/Number | **Yes** | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000
+stop_limit_price | String/Number | **Yes** | Price in [money](./../glossary.md#money) currency for [stop limit order](./../glossary.md#stop-limit-order). Example: '10100' or 10100
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 **Request BODY raw:**
@@ -4342,7 +4343,7 @@ ___
 ```
 [POST] /api/v4/order/oco-cancel
 ```
-Cancel existing order
+Cancel existing [order](./../glossary.md#orders)
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -4353,8 +4354,8 @@ NONE
 
 Name | Type       | Mandatory | Description
 ------------ |------------| ------------ | ------------
-market | String     | **Yes** | Available market. Example: BTC_USDT
-orderId | String/Int | **Yes** | OCO order Id. Example: 4180284841 or "4180284841"
+market | String     | **Yes** | Available [market](./../glossary.md#market). Example: BTC_USDT
+orderId | String/Int | **Yes** | [OCO order](./../glossary.md#oco-orders) Id. Example: 4180284841 or "4180284841"
 
 **Request BODY raw:**
 ```json

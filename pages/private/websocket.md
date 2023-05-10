@@ -24,7 +24,7 @@ All endpoints return time in Unix-time format.
 |------|-----|
 | 1 | Limit |
 | 2 | Market |
-| 202 | Market stock |
+| 202 | Market [stock](./../glossary.md#stock) |
 | 3 | Stop limit |
 | 4 | Stop market |
 | 7 | Margin limit |
@@ -168,7 +168,7 @@ ___
 ### Authorize
 
 When you establish WS connection, you should authorize this ws connection via `authorize` method.
-After successful authorization you will be able to send requests for balances, orders etc.
+After successful authorization you will be able to send requests for balances, [orders](./../glossary.md#orders) etc.
 
 It only needs to be done successfully once.
 
@@ -238,7 +238,7 @@ It only needs to be done successfully once.
 
 #### Subscribe
 
-Subscribe to receive updates in spot balances.
+Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbalance-trade).
 
 ##### ⤴️ Request:
 
@@ -314,8 +314,8 @@ Subscribe to receive updates in spot balances.
 #### Query
 
 Request for amount on margin balance.
-Balance available for margin trade is equal to `balance * leverage` and it depends on liquidity in orderbook and your open positions.
-When you open position, your balance will not change, but amount available for trade will decrease
+Balance available for [margin trade](./../glossary.md#margin-trading) is equal to `balance * leverage` and it depends on liquidity in [orderbook](./../glossary.md#order-book) and your open positions.
+When you open position, your balance will not change, but amount available for [trade](./../glossary.md#deal-trade) will decrease
 
 ##### ⤴️ Request:
 
@@ -355,7 +355,7 @@ When you open position, your balance will not change, but amount available for t
 
 #### Subscribe
 
-Subscribe to receive updates in spot balances.
+Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbalance-trade).
 
 ##### ⤴️ Request:
 
@@ -439,7 +439,7 @@ Subscribe to receive updates in spot balances.
 
 ##### ⤴️ Request:
 
-Market should exist. The maximum limit is 100.
+[Market](./../glossary.md#market) should exist. The maximum limit is 100.
 
 ```json
 {
@@ -523,7 +523,7 @@ All possible [order types](#order-types)
 | 2 | Update order |
 | 3 | Finish order (cancel or execute) |
 
-If new order instantly matches an order from orderbook, then you will receive only one message with update event ID equal to 3.
+If new [order](./../glossary.md#orders) instantly matches an order from [orderbook](./../glossary.md#order-book), then you will receive only one message with update event ID equal to 3.
 
 ```json
 {
