@@ -1,7 +1,6 @@
 # Private HTTP API V4 for Main balance changes
 
-- [Private HTTP API V4 for Main balance changes](#private-http-api-v4-for-main-balance-changes)
-    - [Error messages V4 format](#error-messages-v4-format)
+- [Error messages V4 format](#error-messages-v4-format)
     - [Main balance](#main-balance)
     - [Get cryptocurrency deposit address](#get-cryptocurrency-deposit-address)
     - [Get fiat deposit address](#get-fiat-deposit-address)

@@ -1,7 +1,6 @@
 # Public HTTP API V1
 
-- [Public HTTP API V1](#public-http-api-v1)
-    - [Error messages V1 format](#error-messages-v1-format)
+- [Error messages V1 format](#error-messages-v1-format)
     - [Market Info](#market-info)
     - [Market Activity](#market-activity)
     - [Single market activity](#single-market-activity)
