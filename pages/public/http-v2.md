@@ -1,7 +1,6 @@
 # Public HTTP API V2
 
-- [Public HTTP API V2](#public-http-api-v2)
-    - [Error messages V2 format](#error-messages-v2-format)
+ - [Error messages V2 format](#error-messages-v2-format)
     - [Market Info](#market-info)
     - [Market activity](#market-activity)
     - [Recent Trades](#recent-trades)
