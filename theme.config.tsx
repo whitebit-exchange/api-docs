@@ -26,13 +26,8 @@ const config: DocsThemeConfig = {
   },
   primaryHue: 43,
   footer: {
-    text: (
-      <span>
-        {new Date().getFullYear()} ©{" "}
-        <a href="https://whitebit.com" target="_blank">
-          WhiteBIT
-        </a>
-      </span>
+    component: (
+      <div />
     ),
   },
   head: (
