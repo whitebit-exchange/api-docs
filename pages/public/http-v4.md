@@ -44,7 +44,7 @@ ___
 This endpoint retrieves all information about available spot and futures markets.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Parameters:**
 NONE
@@ -84,7 +84,7 @@ ___
 This endpoint retrieves a 24-hour pricing and volume summary for each market pair available on the exchange.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Parameters:**
 NONE
@@ -116,7 +116,7 @@ ___
 This endpoint retrieves the assets status.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Parameters:**
 NONE
@@ -310,7 +310,7 @@ ___
 This endpoint retrieves the current [order book](./../glossary.md#order-book as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)) with additional parameters.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 ❗ Rate limit 600 requests/10 sec.
 
@@ -325,6 +325,7 @@ level | int | **No** | Optional parameter that allows API user to see different 
 **Response:**
 ```json
 {
+  "ticker_id": "BTC_PERP",        // Market Name
   "timestamp": 1594391413,        // Current timestamp
   "asks": [                       // Array of ask orders
     [
@@ -352,7 +353,7 @@ ___
 This endpoint retrieves the [trades](./../glossary.md#deal-trade) that have been executed recently on the requested [market](./../glossary.md#market).
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 ❗ Rate limit 2000 requests/10 sec.
 
@@ -395,7 +396,7 @@ ___
 This endpoint retrieves the list of [fees](./../glossary.md#fee) and min/max amount for deposits and withdraws
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 ❗ Rate limit 2000 requests/10 sec.
 ___
@@ -470,7 +471,7 @@ ___
 This endpoint retrieves the current server time.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 ❗ Rate limit 2000 requests/10 sec.
 
@@ -490,7 +491,7 @@ This endpoint retrieves the current API life-state.
 ❗ Rate limit 2000 requests/10 sec.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Response:**
 ```json
@@ -509,7 +510,7 @@ This endpoint returns the list of [markets](./../glossary.md#market) that availa
 ❗ Rate limit 2000 requests/10 sec.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Response:**
 ```json
@@ -542,7 +543,7 @@ This endpoint returns the list of available futures markets.
 ❗ Rate limit 2000 requests/10 sec.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Response:**
 ```json
