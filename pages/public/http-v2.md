@@ -39,7 +39,7 @@ ___
 This endpoint retrieves all information about available [markets](./../glossary.md#market).
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Parameters:**
 NONE
@@ -79,7 +79,7 @@ ___
 This endpoint retrieves information on recent trading activity on all [markets](./../glossary.md#market).
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Parameters:**
 NONE
@@ -116,7 +116,7 @@ ___
 This endpoint retrieves the [trades](./../glossary.md#deal-trade) that have been executed recently on the requested [market](./../glossary.md#market)
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Parameters:**
 NONE
@@ -150,7 +150,7 @@ ___
 This endpoint retrieves the trading [fee](./../glossary.md#fee).
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Parameters:**
 NONE
@@ -176,7 +176,7 @@ ___
 This endpoint retrieves the [assets](./../glossary.md#assets) status.
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Parameters:**
 NONE
@@ -212,7 +212,7 @@ ___
 This endpoint retrievs the current [order book](../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)).
 
 **Response is cached for:**
-_5 second_
+_1 second_
 
 **Parameters:**
 NONE
