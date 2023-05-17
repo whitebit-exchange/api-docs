@@ -325,6 +325,7 @@ level | int | **No** | Optional parameter that allows API user to see different 
 **Response:**
 ```json
 {
+  "ticker_id": "BTC_PERP",        // Market Name
   "timestamp": 1594391413,        // Current timestamp
   "asks": [                       // Array of ask orders
     [
