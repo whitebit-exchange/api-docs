@@ -10,7 +10,7 @@
 
 WebSocket endpoint is wss://api.whitebit.com/ws
 
-The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol.
+The API is based on [JSON RPC](https://www.jsonrpc.org/specification) of WebSocket protocol.
 
 ⚠️ Connection will be closed by server in cause of inactivity after 60s.
 
