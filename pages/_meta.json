@@ -34,6 +34,13 @@
       "layout": "full"
     }
   },
+  "faq": {
+    "title": "F.A.Q.",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
   "contact": {
     "title": "Contact ↗",
     "type": "page",
