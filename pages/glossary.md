@@ -34,7 +34,7 @@ Buy [order](./glossary#orders)
 
 ### Codes
 
-See [WhiteBit Codes](./glossary#whitebit-codescodes)
+See [WhiteBit Codes](./glossary#whitebit-codes)
 
 ### Collateral
 
@@ -236,7 +236,7 @@ The total number of shares or contracts exchanged between buyers and sellers of 
 
 ## W
 
-### WhiteBit codes(Codes)
+### WhiteBIT Codes
 
 Free alphanumeric codes with the [assets](./glossary#assets) packaged in it
 
