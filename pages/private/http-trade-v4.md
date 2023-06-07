@@ -4505,3 +4505,201 @@ Error codes:
 </details>
 
 ___
+
+### Sync kill-switch timer
+
+```
+[POST] /api/v4/order/kill-switch
+```
+Create|update|delete [kill-switch timer](./../glossary.md#kill-switch-timer)
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+Name | Type       | Mandatory | Description
+------------ |------------| ------------ | ------------
+market | String     | **Yes** | Available [market](./../glossary.md#market). Example: BTC_USDT
+timer | String | **Yes** | Timer value. Example: "60"-"600" or "-1"
+
+If timer="-1" - delete existing timer by [market](./../glossary.md#market).
+
+**Request BODY raw:**
+```json
+{
+    "market": "BTC_USDT",
+    "timer": 60,
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+* `Status 200`
+* `Status 400 if inner validation failed`
+* `Status 422 if validation failed`
+
+```json
+{
+  "market": "BTC_USDT",          // currency market,
+  "startTime": 1662478154,       // now timestamp,
+  "cancellationTime": 1662478154 // now + timer_value,
+}
+```
+<details>
+<summary><b>Errors:</b></summary>
+
+Error codes:
+* `30` - default validation error code
+* `31` - market validation failed
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "market": [
+            "Market field is required."
+        ],
+        "timeout": [
+            "Timeout field is required."
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 31,
+    "message": "Validation failed",
+    "errors": {
+        "market": [
+            "Market is not available."
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "timeout": [
+            "Timeout field should be a string."
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "market": [
+            "Market field should be a string.",
+            "Market field format is invalid."
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "timeout": [
+            "Timeout should be at least 60."
+        ]
+    }
+}
+```
+</details>
+
+___
+
+### Sttus kill-switch timer
+
+```
+[POST] /api/v4/order/kill-switch/status
+```
+Read [kill-switch timer](./../glossary.md#kill-switch-timer)
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+Name | Type       | Mandatory | Description
+------------ |------------|-----------| ------------
+market | String     | **No**    | Available [market](./../glossary.md#market). Example: BTC_USDT
+
+**Request BODY raw:**
+```json
+{
+    "market": "BTC_USDT", // optional
+    "request": "{{request}}",
+    "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+* `Status 200`
+* `Status 400 if inner validation failed`
+* `Status 422 if validation failed`
+
+```json
+[
+  {
+    "market": "BTC_USDT",
+    "startTime": 1686127243,
+    "cancellationTime": 1686127343
+  }
+]
+```
+<details>
+<summary><b>Errors:</b></summary>
+
+Error codes:
+* `30` - default validation error code
+* `31` - market validation failed
+
+```json
+{
+    "code": 31,
+    "message": "Validation failed",
+    "errors": {
+        "market": [
+            "Market is not available."
+        ]
+    }
+}
+```
+
+```json
+{
+    "code": 30,
+    "message": "Validation failed",
+    "errors": {
+        "market": [
+            "Market field should be a string.",
+            "Market field format is invalid."
+        ]
+    }
+}
+```
+
+</details>
+
+___
