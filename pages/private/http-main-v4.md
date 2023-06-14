@@ -1728,7 +1728,7 @@ ___
 
 This API provides endpoints for interacting with [Crypto Lеnding](./../glossary.md#crypto-lendingsmart-staking): getting active plans, creating/closing investments, retrieving investments/interest payments history.
 
-These endpoints are available only for B2B partner services, you need to contact support@whitebit.com in order to get permissions to use these endpoints.
+These endpoints are available only for B2B partner services, you need to fill the form https://whitebit.com/institutional-services/b2b in order to get permissions to use these endpoints.
 
 ### Get plans
 
