@@ -14,6 +14,7 @@
     - [Query executed order history](#query-executed-order-history)
     - [Query executed order deals](#query-executed-order-deals)
     - [Query executed orders](#query-executed-orders)
+    - [Kill-switch](#sync-kill-switch-timer)
   - [Collateral](#collateral)
     - [Collateral Account Balance](#collateral-account-balance)
     - [Collateral Account Balance Summary](#collateral-account-balance-summary)
@@ -28,6 +29,7 @@
     - [Query unexecuted(active) OCO orders](#query-unexecutedactive-oco-orders)
     - [Create collateral OCO order](#create-collateral-oco-order)
     - [Cancel OCO order](#cancel-oco-order)
+    - [Kill-switch](#sync-kill-switch-timer)
 
 ---
 
