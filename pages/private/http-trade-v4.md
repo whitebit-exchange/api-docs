@@ -29,7 +29,6 @@
     - [Query unexecuted(active) OCO orders](#query-unexecutedactive-oco-orders)
     - [Create collateral OCO order](#create-collateral-oco-order)
     - [Cancel OCO order](#cancel-oco-order)
-    - [Kill-switch](#sync-kill-switch-timer)
 
 ---
 
@@ -4526,7 +4525,7 @@ NONE
 Name | Type       | Mandatory | Description
 ------------ |------------| ------------ | ------------
 market | String     | **Yes** | Available [market](./../glossary.md#market). Example: BTC_USDT
-timer | String | **Yes** | Timer value. Example: "5"-"600" or null
+timeout | String | **Yes** | Timer value. Example: "5"-"600" or null
 
 If timer=null - delete existing timer by [market](./../glossary.md#market).
 
@@ -4534,7 +4533,7 @@ If timer=null - delete existing timer by [market](./../glossary.md#market).
 ```json
 {
     "market": "BTC_USDT",
-    "timer": 5,
+    "timeout": "5",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
@@ -4619,7 +4618,7 @@ Error codes:
     "message": "Validation failed",
     "errors": {
         "timeout": [
-            "Timeout should be at least 60."
+            "Timeout should be at least 5."
         ]
     }
 }
