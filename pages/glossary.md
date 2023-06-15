@@ -244,10 +244,6 @@ Free alphanumeric codes with the [assets](./glossary#assets) packaged in it
 ## Y
 ## Z
 
+### Kill-switch timer
 
-
-
-
-
-
-
+Auto-cancel all [order](./glossary#orders) by [asset](./glossary#assets) timer.
