@@ -4523,15 +4523,15 @@ NONE
 Name | Type       | Mandatory | Description
 ------------ |------------| ------------ | ------------
 market | String     | **Yes** | Available [market](./../glossary.md#market). Example: BTC_USDT
-timer | String | **Yes** | Timer value. Example: "60"-"600" or "-1"
+timer | String | **Yes** | Timer value. Example: "5"-"600" or null
 
-If timer="-1" - delete existing timer by [market](./../glossary.md#market).
+If timer=null - delete existing timer by [market](./../glossary.md#market).
 
 **Request BODY raw:**
 ```json
 {
     "market": "BTC_USDT",
-    "timer": 60,
+    "timer": 5,
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
