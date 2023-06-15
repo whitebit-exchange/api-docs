@@ -49,7 +49,6 @@ const config: DocsThemeConfig = {
         sizes="32x32"
         href={`${assetPrefix}/img/favicon-32x32.png`}
       />
-      <link rel="stylesheet" href={`${assetPrefix}/styles.css`} />
     </>
   ),
   navigation: false,
