@@ -246,4 +246,4 @@ Free alphanumeric codes with the [assets](./glossary#assets) packaged in it
 
 ### Kill-switch timer
 
-Auto-cancel all [order](./glossary#orders) by [asset](./glossary#assets) timer.
+Auto-cancel all spot [order](./glossary#orders) by [asset](./glossary#assets) timer.
