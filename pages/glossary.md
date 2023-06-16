@@ -82,6 +82,11 @@ Users can open Long and Short positions and use leverage and they pay a [fee](./
 ## I
 ## J
 ## K
+
+### Kill-switch timer
+
+A function that cancel all [orders](./glossary#orders) automatically if the timer is set. It only cancel orders with (that are grouped by) concrete [asset](./glossary#assets).
+
 ## L
 
 ### Lending Plans(Smart Plans)
@@ -243,7 +248,3 @@ Free alphanumeric codes with the [assets](./glossary#assets) packaged in it
 ## X
 ## Y
 ## Z
-
-### Kill-switch timer
-
-Auto-cancel all spot [order](./glossary#orders) by [asset](./glossary#assets) timer.
