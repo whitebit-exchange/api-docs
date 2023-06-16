@@ -1,6 +1,7 @@
 # Private HTTP API V4 for trading
 
-- [Error messages V4 format](#error-messages-v4-format)
+- [Private HTTP API V4 for trading](#private-http-api-v4-for-trading)
+    - [Error messages V4 format](#error-messages-v4-format)
   - [Spot](#spot)
     - [Trading balance](#trading-balance)
     - [Create limit order](#create-limit-order)
@@ -29,6 +30,8 @@
     - [Query unexecuted(active) OCO orders](#query-unexecutedactive-oco-orders)
     - [Create collateral OCO order](#create-collateral-oco-order)
     - [Cancel OCO order](#cancel-oco-order)
+    - [Sync kill-switch timer](#sync-kill-switch-timer)
+    - [Status kill-switch timer](#status-kill-switch-timer)
 
 ---
 
@@ -4513,7 +4516,7 @@ ___
 ```
 [POST] /api/v4/order/kill-switch
 ```
-Create|update|delete [kill-switch timer](./../glossary.md#kill-switch-timer)
+This endpoint creates, updates, deletes [kill-switch timer](./../glossary.md#kill-switch-timer)
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -4627,12 +4630,12 @@ Error codes:
 
 ___
 
-### Sttus kill-switch timer
+### Status kill-switch timer
 
 ```
 [POST] /api/v4/order/kill-switch/status
 ```
-Read [kill-switch timer](./../glossary.md#kill-switch-timer)
+This endpoint retrieves the status of [kill-switch timer](./../glossary.md#kill-switch-timer)
 
 ❗ Rate limit 10000 requests/10 sec.
 
