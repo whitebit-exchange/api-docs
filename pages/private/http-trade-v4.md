@@ -15,7 +15,8 @@
     - [Query executed order history](#query-executed-order-history)
     - [Query executed order deals](#query-executed-order-deals)
     - [Query executed orders](#query-executed-orders)
-    - [Kill-switch](#sync-kill-switch-timer)
+    - [Sync kill-switch timer](#sync-kill-switch-timer)
+    - [Status kill-switch timer](#status-kill-switch-timer)
   - [Collateral](#collateral)
     - [Collateral Account Balance](#collateral-account-balance)
     - [Collateral Account Balance Summary](#collateral-account-balance-summary)
@@ -4526,17 +4527,20 @@ NONE
 **Parameters:**
 
 Name | Type       | Mandatory | Description
------------- |------------| ------------ | ------------
-market | String     | **Yes** | Available [market](./../glossary.md#market). Example: BTC_USDT
-timeout | String | **Yes** | Timer value. Example: "5"-"600" or null
+------------ |------------|-----------| ------------
+market | String     | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT
+timeout | String | **Yes**   | Timer value. Example: "5"-"600" or null
+types | String | **No**     | Order types value. Example: "spot", "margin", "futures" or null
 
 If timer=null - delete existing timer by [market](./../glossary.md#market).
+If types=null - create timer by [market](./../glossary.md#market) for all order types.
 
 **Request BODY raw:**
 ```json
 {
     "market": "BTC_USDT",
     "timeout": "5",
+    "types": "spot,margin",
     "request": "{{request}}",
     "nonce": "{{nonce}}"
 }
@@ -4553,7 +4557,8 @@ Available statuses:
 {
   "market": "BTC_USDT",          // currency market,
   "startTime": 1662478154,       // now timestamp,
-  "cancellationTime": 1662478154 // now + timer_value,
+  "cancellationTime": 1662478154, // now + timer_value,
+  "types": "spot,margin"
 }
 ```
 <details>
@@ -4669,7 +4674,8 @@ Available statuses:
   {
     "market": "BTC_USDT",
     "startTime": 1686127243,
-    "cancellationTime": 1686127343
+    "cancellationTime": 1686127343,
+    "types": "spot,margin"
   }
 ]
 ```
