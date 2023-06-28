@@ -3383,13 +3383,14 @@ Available statuses:
 
 ```json
 {
-  "equity": "130970.8947456254113367",       // total equity of collateral balance including lending funds in USDT
-  "margin": "456.58349",                     // amount of funds in open position USDT
-  "freeMargin": "129681.3285348840110099",   // free funds for trading according to
-  "unrealizedFunding": "0.0292207414003268", // funding that will be paid on next position stage change (order, liquidation, etc)
-  "pnl": "-832.9535",                        // curren profit and loss in USDT
-  "leverage": 10,                            // current leverage of account which affect amount of lending funds
-  "marginFraction": "6.2446758120916304"     // margin fraction
+  "equity": "130970.8947456254113367",                   // total equity of collateral balance including lending funds in USDT
+  "margin": "456.58349",                                 // amount of funds in open position USDT
+  "freeMargin": "129681.3285348840110099",               // free funds for trading according to
+  "unrealizedFunding": "0.0292207414003268",             // funding that will be paid on next position stage change (order, liquidation, etc)
+  "pnl": "-832.9535",                                    // curren profit and loss in USDT
+  "leverage": 10,                                        // current leverage of account which affect amount of lending funds
+  "marginFraction": "6.2446758120916304",                // margin fraction
+  "maintenanceMarginFraction": "1.2446758120916304",     // maintenance margin fraction
 }
 ```
 
@@ -3531,6 +3532,10 @@ Available statuses:
 ```
 This endpoint changes the current leverage of account.
 
+
+**Please note**: Leverages of 50x and 100x are applicable only for futures trading. When applied to margin trading, the maximum leverage applied will be 20x. The leverage value is applied to the entire account, so if you choose a new leverage value below 50x, it will be applied to both margin and futures trading.
+  Additionally, we would like to draw your attention to the fact that calculations for futures positions with 50x and 100x leverage are done considering brackets (see endpoint [futures](./../public/http-v4.md#available-futures-markets-list)). You can familiarize yourself with the bracket mechanics for 50x and 100x leverage on the Trading Rules page.
+
 ❗ Rate limit 12000 requests/10 sec.
 
 **Response is cached for:**
@@ -3540,7 +3545,7 @@ NONE
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-leverage | Int | **Yes** | New [collateral](./../glossary.md#collateral) account leverage value. Acceptable values: 1, 2, 3, 5, 10, 20
+leverage | Int | **Yes** | New [collateral](./../glossary.md#collateral) account leverage value. Acceptable values: 1, 2, 3, 5, 10, 20, 50, 100
 
 **Request BODY raw:**
 ```json
