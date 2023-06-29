@@ -568,7 +568,18 @@ _1 second_
       "index_name": "Bitcoin",                        //Name of the underlying index if any
       "index_currency": "BTC",                        //Underlying currency for index
       "funding_rate": "0.000044889033693137",         //Current funding rate
-      "next_funding_rate_timestamp": "1660665600000"  //Timestamp of the next funding rate change
+      "next_funding_rate_timestamp": "1660665600000", //Timestamp of the next funding rate change
+      "brackets": {
+         "1": 0,
+         "2": 0,
+         "3": 0,
+         "5": 0,
+         "10": 0,
+         "20": 0,
+         "50": 20,
+         "100": 50
+       },                                               // Brackets
+       "max_leverage": 100,                             // Max Leverage
     }
   ]
 }
