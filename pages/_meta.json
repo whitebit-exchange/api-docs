@@ -20,6 +20,13 @@
       "layout": "full"
     }
   },
+  "oauth": {
+    "title": "OAuth",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
   "webhook": {
     "title": "Webhook",
     "theme": {
