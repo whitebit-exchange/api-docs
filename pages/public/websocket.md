@@ -755,6 +755,7 @@ Update interval: 0,5 sec
 {
     "id": 11,
     "result": {
+        "timestamp": 1690421388.9283741,
         "asks": [                   // sorted ascending
             ["0.020846", "29.369"], // [price, amount]
             ...
@@ -811,6 +812,7 @@ The last parameter - Multiple subscription flag - allows you to subscribe to mar
     "params": [
         false,                          // true - full reload, false - partial update
         {
+            "timestamp": 1690421388.9283741,
             "asks": [
                 ["0.020861", "0"],      // for partial update - finished orders will be [price, "0"]
                 ...
