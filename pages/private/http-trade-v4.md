@@ -3441,7 +3441,6 @@ Available statuses:
     "basePrice": "45658.349",                  // base price of position
     "liquidationPrice": null,                  // liquidation price according to current state of position
     "liquidationState": null,                  // state of liquidation. Possible values: null, margin_call, liquidation
-    "leverage": "5",                           // current collateral balance leverage
     "pnl": "-168.42",                          // current profit and loss in **money**
     "pnlPercent": "-0.43",                     // current profit and loss in percentage
     "margin": "8316.74",                       // amount of funds in open position **money**
