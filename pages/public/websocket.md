@@ -655,7 +655,7 @@ Update interval: 0,5 sec
 
 #### Subscribe
 
-❗ For each websocket connection, you can subscribe only to one market. Every following subscription will replace the existing one.
+❗ For each websocket connection, you can subscribe to either one or several markets. Every following subscription will replace the existing one.
 
 ##### ⤴️ Request:
 
