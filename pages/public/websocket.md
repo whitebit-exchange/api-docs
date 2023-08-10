@@ -811,6 +811,7 @@ The last parameter - Multiple subscription flag - allows you to subscribe to mar
     "params": [
         false,                          // true - full reload, false - partial update
         {
+            "timestamp": 1689600180.5164471,
             "asks": [
                 ["0.020861", "0"],      // for partial update - finished orders will be [price, "0"]
                 ...
