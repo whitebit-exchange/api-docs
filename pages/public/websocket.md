@@ -16,7 +16,7 @@ The API is based on [JSON RPC](https://www.jsonrpc.org/specification) of WebSock
 
 ⚠️ Connection will be closed by server in cause of inactivity after 60s.
 
-❗ Rate limit 1000 ws connections per minute.
+❗ Rate limit 1000 ws connections per minute and 200 requests per minute in one connection.
 
 All endpoints return time in Unix-time format.
 
