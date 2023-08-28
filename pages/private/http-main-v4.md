@@ -464,6 +464,7 @@ beneficiary.firstName | String | **Yes, if currency [ticker](./../glossary.md#ti
 beneficiary.lastName | String | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR** | Beneficiary last name. Max length: 40 symbols, latin letters and special characters.
 beneficiary.tin | Integer | **Yes, if currency is UAH_IBAN** | Beneficiary TAX payer number. Integer, 10 digits.
 beneficiary.phone | String | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: USD_VISAMASTER, EUR_VISAMASTER** | Beneficiary phone number.
+beneficiary.email | String | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: USD_VISAMASTER, EUR_VISAMASTER** | Beneficiary email.
 
 *Please note that this endpoint has necessary limitation to avoid spam attack. The limit is 100 requests per minute. In case the limit is exceeded you will receive an 429 error code. *
 
