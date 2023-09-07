@@ -31,8 +31,6 @@
     - [Query unexecuted(active) OCO orders](#query-unexecutedactive-oco-orders)
     - [Create collateral OCO order](#create-collateral-oco-order)
     - [Cancel OCO order](#cancel-oco-order)
-    - [Sync kill-switch timer](#sync-kill-switch-timer)
-    - [Status kill-switch timer](#status-kill-switch-timer)
 
 ---
 
