@@ -12,7 +12,7 @@ WebSocket endpoint is wss://api.whitebit.com/ws
 
 The API is based on [JSON RPC](https://www.jsonrpc.org/specification) of WebSocket protocol.
 
-⚠️ Connection will be closed by server in cause of inactivity after 60s.
+⚠️ Connection will be closed by server in cause of inactivity after 30s.
 
 ❗ Rate limit 1000 ws connections per minute and 200 requests per minute in one connection.
 
