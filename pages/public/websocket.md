@@ -755,6 +755,7 @@ Update interval: 0,5 sec
 {
     "id": 11,
     "result": {
+        "timestamp": 1689600180.5164471,
         "asks": [                   // sorted ascending
             ["0.020846", "29.369"], // [price, amount]
             ...

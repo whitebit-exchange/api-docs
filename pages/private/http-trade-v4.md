@@ -215,7 +215,7 @@ Available statuses:
     "left": "0.001",                   // if order not finished - rest of the amount that must be finished
     "dealFee": "0",                    // fee in money that you pay if order is finished
     "price": "40000",                  // price
-    "potOnly": false,                  // PostOnly
+    "postOnly": false,                  // PostOnly
     "ioc": false                       // IOC
 }
 ```
@@ -2753,7 +2753,7 @@ Available statuses:
     "left": "0.001",                   // if order not finished - rest of the amount that must be finished
     "dealFee": "0",                    // fee in money that you pay if order is finished
     "price": "40000",                  // price
-    "potOnly": false,                  // PostOnly
+    "postOnly": false,                  // PostOnly
     "ioc": false                       // IOC
 }
 ```
