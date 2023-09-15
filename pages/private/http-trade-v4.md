@@ -2465,13 +2465,14 @@ NONE
 
 **Parameters:**
 
-Name | Type | Mandatory | Description
------------- | ------------ | ------------ | ------------
+Name | Type   | Mandatory | Description
+------------ |--------| ------------ | ------------
 market | String | **No** | Requested available market. Example: BTC_USDT
 orderId | String | **No** | Requested available orderId. Example: 3134995325
 clientOrderId | String | **No** | Requested available clientOrderId. Example: clientOrderId
-limit | Int | **No** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
-offset | Int | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
+limit | Int    | **No** | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100
+offset | Int    | **No** | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000
+withCancelled | Bool   | **No** | Retrieve cancelled orders flag. Default: false
 
 **Request BODY raw:**
 ```json
@@ -2513,7 +2514,8 @@ Empty response if order is not yours
             "dealStock": "0.0009",            // amount in stock currency that finished
             "dealMoney": "41.258268",         // amount in money currency that finished
             "postOnly": false,                // PostOnly flag
-            "ioc": false                      // IOC flag
+            "ioc": false,                     // IOC flag
+            "status": "cancelled"             // Order status: either "filled" or "cancelled"
         },
         {...}
     ]
