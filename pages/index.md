@@ -54,5 +54,7 @@
 
     [Private Webhooks Documentation - Main balance](./webhook/web-hook) - Documentation for processing webhooks 
 
-7. ## Glossary
+7. ## [Terms and Conditions](./Terms%20and%20Conditions.md)
+
+8. ## Glossary
 
