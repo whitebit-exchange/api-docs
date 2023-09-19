@@ -10,15 +10,25 @@
     "deploy": "gh-pages -d out -t true"
   },
   "dependencies": {
-    "next": "^13.1.2",
-    "nextra": "^2.2.3",
-    "nextra-theme-docs": "^2.2.3",
+    "@radix-ui/react-accordion": "^1.1.2",
+    "@radix-ui/react-popover": "^1.0.6",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^1.2.1",
+    "lucide-react": "^0.279.0",
+    "next": "^13.4.19",
+    "nextra": "^2.12.3",
+    "nextra-theme-docs": "^2.12.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/node": "18.11.18",
-    "typescript": "^4.9.4",
-    "gh-pages": "^4.0.0"
+    "@types/node": "^20.6.2",
+    "autoprefixer": "10.4.15",
+    "gh-pages": "^6.0.0",
+    "postcss": "^8.4.30",
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss": "^3.3.3",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.2.2"
   }
 }

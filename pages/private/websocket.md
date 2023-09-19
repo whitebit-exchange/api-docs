@@ -1,22 +1,20 @@
 # Private WebSocket API
 
-## Methods
-
-* [Websocket token](#websocket-token)
-* [Authorize](#authorize)
-* [Balance Spot](#balance-spot)
-* [Balance Margin](#balance-margin)
-* [Orders Pending](#orders-pending)
-* [Orders Executed](#orders-executed)
-* [Deals](#deals)
+- [Websocket token](#websocket-token)
+- [Authorize](#authorize)
+- [Balance Spot](#balance-spot)
+- [Balance Margin](#balance-margin)
+- [Orders Pending](#orders-pending)
+- [Orders Executed](#orders-executed)
+- [Deals](#deals)
 
 WebSocket endpoint is wss://api.whitebit.com/ws
 
-The API is based on [JSON RPC](http://json-rpc.org/wiki/specification) of WebSocket protocol.
+The API is based on [JSON RPC](https://www.jsonrpc.org/specification) of WebSocket protocol.
 
-:warning: Connection will be closed by server in cause of inactivity after 60s.
+⚠️ Connection will be closed by server in cause of inactivity after 30s.
 
-:heavy_exclamation_mark: Rate limit 100 ws connections per minute.
+❗ Rate limit 1000 ws connections per minute and 200 requests per minute in one connection.
 
 All endpoints return time in Unix-time format.
 
@@ -26,12 +24,14 @@ All endpoints return time in Unix-time format.
 |------|-----|
 | 1 | Limit |
 | 2 | Market |
+| 202 | Market [stock](./../glossary.md#stock) |
 | 3 | Stop limit |
 | 4 | Stop market |
-| 5 | Conditional limit |
-| 6 | Conditional market |
+| 7 | Margin limit |
 | 8 | Margin market |
+| 9 | Margin stop limit |
 | 10 | Margin trigger-stop market |
+| 14 | Margin normalization |
 
 ## ⤴️ Request message
 
@@ -41,7 +41,7 @@ JSON Structure of request message:
 * `method` - **String**. Name of request.
 * `params` - **Array**. Here you pass params for method.
 
-:no_entry_sign: WebSocket connection will be closed if invalid JSON was sent.
+🚫 WebSocket connection will be closed if invalid JSON was sent.
 
 ### Types of request messages
 
@@ -168,7 +168,7 @@ ___
 ### Authorize
 
 When you establish WS connection, you should authorize this ws connection via `authorize` method.
-After successful authorization you will be able to send requests for balances, orders etc.
+After successful authorization you will be able to send requests for balances, [orders](./../glossary.md#orders) etc.
 
 It only needs to be done successfully once.
 
@@ -238,7 +238,7 @@ It only needs to be done successfully once.
 
 #### Subscribe
 
-Subscribe to receive updates in spot balances.
+Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbalance-trade).
 
 ##### ⤴️ Request:
 
@@ -314,8 +314,8 @@ Subscribe to receive updates in spot balances.
 #### Query
 
 Request for amount on margin balance.
-Balance available for margin trade is equal to `balance * leverage` and it depends on liquidity in orderbook and your open positions.
-When you open position, your balance will not change, but amount available for trade will decrease
+Balance available for [margin trade](./../glossary.md#margin-trading) is equal to `balance * leverage` and it depends on liquidity in [orderbook](./../glossary.md#order-book) and your open positions.
+When you open position, your balance will not change, but amount available for [trade](./../glossary.md#deal-trade) will decrease
 
 ##### ⤴️ Request:
 
@@ -334,18 +334,28 @@ When you open position, your balance will not change, but amount available for t
 
 ```json
 {
-    "id": 2,
+    "error": null,
     "result": {
-        "BTC": "0", // Amount on margin balance
-        "USDT": "0" // Amount on margin balance
+        "BTC": {
+            "balance": "0.0006092",                   // total amount on collateral balance
+            "borrow": "0",                            // borrowed amount
+            "available_without_borrow": "0.0006092",  // available amount to transfer from collateral balance without borrowing
+            "available_with_borrow": "0.00288701"     // available amount to transfer  from collateral balance with borrowing
+        },
+        "USDT": {
+            "balance": "0.00538073",                  // total amount on collateral balance
+            "borrow": "0",                            // borrowed amount
+            "available_without_borrow": "0.00538073", // available amount to transfer from collateral balance without borrowing
+            "available_with_borrow": "28.43739825"    // available amount to transfer  from collateral balance with borrowing
+        }
     },
-    "error": null
+    "id": 1
 }
 ```
 
 #### Subscribe
 
-Subscribe to receive updates in spot balances.
+Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbalance-trade).
 
 ##### ⤴️ Request:
 
@@ -376,13 +386,24 @@ Subscribe to receive updates in spot balances.
 
 ```json
 {
-    "id": null,
     "method": "balanceMargin_update",
     "params": [
         {
-            "USDT": "100.1885" // Amount on margin balance
+            "a": "BTC",         // asset ticker
+            "B": "0.0006092",   // total amount on collateral balance
+            "b": "0",           // borrowed amount
+            "av": "0.0006092",  // available amount to transfer from collateral balance without borrowing
+            "ab": "0.00288701"  // available amount to transfer  from collateral balance with borrowing
+        },
+        {
+            "a": "USDT",        // asset ticker
+            "B": "0.00538073",  // total amount on collateral balance
+            "b": "0",           // borrowed amount
+            "av": "0.00538073", // available amount to transfer from collateral balance without borrowing
+            "ab": "28.43739825" // available amount to transfer  from collateral balance with borrowing
         }
-    ]
+    ],
+    "id": null
 }
 ```
 
@@ -418,7 +439,7 @@ Subscribe to receive updates in spot balances.
 
 ##### ⤴️ Request:
 
-Market should exist. The maximum limit is 100.
+[Market](./../glossary.md#market) should exist. The maximum limit is 100.
 
 ```json
 {
@@ -428,7 +449,7 @@ Market should exist. The maximum limit is 100.
         "BTC_USDT", // market
         0,          // offset
         30          // limit
-    ],
+    ]
 }
 ```
 
@@ -449,6 +470,7 @@ All possible [order types](#order-types)
                 "market": "BTC_USDT",       // Market
                 "type": 1,                  // Order type. All types in table above
                 "side": 1,                  // Side 1 - sell, 2 - bid
+                "post_only": true,          // Post only flag
                 "ctime": 1601464682.998461, // Created at in Unix time
                 "mtime": 1601464682.998461, // Modified at in Unix time
                 "price": "10900",           // Order price
@@ -501,7 +523,7 @@ All possible [order types](#order-types)
 | 2 | Update order |
 | 3 | Finish order (cancel or execute) |
 
-If new order instantly matches an order from orderbook, then you will receive only one message with update event ID equal to 3.
+If new [order](./../glossary.md#orders) instantly matches an order from [orderbook](./../glossary.md#order-book), then you will receive only one message with update event ID equal to 3.
 
 ```json
 {
@@ -597,6 +619,7 @@ All possible [order types](#order-types)
                 "market": "BTC_USDT",         // Market
                 "type": 1,                    // Order type. All types in table above
                 "side": 2,                    // Side 1 - sell, 2 - bid
+                "post_only": true,            // Post only flag
                 "price": "9157.95",           // Order price
                 "amount": "0.633232",         // Stock amount
                 "deal_stock": "0.633232",     // Stock amount that executed
@@ -749,6 +772,8 @@ Market should exist. The maximum limit is 100.
 
 #### Subscribe
 
+Update interval: 0,5 sec
+
 ##### ⤴️ Request:
 
 ```json
@@ -790,7 +815,8 @@ Market should exist. The maximum limit is 100.
         "11399.24",        // Price
         "0.008256",        // Stock amount
         "0.094112125440",  // Deal fee
-        "1234"             // Custom client order id
+        "1234",            // Custom client order id
+        1                  // Side 1 - sell, 2 - bid
     ]
 }
 ```

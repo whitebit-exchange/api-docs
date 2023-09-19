@@ -1,10 +1,6 @@
 # Public HTTP API V1
 
-## Public endpoints V1
-
-- [Public HTTP API V1](#public-http-api-v1)
-  - [Public endpoints V1](#public-endpoints-v1)
-      - [Error messages V1 format:](#error-messages-v1-format)
+- [Error messages V1 format](#error-messages-v1-format)
     - [Market Info](#market-info)
     - [Market Activity](#market-activity)
     - [Single market activity](#single-market-activity)
@@ -26,7 +22,8 @@ For receiving responses from API calls please use http method __GET__
 If an endpoint requires parameters you should send them as `query string`
 
 ___
-#### Error messages V1 format:
+### Error messages V1 format
+
 ```json
 {
     "success": false,
@@ -47,6 +44,8 @@ _1 second_
 
 **Parameters:**
 NONE
+
+❗ Rate limit 1000 requests/10 sec.
 
 **Response:**
 ```json
@@ -86,6 +85,8 @@ _1 second_
 **Parameters:**
 NONE
 
+❗ Rate limit 1000 requests/10 sec.
+
 **Response:**
 ```json
 {
@@ -123,6 +124,8 @@ This endpoint retrieves information about recent trading activity on the request
 **Response is cached for:**
 _1 second_
 
+❗ Rate limit 1000 requests/10 sec.
+
 **Parameters:**
 
 Name | Type | Mandatory | Description
@@ -159,6 +162,8 @@ This endpoint retrieves information about market kline.
 
 **Response is cached for:**
 _1 second_
+
+❗ Rate limit 1000 requests/10 sec.
 
 **Max numbers of candles cannot exceed:**
 _1440_
@@ -204,6 +209,8 @@ This endpoint retrieves information about all available markets for trading.
 **Response is cached for:**
 _1 second_
 
+❗ Rate limit 1000 requests/10 sec.
+
 **Parameters:**
 NONE
 
@@ -227,10 +234,12 @@ ___
 ```
 [GET] /api/v1/public/depth/result?market=BTC_USDT
 ```
-This endpoint retrieves the current order book as two arrays (bids / asks)
+This endpoint retrieves the current [order book](./../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask))
 
 **Response is cached for:**
 _1 second_
+
+❗ Rate limit 1000 requests/10 sec.
 
 **Parameters:**
 
@@ -274,17 +283,19 @@ ___
 ```
 [GET] /api/v1/public/history?market=BTC_USDT&lastId=1
 ```
-This endpoint retrieves trades that have been executed for the requested market.
+This endpoint retrieves [trades](./../glossary.md#trade) that have been executed for the requested [market](./../glossary.md#market).
 
 **Response is cached for:**
 _1 second_
+
+❗ Rate limit 1000 requests/10 sec.
 
 **Parameters:**
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
-lastId | int | **Yes** | Largest id of last returned result. Example: request deals starting from id equals to 6
+lastId | int | **Yes** | Largest id of last returned result. Example: request [deals](./../glossary.md#deal-trade) starting from id equals to 6
 limit | int | **No** | Limit of results. Default: 50 Example: 100
 
 

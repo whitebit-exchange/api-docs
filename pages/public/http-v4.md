@@ -1,15 +1,12 @@
 # Public HTTP API V4
 
-### Public endpoints V4:
-
-
-
-* - [Market Info](#market-info)
-* - [Market activity](#market-activity)
-* - [Asset status list](#asset-status-list)
-* - [Orderbook](#orderbook)
-* - [Recent Trades](#recent-trades)
-* - [Fee](#fee)
+ - [Error messages V4 format](#error-messages-v4-format)
+    - [Market Info](#market-info)
+    - [Market activity](#market-activity)
+    - [Asset status list](#asset-status-list)
+    - [Orderbook](#orderbook)
+    - [Recent Trades](#recent-trades)
+    - [Fee](#fee)
     - [Server Time](#server-time)
     - [Server Status](#server-status)
     - [Collateral Markets List](#collateral-markets-list)
@@ -28,7 +25,8 @@ For receiving responses from API calls please use http method __GET__
 If an endpoint requires parameters you should send them as `query string`
 
 ___
-#### Error messages V4 format:
+### Error messages V4 format
+
 ```json
 {
     "success": false,
@@ -51,6 +49,8 @@ _1 second_
 **Parameters:**
 NONE
 
+❗ Rate limit 2000 requests/10 sec.
+
 **Response:**
 ```json
 [
@@ -65,6 +65,7 @@ NONE
       "takerFee": "0.001",       // Default taker fee ratio
       "minAmount": "0.001",      // Minimal amount of stock to trade
       "minTotal": "0.001",       // Minimal amount of money to trade
+      "maxTotal": "10000000000", // Maximum total(amount * price) of money to trade
       "tradesEnabled": true,     // Is trading enabled
       "isCollateral": true,      // Is margin trading enabled
       "type": "spot"             // Market type. Possible values: "spot", "futures"
@@ -87,6 +88,8 @@ _1 second_
 
 **Parameters:**
 NONE
+
+❗ Rate limit 2000 requests/10 sec.
 
 **Response:**
 ```json
@@ -117,6 +120,8 @@ _1 second_
 
 **Parameters:**
 NONE
+
+❗ Rate limit 2000 requests/10 sec.
 
 **Response:**
 ```json
@@ -302,22 +307,25 @@ ___
 ```
 [GET] /api/v4/public/orderbook/{market}?limit=100&level=2
 ```
-This endpoint retrieves the current order book as two arrays (bids / asks) with additional parameters.
+This endpoint retrieves the current [order book](./../glossary.md#order-book as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)) with additional parameters.
 
 **Response is cached for:**
 _1 second_
+
+❗ Rate limit 600 requests/10 sec.
 
 **Parameters:**
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 limit | int | **No** | Orders depth quantity: 0 - 100. Not defined or 0 will return 100 entries.
-level | int | **No** | Optional parameter that allows API user to see different level of aggregation. Level 0 – default level, no aggregation. Starting from level 1 (lowest possible aggregation) and up to level 5 - different levels of aggregated orderbook.
+level | int | **No** | Optional parameter that allows API user to see different level of aggregation. Level 0 – default level, no aggregation. Starting from level 1 (lowest possible aggregation) and up to level 5 - different levels of aggregated [orderbook](./../glossary.md#order-book).
 
 
 **Response:**
 ```json
 {
+  "ticker_id": "BTC_PERP",        // Market Name
   "timestamp": 1594391413,        // Current timestamp
   "asks": [                       // Array of ask orders
     [
@@ -342,10 +350,12 @@ ___
 ```
 [GET] /api/v4/public/trades/{market}?type=sell
 ```
-This endpoint retrieves the trades that have been executed recently on the requested market.
+This endpoint retrieves the [trades](./../glossary.md#deal-trade) that have been executed recently on the requested [market](./../glossary.md#market).
 
 **Response is cached for:**
 _1 second_
+
+❗ Rate limit 2000 requests/10 sec.
 
 **Parameters:**
 
@@ -383,7 +393,12 @@ ___
 ```
 [GET] /api/v4/public/fee
 ```
-This endpoint retrieves the list of fees and min/max amount for deposits and withdraws
+This endpoint retrieves the list of [fees](./../glossary.md#fee) and min/max amount for deposits and withdraws
+
+**Response is cached for:**
+_1 second_
+
+❗ Rate limit 2000 requests/10 sec.
 ___
 
 **Response:**
@@ -455,6 +470,11 @@ ___
 ```
 This endpoint retrieves the current server time.
 
+**Response is cached for:**
+_1 second_
+
+❗ Rate limit 2000 requests/10 sec.
+
 **Response:**
 ```json
 {
@@ -467,6 +487,8 @@ This endpoint retrieves the current server time.
 [GET] /api/v4/public/ping
 ```
 This endpoint retrieves the current API life-state.
+
+❗ Rate limit 2000 requests/10 sec.
 
 **Response is cached for:**
 _1 second_
@@ -483,7 +505,12 @@ _1 second_
 ```
 [GET] /api/v4/public/collateral/markets
 ```
-This endpoint returns the list of markets that available for collateral trading
+This endpoint returns the list of [markets](./../glossary.md#market) that available for [collateral](./../glossary.md#collateral) trading
+
+❗ Rate limit 2000 requests/10 sec.
+
+**Response is cached for:**
+_1 second_
 
 **Response:**
 ```json
@@ -513,6 +540,11 @@ This endpoint returns the list of markets that available for collateral trading
 ```
 This endpoint returns the list of available futures markets.
 
+❗ Rate limit 2000 requests/10 sec.
+
+**Response is cached for:**
+_1 second_
+
 **Response:**
 ```json
 {
@@ -536,7 +568,18 @@ This endpoint returns the list of available futures markets.
       "index_name": "Bitcoin",                        //Name of the underlying index if any
       "index_currency": "BTC",                        //Underlying currency for index
       "funding_rate": "0.000044889033693137",         //Current funding rate
-      "next_funding_rate_timestamp": "1660665600000"  //Timestamp of the next funding rate change
+      "next_funding_rate_timestamp": "1660665600000", //Timestamp of the next funding rate change
+      "brackets": {
+         "1": 0,
+         "2": 0,
+         "3": 0,
+         "5": 0,
+         "10": 0,
+         "20": 0,
+         "50": 20,
+         "100": 50
+       },                                               // Brackets
+       "max_leverage": 100,                             // Max Leverage
     }
   ]
 }

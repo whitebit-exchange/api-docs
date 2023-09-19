@@ -1,18 +1,16 @@
 # Private HTTP API V1
 
-## Private endpoints V1
-
 #### Those endpoints are deprecated. Use [V4 alternatives](./http-trade-v4) instead
 
-* [Trading balance by currency](#trading-balance-by-currency)
-* [Trading balances](#trading-balances)
-* [Create limit order](#create-limit-order)
-* [Cancel order](#cancel-order)
-* [Query unexecuted(active) orders](#query-unexecutedactive-orders)
-* [Query order history](#query-order-history)
-* [Query order history by single market](#query-executed-order-history-by-single-market)
-* [Query order history by all markets](#query-executed-order-history-by-all-markets)
-* [Query executed order deals](#query-executed-order-deals)
+- [Trading balance by currency](#trading-balance-by-currency)
+- [Trading balances](#trading-balances)
+- [Create limit order](#create-limit-order)
+- [Cancel order](#cancel-order)
+- [Query unexecuted(active) orders](#query-unexecutedactive-orders)
+- [Query order history](#query-order-history)
+- [Query order history by single market](#query-executed-order-history-by-single-market)
+- [Query order history by all markets](#query-executed-order-history-by-all-markets)
+- [Query executed order deals](#query-executed-order-deals)
 
 Base URL is https://whitebit.com
 
@@ -25,7 +23,8 @@ All endpoints return either a __JSON__ object or array.
 For receiving responses from API calls please use http method __POST__
 
 ___
-#### Error messages V1 format:
+### Error messages V1 format
+
 ```json
 {
     "code": 0,
@@ -48,13 +47,18 @@ ___
 ```
 [POST] /api/v1/account/balance
 ```
-This endpoint retrieves the trade balance by currency ticker.
+This endpoint retrieves the [trade balance](./../glossary.md#balance-spotbalance-trade) by currency [ticker](./../glossary.md#ticker).
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
 Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
-currency | String | **Yes** | Currency's ticker. Example: BTC
+currency | String | **Yes** | Currency's [ticker](./../glossary.md#ticker). Example: BTC
 
 **Request BODY raw:**
 ```json
@@ -103,7 +107,12 @@ ___
 ```
 [POST] /api/v1/account/balances
 ```
-This endpoint retrieves all available balances for trading.
+This endpoint retrieves all available [balances for trading](./../glossary.md#balance-spotbalance-trade).
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 NONE
@@ -179,7 +188,12 @@ ___
 ```
 [POST] /api/v1/order/new
 ```
-This endpoint creates limit trading order.
+This endpoint creates [limit trading order](./../glossary.md#orders).
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -187,8 +201,8 @@ Name | Type | Mandatory | Description
 ------------ | ------------ | ------------ | ------------
 market | String | **Yes** | Available market. Example: BTC_USDT
 side | String | **Yes** | Order type. Variables: 'buy' / 'sell' Example: 'buy'
-amount | String | **Yes** | Amount of stock currency to buy or sell. Example: '0.001'
-price | String | **Yes** | Price in money currency. Example: '9800'
+amount | String | **Yes** | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001'
+price | String | **Yes** | Price in [money](./../glossary.md#money) currency. Example: '9800'
 clientOrderId | String | **No** | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.
 
 
@@ -387,7 +401,12 @@ ___
 ```
 [POST] /api/v1/order/cancel
 ```
-This endpoint cancels the existing order.
+This endpoint cancels the existing [order](./../glossary.md#orders).
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -504,7 +523,12 @@ ___
 ```
 [POST] /api/v1/orders
 ```
-This endpoint retrieves unexecuted orders only.
+This endpoint retrieves [unexecuted orders](./../glossary.md#active-orders) only.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -632,7 +656,12 @@ ___
 ```
 [POST] /api/v1/account/order_history
 ```
-This endpoint retrieves orders history sorted by all markets
+This endpoint retrieves [orders](./../glossary.md#orders) history sorted by all markets
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -758,7 +787,12 @@ ___
 ```
 [POST] /api/v1/account/executed_history
 ```
-This endpoint retrieves deals history sorted by single market
+This endpoint retrieves [deals](./../glossary.md#deal-trade) history sorted by single market
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -872,7 +906,12 @@ ___
 ```
 [POST] /api/v1/account/executed_history/all
 ```
-This endpoint retrieves orders history sorted by all markets.
+This endpoint retrieves [orders](./../glossary.md#orders) history sorted by all markets.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
@@ -988,7 +1027,12 @@ ___
 ```
 [POST] /api/v1/account/order
 ```
-This endpoint retrieves more details on order deals history.
+This endpoint retrieves more details on [order](./../glossary.md#orders) deals history.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
 
 **Parameters:**
 
