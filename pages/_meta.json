@@ -9,15 +9,13 @@
   "public": {
     "title": "Public",
     "theme": {
-      "toc": false,
-      "layout": "full"
+      "breadcrumb": false
     }
   },
   "private": {
     "title": "Private",
     "theme": {
-      "toc": false,
-      "layout": "full"
+      "breadcrumb": false
     }
   },
   "oauth": {
@@ -30,8 +28,7 @@
   "webhook": {
     "title": "Webhook",
     "theme": {
-      "toc": false,
-      "layout": "full"
+      "breadcrumb": false
     }
   },
   "glossary": {
@@ -46,6 +43,12 @@
     "theme": {
       "toc": false,
       "layout": "full"
+    }
+  },
+  "toc": {
+    "title": "Terms & Conditions",
+    "theme": {
+      "breadcrumb": false
     }
   },
   "contact": {
