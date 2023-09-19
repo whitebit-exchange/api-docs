@@ -1,8 +1,56 @@
 {
-  "index": "Introduction",
-  "public": "Public",
-  "private": "Private",
-  "webhook":  "Webhook",
+  "index": {
+    "title": "Introduction",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
+  "public": {
+    "title": "Public",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "private": {
+    "title": "Private",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "oauth": {
+    "title": "OAuth",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
+  "webhook": {
+    "title": "Webhook",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
+  "glossary": {
+    "title": "Glossary",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
+  "faq": {
+    "title": "F.A.Q.",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
+  "toc": {
+    "title": "Terms & Conditions",
+    "theme": {
+      "breadcrumb": false
+    }
+  },
   "contact": {
     "title": "Contact ↗",
     "type": "page",

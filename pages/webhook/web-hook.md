@@ -1,9 +1,9 @@
 # WebHook HTTP API
 
-* [How to use](#how-to-use)
-* [Requirements](#requirements)
-* [Webhook methods](#webhook-methods)
-* [WhiteBIT withdraw from main balance](#whitebit-withdraw-from-main-balance)
+- [How to use](#how-to-use)
+- [Requirements](#requirements)
+- [Webhook methods](#webhook-methods)
+- [WhiteBIT withdraw from main balance](#whitebit-withdraw-from-main-balance)
 
 
 ## How to use
@@ -39,7 +39,6 @@ All web-hook requests are performing with
 {
    "method": "string",
    "params": {
-
        "nonce": 0
    },
    "id": "uniqueID"
@@ -52,7 +51,7 @@ All web-hook requests are performing with
 
 **id** - string. Uuid to identify every request.
 
-**params** - the request payload. Here you can find useful data about passed actions, which triggered web hook call. Also in this field placed a nonce. **'nonce'** - a number that is always **greater** than the previous request’s nonce number
+**params** - the request payload. Here you can find useful data about passed actions, which triggered web hook call. Also in this field placed a [nonce](./../glossary.md#nonce). **'nonce'** - a number that is always **greater** than the previous request’s nonce number
 
 
 #### Request headers
@@ -70,7 +69,7 @@ On consumer side you can process security headers to be sure request was perform
 
 ### WhiteBIT code apply
 
-Performed when code was applied. Request example:
+Performed when [code](./../glossary.md#whitebit-codescodes) was applied. Request example:
 
 ```json
 {
@@ -89,19 +88,19 @@ Performed when deposit was accepted. Request example:
 
 ```json
 {
-  method: "deposit.accepted",
-  params: {
+  "method": "deposit.accepted",
+  "params": {
     "address": "wallet address",                  // deposit address
     "amount": "0.000600000000000000",             // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
-    "currency": "Bitcoin",                        // deposit currency
+    "currency": "Tether US",                      // deposit currency
     "description": "",                            // deposit description
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
     "method": 1,                                  // called method 1 - deposit, 2 - withdraw
-    "network": "TRC20",                           // if currency is multi network
+    "network": "ERC20",                           // if currency is multi network
     "status": 15,                                 // transactions status
-    "ticker": "BTC",                              // deposit currency ticker
+    "ticker": "USDT_ETH",                         // deposit currency ticker
     "transactionHash": "transaction hash",        // deposit transaction hash
     "uniqueId": null,                             // unique Id of deposit
     "confirmations": {                            // if transaction has confirmations info it will display here
@@ -109,7 +108,7 @@ Performed when deposit was accepted. Request example:
         "required": 2                             // required block confirmation for successful deposit
     }
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 
@@ -117,18 +116,18 @@ Performed when deposit was update. Request example:
 
 ```json
 {
-  method: "deposit.update",
-  params: {
+  "method": "deposit.update",
+  "params": {
     "address": "wallet address",                  // deposit address
     "amount": "0.000600000000000000",             // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
-    "currency": "Bitcoin",                        // deposit currency
+    "currency": "Tether US",                      // deposit currency
     "description": "update",                      // deposit description
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
-    "network": "TRC20",                           // if currency is multi network
+    "network": "ERC20",                           // if currency is multi network
     "status": 15,                                 // transactions status
-    "ticker": "BTC",                              // deposit currency ticker
+    "ticker": "USDT_ETH",                         // deposit currency ticker
     "transactionHash": "transaction hash",        // deposit transaction hash
     "uniqueId": null,                             // unique Id of deposit
     "confirmations": {                            // if transaction has confirmations info it will display here
@@ -136,7 +135,7 @@ Performed when deposit was update. Request example:
         "required": 2                             // required block confirmation for successful deposit
     }
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 
@@ -144,19 +143,19 @@ Performed when deposit was processed, so it is available on your balance. Reques
 
 ```json
 {
-  method: "deposit.processed",
-  params: {
+  "method": "deposit.processed",
+  "params": {
     "address": "wallet address",                  // deposit address
     "amount": "0.000600000000000000",             // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
-    "currency": "Bitcoin",                        // deposit currency
+    "currency": "Tether US",                      // deposit currency
     "description": "",                            // deposit description
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
     "method": 1,                                  // called method 1 - deposit, 2 - withdraw
     "network": "ERC20",                           // if currency is multi network
     "status": 15,                                 // transactions status
-    "ticker": "BTC",                              // deposit currency ticker
+    "ticker": "USDT_ETH",                         // deposit currency ticker
     "transactionHash": "transaction hash",        // deposit transaction hash
     "uniqueId": null,                             // unique Id of deposit
     "confirmations": {                            // if transaction has confirmations info it will display here
@@ -164,7 +163,7 @@ Performed when deposit was processed, so it is available on your balance. Reques
         "required": 2                             // required block confirmation for successful deposit
     }
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 
@@ -172,8 +171,8 @@ Performed when deposit was canceled. Request example:
 
 ```json
 {
-  method: "deposit.canceled",
-  params: {
+  "method": "deposit.canceled",
+  "params": {
     "address": "wallet address",                  // deposit address
     "amount": "100.00",                           // amount of deposit
     "createdAt": 1593437922,                      // timestamp of deposit
@@ -182,17 +181,17 @@ Performed when deposit was canceled. Request example:
     "fee": "0.000000000000000000",                // deposit fee
     "memo": "",                                   // deposit memo
     "method": 1,                                  // called method 1 - deposit, 2 - withdraw
-    "network": "TRC20",                           // if currency is multi network, "null" if no multi network
+    "network": "ERC20",                           // if currency is multi network, "null" if no multi network
     "status": 15,                                 // transactions status
-    "ticker": "USDT",                             // deposit currency ticker
+    "ticker": "USDT_ETH",                         // deposit currency ticker
     "transactionHash": "transaction hash",        // deposit transaction hash
     "uniqueId": null,                             // unique Id of deposit
     "confirmations": {                            // if transaction has confirmations info it will display here
         "actual": 1,                              // current block confirmations
-        "required": 32                             // required block confirmation for successful deposit
+        "required": 32                            // required block confirmation for successful deposit
     }
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 Deposit status codes:
@@ -205,14 +204,14 @@ Performed when withdraw was created. Request example:
 
 ```json
 {
-  method: "withdraw.unconfirmed",
-  params: {
+  "method": "withdraw.unconfirmed",
+  "params": {
     "address": "wallet address",                  // withdraw address
     "amount": "100.00",                           // amount of withdraw
     "createdAt": 1593437922,                      // timestamp of withdraw
     "currency": "Tether US",                      // withdraw currency
     "ticker": "USDT",                             // withdraw currency ticker
-    "description": null,                            // withdraw description
+    "description": null,                          // withdraw description
     "fee": "0.000000000000000000",                // withdraw fee
     "memo": "",                                   // withdraw memo
     "method": 2,                                  // called method 1 - deposit, 2 - withdraw
@@ -221,7 +220,7 @@ Performed when withdraw was created. Request example:
     "transactionHash": "transaction hash",        // withdraw transaction hash
     "uniqueId": null,                             // unique Id of withdraw
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 
@@ -229,14 +228,14 @@ Performed when withdraw is pending. Request example:
 
 ```json
 {
-  method: "withdraw.pending",
-  params: {
+  "method": "withdraw.pending",
+  "params": {
     "address": "wallet address",                  // withdraw address
     "amount": "100.00",                           // amount of withdraw
     "createdAt": 1593437922,                      // timestamp of withdraw
     "currency": "Tether US",                      // withdraw currency
     "ticker": "USDT",                             // withdraw currency ticker
-    "description": null,                            // withdraw description
+    "description": null,                          // withdraw description
     "fee": "0.000000000000000000",                // withdraw fee
     "memo": "",                                   // withdraw memo
     "method": 2,                                  // called method 1 - deposit, 2 - withdraw
@@ -245,7 +244,7 @@ Performed when withdraw is pending. Request example:
     "transactionHash": "transaction hash",        // withdraw transaction hash
     "uniqueId": null,                             // unique Id of withdraw
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 
@@ -253,14 +252,14 @@ Performed when withdraw was canceled. Request example:
 
 ```json
 {
-  method: "withdraw.canceled",
-  params: {
+  "method": "withdraw.canceled",
+  "params": {
     "address": "wallet address",                  // withdraw address
     "amount": "100.00",                           // amount of withdraw
     "createdAt": 1593437922,                      // timestamp of withdraw
     "currency": "Tether US",                      // withdraw currency
     "ticker": "USDT",                             // withdraw currency ticker
-    "description": null,                            // withdraw description
+    "description": null,                          // withdraw description
     "fee": "0.000000000000000000",                // withdraw fee
     "memo": "",                                   // withdraw memo
     "method": 2,                                  // called method 1 - deposit, 2 - withdraw
@@ -269,7 +268,7 @@ Performed when withdraw was canceled. Request example:
     "transactionHash": "transaction hash",        // withdraw transaction hash
     "uniqueId": null,                             // unique Id of withdraw
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```
 
@@ -277,14 +276,14 @@ Performed when withdraw was completed. Request example:
 
 ```json
 {
-  method: "withdraw.successful",
-  params: {
+  "method": "withdraw.successful",
+  "params": {
     "address": "wallet address",                  // withdraw address
     "amount": "100.00",                           // amount of withdraw
     "createdAt": 1593437922,                      // timestamp of withdraw
     "currency": "Tether US",                      // withdraw currency
     "ticker": "USDT",                             // withdraw currency ticker
-    "description": null,                            // withdraw description
+    "description": null,                          // withdraw description
     "fee": "0.000000000000000000",                // withdraw fee
     "memo": "",                                   // withdraw memo
     "method": 2,                                  // called method 1 - deposit, 2 - withdraw
@@ -293,6 +292,6 @@ Performed when withdraw was completed. Request example:
     "transactionHash": "transaction hash",        // withdraw transaction hash
     "uniqueId": null,                             // unique Id of withdraw
   },
-  id: 'uuid'
+  "id": "uuid"
 }
 ```

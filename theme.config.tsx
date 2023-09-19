@@ -12,9 +12,9 @@ const config: DocsThemeConfig = {
     />
   ),
   project: {
-    link: "https://github.com/whitebit-exchange/api-documentation",
+    link: "https://github.com/whitebit-exchange/api-docs",
   },
-  docsRepositoryBase: "https://github.com/whitebit-exchange/api-documentation/blob/main",
+  docsRepositoryBase: "https://github.com/whitebit-exchange/api-docs/blob/main",
   useNextSeoProps() {
     return {
       titleTemplate: "%s | WhiteBIT API Documentation",
@@ -26,20 +26,32 @@ const config: DocsThemeConfig = {
   },
   primaryHue: 43,
   footer: {
-    text: (
-      <span>
-        {new Date().getFullYear()} ©{" "}
-        <a href="https://whitebit.com" target="_blank">
-          WhiteBIT
-        </a>
-      </span>
+    component: (
+      <div />
     ),
   },
   head: (
     <>
-      <link rel="icon" href={`${assetPrefix}/img/favicon.svg`} />
+      <link
+        rel="shortcut icon"
+        type="image/x-icon"
+        href={`${assetPrefix}/img/favicon.ico`}
+      />
+      <link
+        rel="icon"
+        type="image/x-icon"
+        sizes="16x16"
+        href={`${assetPrefix}/img/favicon-16x16.png`}
+      />
+      <link
+        rel="icon"
+        type="image/x-icon"
+        sizes="32x32"
+        href={`${assetPrefix}/img/favicon-32x32.png`}
+      />
     </>
   ),
+  navigation: false,
 };
 
 export default config;
