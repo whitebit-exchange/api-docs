@@ -702,7 +702,8 @@ offset | Int | **No** | If you want the request to return entries starting from 
                 "dealFee": "0",                   // executed order fee that user pay
                 "dealStock": "0.000076",          // executed order amount in stock
                 "dealMoney": "0.70407996",        // executed order amount in money
-                "marketName": "BTC_USDT"          // market name
+                "marketName": "BTC_USDT",         // market name
+                "status": 1                      // Order status: either 1 (finished) or 2 (canceled)
             }
         ],
         "DBTC_DUSDT": [
