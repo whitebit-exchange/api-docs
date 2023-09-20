@@ -619,6 +619,7 @@ All possible [order types](#order-types)
                 "market": "BTC_USDT",         // Market
                 "type": 1,                    // Order type. All types in table above
                 "side": 2,                    // Side 1 - sell, 2 - bid
+                "status": 1,                  // Status 1 - finished, 2 - cancelled
                 "post_only": true,            // Post only flag
                 "price": "9157.95",           // Order price
                 "amount": "0.633232",         // Stock amount
