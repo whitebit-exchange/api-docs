@@ -2515,7 +2515,7 @@ Empty response if order is not yours
             "dealMoney": "41.258268",         // amount in money currency that finished
             "postOnly": false,                // PostOnly flag
             "ioc": false,                     // IOC flag
-            "status": "cancelled"             // Order status: either "filled" or "cancelled"
+            "status": "canceled"             // Order status: either "filled" or "canceled"
         },
         {...}
     ]
