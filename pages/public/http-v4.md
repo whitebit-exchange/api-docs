@@ -424,8 +424,10 @@ ___
       "fixed": null,
       "flex": null
     },
-    "is_depositable": true,                   //true if currency can be deposit
-    "is_withdrawal": true                     //true if currency can be withdraw
+    "is_depositable": true,                   //true if currency can be depositable
+    "is_withdrawal": true,                    //true if currency can be withdrawable
+    "is_api_withdrawal": true,                //true if currency can be withdrawable by api
+    "is_api_depositable": true                //true if currency can be depositable by api
   },
   "USD": {
     "ticker": "USD",                          // currency ticker
@@ -444,6 +446,7 @@ ___
         "fixed": null,
         "flex": null,
         "is_depositable": false,
+        "is_api_depositable": true,
         "name": "USD Visa/MasterCard Interkassa", // provider name
         "ticker": "USD_VISAMASTER_INTERKASSA"     //provider ticker
       }
@@ -455,6 +458,7 @@ ___
         "fixed": null,
         "flex": null,
         "is_withdrawal": false,
+        "is_api_withdrawal": true,
         "name": "USD Visa/MasterCard Interkassa",
         "ticker": "USD_VISAMASTER_INTERKASSA"
       }
