@@ -903,6 +903,7 @@ NONE
 | `Successful` - 3, 7       |
 | `Canceled` - 4, 9         |
 | `Unconfirmed by user` - 5 |
+| `AML frozen` - 21         |
 | `Uncredited` - 22         |
 | `Pending` - 15            |
 
@@ -912,6 +913,7 @@ NONE
 | `Successful` - 3, 7                                 |
 | `Canceled` - 4                                      |
 | `Unconfirmed by user` - 5                           |
+| `AML frozen` - 21                                   |
 | `Partially successful` - 18                         |
 
 **Request BODY raw:**
