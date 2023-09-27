@@ -209,7 +209,7 @@ ___
 ```
 [GET] /api/v2/public/depth/{market}
 ```
-This endpoint retrievs the current [order book](../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)).
+This endpoint retrieves the current [order book](../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)).
 
 **Response is cached for:**
 _0.5 second_
