@@ -212,7 +212,7 @@ ___
 This endpoint retrievs the current [order book](../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)).
 
 **Response is cached for:**
-_1 second_
+_0.5 second_
 
 **Parameters:**
 NONE
