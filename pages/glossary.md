@@ -55,6 +55,7 @@ A transaction between two parties in which an [asset](./glossary#assets) or comm
 Crypto derivatives are contracts that derive their value from a primary underlying [asset](./glossary#assets). In the case of crypto derivatives, the primary asset would be a cryptocurrency such as Bitcoin
 
 ## E
+
 ## F
 
 ### Fee
@@ -78,9 +79,13 @@ See [Perpetual Futures](./glossary#perpetual-futuresfutures)
 Users can open Long and Short positions and use leverage and they pay a [fee](./glossary#fee) for using borrowed funds not to the exchange but to each other.
 
 ## G
+
 ## H
+
 ## I
+
 ## J
+
 ## K
 
 ### Kill-switch timer
@@ -182,7 +187,9 @@ Is the number of digits to the right of the decimal point
 [Fiat](./glossary#fiat) currencies has different providers that helps people making deposits and withdraws by bank transfers.
 
 ## Q
+
 ## R
+
 ## S
 
 ### Smart Plans(Lending Plans)
@@ -231,8 +238,8 @@ See [Deal](./glossary#deal-trade)
 
 See [Volume](./glossary#volumetrade-volume)
 
-
 ## U
+
 ## V
 
 ### Volume(Trade Volume)
@@ -246,5 +253,7 @@ The total number of shares or contracts exchanged between buyers and sellers of 
 Free alphanumeric codes with the [assets](./glossary#assets) packaged in it
 
 ## X
+
 ## Y
+
 ## Z

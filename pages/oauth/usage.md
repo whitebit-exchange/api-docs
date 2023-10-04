@@ -16,15 +16,16 @@ For this request the IP of a client must be added to WB Whitelist.
 Need to send "client_id", "client_secret" and "code".
 
 **Response:**
+
 ```json
 {
-    "data": {
-        "access_token": "MZM1MDBMMJYTNWM4MI0ZNTIYLTKXNDATNZY1MZHKM2Y2MJY3",
-        "expires_in": 300,
-        "refresh_token": "ODK5ZTVKZDUTYTI5ZC01NWJHLTGZZDMTYWFKYTNMNJHHMGZM",
-        "scope": "codes.apply,show.userinfo",
-        "token_type": "Bearer"
-    }
+  "data": {
+    "access_token": "MZM1MDBMMJYTNWM4MI0ZNTIYLTKXNDATNZY1MZHKM2Y2MJY3",
+    "expires_in": 300,
+    "refresh_token": "ODK5ZTVKZDUTYTI5ZC01NWJHLTGZZDMTYWFKYTNMNJHHMGZM",
+    "scope": "codes.apply,show.userinfo",
+    "token_type": "Bearer"
+  }
 }
 ```
 
@@ -34,11 +35,9 @@ Need to send "client_id", "client_secret" and "code".
 
 ```json
 {
-    "data": {
-        "message": [
-            "Invalid request"
-        ]
-    }
+  "data": {
+    "message": ["Invalid request"]
+  }
 }
 ```
 
@@ -60,28 +59,27 @@ For this request the IP of a client must be added to WB Whitelist.
 Need to send "client_id", "client_secret" and "refresh_token".
 
 **Response:**
+
 ```json
 {
-    "data": {
-        "access_token": "NTBLZJKYNZETNJFIZC0ZNGM1LWJMYTMTODBJYZRKNWE2NMRM",
-        "expires_in": 300,
-        "refresh_token": "ODZMNMRHM2ETMZQZZI01OTQYLWEWMZATNWQ0NDYZNJBMOWUW",
-        "scope": "codes.apply,show.userinfo",
-        "token_type": "Bearer"
-    }
+  "data": {
+    "access_token": "NTBLZJKYNZETNJFIZC0ZNGM1LWJMYTMTODBJYZRKNWE2NMRM",
+    "expires_in": 300,
+    "refresh_token": "ODZMNMRHM2ETMZQZZI01OTQYLWEWMZATNWQ0NDYZNJBMOWUW",
+    "scope": "codes.apply,show.userinfo",
+    "token_type": "Bearer"
+  }
 }
 ```
+
 ## Errors:
 
 "Invalid token."
 
 ```json
 {
-    "data": {
-        "token": [
-            "Invalid token."
-        ]
-    }
+  "data": {
+    "token": ["Invalid token."]
+  }
 }
 ```
-

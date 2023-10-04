@@ -1,13 +1,13 @@
 # Public HTTP API V1
 
 - [Error messages V1 format](#error-messages-v1-format)
-    - [Market Info](#market-info)
-    - [Market Activity](#market-activity)
-    - [Single market activity](#single-market-activity)
-    - [Kline](#kline)
-    - [Symbols](#symbols)
-    - [Order depth](#order-depth)
-    - [Trade History](#trade-history)
+  - [Market Info](#market-info)
+  - [Market Activity](#market-activity)
+  - [Single market activity](#single-market-activity)
+  - [Kline](#kline)
+  - [Symbols](#symbols)
+  - [Order depth](#order-depth)
+  - [Trade History](#trade-history)
 
 Base URL is https://whitebit.com
 
@@ -15,28 +15,32 @@ Endpoint example: https://whitebit.com/api/v1/public/{endpoint}
 
 All endpoints return time in Unix-time format.
 
-All endpoints return either a __JSON__ object or array.
+All endpoints return either a **JSON** object or array.
 
-For receiving responses from API calls please use http method __GET__
+For receiving responses from API calls please use http method **GET**
 
 If an endpoint requires parameters you should send them as `query string`
 
-___
+---
+
 ### Error messages V1 format
 
 ```json
 {
-    "success": false,
-    "message": "ERROR MESSAGE",
-    "params": []
+  "success": false,
+  "message": "ERROR MESSAGE",
+  "params": []
 }
 ```
-___
+
+---
+
 ### Market Info
 
 ```
 [GET] /api/v1/public/markets
 ```
+
 This endpoint retrieves all information about available markets.
 
 **Response is cached for:**
@@ -48,6 +52,7 @@ NONE
 ❗ Rate limit 1000 requests/10 sec.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -70,13 +75,15 @@ NONE
   ]
 }
 ```
-___
+
+---
 
 ### Market Activity
 
 ```
 [GET] /api/v1/public/tickers
 ```
+
 This endpoint retrieves information about recent trading activity on all markets.
 
 **Response is cached for:**
@@ -88,6 +95,7 @@ NONE
 ❗ Rate limit 1000 requests/10 sec.
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -112,13 +120,15 @@ NONE
   }
 }
 ```
-___
+
+---
 
 ### Single market activity
 
 ```
 [GET] /api/v1/public/ticker?market=ETH_BTC
 ```
+
 This endpoint retrieves information about recent trading activity on the requested market.
 
 **Response is cached for:**
@@ -128,36 +138,38 @@ _1 second_
 
 **Parameters:**
 
-Name | Type | Mandatory | Description
------------- | ------------ | ------------ | ------------
-market | String | **Yes** | Available market. Example: BTC_USDT
+| Name   | Type   | Mandatory | Description                         |
+| ------ | ------ | --------- | ----------------------------------- |
+| market | String | **Yes**   | Available market. Example: BTC_USDT |
 
 **Response:**
+
 ```json
 {
   "success": true,
   "message": null,
   "result": {
-    "open": "9267.98",               // Open price for day
-    "bid": "9417.4",                 // The highest bid currently available
-    "ask": "9421.64",                // The lowest ask currently available
-    "low": "9203.13",                // Lowest price for day
-    "high": "9469.99",               // Highest price for day
-    "last": "9419.55",               // Latest deal price
-    "volume": "27303.824558",        // Volume in stock
-    "deal": "254399191.68843464",    // Volume in money
-    "change": "1.63"                 // Change between open and close price in percentage
+    "open": "9267.98", // Open price for day
+    "bid": "9417.4", // The highest bid currently available
+    "ask": "9421.64", // The lowest ask currently available
+    "low": "9203.13", // Lowest price for day
+    "high": "9469.99", // Highest price for day
+    "last": "9419.55", // Latest deal price
+    "volume": "27303.824558", // Volume in stock
+    "deal": "254399191.68843464", // Volume in money
+    "change": "1.63" // Change between open and close price in percentage
   }
 }
 ```
-___
 
+---
 
 ### Kline
 
 ```
 [GET] /api/v1/public/kline?market=BTC_USDT&interval=1h
 ```
+
 This endpoint retrieves information about market kline.
 
 **Response is cached for:**
@@ -170,15 +182,16 @@ _1440_
 
 **Parameters:**
 
-Name | Type | Mandatory | Description
------------- | ------------ | ------------ | ------------
-market | String | **Yes** | Available market. Example: BTC_USDT
-start | Timestamp | **No** | Start time in seconds, default value is one week earlier from the current time. Cannot be greater than end parameter. Example: 1596848400
-end | Timestamp | **No** | End time in seconds, default value is current time. Cannot be less than start parameter. Example: 1596927600
-interval | String | **NO** | Possible values - 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M. By default in case start and end parameters were not specified, for minutes intervals the server will return candlesticks for a period of 1 day. For hours intervals will return candlesticks for 1 week, for days and week intervals will return candlesticks for 1 month and for month interval will return candlesticks for 1 year. Default value is 1h.
-limit | Integer | **NO** | Possible values from 1 to 1440. Default value is 1440
+| Name     | Type      | Mandatory | Description                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| -------- | --------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market   | String    | **Yes**   | Available market. Example: BTC_USDT                                                                                                                                                                                                                                                                                                                                                                                                          |
+| start    | Timestamp | **No**    | Start time in seconds, default value is one week earlier from the current time. Cannot be greater than end parameter. Example: 1596848400                                                                                                                                                                                                                                                                                                    |
+| end      | Timestamp | **No**    | End time in seconds, default value is current time. Cannot be less than start parameter. Example: 1596927600                                                                                                                                                                                                                                                                                                                                 |
+| interval | String    | **NO**    | Possible values - 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M. By default in case start and end parameters were not specified, for minutes intervals the server will return candlesticks for a period of 1 day. For hours intervals will return candlesticks for 1 week, for days and week intervals will return candlesticks for 1 month and for month interval will return candlesticks for 1 year. Default value is 1h. |
+| limit    | Integer   | **NO**    | Possible values from 1 to 1440. Default value is 1440                                                                                                                                                                                                                                                                                                                                                                                        |
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -197,13 +210,15 @@ limit | Integer | **NO** | Possible values from 1 to 1440. Default value is 1440
   ]
 }
 ```
-___
+
+---
 
 ### Symbols
 
 ```
 [GET] /api/v1/public/symbols
 ```
+
 This endpoint retrieves information about all available markets for trading.
 
 **Response is cached for:**
@@ -215,6 +230,7 @@ _1 second_
 NONE
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -227,13 +243,15 @@ NONE
   ]
 }
 ```
-___
+
+---
 
 ### Order depth
 
 ```
 [GET] /api/v1/public/depth/result?market=BTC_USDT
 ```
+
 This endpoint retrieves the current [order book](./../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask))
 
 **Response is cached for:**
@@ -243,13 +261,13 @@ _1 second_
 
 **Parameters:**
 
-Name | Type | Mandatory | Description
------------- | ------------ | ------------ | ------------
-market | String | **Yes** | Available market. Example: BTC_USDT
-limit | int | **No** | Limit of results. Default: 100 Max: 100 Example: 100
-
+| Name   | Type   | Mandatory | Description                                          |
+| ------ | ------ | --------- | ---------------------------------------------------- |
+| market | String | **Yes**   | Available market. Example: BTC_USDT                  |
+| limit  | int    | **No**    | Limit of results. Default: 100 Max: 100 Example: 100 |
 
 **Response:**
+
 ```json
 {
   "asks": [
@@ -276,13 +294,15 @@ limit | int | **No** | Limit of results. Default: 100 Max: 100 Example: 100
   ]
 }
 ```
-___
+
+---
 
 ### Trade History
 
 ```
 [GET] /api/v1/public/history?market=BTC_USDT&lastId=1
 ```
+
 This endpoint retrieves [trades](./../glossary.md#trade) that have been executed for the requested [market](./../glossary.md#market).
 
 **Response is cached for:**
@@ -292,14 +312,14 @@ _1 second_
 
 **Parameters:**
 
-Name | Type | Mandatory | Description
------------- | ------------ | ------------ | ------------
-market | String | **Yes** | Available market. Example: BTC_USDT
-lastId | int | **Yes** | Largest id of last returned result. Example: request [deals](./../glossary.md#deal-trade) starting from id equals to 6
-limit | int | **No** | Limit of results. Default: 50 Example: 100
-
+| Name   | Type   | Mandatory | Description                                                                                                            |
+| ------ | ------ | --------- | ---------------------------------------------------------------------------------------------------------------------- |
+| market | String | **Yes**   | Available market. Example: BTC_USDT                                                                                    |
+| lastId | int    | **Yes**   | Largest id of last returned result. Example: request [deals](./../glossary.md#deal-trade) starting from id equals to 6 |
+| limit  | int    | **No**    | Limit of results. Default: 50 Example: 100                                                                             |
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -323,4 +343,5 @@ limit | int | **No** | Limit of results. Default: 50 Example: 100
   ]
 }
 ```
-___
+
+---

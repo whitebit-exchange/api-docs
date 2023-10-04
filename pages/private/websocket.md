@@ -20,57 +20,57 @@ All endpoints return time in Unix-time format.
 
 ## Order types
 
-| Order type ID | Description |
-|------|-----|
-| 1 | Limit |
-| 2 | Market |
-| 202 | Market [stock](./../glossary.md#stock) |
-| 3 | Stop limit |
-| 4 | Stop market |
-| 7 | Margin limit |
-| 8 | Margin market |
-| 9 | Margin stop limit |
-| 10 | Margin trigger-stop market |
-| 14 | Margin normalization |
+| Order type ID | Description                            |
+| ------------- | -------------------------------------- |
+| 1             | Limit                                  |
+| 2             | Market                                 |
+| 202           | Market [stock](./../glossary.md#stock) |
+| 3             | Stop limit                             |
+| 4             | Stop market                            |
+| 7             | Margin limit                           |
+| 8             | Margin market                          |
+| 9             | Margin stop limit                      |
+| 10            | Margin trigger-stop market             |
+| 14            | Margin normalization                   |
 
 ## ⤴️ Request message
 
 JSON Structure of request message:
 
-* `id` - **Integer**. Should be unique to handle response for your request.
-* `method` - **String**. Name of request.
-* `params` - **Array**. Here you pass params for method.
+- `id` - **Integer**. Should be unique to handle response for your request.
+- `method` - **String**. Name of request.
+- `params` - **Array**. Here you pass params for method.
 
 🚫 WebSocket connection will be closed if invalid JSON was sent.
 
 ### Types of request messages
 
-* Query (`balanceSpot_request`, `ordersPending_request`, etc)
-* Subscription (`balanceSpot_subscribe`, `ordersPending_subscribe`, etc). Repeated subscription will be cancelled for the same data type.
+- Query (`balanceSpot_request`, `ordersPending_request`, etc)
+- Subscription (`balanceSpot_subscribe`, `ordersPending_subscribe`, etc). Repeated subscription will be cancelled for the same data type.
 
 ## ⤵️ Response message
 
 JSON Structure of response message:
 
-* `id` - **Integer**. Request ID.
-* `result` - **Null** for failure, for success - look for responses below
-* `error` - **Null** for success, **JSON Object** for failure:
-    * `message` - Detailed text
-    * `code` - Error code
+- `id` - **Integer**. Request ID.
+- `result` - **Null** for failure, for success - look for responses below
+- `error` - **Null** for success, **JSON Object** for failure:
+  - `message` - Detailed text
+  - `code` - Error code
 
-Code | Message
---- | ---
-**1** | invalid argument
-**2** | internal error
-**3** | service unavailable
-**4** | method not found
-**5** | service timeout
+| Code  | Message             |
+| ----- | ------------------- |
+| **1** | invalid argument    |
+| **2** | internal error      |
+| **3** | service unavailable |
+| **4** | method not found    |
+| **5** | service timeout     |
 
 ## Types of response messages
 
-* Query result
-* Subscription status (success/failed)
-* Update events
+- Query result
+- Subscription status (success/failed)
+- Update events
 
 ---
 
@@ -82,23 +82,21 @@ Code | Message
 
 ```json
 {
-    "id": 0,
-    "method": "authorize",
-    "params": [
-        "<get_your_token_via_api>",
-        ""
-    ]
+  "id": 0,
+  "method": "authorize",
+  "params": ["<get_your_token_via_api>", ""]
 }
 ```
 
 #### ⤵️ Response:
+
 ```json
 {
-    "id": 0,
-    "result": {
-        "status": "success"
-    },
-    "error": null
+  "id": 0,
+  "result": {
+    "status": "success"
+  },
+  "error": null
 }
 ```
 
@@ -108,29 +106,31 @@ Code | Message
 
 ```json
 {
-    "id": 0,
-    "method": "balanceSpot_subscribe",
-    "params": []
+  "id": 0,
+  "method": "balanceSpot_subscribe",
+  "params": []
 }
 ```
 
 #### ⤵️ Response:
+
 ```json
 {
-    "id": 0,
-    "result": {
-        "status": "success"
-    },
-    "error": null
+  "id": 0,
+  "result": {
+    "status": "success"
+  },
+  "error": null
 }
 ```
 
 #### 🔄 Update events:
+
 ```json
 {
-    "id": null,
-    "method": "balanceSpot_update",
-    "params": [] // look below for params
+  "id": null,
+  "method": "balanceSpot_update",
+  "params": [] // look below for params
 }
 ```
 
@@ -143,27 +143,31 @@ Code | Message
 ```
 [POST] /api/v4/profile/websocket_token
 ```
+
 This V4 endpoint can be used to retrieve the websocket token for user.
 
 **Request BODY raw:**
+
 ```json
 {
-    "request": "{{request}}",
-    "nonce": "{{nonce}}"
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
 }
 ```
 
 **Response:**
 
 Available statuses:
-* `Status 200`
+
+- `Status 200`
 
 ```json
 {
-    "websocket_token": "your_current_token"
+  "websocket_token": "your_current_token"
 }
 ```
-___
+
+---
 
 ### Authorize
 
@@ -176,12 +180,12 @@ It only needs to be done successfully once.
 
 ```json
 {
-    "id": 0,
-    "method": "authorize",
-    "params": [
-        "<get_your_token_via_api>", // WebSocket Token,
-        "public"                    // constant string, always should be "public"
-    ]
+  "id": 0,
+  "method": "authorize",
+  "params": [
+    "<get_your_token_via_api>", // WebSocket Token,
+    "public" // constant string, always should be "public"
+  ]
 }
 ```
 
@@ -189,11 +193,11 @@ It only needs to be done successfully once.
 
 ```json
 {
-    "id": 0,
-    "result": {
-        "status": "success"
-    },
-    "error": null
+  "id": 0,
+  "result": {
+    "status": "success"
+  },
+  "error": null
 }
 ```
 
@@ -221,18 +225,18 @@ It only needs to be done successfully once.
 
 ```json
 {
-    "id": 2,
-    "result": {
-        "ETH": {
-            "available": "0", // Amount available for trade
-            "freeze": "0"     // Amount in active orders
-        },
-        "BTC": {
-            "available": "0", // Amount available for trade
-            "freeze": "0"     // Amount in active orders
-        }
+  "id": 2,
+  "result": {
+    "ETH": {
+      "available": "0", // Amount available for trade
+      "freeze": "0" // Amount in active orders
     },
-    "error": null
+    "BTC": {
+      "available": "0", // Amount available for trade
+      "freeze": "0" // Amount in active orders
+    }
+  },
+  "error": null
 }
 ```
 
@@ -258,11 +262,11 @@ Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbal
 
 ```json
 {
-    "id": 3,
-    "result": {
-        "status": "success"
-    },
-    "error": null
+  "id": 3,
+  "result": {
+    "status": "success"
+  },
+  "error": null
 }
 ```
 
@@ -290,9 +294,9 @@ Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbal
 
 ```json
 {
-    "id": 4,
-    "method": "balanceSpot_unsubscribe",
-    "params": []
+  "id": 4,
+  "method": "balanceSpot_unsubscribe",
+  "params": []
 }
 ```
 
@@ -300,13 +304,14 @@ Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbal
 
 ```json
 {
-    "id": 4,
-    "result": {
-        "status": "success"
-    },
-    "error": null
+  "id": 4,
+  "result": {
+    "status": "success"
+  },
+  "error": null
 }
 ```
+
 ---
 
 ### Balance Margin
@@ -321,12 +326,12 @@ When you open position, your balance will not change, but amount available for [
 
 ```json
 {
-    "id": 2,
-    "method": "balanceMargin_request",
-    "params": [
-        "BTC",  // asset
-        "USDT"  // asset
-    ]
+  "id": 2,
+  "method": "balanceMargin_request",
+  "params": [
+    "BTC", // asset
+    "USDT" // asset
+  ]
 }
 ```
 
@@ -334,22 +339,22 @@ When you open position, your balance will not change, but amount available for [
 
 ```json
 {
-    "error": null,
-    "result": {
-        "BTC": {
-            "balance": "0.0006092",                   // total amount on collateral balance
-            "borrow": "0",                            // borrowed amount
-            "available_without_borrow": "0.0006092",  // available amount to transfer from collateral balance without borrowing
-            "available_with_borrow": "0.00288701"     // available amount to transfer  from collateral balance with borrowing
-        },
-        "USDT": {
-            "balance": "0.00538073",                  // total amount on collateral balance
-            "borrow": "0",                            // borrowed amount
-            "available_without_borrow": "0.00538073", // available amount to transfer from collateral balance without borrowing
-            "available_with_borrow": "28.43739825"    // available amount to transfer  from collateral balance with borrowing
-        }
+  "error": null,
+  "result": {
+    "BTC": {
+      "balance": "0.0006092", // total amount on collateral balance
+      "borrow": "0", // borrowed amount
+      "available_without_borrow": "0.0006092", // available amount to transfer from collateral balance without borrowing
+      "available_with_borrow": "0.00288701" // available amount to transfer  from collateral balance with borrowing
     },
-    "id": 1
+    "USDT": {
+      "balance": "0.00538073", // total amount on collateral balance
+      "borrow": "0", // borrowed amount
+      "available_without_borrow": "0.00538073", // available amount to transfer from collateral balance without borrowing
+      "available_with_borrow": "28.43739825" // available amount to transfer  from collateral balance with borrowing
+    }
+  },
+  "id": 1
 }
 ```
 
@@ -361,12 +366,12 @@ Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbal
 
 ```json
 {
-    "id": 3,
-    "method": "balanceMargin_subscribe",
-    "params": [
-        "BTC",  // asset
-        "USDT"  // asset
-    ]
+  "id": 3,
+  "method": "balanceMargin_subscribe",
+  "params": [
+    "BTC", // asset
+    "USDT" // asset
+  ]
 }
 ```
 
@@ -374,11 +379,11 @@ Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbal
 
 ```json
 {
-    "id": 3,
-    "result": {
-        "status": "success"
-    },
-    "error": null
+  "id": 3,
+  "result": {
+    "status": "success"
+  },
+  "error": null
 }
 ```
 
@@ -386,24 +391,24 @@ Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbal
 
 ```json
 {
-    "method": "balanceMargin_update",
-    "params": [
-        {
-            "a": "BTC",         // asset ticker
-            "B": "0.0006092",   // total amount on collateral balance
-            "b": "0",           // borrowed amount
-            "av": "0.0006092",  // available amount to transfer from collateral balance without borrowing
-            "ab": "0.00288701"  // available amount to transfer  from collateral balance with borrowing
-        },
-        {
-            "a": "USDT",        // asset ticker
-            "B": "0.00538073",  // total amount on collateral balance
-            "b": "0",           // borrowed amount
-            "av": "0.00538073", // available amount to transfer from collateral balance without borrowing
-            "ab": "28.43739825" // available amount to transfer  from collateral balance with borrowing
-        }
-    ],
-    "id": null
+  "method": "balanceMargin_update",
+  "params": [
+    {
+      "a": "BTC", // asset ticker
+      "B": "0.0006092", // total amount on collateral balance
+      "b": "0", // borrowed amount
+      "av": "0.0006092", // available amount to transfer from collateral balance without borrowing
+      "ab": "0.00288701" // available amount to transfer  from collateral balance with borrowing
+    },
+    {
+      "a": "USDT", // asset ticker
+      "B": "0.00538073", // total amount on collateral balance
+      "b": "0", // borrowed amount
+      "av": "0.00538073", // available amount to transfer from collateral balance without borrowing
+      "ab": "28.43739825" // available amount to transfer  from collateral balance with borrowing
+    }
+  ],
+  "id": null
 }
 ```
 
@@ -413,9 +418,9 @@ Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbal
 
 ```json
 {
-    "id": 4,
-    "method": "balanceMargin_unsubscribe",
-    "params": []
+  "id": 4,
+  "method": "balanceMargin_unsubscribe",
+  "params": []
 }
 ```
 
@@ -423,11 +428,11 @@ Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbal
 
 ```json
 {
-    "id": 4,
-    "result": {
-        "status": "success"
-    },
-    "error": null
+  "id": 4,
+  "result": {
+    "status": "success"
+  },
+  "error": null
 }
 ```
 
@@ -443,13 +448,13 @@ Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbal
 
 ```json
 {
-    "id": 8,
-    "method": "ordersPending_request",
-    "params": [
-        "BTC_USDT", // market
-        0,          // offset
-        30          // limit
-    ]
+  "id": 8,
+  "method": "ordersPending_request",
+  "params": [
+    "BTC_USDT", // market
+    0, // offset
+    30 // limit
+  ]
 }
 ```
 
@@ -494,12 +499,12 @@ All possible [order types](#order-types)
 
 ```json
 {
-    "id": 9,
-    "method": "ordersPending_subscribe",
-    "params": [
-        "BTC_USDT", // market
-        "ETH_BTC"  // market
-    ]
+  "id": 9,
+  "method": "ordersPending_subscribe",
+  "params": [
+    "BTC_USDT", // market
+    "ETH_BTC" // market
+  ]
 }
 ```
 
@@ -507,46 +512,46 @@ All possible [order types](#order-types)
 
 ```json
 {
-    "id": 9,
-    "result": {
-        "status": "success"
-    },
-    "error": null
+  "id": 9,
+  "result": {
+    "status": "success"
+  },
+  "error": null
 }
 ```
 
 ##### 🔄 Update events:
 
-| Update event ID | Description |
-| --- | --- |
-| 1 | New order |
-| 2 | Update order |
-| 3 | Finish order (cancel or execute) |
+| Update event ID | Description                      |
+| --------------- | -------------------------------- |
+| 1               | New order                        |
+| 2               | Update order                     |
+| 3               | Finish order (cancel or execute) |
 
 If new [order](./../glossary.md#orders) instantly matches an order from [orderbook](./../glossary.md#order-book), then you will receive only one message with update event ID equal to 3.
 
 ```json
 {
-    "id": null,
-    "method": "ordersPending_update",
-    "params": [
-        2,                               // Update event ID (see above)
-        {
-            "id": 621879,                // Order ID
-            "market": "BTC_USDT",        // Market
-            "type": 1,                   // Order type. All types in table above
-            "side": 1,                   // Side 1 - sell, 2 - bid
-            "ctime": 1601475234.656275,  // Created at in Unix time
-            "mtime": 1601475266.733574,  // Modified at in Unix time
-            "price": "10646.12",         // Order price
-            "amount": "0.01",            // Stock amount
-            "left": "0.008026",          // Stock amount that left to be executed.
-            "deal_stock": "0.001974",    // Stock amount that executed
-            "deal_money": "21.01544088", // Money amount that executed
-            "deal_fee": "2.101544088",   // Charged fee amount in money,
-            "client_order_id": "22"      // Custom client order id
-        }
-    ]
+  "id": null,
+  "method": "ordersPending_update",
+  "params": [
+    2, // Update event ID (see above)
+    {
+      "id": 621879, // Order ID
+      "market": "BTC_USDT", // Market
+      "type": 1, // Order type. All types in table above
+      "side": 1, // Side 1 - sell, 2 - bid
+      "ctime": 1601475234.656275, // Created at in Unix time
+      "mtime": 1601475266.733574, // Modified at in Unix time
+      "price": "10646.12", // Order price
+      "amount": "0.01", // Stock amount
+      "left": "0.008026", // Stock amount that left to be executed.
+      "deal_stock": "0.001974", // Stock amount that executed
+      "deal_money": "21.01544088", // Money amount that executed
+      "deal_fee": "2.101544088", // Charged fee amount in money,
+      "client_order_id": "22" // Custom client order id
+    }
+  ]
 }
 ```
 
@@ -556,9 +561,9 @@ If new [order](./../glossary.md#orders) instantly matches an order from [orderbo
 
 ```json
 {
-    "id": 10,
-    "method": "ordersPending_unsubscribe",
-    "params": []
+  "id": 10,
+  "method": "ordersPending_unsubscribe",
+  "params": []
 }
 ```
 
@@ -566,11 +571,11 @@ If new [order](./../glossary.md#orders) instantly matches an order from [orderbo
 
 ```json
 {
-    "id": 10,
-    "result": {
-        "status": "success"
-    },
-    "error": null
+  "id": 10,
+  "result": {
+    "status": "success"
+  },
+  "error": null
 }
 ```
 
@@ -587,16 +592,16 @@ All possible [order types](#order-types)
 
 ```json
 {
-    "id": 11,
-    "method": "ordersExecuted_request",
-    "params": [
-        {
-            "market": "BTC_USDT", // market
-            "order_types": [1, 2]   // Order types filter. See above
-        },
-        0,                          // offset
-        30                          // limit
-    ]
+  "id": 11,
+  "method": "ordersExecuted_request",
+  "params": [
+    {
+      "market": "BTC_USDT", // market
+      "order_types": [1, 2] // Order types filter. See above
+    },
+    0, // offset
+    30 // limit
+  ]
 }
 ```
 
@@ -641,33 +646,33 @@ All possible [order types](#order-types)
 
 ```json
 {
-    "id": 12,
-    "method": "ordersExecuted_subscribe",
-    "params": [
-        [
-            "BTC_USDT", // market
-            "ETH_BTC"   // market
-        ],
-        0               // filter executed limit or market orders
-    ]
+  "id": 12,
+  "method": "ordersExecuted_subscribe",
+  "params": [
+    [
+      "BTC_USDT", // market
+      "ETH_BTC" // market
+    ],
+    0 // filter executed limit or market orders
+  ]
 }
 ```
 
-| Filter | Executed orders |
-| --- | --- |
-| 0 | Limit and Market |
-| 1 | Limit |
-| 2 | Market |
+| Filter | Executed orders  |
+| ------ | ---------------- |
+| 0      | Limit and Market |
+| 1      | Limit            |
+| 2      | Market           |
 
 ##### ⤵️ Response:
 
 ```json
 {
-    "id": 12,
-    "result": {
-        "status": "success"
-    },
-    "error": null
+  "id": 12,
+  "result": {
+    "status": "success"
+  },
+  "error": null
 }
 ```
 
@@ -675,24 +680,24 @@ All possible [order types](#order-types)
 
 ```json
 {
-    "id": null,
-    "method": "ordersExecuted_update",
-    "params": [
-        {
-            "id": 6887337167,           // Order ID
-            "market": "BTC_USDT",       // Market
-            "type": 1,                  // Order type. All types in table above
-            "side": 1,                  // Side 1 - sell, 2 - bid
-            "ctime": 1601478710.197908, // Created at in Unix time
-            "mtime": 1601478710.197917, // Modified at in Unix time
-            "price": "10745.42",        // Order price
-            "amount": "0.001",          // Stock amount
-            "left": "0",                // Stock amount that left to be executed.
-            "deal_stock": "0.001",      // Stock amount that executed
-            "deal_money": "10.74563",   // Money amount that executed
-            "deal_fee": "0.01074563"    // Charged fee amount in money
-        }
-    ]
+  "id": null,
+  "method": "ordersExecuted_update",
+  "params": [
+    {
+      "id": 6887337167, // Order ID
+      "market": "BTC_USDT", // Market
+      "type": 1, // Order type. All types in table above
+      "side": 1, // Side 1 - sell, 2 - bid
+      "ctime": 1601478710.197908, // Created at in Unix time
+      "mtime": 1601478710.197917, // Modified at in Unix time
+      "price": "10745.42", // Order price
+      "amount": "0.001", // Stock amount
+      "left": "0", // Stock amount that left to be executed.
+      "deal_stock": "0.001", // Stock amount that executed
+      "deal_money": "10.74563", // Money amount that executed
+      "deal_fee": "0.01074563" // Charged fee amount in money
+    }
+  ]
 }
 ```
 
@@ -702,9 +707,9 @@ All possible [order types](#order-types)
 
 ```json
 {
-    "id": 13,
-    "method": "ordersExecuted_unsubscribe",
-    "params": []
+  "id": 13,
+  "method": "ordersExecuted_unsubscribe",
+  "params": []
 }
 ```
 
@@ -712,11 +717,11 @@ All possible [order types](#order-types)
 
 ```json
 {
-    "id": 13,
-    "result": {
-        "status": "success"
-    },
-    "error": null
+  "id": 13,
+  "result": {
+    "status": "success"
+  },
+  "error": null
 }
 ```
 
@@ -732,13 +737,13 @@ Market should exist. The maximum limit is 100.
 
 ```json
 {
-    "id": 14,
-    "method": "deals_request",
-    "params": [
-        "BTC_USDT", // market
-        0,          // offset
-        30          // limit
-    ]
+  "id": 14,
+  "method": "deals_request",
+  "params": [
+    "BTC_USDT", // market
+    0, // offset
+    30 // limit
+  ]
 }
 ```
 
@@ -779,14 +784,14 @@ Update interval: 0,5 sec
 
 ```json
 {
-    "id": 15,
-    "method": "deals_subscribe",
-    "params": [
-        [
-            "BTC_USDT", // market
-            "ETH_BTC"   // market
-        ]
+  "id": 15,
+  "method": "deals_subscribe",
+  "params": [
+    [
+      "BTC_USDT", // market
+      "ETH_BTC" // market
     ]
+  ]
 }
 ```
 
@@ -794,11 +799,11 @@ Update interval: 0,5 sec
 
 ```json
 {
-    "id": 15,
-    "result": {
-        "status": "success"
-    },
-    "error": null
+  "id": 15,
+  "result": {
+    "status": "success"
+  },
+  "error": null
 }
 ```
 
@@ -806,19 +811,19 @@ Update interval: 0,5 sec
 
 ```json
 {
-    "id": null,
-    "method": "deals_update",
-    "params": [
-        252104486,         // Deal ID
-        1602770801.015587, // Deal time
-        "BTC_USDT",        // Market
-        7425988844,        // Order ID
-        "11399.24",        // Price
-        "0.008256",        // Stock amount
-        "0.094112125440",  // Deal fee
-        "1234",            // Custom client order id
-        1                  // Side 1 - sell, 2 - bid
-    ]
+  "id": null,
+  "method": "deals_update",
+  "params": [
+    252104486, // Deal ID
+    1602770801.015587, // Deal time
+    "BTC_USDT", // Market
+    7425988844, // Order ID
+    "11399.24", // Price
+    "0.008256", // Stock amount
+    "0.094112125440", // Deal fee
+    "1234", // Custom client order id
+    1 // Side 1 - sell, 2 - bid
+  ]
 }
 ```
 
@@ -828,9 +833,9 @@ Update interval: 0,5 sec
 
 ```json
 {
-    "id": 16,
-    "method": "deals_unsubscribe",
-    "params": []
+  "id": 16,
+  "method": "deals_unsubscribe",
+  "params": []
 }
 ```
 
@@ -838,10 +843,10 @@ Update interval: 0,5 sec
 
 ```json
 {
-    "id": 16,
-    "result": {
-        "status": "success"
-    },
-    "error": null
+  "id": 16,
+  "result": {
+    "status": "success"
+  },
+  "error": null
 }
 ```
