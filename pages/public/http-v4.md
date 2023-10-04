@@ -1,16 +1,17 @@
 # Public HTTP API V4
 
- - [Error messages V4 format](#error-messages-v4-format)
-    - [Market Info](#market-info)
-    - [Market activity](#market-activity)
-    - [Asset status list](#asset-status-list)
-    - [Orderbook](#orderbook)
-    - [Recent Trades](#recent-trades)
-    - [Fee](#fee)
-    - [Server Time](#server-time)
-    - [Server Status](#server-status)
-    - [Collateral Markets List](#collateral-markets-list)
-    - [Available Futures Markets List](#available-futures-markets-list)
+- [Error messages V4 format](#error-messages-v4-format)
+  - [Maintenance status](#maintenance-status)
+  - [Market Info](#market-info)
+  - [Market activity](#market-activity)
+  - [Asset status list](#asset-status-list)
+  - [Orderbook](#orderbook)
+  - [Recent Trades](#recent-trades)
+  - [Fee](#fee)
+  - [Server Time](#server-time)
+  - [Server Status](#server-status)
+  - [Collateral Markets List](#collateral-markets-list)
+  - [Available Futures Markets List](#available-futures-markets-list)
 
 Base URL is https://whitebit.com
 
@@ -18,29 +19,50 @@ Endpoint example: https://whitebit.com/api/v4/public/{endpoint}
 
 All endpoints return time in Unix-time format.
 
-All endpoints return either a __JSON__ object or array.
+All endpoints return either a **JSON** object or array.
 
-For receiving responses from API calls please use http method __GET__
+For receiving responses from API calls please use http method **GET**
 
 If an endpoint requires parameters you should send them as `query string`
 
-___
+---
+
 ### Error messages V4 format
 
 ```json
 {
-    "success": false,
-    "message": "ERROR MESSAGE",
-    "params": []
+  "success": false,
+  "message": "ERROR MESSAGE",
+  "params": []
 }
 ```
 
-___
+---
+
+### Maintenance status
+
+```
+[GET] /api/v4/public/platform/status
+```
+
+This endpoint retrieves maintenance status
+
+**Response:**
+
+```json
+{
+  "status": "1"  // 1 - system operational, 0 - system maintenance
+}
+```
+
+---
+
 ### Market Info
 
 ```
 [GET] /api/v4/public/markets
 ```
+
 This endpoint retrieves all information about available spot and futures markets.
 
 **Response is cached for:**
@@ -52,6 +74,7 @@ NONE
 ❗ Rate limit 2000 requests/10 sec.
 
 **Response:**
+
 ```json
 [
     {
@@ -75,12 +98,15 @@ NONE
     }
 ]
 ```
-___
+
+---
+
 ### Market activity
 
 ```
 [GET] /api/v4/public/ticker
 ```
+
 This endpoint retrieves a 24-hour pricing and volume summary for each market pair available on the exchange.
 
 **Response is cached for:**
@@ -92,6 +118,7 @@ NONE
 ❗ Rate limit 2000 requests/10 sec.
 
 **Response:**
+
 ```json
 {
   "BTC_USDT": {
@@ -106,13 +133,15 @@ NONE
   {...}
 }
 ```
-___
+
+---
 
 ### Asset status list
 
 ```
 [GET] /api/v4/public/assets
 ```
+
 This endpoint retrieves the assets status.
 
 **Response is cached for:**
@@ -124,6 +153,7 @@ NONE
 ❗ Rate limit 2000 requests/10 sec.
 
 **Response:**
+
 ```json
 {
   "BTC": {
@@ -300,13 +330,15 @@ NONE
   {...}
 }
 ```
-___
+
+---
 
 ### Orderbook
 
 ```
 [GET] /api/v4/public/orderbook/{market}?limit=100&level=2
 ```
+
 This endpoint retrieves the current [order book](./../glossary.md#order-book as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)) with additional parameters.
 
 **Response is cached for:**
@@ -316,13 +348,13 @@ _0.5 second_
 
 **Parameters:**
 
-Name | Type | Mandatory | Description
------------- | ------------ | ------------ | ------------
-limit | int | **No** | Orders depth quantity: 0 - 100. Not defined or 0 will return 100 entries.
-level | int | **No** | Optional parameter that allows API user to see different level of aggregation. Level 0 – default level, no aggregation. Starting from level 1 (lowest possible aggregation) and up to level 5 - different levels of aggregated [orderbook](./../glossary.md#order-book).
-
+| Name  | Type | Mandatory | Description                                                                                                                                                                                                                                                              |
+| ----- | ---- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| limit | int  | **No**    | Orders depth quantity: 0 - 100. Not defined or 0 will return 100 entries.                                                                                                                                                                                                |
+| level | int  | **No**    | Optional parameter that allows API user to see different level of aggregation. Level 0 – default level, no aggregation. Starting from level 1 (lowest possible aggregation) and up to level 5 - different levels of aggregated [orderbook](./../glossary.md#order-book). |
 
 **Response:**
+
 ```json
 {
   "ticker_id": "BTC_PERP",        // Market Name
@@ -343,13 +375,15 @@ level | int | **No** | Optional parameter that allows API user to see different 
   ]
 }
 ```
-___
+
+---
 
 ### Recent Trades
 
 ```
 [GET] /api/v4/public/trades/{market}?type=sell
 ```
+
 This endpoint retrieves the [trades](./../glossary.md#deal-trade) that have been executed recently on the requested [market](./../glossary.md#market).
 
 **Response is cached for:**
@@ -359,12 +393,12 @@ _1 second_
 
 **Parameters:**
 
-Name | Type | Mandatory | Description
------------- | ------------ | ------------ | ------------
-type | String | **No** | Can be buy or sell
-
+| Name | Type   | Mandatory | Description        |
+| ---- | ------ | --------- | ------------------ |
+| type | String | **No**    | Can be buy or sell |
 
 **Response:**
+
 ```json
 [
   {
@@ -386,37 +420,42 @@ type | String | **No** | Can be buy or sell
   {...}
 }
 ```
-___
+
+---
 
 ### Fee
 
 ```
 [GET] /api/v4/public/fee
 ```
+
 This endpoint retrieves the list of [fees](./../glossary.md#fee) and min/max amount for deposits and withdraws
 
 **Response is cached for:**
 _1 second_
 
 ❗ Rate limit 2000 requests/10 sec.
-___
+
+---
 
 **Response:**
+
 ```json
 {
   "USDT (ERC20)": {
-    "ticker": "USDT",                         // currency ticker
-    "name": "Tether US",                      // currency ticker
+    "ticker": "USDT", // currency ticker
+    "name": "Tether US", // currency ticker
     "providers": [],
-    "deposit": {                              // deposit fees
-      "min_amount": "0.0005",                 // min deposit amount. 0 if there is no limitation
-      "max_amount": "0.1",                    // max deposit amount. 0 if there is no limitation
-      "fixed": "0.0005",                      // fixed fee amount which applies for all transaction
+    "deposit": {
+      // deposit fees
+      "min_amount": "0.0005", // min deposit amount. 0 if there is no limitation
+      "max_amount": "0.1", // max deposit amount. 0 if there is no limitation
+      "fixed": "0.0005", // fixed fee amount which applies for all transaction
       "flex": {
-        "min_fee": "100",                     // min fee amount
-        "max_fee": "1000",                    // max fee amount
+        "min_fee": "100", // min fee amount
+        "max_fee": "1000", // max fee amount
         "percent": "10"
-      },                                      // flex fee only applies for all transactions but according to min/max fee. Nullable if there is no flex fee
+      } // flex fee only applies for all transactions but according to min/max fee. Nullable if there is no flex fee
     },
     "withdraw": {
       "min_amount": "0.001",
@@ -424,22 +463,23 @@ ___
       "fixed": null,
       "flex": null
     },
-    "is_depositable": true,                   //true if currency can be depositable
-    "is_withdrawal": true,                    //true if currency can be withdrawable
-    "is_api_withdrawal": true,                //true if currency can be withdrawable by api
-    "is_api_depositable": true                //true if currency can be depositable by api
+    "is_depositable": true, //true if currency can be depositable
+    "is_withdrawal": true, //true if currency can be withdrawable
+    "is_api_withdrawal": true, //true if currency can be withdrawable by api
+    "is_api_depositable": true //true if currency can be depositable by api
   },
   "USD": {
-    "ticker": "USD",                          // currency ticker
-    "name": "United States Dollar",           // currency ticker
+    "ticker": "USD", // currency ticker
+    "name": "United States Dollar", // currency ticker
     "providers": [
       "USD_ADVCASH",
       "USD_CAPITALIST",
       "USD_EPAY_COM",
       "USD_PERFECT_MONEY",
       "USD_VISAMASTER_INTERKASSA"
-    ],                                        // the list of providers. It is uses for fiat currencies. Provider is a payment system with own fees, which process payment operation
-    "deposit": {                              // for currencies with payment providers fee and amounts shows for each provider directly
+    ], // the list of providers. It is uses for fiat currencies. Provider is a payment system with own fees, which process payment operation
+    "deposit": {
+      // for currencies with payment providers fee and amounts shows for each provider directly
       "USD_VISAMASTER_INTERKASSA": {
         "min_amount": "10",
         "max_amount": "1500",
@@ -448,7 +488,7 @@ ___
         "is_depositable": false,
         "is_api_depositable": true,
         "name": "USD Visa/MasterCard Interkassa", // provider name
-        "ticker": "USD_VISAMASTER_INTERKASSA"     //provider ticker
+        "ticker": "USD_VISAMASTER_INTERKASSA" //provider ticker
       }
     },
     "withdraw": {
@@ -463,7 +503,7 @@ ___
         "ticker": "USD_VISAMASTER_INTERKASSA"
       }
     }
-  },
+  }
 }
 ```
 
@@ -472,6 +512,7 @@ ___
 ```
 [GET] /api/v4/public/time
 ```
+
 This endpoint retrieves the current server time.
 
 **Response is cached for:**
@@ -480,16 +521,19 @@ _1 second_
 ❗ Rate limit 2000 requests/10 sec.
 
 **Response:**
+
 ```json
 {
   "time": 1631451591
 }
 ```
+
 ### Server Status
 
 ```
 [GET] /api/v4/public/ping
 ```
+
 This endpoint retrieves the current API life-state.
 
 ❗ Rate limit 2000 requests/10 sec.
@@ -498,10 +542,9 @@ This endpoint retrieves the current API life-state.
 _1 second_
 
 **Response:**
+
 ```json
-[
-  "pong"
-]
+["pong"]
 ```
 
 ### Collateral Markets List
@@ -509,6 +552,7 @@ _1 second_
 ```
 [GET] /api/v4/public/collateral/markets
 ```
+
 This endpoint returns the list of [markets](./../glossary.md#market) that available for [collateral](./../glossary.md#collateral) trading
 
 ❗ Rate limit 2000 requests/10 sec.
@@ -517,23 +561,24 @@ This endpoint returns the list of [markets](./../glossary.md#market) that availa
 _1 second_
 
 **Response:**
+
 ```json
 [
-    "ADA_USDT",
-    "BCH_USDT",
-    "BTC_USDT",
-    "DOGE_USDT",
-    "EOS_USDT",
-    "ETH_BTC",
-    "ETH_USDT",
-    "LINK_USDT",
-    "LTC_USDT",
-    "SHIB_USDT",
-    "SOL_USDT",
-    "TRX_USDT",
-    "USDC_USDT",
-    "XLM_USDT",
-    "XRP_USDT"
+  "ADA_USDT",
+  "BCH_USDT",
+  "BTC_USDT",
+  "DOGE_USDT",
+  "EOS_USDT",
+  "ETH_BTC",
+  "ETH_USDT",
+  "LINK_USDT",
+  "LTC_USDT",
+  "SHIB_USDT",
+  "SOL_USDT",
+  "TRX_USDT",
+  "USDC_USDT",
+  "XLM_USDT",
+  "XRP_USDT"
 ]
 ```
 
@@ -542,6 +587,7 @@ _1 second_
 ```
 [GET] /api/v4/public/futures
 ```
+
 This endpoint returns the list of available futures markets.
 
 ❗ Rate limit 2000 requests/10 sec.
@@ -550,40 +596,41 @@ This endpoint returns the list of available futures markets.
 _1 second_
 
 **Response:**
+
 ```json
 {
   "success": true,
   "message": null,
   "result": [
     {
-      "ticker_id": "BTC_PERP",                        //Identifier of a ticker with delimiter to separate base/target
-      "stock_currency": "BTC",                        //Symbol/currency code of base pair
-      "money_currency": "USDT",                       //Symbol/currency code of target pair
-      "last_price": "24005.5",                        //Last transacted price of base currency based on given target currency
-      "stock_volume": "196965.591",                   //24 hour trading volume in base pair volume
-      "money_volume": "4737879075.7817",              //24 hour trading volume in target pair volume
-      "bid": "24005.4",                               //Current highest bid price
-      "ask": "24005.6",                               //Current lowest ask price
-      "high": "24295.1",                              //Rolling 24-hours highest transaction price
-      "low": "23765.3",                               //Rolling 24-hours lowest transaction price
-      "product_type": "Perpetual",                    //What product is this? Futures, Perpetual, Options?
-      "open_interest": "6000",                        //The open interest in the last 24 hours in contracts.
-      "index_price": "24019.25",                      //Underlying index price
-      "index_name": "Bitcoin",                        //Name of the underlying index if any
-      "index_currency": "BTC",                        //Underlying currency for index
-      "funding_rate": "0.000044889033693137",         //Current funding rate
+      "ticker_id": "BTC_PERP", //Identifier of a ticker with delimiter to separate base/target
+      "stock_currency": "BTC", //Symbol/currency code of base pair
+      "money_currency": "USDT", //Symbol/currency code of target pair
+      "last_price": "24005.5", //Last transacted price of base currency based on given target currency
+      "stock_volume": "196965.591", //24 hour trading volume in base pair volume
+      "money_volume": "4737879075.7817", //24 hour trading volume in target pair volume
+      "bid": "24005.4", //Current highest bid price
+      "ask": "24005.6", //Current lowest ask price
+      "high": "24295.1", //Rolling 24-hours highest transaction price
+      "low": "23765.3", //Rolling 24-hours lowest transaction price
+      "product_type": "Perpetual", //What product is this? Futures, Perpetual, Options?
+      "open_interest": "6000", //The open interest in the last 24 hours in contracts.
+      "index_price": "24019.25", //Underlying index price
+      "index_name": "Bitcoin", //Name of the underlying index if any
+      "index_currency": "BTC", //Underlying currency for index
+      "funding_rate": "0.000044889033693137", //Current funding rate
       "next_funding_rate_timestamp": "1660665600000", //Timestamp of the next funding rate change
       "brackets": {
-         "1": 0,
-         "2": 0,
-         "3": 0,
-         "5": 0,
-         "10": 0,
-         "20": 0,
-         "50": 20,
-         "100": 50
-       },                                               // Brackets
-       "max_leverage": 100,                             // Max Leverage
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "5": 0,
+        "10": 0,
+        "20": 0,
+        "50": 20,
+        "100": 50
+      }, // Brackets
+      "max_leverage": 100 // Max Leverage
     }
   ]
 }

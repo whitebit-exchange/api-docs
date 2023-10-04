@@ -1,12 +1,12 @@
 # Public HTTP API V2
 
- - [Error messages V2 format](#error-messages-v2-format)
-    - [Market Info](#market-info)
-    - [Market activity](#market-activity)
-    - [Recent Trades](#recent-trades)
-    - [Fee](#fee)
-    - [Asset Status List](#asset-status-list)
-    - [Orderbook](#orderbook)
+- [Error messages V2 format](#error-messages-v2-format)
+  - [Market Info](#market-info)
+  - [Market activity](#market-activity)
+  - [Recent Trades](#recent-trades)
+  - [Fee](#fee)
+  - [Asset Status List](#asset-status-list)
+  - [Orderbook](#orderbook)
 
 Base endpoint is https://whitebit.com
 
@@ -14,28 +14,32 @@ Example how to use: https://whitebit.com/api/v2/public/{endpoint}
 
 All endpoints return time in Unix-time format.
 
-All endpoints return either a __JSON__ object array.
+All endpoints return either a **JSON** object array.
 
-For receiving responses from API calls please use http method __GET__
+For receiving responses from API calls please use http method **GET**
 
 If endpoint required parameters you will need to send them as `query string`
 
-___
+---
+
 ### Error messages V2 format
 
 ```json
 {
-    "success": false,
-    "message": "ERROR MESSAGE",
-    "params": []
+  "success": false,
+  "message": "ERROR MESSAGE",
+  "params": []
 }
 ```
-___
+
+---
+
 ### Market Info
 
 ```
 [GET] /api/v2/public/markets
 ```
+
 This endpoint retrieves all information about available [markets](./../glossary.md#market).
 
 **Response is cached for:**
@@ -45,6 +49,7 @@ _1 second_
 NONE
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -69,13 +74,15 @@ NONE
   ]
 }
 ```
-___
+
+---
 
 ### Market activity
 
 ```
 [GET] /api/v2/public/ticker
 ```
+
 This endpoint retrieves information on recent trading activity on all [markets](./../glossary.md#market).
 
 **Response is cached for:**
@@ -85,6 +92,7 @@ _1 second_
 NONE
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -106,13 +114,15 @@ NONE
   ]
 }
 ```
-___
+
+---
 
 ### Recent Trades
 
 ```
 [GET] /api/v2/public/trades/{market}
 ```
+
 This endpoint retrieves the [trades](./../glossary.md#deal-trade) that have been executed recently on the requested [market](./../glossary.md#market)
 
 **Response is cached for:**
@@ -122,6 +132,7 @@ _1 second_
 NONE
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -140,13 +151,15 @@ NONE
   }
 }
 ```
-___
+
+---
 
 ### Fee
 
 ```
 [GET] /api/v2/public/fee
 ```
+
 This endpoint retrieves the trading [fee](./../glossary.md#fee).
 
 **Response is cached for:**
@@ -156,23 +169,26 @@ _1 second_
 NONE
 
 **Response:**
+
 ```json
 {
   "success": true,
   "message": null,
   "result": {
-    "makerFee": "0.1",  // Default maker fee (percent of trading amount in money currency)
-    "takerFee": "0.1"   // Default taker fee (percent of trading amount in money currency)
+    "makerFee": "0.1", // Default maker fee (percent of trading amount in money currency)
+    "takerFee": "0.1" // Default taker fee (percent of trading amount in money currency)
   }
 }
 ```
-___
+
+---
 
 ### Asset Status List
 
 ```
 [GET] /api/v2/public/assets
 ```
+
 This endpoint retrieves the [assets](./../glossary.md#assets) status.
 
 **Response is cached for:**
@@ -182,6 +198,7 @@ _1 second_
 NONE
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -202,13 +219,15 @@ NONE
   }
 }
 ```
-___
+
+---
 
 ### Orderbook
 
 ```
 [GET] /api/v2/public/depth/{market}
 ```
+
 This endpoint retrieves the current [order book](../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)).
 
 **Response is cached for:**
@@ -218,6 +237,7 @@ _0.5 second_
 NONE
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -249,4 +269,5 @@ NONE
   },
 }
 ```
-___
+
+---
