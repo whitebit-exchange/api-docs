@@ -223,7 +223,7 @@ The requested interval must meet the following conditions:
 
 #### Subscribe
 
-Update interval: 0,5 sec
+Update interval: 0.5 sec
 
 ##### ⤴️ Request:
 
@@ -544,7 +544,7 @@ Update interval: 1 sec
 
 #### Subscribe
 
-Update interval: 0,5 sec
+Update interval: 1 sec
 
 ##### ⤴️ Request:
 
@@ -658,6 +658,8 @@ Update interval: 0,5 sec
 ```
 
 #### Subscribe
+
+Update interval: 0.3 sec
 
 ❗ For each websocket connection, you can subscribe to either one or several markets. Every following subscription will replace the existing one.
 
@@ -776,7 +778,7 @@ Update interval: 0,5 sec
 
 #### Subscribe
 
-Update interval: 1 sec
+Update interval: 0.3 sec
 
 ##### ⤴️ Request:
 
@@ -785,10 +787,10 @@ Update interval: 1 sec
   "id": 12,
   "method": "depth_subscribe",
   "params": [
-    "ETH_BTC", // market
-    100, // limit, max value is 100
-    "0", // price interval units. "0" - no interval, available values - "0.00000001", "0.0000001", "0.000001", "0.00001", "0.0001", "0.001", "0.01", "0.1"
-    true // multiple subscription flag. true - add, false - unsubscribe from all
+    "ETH_BTC",  // market
+    100,        // limit, max value is 100
+    "0",        // price interval units. "0" - no interval, available values - "0.00000001", "0.0000001", "0.000001", "0.00001", "0.0001", "0.001", "0.01", "0.1"
+    true        // multiple subscription flag. true - add, false - unsubscribe from all
   ]
 }
 ```
