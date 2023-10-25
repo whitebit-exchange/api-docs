@@ -2222,7 +2222,7 @@ NONE
 | clientOrderId | String | **No**    | Requested available clientOrderId. Example: clientOrderId                                                                                                             |
 | limit         | Int    | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
 | offset        | Int    | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
-| status        | String | **No**    | Possible values: "all", "executed", "canceled"                                                                                                                        |
+| status        | String | **No**    | Possible values: "all", "filled", "canceled"                                                                                                                          |
 
 **Request BODY raw:**
 
