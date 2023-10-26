@@ -163,8 +163,6 @@ NONE
     "can_deposit": true,                      // Identifies whether deposits are enabled or disabled.
     "min_withdraw": "0.001",                  // Identifies the single minimum withdrawal amount of a cryptocurrency.
     "max_withdraw": "2",                      // Identifies the single maximum withdrawal amount of a cryptocurrency.
-    "maker_fee": "0.1",                       // Maker fee in percentage
-    "taker_fee": "0.1",                       // Taker fee in percentage
     "min_deposit": "0.0001",                  // Min deposit amount
     "max_deposit": "0",                       // Max deposit amount, will not be returned if there is no limit, 0 if unlimited
     "currency_precision": 18,                 // Max number of digits to the right of the decimal point
@@ -201,8 +199,6 @@ NONE
     "can_deposit": true,
     "min_withdraw": "0.02",
     "max_withdraw": "0",
-    "maker_fee": "0.1",
-    "taker_fee": "0.1",
     "min_deposit": "0.1",
     "max_deposit": "0",
     "currency_precision": 18,
@@ -239,8 +235,6 @@ NONE
     "can_deposit": true,
     "min_withdraw": "5",
     "max_withdraw": "0",
-    "maker_fee": "0.1",
-    "taker_fee": "0.1",
     "min_deposit": "0",
     "max_deposit": "0",
     "currency_precision": 6,
@@ -294,8 +288,6 @@ NONE
     "can_deposit": true,
     "min_withdraw": "50",
     "max_withdraw": "100000",
-    "maker_fee": "0.1",
-    "taker_fee": "0.1",
     "min_deposit": "50",
     "max_deposit": "100000",
     "is_memo": false,
