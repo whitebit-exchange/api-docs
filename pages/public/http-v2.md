@@ -212,8 +212,6 @@ NONE
       "canDeposit": true,                                   // Is currency depositable
       "minWithdrawal": "0.001",                             // Minimal amount to withdraw
       "maxWithdrawal": "0",                                 // Maximum amount to withdraw
-      "makerFee": "0.1",                                    // Maker fee for currency
-      "takerFee": "0.1"                                     // Taker fee for currency
     },
     {...}
   }
