@@ -35,6 +35,7 @@
     - [Estimate](#convert-estimate)
     - [Confirm](#convert-confirm)
     - [History](#convert-history)
+
 ---
 
 Base URL is https://whitebit.com
