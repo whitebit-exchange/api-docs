@@ -4773,13 +4773,6 @@ Available statuses:
 
 ```json
 {
-  "path": [
-    {
-      "from": "BTC",
-      "to": "USDT",
-      "rate": "34299.76831549"
-    }
-  ],
   "fee": "0",
   "give": "50",
   "receive": "1714988.41577452",
@@ -4943,13 +4936,6 @@ Available statuses:
   "records": [
     {
       "id": "4030",
-      "path": [
-        {
-          "from": "BTC",
-          "to": "USDT",
-          "rate": "34470.87211306"
-        }
-      ],
       "date": 1699020642,
       "fee": "0",
       "give": "0.00002901",
