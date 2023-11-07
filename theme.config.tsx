@@ -1,11 +1,10 @@
 import React from "react";
 import { DocsThemeConfig } from "nextra-theme-docs";
-import { assetPrefix } from "./constants";
 
 const config: DocsThemeConfig = {
   logo: (
     <img
-      src={`${assetPrefix}/img/logo.svg`}
+      src={"/img/logo.svg"}
       alt={"WhiteBIT logo"}
       width={32}
       height={32}
@@ -19,7 +18,7 @@ const config: DocsThemeConfig = {
     return {
       titleTemplate: "%s | WhiteBIT API Documentation",
       openGraph: {
-        images: [{ url: `${assetPrefix}/img/og-image.png` }],
+        images: [{ url: "/img/og-image.png" }],
         siteName: "WhiteBIT API Documentation",
       },
     };
@@ -35,19 +34,19 @@ const config: DocsThemeConfig = {
       <link
         rel="shortcut icon"
         type="image/x-icon"
-        href={`${assetPrefix}/img/favicon.ico`}
+        href={"/img/favicon.ico"}
       />
       <link
         rel="icon"
         type="image/x-icon"
         sizes="16x16"
-        href={`${assetPrefix}/img/favicon-16x16.png`}
+        href={"/img/favicon-16x16.png"}
       />
       <link
         rel="icon"
         type="image/x-icon"
         sizes="32x32"
-        href={`${assetPrefix}/img/favicon-32x32.png`}
+        href={"/img/favicon-32x32.png"}
       />
     </>
   ),
