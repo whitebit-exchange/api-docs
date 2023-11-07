@@ -31,6 +31,13 @@
       "breadcrumb": false
     }
   },
+  "sdks": {
+    "title": "SDKs",
+    "theme": {
+      "toc": false,
+      "layout": "full"
+    }
+  },
   "glossary": {
     "title": "Glossary",
     "theme": {
