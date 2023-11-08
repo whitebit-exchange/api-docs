@@ -4773,11 +4773,13 @@ Available statuses:
 
 ```json
 {
+  "id": 123,
+  "from": "BTC",
+  "to": "USDT",
   "fee": "0",
   "give": "50",
   "receive": "1714988.41577452",
   "rate": "34299.76831549",
-  "id": 123,
   "expireAt": 1699016476
 }
 ```
@@ -4940,7 +4942,14 @@ Available statuses:
       "fee": "0",
       "give": "0.00002901",
       "receive": "1",
-      "rate": "34470.87211306"
+      "rate": "34470.87211306",
+      "path": [
+        {
+          "from": "BTC",
+          "to": "USDT",
+          "rate": "34470.87211306"
+        }
+      ]
     }
   ],
   "total": 4,
