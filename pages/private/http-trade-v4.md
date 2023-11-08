@@ -4773,7 +4773,7 @@ Available statuses:
 
 ```json
 {
-  "id": 123,
+  "id": "123",
   "from": "BTC",
   "to": "USDT",
   "fee": "0",
