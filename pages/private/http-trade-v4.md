@@ -4776,7 +4776,6 @@ Available statuses:
   "id": "123",
   "from": "BTC",
   "to": "USDT",
-  "fee": "0",
   "give": "50",
   "receive": "1714988.41577452",
   "rate": "34299.76831549",
@@ -4939,7 +4938,6 @@ Available statuses:
     {
       "id": "4030",
       "date": 1699020642,
-      "fee": "0",
       "give": "0.00002901",
       "receive": "1",
       "rate": "34470.87211306",
