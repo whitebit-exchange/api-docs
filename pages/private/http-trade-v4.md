@@ -4730,19 +4730,19 @@ NONE
 
 **Parameters:**
 
-| Name      | Type   | Mandatory | Description                                                                                                        |
-|-----------|--------|-----------|--------------------------------------------------------------------------------------------------------------------|
-| from      | String | **Yes**   | From currency. Example: BTC                                                                                        |
-| to        | String | **Yes**   | To currency. Example: USDT                                                                                         |
-| direction | String | **Yes**   | Convert direction. Can be either: 'from' or 'to'. Option 'to' means you want to receive 'amount' in 'to' currency. |
-| amount    | String | **Yes**   | Amount to convert or receive.                                                                                      |
+| Name      | Type   | Mandatory | Description                                                                                                                                                                                                       |
+|-----------|--------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| from      | String | **Yes**   | From currency. Example: BTC                                                                                                                                                                                       |
+| to        | String | **Yes**   | To currency. Example: USDT                                                                                                                                                                                        |
+| direction | String | **Yes**   | Convert amount direction, defines in which currency corresponding “amount” field is populated. Use “to” in case amount is in “to” currency, use “from” if amount is in “from” currency (see use case samples below) |
+| amount    | String | **Yes**   | Amount to convert or receive.                                                                                                                                                                                     |
 
 **Request BODY raw:**
 
-Example of 'I want to estimate convert of BTC to 1 USDT':
+Example of 'I would like to estimate convert of BTC to receive 35,103.1 USDT':
 ```json
 {
-  "amount": "1",
+  "amount": "35,103.1",
   "direction": "to", // enum('from', 'to')
   "from": "BTC",
   "to": "USDT",
@@ -4751,7 +4751,7 @@ Example of 'I want to estimate convert of BTC to 1 USDT':
 }
 ```
 
-Example of 'I want to estimate convert of 1 BTC to USDT':
+Example of 'I would like to estimate convert of 1 BTC to USDT':
 ```json
 {
   "amount": "1",
