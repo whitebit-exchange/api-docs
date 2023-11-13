@@ -31,6 +31,10 @@
     - [Query unexecuted(active) OCO orders](#query-unexecutedactive-oco-orders)
     - [Create collateral OCO order](#create-collateral-oco-order)
     - [Cancel OCO order](#cancel-oco-order)
+  - [Convert](#convert)
+    - [Estimate](#convert-estimate)
+    - [Confirm](#convert-confirm)
+    - [History](#convert-history)
 
 ---
 
@@ -4700,6 +4704,280 @@ Error codes:
   "errors": {
     "postOnly": [
       "This order couldn't be executed as a maker order and was canceled."
+    ]
+  }
+}
+```
+
+</details>
+
+---
+
+## Convert
+
+### Convert Estimate
+
+```
+[POST] /api/v4/convert/estimate
+```
+
+This endpoint creates a quote for converting one currency to another.
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name      | Type   | Mandatory | Description                                                                                                                                                                                                       |
+|-----------|--------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| from      | String | **Yes**   | From currency. Example: BTC                                                                                                                                                                                       |
+| to        | String | **Yes**   | To currency. Example: USDT                                                                                                                                                                                        |
+| direction | String | **Yes**   | Convert amount direction, defines in which currency corresponding “amount” field is populated. Use “to” in case amount is in “to” currency, use “from” if amount is in “from” currency (see use case samples below) |
+| amount    | String | **Yes**   | Amount to convert or receive.                                                                                                                                                                                     |
+
+**Request BODY raw:**
+
+Example of 'I would like to estimate convert of BTC to receive 35,103.1 USDT':
+```json
+{
+  "amount": "35,103.1",
+  "direction": "to", // enum('from', 'to')
+  "from": "BTC",
+  "to": "USDT",
+  "nonce": "{{nonce}}",
+  "request": "{{request}}"
+}
+```
+
+Example of 'I would like to estimate convert of 1 BTC to USDT':
+```json
+{
+  "amount": "1",
+  "direction": "from", // enum('from', 'to')
+  "from": "BTC",
+  "to": "USDT",
+  "nonce": "{{nonce}}",
+  "request": "{{request}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if inner validation failed`
+- `Status 422 if validation failed`
+
+```json
+{
+  "id": "123",
+  "from": "BTC",
+  "to": "USDT",
+  "give": "50",
+  "receive": "1714988.41577452",
+  "rate": "34299.76831549",
+  "expireAt": 1699016476
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "user": [
+      "Terms of exchange are not accepted"
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "direction": [
+      "Direction field does not exist in [from,to]."
+    ]
+  }
+}
+```
+
+```json
+{
+    "code": 0,
+    "message": "Validation failed",
+    "errors": {
+        "from": [
+            "Conversion markets not available"
+        ]
+    }
+}
+```
+
+</details>
+
+---
+
+### Convert Confirm
+
+```
+[POST] /api/v4/convert/confirm
+```
+
+This endpoint confirms an estimated quote. 
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name    | Type   | Mandatory | Description |
+|---------|--------|-----------|-------------|
+| quoteId | String | **Yes**   | Quote ID    |
+
+**Request BODY raw:**
+
+```json
+{
+  "quoteId": 4050,
+  "nonce": "{{nonce}}",
+  "request": "{{request}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if inner validation failed`
+- `Status 422 if validation failed`
+
+```json
+{
+  "finalGive": "0.00002901",
+  "finalReceive": "1"
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "quoteId": [
+      "Quote could not be found"
+    ]
+  }
+}
+```
+
+</details>
+
+---
+
+### Convert History
+
+```
+[POST] /api/v4/convert/history
+```
+
+This endpoint returns convert history.
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name       | Type   | Mandatory | Description                               |
+|------------|--------|-----------|-------------------------------------------|
+| fromTicker | String | **No**    | From currency. Example: BTC               |
+| toTicker   | String | **No**    | To currency. Example: USDT                |
+| from       | String | **No**    | From time filter. Example: 1699260637     |
+| to         | String | **No**    | To time filter. Example: 1699260637       |
+| quoteId    | String | **No**    | Quote Id. Example: 4050                   |
+| limit      | String | **No**    | How many records to receive. Default: 100 |
+| offset     | String | **No**    | Amount to convert or receive. Default 0   |
+
+**Request BODY raw:**
+
+```json
+{
+  "fromTicker": "BTC",
+  "nonce": "{{nonce}}",
+  "request": "{{request}}",
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if inner validation failed`
+- `Status 422 if validation failed`
+
+```json
+{
+  "records": [
+    {
+      "id": "4030",
+      "date": 1699020642,
+      "give": "0.00002901",
+      "receive": "1",
+      "rate": "34470.87211306",
+      "path": [
+        {
+          "from": "BTC",
+          "to": "USDT",
+          "rate": "34470.87211306"
+        }
+      ]
+    }
+  ],
+  "total": 4,
+  "limit": 1,
+  "offset": 0
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "fromTicker": [
+      "fromTicker is invalid."
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "toTicker": [
+      "toTicker is invalid."
     ]
   }
 }
