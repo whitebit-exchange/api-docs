@@ -4725,9 +4725,6 @@ This endpoint creates a quote for converting one currency to another.
 
 ❗ Rate limit 10000 requests/10 sec.
 
-**Response is cached for:**
-NONE
-
 **Parameters:**
 
 | Name      | Type   | Mandatory | Description                                                                                                                                                                                                       |
