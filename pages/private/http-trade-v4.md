@@ -4721,7 +4721,7 @@ Error codes:
 [POST] /api/v4/convert/estimate
 ```
 
-This endpoint creates a quote for converting one currency to another.
+This endpoint creates a quote for converting one currency to another. Quote lifetime is 10 seconds, then quote will be expired.
 
 ❗ Rate limit 10000 requests/10 sec.
 
