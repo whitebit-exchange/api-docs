@@ -659,7 +659,7 @@ Update interval: 1 sec
 
 #### Subscribe
 
-Update interval: 0.3 sec
+Update interval: 100 ms
 
 ❗ For each websocket connection, you can subscribe to either one or several markets. Every following subscription will replace the existing one.
 
@@ -778,7 +778,7 @@ Update interval: 0.3 sec
 
 #### Subscribe
 
-Update interval: 0.3 sec
+Update interval: 100 ms
 
 ##### ⤴️ Request:
 
