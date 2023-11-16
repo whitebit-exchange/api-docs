@@ -3,6 +3,10 @@ const withNextra = require("nextra")({
   themeConfig: "./theme.config.tsx",
 });
 
+const isProduction = process.env.NODE_ENV === "production";
+
+const assetPrefix = isProduction ? "/api-docs" : "";
+
 module.exports = {
   ...withNextra(),
   images: {
@@ -11,6 +15,6 @@ module.exports = {
   reactStrictMode: true,
   swcMinify: true,
   trailingSlash: true,
-  // assetPrefix,
-  // basePath: assetPrefix,
+  assetPrefix,
+  basePath: assetPrefix,
 };
