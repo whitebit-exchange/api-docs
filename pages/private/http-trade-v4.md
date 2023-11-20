@@ -11,6 +11,7 @@
     - [Create stop-limit order](#create-stop-limit-order)
     - [Create stop-market order](#create-stop-market-order)
     - [Cancel order](#cancel-order)
+    - [Cancel all orders](#cancel-all-orders)
     - [Query unexecuted(active) orders](#query-unexecutedactive-orders)
     - [Query executed order history](#query-executed-order-history)
     - [Query executed order deals](#query-executed-order-deals)
@@ -1716,6 +1717,119 @@ Error codes:
   "message": "Validation failed",
   "errors": {
     "orderId": ["OrderId field should be an integer."]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "market": [
+      "Market field should be a string.",
+      "Market field format is invalid."
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 2,
+  "message": "Inner validation failed",
+  "errors": {
+    "orderId": ["Unexecuted order was not found."]
+  }
+}
+```
+
+```json
+{
+  "code": 1,
+  "message": "Inner validation failed",
+  "errors": {
+    "amount": ["Invalid argument."]
+  }
+}
+```
+
+</details>
+
+---
+
+### Cancel all orders
+
+```
+[POST] /api/v4/order/cancel/all
+```
+
+Cancel existing [order](./../glossary.md#orders)
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name  | Type | Mandatory | Description                                                    |
+| -----  | --------- | -------------------------------------------------------------- | ---|
+| market | String | **No**   | Available [market](./../glossary.md#market). Example: BTC_USDT |
+| type   | Array  | **No**    | Order types value. Example: "spot", "margin", "futures" |
+
+
+**Request BODY raw:**
+
+```json
+{
+  "market": "BTC_USDT",
+  "type": [
+    "Margin",
+    "Futures",
+    "Spot"
+  ]
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if inner validation failed`
+- `Status 422 if validation failed`
+- `Status 503 if service temporary unavailable`
+
+```json
+[]
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+Error codes:
+
+- `30` - default validation error code
+- `31` - market validation failed
+
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market is not available."]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "type": ["The type must be an array."]
   }
 }
 ```
