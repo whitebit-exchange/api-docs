@@ -231,7 +231,7 @@ NONE
 This endpoint retrieves the current [order book](../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)).
 
 **Response is cached for:**
-_0.5 second_
+_1.0 second_
 
 **Parameters:**
 NONE
