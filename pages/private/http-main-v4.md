@@ -446,8 +446,6 @@ NONE
 | beneficiary.phone     | String         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: USD_VISAMASTER, EUR_VISAMASTER**                     | Beneficiary phone number.                                                                                                                                                                                                                                                 |
 | beneficiary.email     | String         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: USD_VISAMASTER, EUR_VISAMASTER**                     | Beneficiary email.                                                                                                                                                                                                                                                        |
 
-_Please note that this endpoint has necessary limitation to avoid spam attack. The limit is 100 requests per minute. In case the limit is exceeded you will receive an 429 error code. _
-
 **Request BODY raw:**
 
 ```json
@@ -733,8 +731,6 @@ NONE
 | to     | String         | **No** if **method** is set           | Balance TO which funds will move to. Acceptable values: [**main**](./../glossary.md#balance-main), [**spot**](./../glossary.md#balance-spotbalance-trade), [**collateral**](./../glossary.md#balance-collateral)                                                                                                                                                                                                                                                                                                                                                              |
 | ticker | String         | **Yes**                               | Currency's [ticker](./../glossary.md#ticker). Example: BTC                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | amount | Numeric string | **Yes**                               | Amount to transfer. Max [precision](./../glossary.md#precision) = 8, value should be greater than zero and less or equal your available balance.                                                                                                                                                                                                                                                                                                                                                                                                                              |
-
-_Please note that this endpoint has necessary limitation to avoid spam attack. The limit is 100 requests per minute. In case the limit is exceeded you will receive an 429 error code. _
 
 **Request BODY raw:**
 
@@ -1355,7 +1351,7 @@ Passphrase must contain only latin letters, numbers and symbols (like !@#$%^, no
 
 This endpoint applies [WhiteBIT code](./../glossary.md#whitebit-codescodes).
 
-❗ Rate limit 1000 requests/10 sec.
+❗ Rate limit 60 requests/1 sec.
 
 **Response is cached for:**
 NONE
