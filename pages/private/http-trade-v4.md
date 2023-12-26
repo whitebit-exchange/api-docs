@@ -1703,6 +1703,16 @@ Error codes:
 
 ```json
 {
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market is not available."]
+  }
+}
+```
+
+```json
+{
   "code": 31,
   "message": "Validation failed",
   "errors": {
@@ -1886,13 +1896,13 @@ NONE
 
 **Parameters:**
 
-| Name          | Type   | Mandatory | Description                                                                                                                                                           |
-| ------------- | ------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| market        | String | **No**    | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
-| orderId       | String | **No**    | Available orderId. Example: 3134995325                                                                                                                                |
-| clientOrderId | String | **No**    | Available clientOrderId. Example: customId11                                                                                                                          |
-| limit         | Int    | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
-| offset        | Int    | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+| Name          | Type        | Mandatory | Description                                                                                                                                                           |
+| ------------- |-------------| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market        | String      | **No**    | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
+| orderId       | String/Int  | **No**    | Available orderId. Example: 3134995325                                                                                                                                |
+| clientOrderId | String      | **No**    | Available clientOrderId. Example: customId11                                                                                                                          |
+| limit         | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
+| offset        | String/Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
 
 Search across all markets is available only if clientOrderId and orderId are not provided.
 
@@ -2057,12 +2067,12 @@ NONE
 
 **Parameters:**
 
-| Name          | Type   | Mandatory | Description                                                                                                                                                           |
-| ------------- | ------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| market        | String | **No**    | Requested market. Example: BTC_USDT                                                                                                                                   |
-| clientOrderId | String | **No**    | Requested clientOrderId. Example: customId11                                                                                                                          |
-| limit         | Int    | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
-| offset        | Int    | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+| Name          | Type        | Mandatory | Description                                                                                                                                                           |
+| ------------- |-------------| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market        | String      | **No**    | Requested market. Example: BTC_USDT                                                                                                                                   |
+| clientOrderId | String      | **No**    | Requested clientOrderId. Example: customId11                                                                                                                          |
+| limit         | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
+| offset        | String/Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
 
 **Request BODY raw:**
 
@@ -2192,11 +2202,11 @@ NONE
 
 **Parameters:**
 
-| Name    | Type | Mandatory | Description                                                                                                                                                           |
-| ------- | ---- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| orderId | Int  | **Yes**   | Order ID. Example: 1234                                                                                                                                               |
-| limit   | Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
-| offset  | Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+| Name    | Type        | Mandatory | Description                                                                                                                                                          |
+| ------- |-------------| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| orderId | String/Int  | **Yes**   | Order ID. Example: 1234                                                                                                                                              |
+| limit   | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                         |
+| offset  | String/Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 1000 |
 
 **Request BODY raw:**
 
@@ -2333,14 +2343,14 @@ NONE
 
 **Parameters:**
 
-| Name          | Type   | Mandatory | Description                                                                                                                                                           |
-|---------------|--------| --------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| market        | String | **No**    | Requested available market. Example: BTC_USDT                                                                                                                         |
-| orderId       | String | **No**    | Requested available orderId. Example: 3134995325                                                                                                                      |
-| clientOrderId | String | **No**    | Requested available clientOrderId. Example: clientOrderId                                                                                                             |
-| limit         | Int    | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
-| offset        | Int    | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
-| status        | String | **No**    | Possible values: "all", "filled", "canceled"                                                                                                                          |
+| Name          | Type        | Mandatory | Description                                                                                                                                                           |
+|---------------|-------------| --------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| market        | String/Int  | **No**    | Requested available market. Example: BTC_USDT                                                                                                                         |
+| orderId       | String/Int  | **No**    | Requested available orderId. Example: 3134995325                                                                                                                      |
+| clientOrderId | String      | **No**    | Requested available clientOrderId. Example: clientOrderId                                                                                                             |
+| limit         | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
+| offset        | String/Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+| status        | String      | **No**    | Possible values: "all", "filled", "canceled"                                                                                                                          |
 
 **Request BODY raw:**
 
@@ -2508,6 +2518,23 @@ Available statuses:
 }
 ```
 
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "ticker": [
+      "ticker is invalid."
+    ]
+  }
+}
+```
+
+</details>
+
 ### Collateral Account Balance Summary
 
 ```
@@ -2550,6 +2577,23 @@ Available statuses:
   }
 ]
 ```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "ticker": [
+      "ticker is invalid."
+    ]
+  }
+}
+```
+
+</details>
 
 ### Collateral Limit Order
 
@@ -3421,11 +3465,11 @@ NONE
 
 **Parameters:**
 
-| Name   | Type   | Mandatory | Description                                                                                                                                                           |
-| ------ | ------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| market | String | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
-| limit  | Int    | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
-| offset | Int    | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+| Name   | Type        | Mandatory | Description                                                                                                                                                           |
+| ------ |-------------| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market | String      | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
+| limit  | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
+| offset | String/Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
 
 **Request BODY raw:**
 
