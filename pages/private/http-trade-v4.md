@@ -650,7 +650,7 @@ Error codes:
   "code": 32,
   "message": "Validation failed",
   "errors": {
-    "amount": ["Total amount + fee should be no less than"]
+    "amount": ["Total amount should be no less than 5.05 + trade fee"]
   }
 }
 ```
