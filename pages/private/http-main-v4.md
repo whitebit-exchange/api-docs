@@ -6,7 +6,7 @@
   - [Get fiat deposit address](#get-fiat-deposit-address)
   - [Create withdraw request](#create-withdraw-request)
   - [Create withdraw request with the specific withdraw amount (fee is not included)](#create-withdraw-request-with-the-specific-withdraw-amount-fee-is-not-included)
-  - [Transfer between main and trade balances](#transfer-between-main-and-trade-balances)
+  - [Transfers between balances](#transfer-between-balances)
   - [Get deposit/withdraw history](#get-depositwithdraw-history)
   - [Create new address for deposit](#create-new-address-for-deposit)
   - [Codes](#codes)
@@ -709,13 +709,13 @@ Example:
 
 ---
 
-### Transfer between main and trade balances
+### Transfer between balances
 
 ```
 [POST] /api/v4/main-account/transfer
 ```
 
-This endpoint transfers the specified amount between [main](./../glossary.md#balance-main) and [trade](./../glossary.md#balance-spotbalance-trade) balances
+This endpoint transfers the specified amount between [main](./../glossary.md#balance-main), [trade](./../glossary.md#balance-spotbalance-trade) and [collateral](./../glossary.md#balance-collateral) balances
 
 ❗ Rate limit 1000 requests/10 sec.
 
