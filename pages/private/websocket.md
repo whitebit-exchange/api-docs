@@ -146,6 +146,8 @@ JSON Structure of response message:
 
 This V4 endpoint can be used to retrieve the websocket token for user.
 
+❗ Rate limit 10 requests/60 sec.
+
 **Request BODY raw:**
 
 ```json
