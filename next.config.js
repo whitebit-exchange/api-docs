@@ -8,6 +8,7 @@ module.exports = {
   images: {
     unoptimized: true,
   },
+  output: "export",
   reactStrictMode: true,
   swcMinify: true,
   trailingSlash: true,
