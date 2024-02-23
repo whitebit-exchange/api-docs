@@ -788,7 +788,7 @@ Update interval: 100 ms
   "method": "depth_subscribe",
   "params": [
     "ETH_BTC",  // market
-    100,        // limit, max value is 100
+    100,        // limit. available values - 1, 5, 10, 20, 30, 50, 100
     "0",        // price interval units. "0" - no interval, available values - "0.00000001", "0.0000001", "0.000001", "0.00001", "0.0001", "0.001", "0.01", "0.1"
     true        // multiple subscription flag. true - add, false - unsubscribe from all
   ]
