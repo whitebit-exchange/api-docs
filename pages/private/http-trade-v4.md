@@ -18,6 +18,7 @@
     - [Query executed orders](#query-executed-orders)
     - [Sync kill-switch timer](#sync-kill-switch-timer)
     - [Status kill-switch timer](#status-kill-switch-timer)
+    - [Order modify](#modify-order)
   - [Collateral](#collateral)
     - [Collateral Account Balance](#collateral-account-balance)
     - [Collateral Account Balance Summary](#collateral-account-balance-summary)
@@ -32,6 +33,7 @@
     - [Query unexecuted(active) OCO orders](#query-unexecutedactive-oco-orders)
     - [Create collateral OCO order](#create-collateral-oco-order)
     - [Cancel OCO order](#cancel-oco-order)
+    - [Cancel OTO order](#cancel-oto-order)
   - [Convert](#convert)
     - [Estimate](#convert-estimate)
     - [Confirm](#convert-confirm)
@@ -1945,7 +1947,12 @@ Available statuses:
         "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
         "left": "2.241379",               // unexecuted amount in stock
         "dealFee": "0",                   // executed fee by deal
-        "price": "40000"                  // unexecuted order price
+        "price": "40000",                 // unexecuted order price
+        "oto": {                          // OTO order data - if stopLoss or takeProfit is specified
+          "otoId": 29457221,              // ID of the OTO
+          "stopLoss": "30000",            // stop loss order price - if stopLoss is specified
+          "takeProfit": "50000"           // take profit order price - if takeProfit is specified
+      }
     },
     {...}
 ]
@@ -2611,12 +2618,14 @@ NONE
 **Parameters:**
 
 | Name          | Type    | Mandatory | Description                                                                                                                                                                                                                                        |
-| ------------- | ------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ------------- |---------| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | market        | String  | **Yes**   | Available margin market. Example: BTC_USDT                                                                                                                                                                                                         |
 | side          | String  | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite [order](./../glossary.md#orders) with current position amount. |
 | amount        | String  | **Yes**   | ⚠️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.                                                                                                                                                                 |
 | price         | String  | **Yes**   | Price in [money](./../glossary.md#money) currency. Example: '9800'                                                                                                                                                                                 |
 | clientOrderId | String  | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.                                                                                                                      |
+| stopLoss      | String  | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                        |
+| takeProfit    | String  | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                    |
 | postOnly      | boolean | **No**    | Orders are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: true / false Example: false.                                                                                   |
 | ioc           | boolean | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                  |
 
@@ -2631,6 +2640,8 @@ NONE
   "postOnly": false,
   "ioc": false,
   "clientOrderId": "order1987111",
+  "stopLoss": "50000",
+  "takeProfit": "30000",
   "request": "{{request}}",
   "nonce": "{{nonce}}"
 }
@@ -2661,6 +2672,11 @@ Available statuses:
   "price": "40000", // price
   "postOnly": false, // PostOnly
   "ioc": false // IOC
+  "oto": { // OTO order data - if stopLoss or takeProfit is specified
+    "otoId": 29457221, // ID of the OTO
+    "stopLoss": "30000", // stop loss order price - if stopLoss is specified
+    "takeProfit": "50000" // take profit order price - if takeProfit is specified
+  }
 }
 ```
 
@@ -2699,11 +2715,13 @@ NONE
 **Parameters:**
 
 | Name          | Type   | Mandatory | Description                                                                                                                                                                                                                                        |
-| ------------- | ------ | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ------------- | ------ | --------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | market        | String | **Yes**   | Available margin market. Example: BTC_USDT                                                                                                                                                                                                         |
 | side          | String | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite [order](./../glossary.md#orders) with current position amount. |
 | amount        | String | **Yes**   | ⚠️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.                                                                                                                                                                 |
 | clientOrderId | String | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.                                                                                                                      |
+| stopLoss      | String | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                        |
+| takeProfit    | String | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                    |
 
 **Request BODY raw:**
 
@@ -2724,6 +2742,8 @@ NONE
   "side": "sell",
   "amount": "0.01", // I want to sell 0.01 BTC
   "clientOrderId": "order1987111",
+  "stopLoss": "50000",
+  "takeProfit": "40000",
   "request": "{{request}}",
   "nonce": "{{nonce}}"
 }
@@ -2741,7 +2761,7 @@ Available statuses:
   "orderId": 4180284841, // order id
   "clientOrderId": "order1987111", // custom client order id; "clientOrderId": "" - if not specified.
   "market": "BTC_USDT", // deal market
-  "side": "buy", // order side
+  "side": "sell", // order side
   "type": "market", // order type
   "timestamp": 1595792396.165973, // current timestamp
   "dealMoney": "0", // amount in money currency that finished
@@ -2751,6 +2771,11 @@ Available statuses:
   "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - its rounded to zero
   "left": "0.001", // rest of amount that must be finished
   "dealFee": "0" // fee in money that you pay if order is finished
+  "oto": { // OTO order data - if stopLoss or takeProfit is specified
+    "otoId": 29457221, // ID of the OTO
+    "stopLoss": "50000", // stop loss order price - if stopLoss is specified
+    "takeProfit": "40000" // take profit order price - if takeProfit is specified
+  }
 }
 ```
 
@@ -2788,13 +2813,15 @@ NONE
 **Parameters:**
 
 | Name             | Type          | Mandatory | Description                                                                                                                   |
-| ---------------- | ------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------- |
+|------------------| ------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | market           | String        | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                |
 | side             | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                          |
 | amount           | String/Number | **Yes**   | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                  |
 | price            | String/Number | **Yes**   | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800                                                    |
 | activation_price | String/Number | **Yes**   | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                       |
 | clientOrderId    | String        | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours. |
+| stopLoss         | String/Number | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                        |
+| takeProfit       | String/Number | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                    |
 
 **Request BODY raw:**
 
@@ -2805,6 +2832,8 @@ NONE
   "amount": "0.001",
   "price": "40000",
   "activation_price": "40000",
+  "stopLoss": "30000",
+  "takeProfit": "50000",
   "clientOrderId": "order1987111",
   "request": "{{request}}",
   "nonce": "{{nonce}}"
@@ -2836,6 +2865,11 @@ Available statuses:
   "dealFee": "0", // fee in money that you pay if order is finished
   "price": "40000", // price
   "activation_price": "40000" // activation price
+  "oto": { // OTO order data - if stopLoss or takeProfit is specified
+    "otoId": 29457221, // ID of the OTO
+    "stopLoss": "30000", // stop loss order price - if stopLoss is specified
+    "takeProfit": "50000" // take profit order price - if takeProfit is specified
+  }
 }
 ```
 
@@ -3155,12 +3189,14 @@ NONE
 **Parameters:**
 
 | Name             | Type   | Mandatory | Description                                                                                                                                                                                                             |
-| ---------------- | ------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|--------| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | market           | String | **Yes**   | Available margin market. Example: BTC_USDT                                                                                                                                                                              |
 | side             | String | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite order with current position amount. |
 | amount           | String | **Yes**   | ⚠️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.                                                                                                                                      |
 | activation_price | String | **Yes**   | Activation price in [money](./../glossary.md#money) currency. Example: '10000'                                                                                                                                          |
 | clientOrderId    | String | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.                                                                                           |
+| stopLoss         | String | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                        |
+| takeProfit       | String | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                    |
 
 **Request BODY raw:**
 
@@ -3182,6 +3218,8 @@ NONE
   "side": "sell",
   "amount": "0.01", // I want to sell 0.01 BTC
   "activation_price": "40000",
+  "stopLoss": "50000",
+  "takeProfit": "30000",
   "request": "{{request}}",
   "nonce": "{{nonce}}"
 }
@@ -3199,7 +3237,7 @@ Available statuses:
   "orderId": 4180284841, // order id
   "clientOrderId": "order1987111", // custom order identifier; "clientOrderId": "" - if not specified.
   "market": "BTC_USDT", // deal market
-  "side": "buy", // order side
+  "side": "sell", // order side
   "type": "stop market", // order type
   "timestamp": 1595792396.165973, // current timestamp
   "dealMoney": "0", // if order finished - amount in money currency that finished
@@ -3210,6 +3248,11 @@ Available statuses:
   "left": "0.001", // if order not finished - rest of amount that must be finished
   "dealFee": "0", // fee in money that you pay if order is finished
   "activation_price": "40000" // activation price
+  "oto": { // OTO order data - if stopLoss or takeProfit is specified
+    "otoId": 29457221, // ID of the OTO
+    "stopLoss": "50000", // stop loss order price - if stopLoss is specified
+    "takeProfit": "30000" // take profit order price - if takeProfit is specified
+  }
 }
 ```
 
@@ -4303,6 +4346,126 @@ Error codes:
 
 ---
 
+### Cancel OTO order
+
+```
+[POST] /api/v4/order/oto-cancel
+```
+
+Cancel existing [order](./../glossary.md#orders)
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name   | Type       | Mandatory | Description                                                                |
+|--------| ---------- | --------- |----------------------------------------------------------------------------|
+| market | String     | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT             |
+| otoId  | String/Int | **Yes**   | [OTO](./../glossary.md#oco-orders) Id. Example: 4180284841 or "4180284841" |
+
+**Request BODY raw:**
+
+```json
+{
+  "market": "BTC_USDT",
+  "otoId": 117703764514,
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if inner validation failed`
+- `Status 422 if validation failed`
+- `Status 503 if service temporary unavailable`
+
+```json
+[]
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+Error codes:
+
+- `30` - default validation error code
+- `31` - market validation failed
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market field is required."],
+    "orderId": ["OtoId field is required."]
+  }
+}
+```
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market is not available."]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "orderId": ["OtoId field should be an integer."]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "market": [
+      "Market field should be a string.",
+      "Market field format is invalid."
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 2,
+  "message": "Inner validation failed",
+  "errors": {
+    "orderId": ["Unexecuted order was not found."]
+  }
+}
+```
+
+```json
+{
+  "code": 1,
+  "message": "Inner validation failed",
+  "errors": {
+    "amount": ["Invalid argument."]
+  }
+}
+```
+
+</details>
+
+---
+
 ### Sync kill-switch timer
 
 ```
@@ -4871,6 +5034,297 @@ Error codes:
 </details>
 
 ---
+
+### Modify order
+
+```
+[POST] /api/v4/order/modify
+```
+
+This endpoint modify existing [order](./../glossary.md#orders)
+
+Supported order types: limit, stop limit, stop market, stop limit
+
+Request must contain one of the following parameters: `amount`, `price`, `activationPrice`
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name            | Type          | Mandatory | Description                                                                                                                   |
+|-----------------|---------------|-----------|-------------------------------------------------------------------------------------------------------------------------------|
+| orderId         | Integer       | **Yes**   | Active order id [order](./../glossary.md#active-orders). Example: 834506                                                      |
+| market          | String        | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                |
+| amount          | String/Number | **No**    | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                  |
+| total           | String/Number | **No**    | Total of [money](./../glossary.md#money) currency to buy or sell. Example: '0.001' or 0.001                                   |
+| price           | String/Number | **No**    | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800                                                    |
+| activationPrice | String/Number | **No**    | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                       |
+| clientOrderId   | String        | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours. |
+
+❗ Use total parameter instead of amount for modify buy stop market order
+
+**Request BODY raw:**
+
+```json
+{
+  "orderId": 2590468842,
+  "market": "BTC_USDT",
+  "price": "38635",
+  "activationPrice": "123456",
+  "amount": "2",
+  "clientOrderId": "1a2s3f4g5h6v",
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if inner validation failed`
+- `Status 422 if validation failed`
+- `Status 503 if service temporary unavailable`
+
+```json
+[
+  {
+    "orderId": 2590468939,
+    "clientOrderId": "1clientOrderId1",
+    "market": "BTC_USDT",
+    "side": "buy",
+    "type": "limit",
+    "timestamp": 1706023985.307382,
+    "dealMoney": "0",
+    "dealStock": "0",
+    "amount": "0.001",
+    "takerFee": "0",
+    "makerFee": "0",
+    "left": "0.001",
+    "dealFee": "0",
+    "ioc": false,
+    "price": "38635",
+    "postOnly": false
+  }
+]
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+Error codes:
+
+- `30` - default validation error code
+- `31` - market validation failed
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market is not available."]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "market": [
+      "Market field should be a string.",
+      "Market field format is invalid."
+    ]
+  }
+}
+```
+
+
+```json
+{
+  "code": 32,
+  "message": "Validation failed",
+  "errors": {
+    "amount": ["Amount field should be numeric string or number."]
+  }
+}
+```
+
+```json
+{
+  "code": 33,
+  "message": "Validation failed",
+  "errors": {
+    "price": ["Price field should be numeric string or number."]
+  }
+}
+```
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market is not available."]
+  }
+}
+```
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market field should not be empty string."]
+  }
+}
+```
+
+```json
+{
+  "code": 32,
+  "message": "Validation failed",
+  "errors": {
+    "amount": [
+      "Given amount is less than min amount 0.001",
+      "Min amount step = 0.000001"
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 36,
+  "message": "Validation failed",
+  "errors": {
+    "clientOrderId": ["ClientOrderId field should be a string."]
+  }
+}
+```
+
+```json
+{
+  "code": 36,
+  "message": "Validation failed",
+  "errors": {
+    "clientOrderId": [
+      "ClientOrderId field field should contain only latin letters, numbers and dashes."
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 36,
+  "message": "Validation failed",
+  "errors": {
+    "clientOrderId": [
+      "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 37,
+  "message": "Validation failed",
+  "errors": {
+    "ioc": ["Either IOC or PostOnly flag in true state is allowed."]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "total": ["Total(amount * price) is less than 5.05"]
+  }
+}
+```
+
+```json
+{
+  "code": 32,
+  "message": "Validation failed",
+  "errors": {
+    "amount": [
+      "Min amount step = 0.01" // money/stock precision is not taken into consideration when order was submitted
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 33,
+  "message": "Validation failed",
+  "errors": {
+    "price": ["Price field should be at least 10", "Min price step = 0.000001"]
+  }
+}
+```
+
+```json
+{
+  "code": 33,
+  "message": "Validation failed",
+  "errors": {
+    "price": ["Price should be greater than 0."]
+  }
+}
+```
+
+```json
+{
+  "code": 35,
+  "message": "Validation failed",
+  "errors": {
+    "maker_fee": ["Incorrect maker fee"]
+  }
+}
+```
+
+```json
+{
+  "code": 10,
+  "message": "Inner validation failed",
+  "errors": {
+    "amount": ["Not enough balance."]
+  }
+}
+```
+
+```json
+{
+  "code": 1,
+  "message": "Inner validation failed",
+  "errors": {
+    "amount": ["Invalid argument."]
+  }
+}
+```
+
+```json
+{
+  "code": 11,
+  "message": "Inner validation failed",
+  "errors": {
+    "amount": ["Amount too small."]
+  }
+}
+```
+
+</details>
 
 ## Convert
 
