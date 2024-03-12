@@ -168,6 +168,10 @@ Simple contracts that allow you to specify which crypto you want to buy or sell,
 
 [Orders](./glossary#orders) that request an exchange to buy or sell an [asset](./glossary#assets) at a set price and conditions.
 
+### OTO
+
+OTO (One Triggers the Other) is a trading feature where fulfilling a primary order automatically sets corresponding stop loss and take profit orders. These orders are placed based on predefined price conditions. Additionally, it allows specifying prices for both or just one of these orders upon creating the primary order.
+
 ## P
 
 ### Pair
