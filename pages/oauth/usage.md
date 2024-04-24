@@ -8,7 +8,7 @@
 
 This endpoint activates access token.
 
-For this request the IP of a client must be added to WB Whitelist.
+For this request the IP of a client must be added to WB Allowlist.
 
 ❗ Access token duration is 300 sec.
 
@@ -49,7 +49,7 @@ Need to send "client_id", "client_secret" and "code".
 
 This endpoint creates refresh token.
 
-For this request the IP of a client must be added to WB Whitelist.
+For this request the IP of a client must be added to WB Allowlist.
 
 ❗ Refresh token duration is 600 sec.
 
