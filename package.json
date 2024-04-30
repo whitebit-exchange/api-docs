@@ -13,22 +13,22 @@
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-popover": "^1.0.7",
     "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.0",
-    "lucide-react": "^0.320.0",
-    "next": "^14.1.0",
-    "nextra": "^2.13.2",
-    "nextra-theme-docs": "^2.13.2",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.376.0",
+    "next": "^14.2.3",
+    "nextra": "^2.13.4",
+    "nextra-theme-docs": "^2.13.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/node": "^20.11.13",
-    "autoprefixer": "10.4.17",
+    "@types/node": "^20.12.7",
+    "autoprefixer": "10.4.19",
     "gh-pages": "^6.1.1",
-    "postcss": "^8.4.33",
-    "tailwind-merge": "^2.2.1",
-    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.38",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss": "^3.4.3",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.5"
   }
 }
