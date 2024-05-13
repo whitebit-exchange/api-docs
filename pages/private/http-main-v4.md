@@ -22,6 +22,16 @@
     - [Get interest payments history](#get-interest-payments-history)
   - [Fees](#fees)
     - [Get fees](#get-fees)
+  - [Sub Account](#sub-account)
+    - [Create Sub-Account](#create-sub-account)
+    - [Delete Sub-Account](#delete-sub-account)
+    - [Edit Sub-Account](#edit-sub-account)
+    - [List of Sub-Accounts](#list-of-sub-accounts)
+    - [Sub-Account Transfer](#sub-account-transfer)
+    - [Block Sub-Account](#block-sub-account)
+    - [Unblock Sub-Account](#unblock-sub-account)
+    - [Sub-Account Balances](#sub-account-balances)
+    - [Get Sub-Account Transfer History](#get-sub-account-transfer-history)
 
 Base URL is https://whitebit.com
 
@@ -2184,5 +2194,591 @@ Available statuses:
   }
 ]
 ```
+
+---
+
+## Sub Account
+
+This API provides endpoints to manage [sub-accounts](./../glossary.md#sub-account)
+
+### Create Sub-Account
+
+```
+[POST] /api/v4/sub-account/create
+```
+
+This endpoint creates new sub-account
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name                          | Type   | Mandatory | Description                                                                            |
+|-------------------------------|--------|-----------|----------------------------------------------------------------------------------------|
+| alias                         | String | **Yes**   | Name for sub-account                                                                   |
+| email                         | String | **No**    | Email for sub-account, if provided on this address will be sent invention link. If not |
+| shareKey                      | bool   | **No**    | If KYC shared with main account                                                        |
+| permissions                   | object | **Yes**   | Sub-account permissions                                                                |
+| permissions.spotEnabled       | bool   | **Yes**   | Enable spot trading                                                                    |
+| permissions.collateralEnabled | bool   | **Yes**   | Enable collateral trading                                                              |
+
+**Request BODY raw:**
+
+```json
+{
+  "alias": "training",
+  "email": "email@google.com",
+  "shareKey": true,
+  "permissions" : {
+    "spotEnabled": true,
+    "collateralEnabled": false
+  }
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 201`
+- `Status 400 if request validation failed`
+
+```json
+{
+  "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51", // subaccount id
+  "alias": "training",
+  "userId": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5", // user accociated with account
+  "email": "e***@g***m",
+  "status": "active",
+  "color": "red",
+  "kyc" : {
+    "shareKyc": true,
+    "kycStatus": "shared"
+  },
+  "permissions": {
+    "spotEnabled": true,
+    "collateralEnabled": false,
+  }
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "alias": ["Alias already exists."],
+    "email": ["Email is invalid."],
+  }
+}
+```
+
+</details>
+
+---
+
+### Delete Sub-Account
+
+```
+[POST] /api/v4/sub-account/delete
+```
+
+This endpoint deletes sub-account
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name              | Type   | Mandatory | Description                                                                            |
+|-------------------|--------|-----------|----------------------------------------------------------------------------------------|
+| id                | String | **Yes**   | Sub-account id                                                                          |
+
+**Request BODY raw:**
+
+```json
+{
+  "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if request validation failed`
+
+```json
+{
+  // empty response
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "id": ["Sub-account do not exists"],
+  }
+}
+```
+
+</details>
+
+---
+
+### Edit Sub-Account
+
+```
+[POST] /api/v4/sub-account/edit
+```
+
+This endpoint edit sub-account
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name                          | Type   | Mandatory | Description               |
+|-------------------------------|--------|-----------|---------------------------|
+| id                            | string | **yes**   | Sub-account id            |
+| alias                         | String | **Yes**   | Name for sub-account      |
+| permissions                   | object | **Yes**   | Sub-account permissions   |
+| permissions.spotEnabled       | bool   | **Yes**   | Enable spot trading       |
+| permissions.collateralEnabled | bool   | **Yes**   | Enable collateral trading |
+
+**Request BODY raw:**
+
+```json
+{
+  "id": true,
+  "alias": "training",
+  "permissions" : {
+    "spotEnabled": true,
+    "collateralEnabled": false
+  }
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if request validation failed`
+
+```json
+{
+//empty response
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "alias": ["Alias already exists."]
+  }
+}
+```
+
+</details>
+
+---
+
+### List of Sub-Accounts
+
+```
+[POST] /api/v4/sub-account/list
+```
+
+This endpoint returns list of current user sub-accounts
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name     | Type   | Mandatory  | Description                                                                                                                                                           |
+|----------|--------|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| search   | String | **No**     | Search term                                                                                                                                                           |
+| limit    | Int    | **No**     | LIMIT is a special clause used to limit records a particular query can return. Default: 30, Min: 1, Max: 100                                                          |
+| offset   | Int    | **No**     | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+
+**Request BODY raw:**
+
+```json
+{
+  "search": "training",
+  "limit": 10,
+  "offset": 0
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if request validation failed`
+
+```json
+{
+  "offset": 0,
+  "limit": 10,
+  "data": [
+    {
+      "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51", // subaccount id
+      "alias": "training",
+      "userId": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5", // user accociated with account
+      "email": "e***@g***m",
+      "status": "active",
+      "color": "red",
+      "kyc" : {
+        "shareKyc": true,
+        "kycStatus": "shared"
+      },
+      "permissions": {
+        "spotEnabled": true,
+        "collateralEnabled": false,
+      }
+    }
+  ]
+}
+```
+---
+
+### Sub-Account Transfer
+
+```
+[POST] /api/v4/sub-account/transfer
+```
+
+This endpoint creates transfer from main account to sub-account or vice versa
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name      | Type           | Mandatory | Description                                                                             |
+|-----------|----------------|-----------|-----------------------------------------------------------------------------------------|
+| id        | String         | **Yes**   | Sub-account id                                                                          |
+| direction | String         | **Yes**   | "main" or "sub-account". Direction of transfer: from main to sub-account, or vice versa |
+| amount    | Numeric String | **Yes**   | Transfer amount. Min '0.00000001'                                                       |
+| ticker    | String         | **Yes**   | Currencies [ticker](./../glossary.md#ticker).                                           |
+
+**Request BODY raw:**
+
+```json
+{
+  "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
+  "direction": "main",
+  "amount": "42.0",
+  "ticker": "USDC"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if request validation failed`
+
+```json
+{
+  // empty response
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "amount": ["Amount is invalid"],
+    "ticker": ["Ticker do not exists"],
+    "id": ["Sub-account do not exists"],
+  }
+}
+```
+
+</details>
+
+---
+
+### Block Sub-Account
+
+```
+[POST] /api/v4/sub-account/block
+```
+
+This endpoint blocks sub-account
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name              | Type   | Mandatory | Description                                                                            |
+|-------------------|--------|-----------|----------------------------------------------------------------------------------------|
+| id                | String | **Yes**   | Sub-account id                                                                          |
+
+**Request BODY raw:**
+
+```json
+{
+  "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if request validation failed`
+
+```json
+{
+  // empty response
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "id": ["Sub-account do not exists"],
+    "account": ["Sub-account already blocked"],
+  }
+}
+```
+
+</details>
+
+---
+
+### Unblock Sub-Account
+
+```
+[POST] /api/v4/sub-account/unblock
+```
+
+This endpoint unblocks sub-account
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name              | Type   | Mandatory | Description                                                                            |
+|-------------------|--------|-----------|----------------------------------------------------------------------------------------|
+| id                | String | **Yes**   | Sub-account id                                                                          |
+
+**Request BODY raw:**
+
+```json
+{
+  "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if request validation failed`
+
+```json
+{
+  // empty response
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "id": ["Sub-account do not exists"],
+    "account": ["Sub-account already unblocked"],
+  }
+}
+```
+
+</details>
+
+---
+
+### Sub-Account Balances
+
+```
+[POST] /api/v4/sub-account/balances
+```
+
+This endpoint returns sub-account balances
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name   | Type     | Mandatory | Description                                                                                   |
+|--------|----------|-----------|-----------------------------------------------------------------------------------------------|
+| id     | String   | **Yes**   | Sub-account id.                                                                               |
+| ticker | String   | **No**     | Currencies [ticker](./../glossary.md#ticker). If not provided, returns data by all currencies |
+
+
+**Request BODY raw:**
+
+```json
+{
+  "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
+  "ticker": "USDC"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 422 if request validation failed`
+
+```json
+{
+  "USDC": [
+    {
+      "main": "42",
+      "spot": "10",
+      "collateral": "14"
+    }
+  ]
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 422,
+  "message": "Account is not confirmed"
+}
+```
+
+</details>
+
+---
+
+### Get Sub-Account Transfer History
+
+```
+[POST] /api/v4/sub-account/transfer/history
+```
+
+This endpoint returns history of transfers between main account and sub-account
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name      | Type    | Mandatory | Description                                                                                                                                                           |
+|-----------|---------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id        | String  | **No**    | Sub-account id. If ot provided for all sub-accounts                                                                                                                   |
+| direction | String  | **No**    | "main" or "sub-account". Direction of transfer: from main to sub-account, or vice versa. If not provided all transactions                                             |
+| limit     | Int     | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 30, Min: 1, Max: 100                                                          |
+| offset    | Int     | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+
+
+**Request BODY raw:**
+
+```json
+{
+  "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
+  "direction": "main"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 422 if request validation failed`
+
+```json
+{
+  "offset": 0,
+  "limit": 30,
+  "data": [
+    {
+      "id": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5", // transaction id
+      "direction": "main",
+      "currency": "USDT",
+      "amount": "3.14",
+      "createdAt": 1715339355
+    }
+  ]
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 422,
+  "message": "Account is not confirmed"
+}
+```
+
+</details>
 
 ---
