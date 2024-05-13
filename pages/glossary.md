@@ -224,6 +224,10 @@ This [order](./glossary#orders) is completed when the market price reaches a pri
 
 A price set by you in advance
 
+### Sub-Account
+
+Account (user) with specific permissions (for example disable [margin trading](#margin-trading)) is managed by main user 
+
 ## T
 
 ### Taker
