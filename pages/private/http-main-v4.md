@@ -2216,14 +2216,14 @@ NONE
 
 **Parameters:**
 
-| Name                          | Type   | Mandatory | Description                                                                            |
-|-------------------------------|--------|-----------|----------------------------------------------------------------------------------------|
-| alias                         | String | **Yes**   | Name for sub-account                                                                   |
-| email                         | String | **No**    | Email for sub-account, if provided on this address will be sent invention link. If not |
-| shareKey                      | bool   | **No**    | If KYC shared with main account                                                        |
-| permissions                   | object | **Yes**   | Sub-account permissions                                                                |
-| permissions.spotEnabled       | bool   | **Yes**   | Enable spot trading                                                                    |
-| permissions.collateralEnabled | bool   | **Yes**   | Enable collateral trading                                                              |
+| Name                          | Type   | Mandatory | Description                                                                                                                                        |
+|-------------------------------|--------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| alias                         | String | **Yes**   | Name for sub-account                                                                                                                               |
+| email                         | String | **No**    | Sub-account email. If this field is provided on this e-mail address will be sent invitation link. If not - new user without e-mail will be created |
+| shareKey                      | bool   | **No**    | If KYC shared with main account                                                                                                                    |
+| permissions                   | object | **Yes**   | Sub-account permissions                                                                                                                            |
+| permissions.spotEnabled       | bool   | **Yes**   | Enable spot trading                                                                                                                                |
+| permissions.collateralEnabled | bool   | **Yes**   | Enable collateral trading                                                                                                                          |
 
 **Request BODY raw:**
 
@@ -2231,7 +2231,7 @@ NONE
 {
   "alias": "training",
   "email": "email@google.com",
-  "shareKey": true,
+  "shareKyc": true,
   "permissions" : {
     "spotEnabled": true,
     "collateralEnabled": false
@@ -2485,19 +2485,19 @@ NONE
 
 **Parameters:**
 
-| Name      | Type           | Mandatory | Description                                                                             |
-|-----------|----------------|-----------|-----------------------------------------------------------------------------------------|
-| id        | String         | **Yes**   | Sub-account id                                                                          |
-| direction | String         | **Yes**   | "main" or "sub-account". Direction of transfer: from main to sub-account, or vice versa |
-| amount    | Numeric String | **Yes**   | Transfer amount. Min '0.00000001'                                                       |
-| ticker    | String         | **Yes**   | Currencies [ticker](./../glossary.md#ticker).                                           |
+| Name      | Type           | Mandatory | Description                                                 |
+|-----------|----------------|-----------|-------------------------------------------------------------|
+| id        | String         | **Yes**   | Sub-account id                                              |
+| direction | String         | **Yes**   | Transfer direction. Values: "main_to_sub" or "sub_to_main". |
+| amount    | Numeric String | **Yes**   | Transfer amount. Min '0.00000001'                           |
+| ticker    | String         | **Yes**   | Currencies [ticker](./../glossary.md#ticker).               |
 
 **Request BODY raw:**
 
 ```json
 {
   "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
-  "direction": "main",
+  "direction": "main_to_sub",
   "amount": "42.0",
   "ticker": "USDC"
 }
@@ -2729,12 +2729,12 @@ NONE
 
 **Parameters:**
 
-| Name      | Type    | Mandatory | Description                                                                                                                                                           |
-|-----------|---------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id        | String  | **No**    | Sub-account id. If ot provided for all sub-accounts                                                                                                                   |
-| direction | String  | **No**    | "main" or "sub-account". Direction of transfer: from main to sub-account, or vice versa. If not provided all transactions                                             |
-| limit     | Int     | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 30, Min: 1, Max: 100                                                          |
-| offset    | Int     | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+| Name      | Type    | Mandatory | Description                                                                                                                                                                                         |
+|-----------|---------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| id        | String  | **No**    | Sub-account id. If ot provided for all sub-accounts                                                                                                                                                 |
+| direction | String  | **No**    | Transfer direction. Values: "main_to_sub" or "sub_to_main". If provided, returns transactions in selected direction. If not provided, returns all transactions between main account and sub-account |
+| limit     | Int     | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 30, Min: 1, Max: 100                                                                                        |
+| offset    | Int     | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000                               |
 
 
 **Request BODY raw:**
@@ -2742,7 +2742,7 @@ NONE
 ```json
 {
   "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
-  "direction": "main"
+  "direction": "main_to_sub"
 }
 ```
 
@@ -2760,7 +2760,7 @@ Available statuses:
   "data": [
     {
       "id": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5", // transaction id
-      "direction": "main",
+      "direction": "main_to_sub",
       "currency": "USDT",
       "amount": "3.14",
       "createdAt": 1715339355
