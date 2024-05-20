@@ -2220,7 +2220,7 @@ NONE
 |-------------------------------|--------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------|
 | alias                         | String | **Yes**   | Name for sub-account                                                                                                                               |
 | email                         | String | **No**    | Sub-account email. If this field is provided on this e-mail address will be sent invitation link. If not - new user without e-mail will be created |
-| shareKey                      | bool   | **No**    | If KYC shared with main account                                                                                                                    |
+| shareKyc                      | bool   | **No**    | If KYC shared with main account                                                                                                                    |
 | permissions                   | object | **Yes**   | Sub-account permissions                                                                                                                            |
 | permissions.spotEnabled       | bool   | **Yes**   | Enable spot trading                                                                                                                                |
 | permissions.collateralEnabled | bool   | **Yes**   | Enable collateral trading                                                                                                                          |
@@ -2253,7 +2253,7 @@ Available statuses:
   "userId": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5", // user accociated with account
   "email": "e***@g***m",
   "status": "active",
-  "color": "red",
+  "color": "#FF0000",
   "kyc" : {
     "shareKyc": true,
     "kycStatus": "shared"
@@ -2455,7 +2455,7 @@ Available statuses:
       "userId": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5", // user accociated with account
       "email": "e***@g***m",
       "status": "active",
-      "color": "red",
+      "color": "#FF0000",
       "kyc" : {
         "shareKyc": true,
         "kycStatus": "shared"
