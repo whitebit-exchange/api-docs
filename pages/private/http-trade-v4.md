@@ -30,8 +30,10 @@
     - [Open Positions](#open-positions)
     - [Positions History](#positions-history)
     - [Change Collateral Account Leverage](#change-collateral-account-leverage)
+    - [Query unexecuted(active) conditional orders](#query-unexecutedactive-conditional-orders)
     - [Query unexecuted(active) OCO orders](#query-unexecutedactive-oco-orders)
     - [Create collateral OCO order](#create-collateral-oco-order)
+    - [Cancel conditional order](#cancel-conditional-order)
     - [Cancel OCO order](#cancel-oco-order)
     - [Cancel OTO order](#cancel-oto-order)
   - [Convert](#convert)
@@ -3493,6 +3495,261 @@ Available statuses:
 
 ---
 
+### Query unexecuted(active) conditional orders
+
+```
+[POST] /api/v4/conditional-orders
+```
+
+This endpoint retrieves unexecuted [conditional orders](./../glossary.md#conditional-orders) only.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name   | Type        | Mandatory | Description                                                                                                                                                           |
+| ------ |-------------| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market | String      | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
+| limit  | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
+| offset | String/Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+
+**Request BODY raw:**
+
+```json
+{
+  "market": "BTC_USDT",
+  "offset": 0,
+  "limit": 100,
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 422 if request validation failed`
+- `Status 400 if inner validation failed`
+- `Status 503 if service temporary unavailable`
+
+```json
+{
+  "limit": 100,
+  "offset": 0,
+  "total": 2,
+  "records": [
+    {
+      "id": 117703764513,       // conditional order id
+      "type": "oco",
+      "stop_loss": {
+        "orderId": 117703764514,
+        // unexecuted order ID
+        "clientOrderId": "",
+        // custom order id; "clientOrderId": "" - if not specified.
+        "market": "BTC_USDT",
+        // currency market
+        "side": "buy",
+        // order side
+        "type": "stop limit",
+        // unexecuted order type
+        "timestamp": 1594605801.49815,
+        // current timestamp of unexecuted order
+        "dealMoney": "0",
+        // executed amount in money
+        "dealStock": "0",
+        // executed amount in stock
+        "amount": "2.241379",
+        // active order amount
+        "takerFee": "0.001",
+        // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+        "makerFee": "0.001",
+        // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+        "left": "2.241379",
+        // unexecuted amount in stock
+        "dealFee": "0",
+        // executed fee by deal
+        "post_only": false,
+        // orders are guaranteed to be the maker order when executed.
+        "mtime": 1662478154.941582,
+        "price": "19928.79",
+        // unexecuted order price
+        "activation_price": "29928.79",
+        // activation price
+        "activation_condition": "gte",
+        // activation condition
+        "activated": 0
+        // activation status
+      },
+      "take_profit": {
+        "orderId": 117703764515,
+        // unexecuted order ID
+        "clientOrderId": "",
+        // custom order id; "clientOrderId": "" - if not specified.
+        "market": "BTC_USDT",
+        // currency market
+        "side": "buy",
+        // order side
+        "type": "limit",
+        // unexecuted order type
+        "timestamp": 1662478154.941582,
+        // current timestamp of unexecuted order
+        "dealMoney": "0",
+        // executed amount in money
+        "dealStock": "0",
+        // executed amount in stock
+        "amount": "0.635709",
+        // active order amount
+        "takerFee": "0.001",
+        // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+        "makerFee": "0.001",
+        // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+        "left": "0.635709",
+        // unexecuted amount in stock
+        "dealFee": "0",
+        // executed fee by deal
+        "post_only": false,
+        // orders are guaranteed to be the maker order when executed.
+        "mtime": 1662478154.941582,
+        "price": "9928.79"
+        // unexecuted order price
+      }
+    },
+    {
+      "id": 29457221, // ID of the conditional
+      "type": "oto",                    // type of the conditional
+      "stopLossPrice": "30000",            // stop loss order price - if stopLoss is specified
+      "takeProfitPrice": "50000", // take profit order price - if takeProfit is specified
+      "conditionalOrder":         // OTO order data - if stopLoss or takeProfit is specified
+        {
+          "orderId": 3686033640,            // unexecuted order ID
+          "clientOrderId": "customId11",    // custom order id; "clientOrderId": "" - if not specified.
+          "market": "BTC_USDT",             // currency market
+          "side": "buy",                    // order side
+          "type": "limit",                  // unexecuted order type
+          "timestamp": 1594605801.49815,    // current timestamp of unexecuted order
+          "dealMoney": "0",                 // executed amount in money
+          "dealStock": "0",                 // executed amount in stock
+          "amount": "2.241379",             // active order amount
+          "takerFee": "0.001",              // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+          "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+          "left": "2.241379",               // unexecuted amount in stock
+          "dealFee": "0",                   // executed fee by deal
+          "price": "40000",                 // unexecuted order price
+        }
+    },
+    {
+      ...
+    }
+  ]
+}
+
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["The market field is required."]
+  }
+}
+```
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market field should be a string."]
+  }
+}
+```
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market field format is invalid."]
+  }
+}
+```
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market field should not be empty string."]
+  }
+}
+```
+
+```json
+{
+  "message": "Validation failed",
+  "code": 31,
+  "errors": {
+    "market": ["Market is not available"]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "limit": ["The limit must be an integer."],
+    "offset": ["The offset must be an integer."]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "limit": ["The limit may not be greater than 100."],
+    "offset": ["The offset may not be greater than 10000."]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "limit": ["The limit must be at least 1."],
+    "offset": ["The offset must be at least 0."]
+  }
+}
+```
+
+```json
+{
+  "code": 1,
+  "message": "Inner validation failed",
+  "errors": {
+    "amount": ["Invalid argument."]
+  }
+}
+```
+
+</details>
+
+---
+
 ### Query unexecuted(active) OCO orders
 
 ```
@@ -3501,6 +3758,7 @@ Available statuses:
 
 This endpoint retrieves unexecuted [oco orders](./../glossary.md#oco-orders) only.
 
+❗ Deprecated - use [GET /api/v4/conditional-orders](#query-unexecutedactive-conditional-orders) instead.
 ❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
@@ -4305,6 +4563,126 @@ Error codes:
   "message": "Validation failed",
   "errors": {
     "orderId": ["OrderId field should be an integer."]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "market": [
+      "Market field should be a string.",
+      "Market field format is invalid."
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 2,
+  "message": "Inner validation failed",
+  "errors": {
+    "orderId": ["Unexecuted order was not found."]
+  }
+}
+```
+
+```json
+{
+  "code": 1,
+  "message": "Inner validation failed",
+  "errors": {
+    "amount": ["Invalid argument."]
+  }
+}
+```
+
+</details>
+
+---
+
+### Cancel conditional order
+
+```
+[POST] /api/v4/order/conditional-cancel
+```
+
+Cancel existing [order](./../glossary.md#orders)
+
+❗ Rate limit 10000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name   | Type       | Mandatory | Description                                                                         |
+|--------| ---------- | --------- |-------------------------------------------------------------------------------------|
+| market | String     | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                      |
+| id     | String/Int | **Yes**   | [conditional](./../glossary.md#conditional) Id. Example: 4180284841 or "4180284841" |
+
+**Request BODY raw:**
+
+```json
+{
+  "market": "BTC_USDT",
+  "otoId": 117703764514,
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if inner validation failed`
+- `Status 422 if validation failed`
+- `Status 503 if service temporary unavailable`
+
+```json
+[]
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+Error codes:
+
+- `30` - default validation error code
+- `31` - market validation failed
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market field is required."],
+    "orderId": ["OtoId field is required."]
+  }
+}
+```
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market is not available."]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "orderId": ["OtoId field should be an integer."]
   }
 }
 ```

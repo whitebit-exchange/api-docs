@@ -40,6 +40,10 @@ See [WhiteBit Codes](./glossary#whitebit-codes)
 
 The cryptocurrency [asset](./glossary#assets) that the borrower pledges as a guarantee that the loan is going to be repaid
 
+### Conditional Orders
+
+"Conditional Orders" is a collective term for orders with conditions. Currently, these include [OTO](#OTO) (One Triggers the Other) and [OCO](#OCO-orders) (One Cancels the Other) orders.
+
 ### Crypto Lending(SMART Staking)
 
 A unique tool for passive income that allows depositing funds in specific plans and receiving a percentage from holding them for particular periods. Allows you to make profit by lending your funds to the exchange in a certain cryptocurrency by using one of the available plans
