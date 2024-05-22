@@ -173,15 +173,16 @@ This endpoint creates [limit trading order](./../glossary.md#limit-order).
 
 **Parameters:**
 
-| Name          | Type          | Mandatory | Description                                                                                                                                                                                       |
-| ------------- | ------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| market        | String        | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                                                    |
-| side          | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                                                                                              |
-| amount        | String/Number | **Yes**   | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                                                                                      |
-| price         | String/Number | **Yes**   | Price in money currency. Example: '9800' or 9800                                                                                                                                                  |
-| clientOrderId | String        | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.                                                                     |
-| postOnly      | boolean       | **No**    | [Orders](./../glossary.md#orders) are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: 'true' / 'false' Example: 'false'. |
-| ioc           | boolean       | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'. |
+| Name          | Type          | Mandatory | Description                                                                                                                                                                                                                                                                                        |
+|---------------|---------------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| market        | String        | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                                                                                                                                                     |
+| side          | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                                                                                                                                                                                               |
+| amount        | String/Number | **Yes**   | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                                                                                                                                                                                       |
+| price         | String/Number | **Yes**   | Price in money currency. Example: '9800' or 9800                                                                                                                                                                                                                                                   |
+| clientOrderId | String        | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.                                                                                                                                                                      |
+| postOnly      | boolean       | **No**    | [Orders](./../glossary.md#orders) are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: 'true' / 'false' Example: 'false'.                                                                                                  |
+| ioc           | boolean       | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                                                                  |
+| bboRole       | boolean       | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables:  1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 2. |
 
 **Request BODY raw:**
 
@@ -2619,17 +2620,18 @@ NONE
 
 **Parameters:**
 
-| Name          | Type    | Mandatory | Description                                                                                                                                                                                                                                        |
-| ------------- |---------| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| market        | String  | **Yes**   | Available margin market. Example: BTC_USDT                                                                                                                                                                                                         |
-| side          | String  | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite [order](./../glossary.md#orders) with current position amount. |
-| amount        | String  | **Yes**   | ⚠️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.                                                                                                                                                                 |
-| price         | String  | **Yes**   | Price in [money](./../glossary.md#money) currency. Example: '9800'                                                                                                                                                                                 |
-| clientOrderId | String  | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.                                                                                                                      |
-| stopLoss      | String  | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                        |
-| takeProfit    | String  | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                    |
-| postOnly      | boolean | **No**    | Orders are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: true / false Example: false.                                                                                   |
-| ioc           | boolean | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                  |
+| Name          | Type    | Mandatory | Description                                                                                                                                                                                                                                                                                        |
+|---------------|---------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| market        | String  | **Yes**   | Available margin market. Example: BTC_USDT                                                                                                                                                                                                                                                         |
+| side          | String  | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite [order](./../glossary.md#orders) with current position amount.                                                 |
+| amount        | String  | **Yes**   | ⚠️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.                                                                                                                                                                                                                 |
+| price         | String  | **Yes**   | Price in [money](./../glossary.md#money) currency. Example: '9800'                                                                                                                                                                                                                                 |
+| clientOrderId | String  | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.                                                                                                                                                                      |
+| stopLoss      | String  | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                                                                        |
+| takeProfit    | String  | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                                                                    |
+| postOnly      | boolean | **No**    | Orders are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: true / false Example: false.                                                                                                                                   |
+| ioc           | boolean | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                                                                  |
+| bboRole       | boolean | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables:  1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 1. |
 
 **Request BODY raw:**
 
@@ -4629,7 +4631,7 @@ NONE
 ```json
 {
   "market": "BTC_USDT",
-  "otoId": 117703764514,
+  "id": 117703764514,
   "request": "{{request}}",
   "nonce": "{{nonce}}"
 }
@@ -4662,7 +4664,7 @@ Error codes:
   "message": "Validation failed",
   "errors": {
     "market": ["Market field is required."],
-    "orderId": ["OtoId field is required."]
+    "orderId": ["Id field is required."]
   }
 }
 ```
@@ -4682,7 +4684,7 @@ Error codes:
   "code": 30,
   "message": "Validation failed",
   "errors": {
-    "orderId": ["OtoId field should be an integer."]
+    "orderId": ["Id field should be an integer."]
   }
 }
 ```
