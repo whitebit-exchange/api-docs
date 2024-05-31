@@ -26,6 +26,10 @@ Balance that accepts deposits and/or withdraws cryptocurrency and national curre
 
 Balance for [spot trading](./glossary#spot-trading), this balance is intended solely for non-marginal trading (placing [orders](./glossary#orders)), as well as for the currency exchange
 
+### BBO
+
+BBO (Best-Bid-Offer) is a function that determines the prices of Limit orders according to market conditions. When you activate the BBO option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Counterparty Method: The system sets the order price at the level of the best available market price in the opposite direction. For Buy orders, it is the lowest Ask price in the order book. For Sell orders, it is the highest Bid price. Queue Method: The system sets the order price at the best price on the same market side as the order itself. For Buy orders, it is at the level of the highest current buy price (Bid); for Sell orders, it is at the highest Ask price.
+
 ### Bid
 
 Buy [order](./glossary#orders)
@@ -39,6 +43,10 @@ See [WhiteBit Codes](./glossary#whitebit-codes)
 ### Collateral
 
 The cryptocurrency [asset](./glossary#assets) that the borrower pledges as a guarantee that the loan is going to be repaid
+
+### Conditional Orders
+
+"Conditional Orders" is a collective term for orders with conditions. Currently, these include [OTO](#OTO) (One Triggers the Other) and [OCO](#OCO-orders) (One Cancels the Other) orders.
 
 ### Crypto Lending(SMART Staking)
 
