@@ -182,7 +182,7 @@ This endpoint creates [limit trading order](./../glossary.md#limit-order).
 | clientOrderId | String        | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.                                                                                                                                                                      |
 | postOnly      | boolean       | **No**    | [Orders](./../glossary.md#orders) are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: 'true' / 'false' Example: 'false'.                                                                                                  |
 | ioc           | boolean       | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                                                                  |
-| bboRole       | boolean       | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables:  1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 2. |
+| bboRole       | Integer       | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables:  1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 2. |
 
 **Request BODY raw:**
 
@@ -2631,7 +2631,7 @@ NONE
 | takeProfit    | String  | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                                                                    |
 | postOnly      | boolean | **No**    | Orders are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: true / false Example: false.                                                                                                                                   |
 | ioc           | boolean | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                                                                  |
-| bboRole       | boolean | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables:  1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 1. |
+| bboRole       | Integer | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables:  1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 1. |
 
 **Request BODY raw:**
 
