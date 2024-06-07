@@ -900,8 +900,8 @@ NONE
 | address           | String | **No**    | Can be used for filtering transactions by specific address or [memo](./../glossary.md#memodestination-tag).                                                                                                                          |
 | addresses         | Array  | **No**    | Can be used for filtering transactions by specific addresses or [memos](./../glossary.md#memodestination-tag) (max: 20).                                                                                                             |
 | uniqueId          | String | **No**    | Can be used for filtering transactions by specific unique id                                                                                                                                                                         |
-| limit             | Int    | **Yes**   | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                                                                                         |
-| offset            | Int    | **Yes**   | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000                                                                |
+| limit             | Int    | **No**   | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                                                                                         |
+| offset            | Int    | **No**   | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000                                                                |
 | status            | Array  | **No**    | Can be used for filtering transactions by status codes. ❗ Caution: You must use this parameter with appropriate `transactionMethod` and use valid status codes for this method. You can find them below. Example: `"status": [3,7]` |
 
 | Deposit status codes:     |
@@ -942,12 +942,6 @@ Available statuses:
 - `Status 201 if all validations succeeded and creating transaction is started`
 - `Status 400 if request validation failed`
 - `Status 422 if inner validation failed`
-
-Response error codes:
-
-- 1 - transfers from trade to main are disabled
-- 2 - transfers from main to trade are disabled
-- 3 - not enough balance
 
 ```json
 {
