@@ -863,7 +863,7 @@ When the client subscribes with a limit (e.g., 100), the API sends updates for o
 
 <Tabs items={['Typescript', 'Python', 'Java']}>
 <Tabs.Tab>
-```js
+```typescript showLineNumbers copy
 type Hash<T = any> = { [key: string]: T };
 type IDepth = [string, string];
 
@@ -935,7 +935,7 @@ function truncateOrderBook(orderBookSide: Hash<IDepth[]>) {
 ```
 </Tabs.Tab>
 <Tabs.Tab>
-```py
+```python showLineNumbers copy
 import asyncio
 import json
 import websockets
@@ -990,7 +990,7 @@ asyncio.get_event_loop().run_until_complete(depth_subscribe())
 ```
 </Tabs.Tab>
 <Tabs.Tab>
-```java
+```java showLineNumbers copy
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
