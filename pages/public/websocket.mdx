@@ -1,3 +1,5 @@
+import { Tabs } from 'nextra/components'
+
 # Public WebSocket API
 
 - [Service](#service)
@@ -65,7 +67,7 @@ JSON Structure of response message:
 
 **Example** messages for request with response:
 
-#### ⤴️ Request:
+#### ⤴️ Request
 
 ```json
 {
@@ -75,7 +77,7 @@ JSON Structure of response message:
 }
 ```
 
-#### ⤵️ Response:
+#### ⤵️ Response
 
 ```json
 {
@@ -87,7 +89,7 @@ JSON Structure of response message:
 
 **Example** subscription:
 
-#### ⤴️ Request:
+#### ⤴️ Request
 
 ```json
 {
@@ -97,7 +99,7 @@ JSON Structure of response message:
 }
 ```
 
-#### ⤵️ Response:
+#### ⤵️ Response
 
 ```json
 {
@@ -109,7 +111,7 @@ JSON Structure of response message:
 }
 ```
 
-#### 🔄 Update events:
+#### 🔄 Update events
 
 ```json
 {
@@ -127,7 +129,7 @@ JSON Structure of response message:
 
 #### Ping
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -137,7 +139,7 @@ JSON Structure of response message:
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -149,7 +151,7 @@ JSON Structure of response message:
 
 #### Time
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -159,7 +161,7 @@ JSON Structure of response message:
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -184,7 +186,7 @@ The requested interval must meet the following conditions:
 - Equal to 86400 \* 7;
 - Equal to 86400 \* 30.
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -199,7 +201,7 @@ The requested interval must meet the following conditions:
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -225,7 +227,7 @@ The requested interval must meet the following conditions:
 
 Update interval: 0.5 sec
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -238,7 +240,7 @@ Update interval: 0.5 sec
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -250,7 +252,7 @@ Update interval: 0.5 sec
 }
 ```
 
-##### 🔄 Update events:
+##### 🔄 Update events
 
 ```json
 {
@@ -273,7 +275,7 @@ Update interval: 0.5 sec
 
 #### Unsubscribe
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -283,7 +285,7 @@ Update interval: 0.5 sec
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -301,7 +303,7 @@ Update interval: 0.5 sec
 
 #### Query
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -313,7 +315,7 @@ Update interval: 0.5 sec
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -327,7 +329,7 @@ Update interval: 0.5 sec
 
 Update interval: 1 sec
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -341,7 +343,7 @@ Update interval: 1 sec
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -353,7 +355,7 @@ Update interval: 1 sec
 }
 ```
 
-##### 🔄 Update events:
+##### 🔄 Update events
 
 ```json
 {
@@ -368,7 +370,7 @@ Update interval: 1 sec
 
 #### Unsubscribe
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -378,7 +380,7 @@ Update interval: 1 sec
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -396,7 +398,7 @@ Update interval: 1 sec
 
 #### Query
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -409,7 +411,7 @@ Update interval: 1 sec
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -434,7 +436,7 @@ You can subscribe only for 86400s (24h from now).
 
 Update interval: 1 sec
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -448,7 +450,7 @@ Update interval: 1 sec
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -460,7 +462,7 @@ Update interval: 1 sec
 }
 ```
 
-##### 🔄 Update events:
+##### 🔄 Update events
 
 ```json
 {
@@ -485,7 +487,7 @@ Update interval: 1 sec
 
 #### Unsubscribe
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -495,7 +497,7 @@ Update interval: 1 sec
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -513,7 +515,7 @@ Update interval: 1 sec
 
 #### Query
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -525,7 +527,7 @@ Update interval: 1 sec
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -546,7 +548,7 @@ Update interval: 1 sec
 
 Update interval: 1 sec
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -560,7 +562,7 @@ Update interval: 1 sec
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -572,7 +574,7 @@ Update interval: 1 sec
 }
 ```
 
-##### 🔄 Update events:
+##### 🔄 Update events
 
 ```json
 {
@@ -595,7 +597,7 @@ Update interval: 1 sec
 
 #### Unsubscribe
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -605,7 +607,7 @@ Update interval: 1 sec
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -623,7 +625,7 @@ Update interval: 1 sec
 
 #### Query
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -637,7 +639,7 @@ Update interval: 1 sec
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -663,7 +665,7 @@ Update interval: 100 ms
 
 ❗ For each websocket connection, you can subscribe to either one or several markets. Every following subscription will replace the existing one.
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -677,7 +679,7 @@ Update interval: 100 ms
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -689,7 +691,7 @@ Update interval: 100 ms
 }
 ```
 
-##### 🔄 Update events:
+##### 🔄 Update events
 
 ```json
 {
@@ -713,7 +715,7 @@ Update interval: 100 ms
 
 #### Unsubscribe
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -723,7 +725,7 @@ Update interval: 100 ms
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -743,7 +745,7 @@ Update interval: 100 ms
 
 This endpoint allows clients to request the current market depth for a specific cryptocurrency pair.
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -757,7 +759,7 @@ This endpoint allows clients to request the current market depth for a specific 
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -784,7 +786,7 @@ This endpoint allows clients to subscribe to real-time updates of market depth d
 
 Update interval: 100 ms
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -801,7 +803,7 @@ Update interval: 100 ms
 
 The last parameter - Multiple subscription flag - allows you to subscribe to market depths as many markets as you want. The only restriction is one subscription with specific parameters per market.
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
@@ -813,7 +815,7 @@ The last parameter - Multiple subscription flag - allows you to subscribe to mar
 }
 ```
 
-##### 🔄 Update events:
+##### 🔄 Update events
 
 Update events provide real-time updates to the subscribed market depth.
 
@@ -841,11 +843,11 @@ Update events provide real-time updates to the subscribed market depth.
 }
 ```
 
-##### Processing Update Messages
+**Processing Update Messages**
 
 When the client subscribes with a limit (e.g., 100), the API sends updates for only the specified number of price levels (100 in this case) for both buy and sell sides. The client must process these updates and truncate the order book to maintain only the top 100 levels on each side.
 
-##### Steps to Process Update Messages
+**Steps to Process Update Messages**
 
 1. **Receive the Update Message**: Listen for `depth_update` messages from the WebSocket connection.
 2. **Check Update Type**: Determine if the update is a full reload or a partial update.
@@ -857,63 +859,279 @@ When the client subscribes with a limit (e.g., 100), the API sends updates for o
         - Otherwise, update the price level with the new quantity.
 4. **Truncate to Limit**: Ensure that the order book contains only the top N (e.g., 100) price levels for both buy and sell sides.
 
+##### 💻 Code examples
+
+<Tabs items={['Typescript', 'Python', 'Java']}>
+<Tabs.Tab>
 ```js
-const WebSocket = require('ws');
+type Hash<T = any> = { [key: string]: T };
+type IDepth = [string, string];
+
+interface OrderBook {
+  asks: Hash<IDepth[]>;
+  bids: Hash<IDepth[]>;
+}
 
 const ws = new WebSocket('wss://api.whitebit.com/ws');
-const orderBook = { asks: [], bids: [] };
+const orderBook: OrderBook = { asks: [], bids: [] };
 const LIMIT = 100;
 
 ws.on('open', () => {
   ws.send(JSON.stringify({
-    id: 12,
+    id: 1,
     method: 'depth_subscribe',
     params: ['ETH_BTC', LIMIT, '0', true]
   }));
 });
 
-ws.on('message', (data) => {
-  const message = JSON.parse(data);
+ws.on('message', (data: WebSocket.Data) => {
+  const message = JSON.parse(data.toString());
+
   if (message.method === 'depth_update') {
     const [fullReload, updateData] = message.params;
 
     if (fullReload) {
-      orderBook.asks = updateData.asks.slice(0, LIMIT);
-      orderBook.bids = updateData.bids.slice(0, LIMIT);
+      orderBook.asks = updateData.asks;
+      orderBook.bids = updateData.bids;
     } else {
       applyUpdates(orderBook.asks, updateData.asks);
       applyUpdates(orderBook.bids, updateData.bids);
       truncateOrderBook(orderBook.asks);
       truncateOrderBook(orderBook.bids);
     }
-
-    console.log('Updated order book:', orderBook);
   }
 });
 
-function applyUpdates(orderBookSide, updates) {
+function applyUpdates(orderBookSide: Hash<IDepth[]>, updates: Hash<IDepth[]>) {
   updates.forEach(([price, amount]) => {
+    // Find the index of an entry in orderBookSide that matches the given price.
     const priceIndex = orderBookSide.findIndex(level => level[0] === price);
+
+    // If the amount is '0', it means this price level should be removed from the orderBookSide.
     if (amount === '0') {
-      if (priceIndex !== -1) orderBookSide.splice(priceIndex, 1);
+      if (priceIndex !== -1) {
+        // Remove the existing price level since the amount is '0'.
+        orderBookSide.splice(priceIndex, 1);
+      }
     } else {
-      if (priceIndex !== -1) orderBookSide[priceIndex][1] = amount;
-      else orderBookSide.push([price, amount]);
+      // If the amount is not '0', either update the existing price level or add a new one.
+      if (priceIndex !== -1) {
+        // Update the amount for the existing price level.
+        orderBookSide[priceIndex][1] = amount;
+      } else {
+        // Add a new price level to the order book.
+        orderBookSide.push([price, amount]);
+      }
     }
   });
-  orderBookSide.sort(([priceA], [priceB]) => parseFloat(priceA) - parseFloat(priceB));
 }
 
-function truncateOrderBook(orderBookSide) {
-  orderBookSide.splice(LIMIT);
+function truncateOrderBook(orderBookSide: Hash<IDepth[]>) {
+  if (orderBookSide.length > LIMIT) {
+    // Only truncate if the length exceeds the LIMIT
+    orderBookSide.splice(LIMIT);
+  }
 }
 ```
+</Tabs.Tab>
+<Tabs.Tab>
+```py
+import asyncio
+import json
+import websockets
+
+class OrderBook:
+    def __init__(self):
+        self.asks = {}
+        self.bids = {}
+
+LIMIT = 100
+
+async def depth_subscribe():
+    async with websockets.connect('wss://api.whitebit.com/ws') as ws:
+        await ws.send(json.dumps({
+            'id': 1,
+            'method': 'depth_subscribe',
+            'params': ['ETH_BTC', LIMIT, '0', True]
+        }))
+
+        async for message in ws:
+            data = json.loads(message)
+            if data.get('method') == 'depth_update':
+                handle_depth_update(data['params'])
+
+def handle_depth_update(params):
+    full_reload, update_data = params
+    if full_reload:
+        order_book.asks = {price: amount for price, amount in update_data['asks']}
+        order_book.bids = {price: amount for price, amount in update_data['bids']}
+    else:
+        apply_updates(order_book.asks, update_data['asks'])
+        apply_updates(order_book.bids, update_data['bids'])
+        truncate_order_book(order_book.asks)
+        truncate_order_book(order_book.bids)
+
+def apply_updates(order_book_side, updates):
+    for price, amount in updates:
+        if amount == '0':
+            order_book_side.pop(price, None)
+        else:
+            order_book_side[price] = amount
+
+def truncate_order_book(order_book_side):
+    if len(order_book_side) > LIMIT:
+        keys_to_remove = list(order_book_side.keys())[LIMIT:]
+        for key in keys_to_remove:
+            order_book_side.pop(key)
+
+order_book = OrderBook()
+
+asyncio.get_event_loop().run_until_complete(depth_subscribe())
+```
+</Tabs.Tab>
+<Tabs.Tab>
+```java
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonValue;
+import javax.json.JsonWriter;
+import javax.websocket.*;
+
+@ClientEndpoint
+public class OrderBookClient {
+    private static final int LIMIT = 100;
+    private static Map<String, IDepth> asks = new HashMap<>();
+    private static Map<String, IDepth> bids = new HashMap<>();
+    private static CountDownLatch latch;
+
+    public static void main(String[] args) throws URISyntaxException, InterruptedException {
+        latch = new CountDownLatch(1);
+        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+        URI uri = new URI("wss://api.whitebit.com/ws");
+        container.connectToServer(OrderBookClient.class, uri);
+        latch.await(1, TimeUnit.MINUTES);
+    }
+
+    @OnOpen
+    public void onOpen(Session session) throws Exception {
+        JsonObject message = Json.createObjectBuilder()
+                .add("id", 1)
+                .add("method", "depth_subscribe")
+                .add("params", Json.createArrayBuilder()
+                        .add("ETH_BTC")
+                        .add(LIMIT)
+                        .add("0")
+                        .add(true))
+                .build();
+        try (JsonWriter writer = Json.createWriter(session.getBasicRemote().getSendStream())) {
+            writer.write(message);
+        }
+    }
+
+    @OnMessage
+    public void onMessage(String message, Session session) {
+        try (JsonReader reader = Json.createReader(() -> new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8)))) {
+            JsonObject jsonMessage = reader.readObject();
+            if ("depth_update".equals(jsonMessage.getString("method"))) {
+                JsonArray params = jsonMessage.getJsonArray("params");
+                boolean fullReload = params.getBoolean(0);
+
+                if (fullReload) {
+                    asks = parseOrderBookSide(params.getJsonObject(1).getJsonArray("asks"));
+                    bids = parseOrderBookSide(params.getJsonObject(1).getJsonArray("bids"));
+                } else {
+                    applyUpdates(asks, params.getJsonObject(1).getJsonArray("asks"));
+                    applyUpdates(bids, params.getJsonObject(1).getJsonArray("bids"));
+                    truncateOrderBook(asks);
+                    truncateOrderBook(bids);
+                }
+            }
+        }
+    }
+
+    @OnClose
+    public void onClose(Session session, CloseReason reason) {
+        System.out.println("Connection closed: " + reason);
+        latch.countDown();
+    }
+
+    @OnError
+    public void onError(Session session, Throwable throwable) {
+        throwable.printStackTrace();
+        latch.countDown();
+    }
+
+    private static Map<String, IDepth> parseOrderBookSide(JsonArray jsonArray) {
+        Map<String, IDepth> orderBookSide = new HashMap<>();
+        for (JsonValue value : jsonArray) {
+            JsonArray level = value.asJsonArray();
+            String price = level.getString(0);
+            String amount = level.getString(1);
+            orderBookSide.put(price, new IDepth(price, amount));
+        }
+        return orderBookSide;
+    }
+
+    private static void applyUpdates(Map<String, IDepth> orderBookSide, JsonArray updates) {
+        for (JsonValue value : updates) {
+            JsonArray level = value.asJsonArray();
+            String price = level.getString(0);
+            String amount = level.getString(1);
+            if ("0".equals(amount)) {
+                orderBookSide.remove(price);
+            } else {
+                orderBookSide.put(price, new IDepth(price, amount));
+            }
+        }
+    }
+
+    private static void truncateOrderBook(Map<String, IDepth> orderBookSide) {
+        if (orderBookSide.size() > LIMIT) {
+            // Only keep the most recent LIMIT entries
+            while (orderBookSide.size() > LIMIT) {
+                String firstKey = orderBookSide.keySet().iterator().next();
+                orderBookSide.remove(firstKey);
+            }
+        }
+    }
+
+    static class IDepth {
+        private final String price;
+        private final String amount;
+
+        public IDepth(String price, String amount) {
+            this.price = price;
+            this.amount = amount;
+        }
+
+        public String getPrice() {
+            return price;
+        }
+
+        public String getAmount() {
+            return amount;
+        }
+    }
+}
+```
+</Tabs.Tab>
+</Tabs>
+
 
 #### Unsubscribe
 
 This endpoint allows clients to unsubscribe from real-time updates of market depth data.
 
-##### ⤴️ Request:
+##### ⤴️ Request
 
 ```json
 {
@@ -923,7 +1141,7 @@ This endpoint allows clients to unsubscribe from real-time updates of market dep
 }
 ```
 
-##### ⤵️ Response:
+##### ⤵️ Response
 
 ```json
 {
