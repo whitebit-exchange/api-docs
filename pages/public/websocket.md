@@ -741,6 +741,8 @@ Update interval: 100 ms
 
 #### Query
 
+This endpoint allows clients to request the current market depth for a specific cryptocurrency pair.
+
 ##### ⤴️ Request:
 
 ```json
@@ -778,6 +780,8 @@ Update interval: 100 ms
 
 #### Subscribe
 
+This endpoint allows clients to subscribe to real-time updates of market depth data.
+
 Update interval: 100 ms
 
 ##### ⤴️ Request:
@@ -811,29 +815,103 @@ The last parameter - Multiple subscription flag - allows you to subscribe to mar
 
 ##### 🔄 Update events:
 
+Update events provide real-time updates to the subscribed market depth.
+
 ```json
 {
     "id": null,
     "method": "depth_update",
     "params": [
-        false,                          // true - full reload, false - partial update
+        false,   // full_reload_flag | true - full reload, false - partial update
         {
             "timestamp": 1689600180.5164471,
             "asks": [
                 ["0.020861", "0"],      // for partial update - finished orders will be [price, "0"]
+                ["0.020900", "2.5"],
                 ...
             ],
             "bids": [
                 ["0.020844", "5.949"],
+                ["0.020800", "0"],
                 ...
             ]
         },
-        "ETH_BTC"                       // market
+        "ETH_BTC"                       // market pair
     ]
 }
 ```
 
+##### Processing Update Messages
+
+When the client subscribes with a limit (e.g., 100), the API sends updates for only the specified number of price levels (100 in this case) for both buy and sell sides. The client must process these updates and truncate the order book to maintain only the top 100 levels on each side.
+
+##### Steps to Process Update Messages
+
+1. **Receive the Update Message**: Listen for `depth_update` messages from the WebSocket connection.
+2. **Check Update Type**: Determine if the update is a full reload or a partial update.
+    - If it’s a full reload (`full_reload_flag` - first param in response is `true`), replace the current order book with the new data.
+    - If it’s a partial update (`full_reload_flag` is `false`), update the existing order book with the new price levels.
+3. **Update the Order Book**: Apply the changes from the update message to the local order book.
+    - For each price level in the `asks` and `bids` arrays:
+        - If the quantity is `0`, remove that price level from the order book.
+        - Otherwise, update the price level with the new quantity.
+4. **Truncate to Limit**: Ensure that the order book contains only the top N (e.g., 100) price levels for both buy and sell sides.
+
+```js
+const WebSocket = require('ws');
+
+const ws = new WebSocket('wss://api.whitebit.com/ws');
+const orderBook = { asks: [], bids: [] };
+const LIMIT = 100;
+
+ws.on('open', () => {
+  ws.send(JSON.stringify({
+    id: 12,
+    method: 'depth_subscribe',
+    params: ['ETH_BTC', LIMIT, '0', true]
+  }));
+});
+
+ws.on('message', (data) => {
+  const message = JSON.parse(data);
+  if (message.method === 'depth_update') {
+    const [fullReload, updateData] = message.params;
+
+    if (fullReload) {
+      orderBook.asks = updateData.asks.slice(0, LIMIT);
+      orderBook.bids = updateData.bids.slice(0, LIMIT);
+    } else {
+      applyUpdates(orderBook.asks, updateData.asks);
+      applyUpdates(orderBook.bids, updateData.bids);
+      truncateOrderBook(orderBook.asks);
+      truncateOrderBook(orderBook.bids);
+    }
+
+    console.log('Updated order book:', orderBook);
+  }
+});
+
+function applyUpdates(orderBookSide, updates) {
+  updates.forEach(([price, amount]) => {
+    const priceIndex = orderBookSide.findIndex(level => level[0] === price);
+    if (amount === '0') {
+      if (priceIndex !== -1) orderBookSide.splice(priceIndex, 1);
+    } else {
+      if (priceIndex !== -1) orderBookSide[priceIndex][1] = amount;
+      else orderBookSide.push([price, amount]);
+    }
+  });
+  orderBookSide.sort(([priceA], [priceB]) => parseFloat(priceA) - parseFloat(priceB));
+}
+
+function truncateOrderBook(orderBookSide) {
+  orderBookSide.splice(LIMIT);
+}
+```
+
 #### Unsubscribe
+
+This endpoint allows clients to unsubscribe from real-time updates of market depth data.
 
 ##### ⤴️ Request:
 
