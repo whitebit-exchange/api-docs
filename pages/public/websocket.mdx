@@ -895,15 +895,15 @@ ws.addEventListener("message", (event: MessageEvent) => {
             orderBook.asks = updateData.asks ?? [];
             orderBook.bids = updateData.bids ?? [];
         } else {
-            applyUpdates(orderBook.asks, updateData.asks);
-            applyUpdates(orderBook.bids, updateData.bids);
+            applyUpdates(orderBook.asks, updateData.asks, "ask");
+            applyUpdates(orderBook.bids, updateData.bids, "bid");
             truncateOrderBook(orderBook.asks);
             truncateOrderBook(orderBook.bids);
         }
     }
 });
 
-function applyUpdates(orderBookSide: IDepth[], updates: IDepth[] | undefined) {
+function applyUpdates(orderBookSide: IDepth[], updates: IDepth[] | undefined, side: "ask" | "bid") {
     if (updates === undefined) return;
     for (const [price, amount] of updates) {
         // Find the index of an entry in orderBookSide that matches the given price.
@@ -918,8 +918,18 @@ function applyUpdates(orderBookSide: IDepth[], updates: IDepth[] | undefined) {
         } else {
             // If the amount is not '0', either update the existing price level or add a new one.
             if (priceIndex === -1) {
-                // Add a new price level to the order book.
-                orderBookSide.push([price, amount]);
+                // Find the position where the new price level should be inserted.
+               const insertIndex = orderBookSide.findIndex((level) =>
+                    side === "ask" ? level[0] > price : level[0] < price
+                );
+
+                if (insertIndex === -1) {
+                    // Add to the end if there's no higher price level.
+                    orderBookSide.push([price, amount]);
+                } else {
+                    // Insert at the correct sorted position.
+                    orderBookSide.splice(insertIndex, 0, [price, amount]);
+                }
             } else {
                 // Update the amount for the existing price level.
                 orderBookSide[priceIndex][1] = amount;
@@ -944,8 +954,8 @@ import websockets
 
 class OrderBook:
     def __init__(self):
-        self.asks = {}
-        self.bids = {}
+        self.asks = []
+        self.bids = []
 
 LIMIT = 100
 
@@ -968,27 +978,38 @@ def handle_depth_update(params):
         order_book.asks = update_data.get('asks', [])
         order_book.bids = update_data.get('bids', [])
     else:
-        apply_updates(order_book.asks, update_data.get('asks', []))
-        apply_updates(order_book.bids, update_data.get('bids', []))
+        apply_updates(order_book.asks, update_data.get('asks', []), "ask")
+        apply_updates(order_book.bids, update_data.get('bids', []), "bid")
         truncate_order_book(order_book.asks)
         truncate_order_book(order_book.bids)
 
-def apply_updates(order_book_side, updates):
+def apply_updates(order_book_side, updates, side):
     for price, amount in updates:
-        amount = str(amount)
         price = str(price)
+        amount = str(amount)
 
         # Find existing entry
-        for entry in order_book_side:
-            if entry[0] == price:
-                if amount == '0':
-                    order_book_side.remove(entry)
-                else:
-                    entry[1] = amount
-                break
+        price_index = next((i for i, level in enumerate(order_book_side) if level[0] == price), -1)
+
+        if amount == '0':
+            if price_index != -1:
+                # Remove the existing price level since the amount is '0'.
+                order_book_side.pop(price_index)
         else:
-            if amount != '0':
-                order_book_side.append([price, amount])
+            if price_index == -1:
+                # Find the position where the new price level should be inserted.
+                insert_index = next((i for i, level in enumerate(order_book_side)
+                                     if (side == "ask" and level[0] > price) or
+                                     (side == "bid" and level[0] < price)), -1)
+                if insert_index == -1:
+                    # Add to the end if there's no higher price level.
+                    order_book_side.append([price, amount])
+                else:
+                    # Insert at the correct sorted position.
+                    order_book_side.insert(insert_index, [price, amount])
+            else:
+                # Update the amount for the existing price level.
+                order_book_side[price_index][1] = amount
 
 def truncate_order_book(order_book_side):
     if len(order_book_side) > LIMIT:
@@ -1001,6 +1022,7 @@ asyncio.get_event_loop().run_until_complete(depth_subscribe())
 </Tabs.Tab>
 <Tabs.Tab>
 ```java showLineNumbers copy
+import java.io.ByteArrayInputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -1053,8 +1075,8 @@ public class OrderBookClient {
                 asks = parseOrderBookSide(params.getJsonObject(1).getJsonArray("asks"));
                 bids = parseOrderBookSide(params.getJsonObject(1).getJsonArray("bids"));
             } else {
-                applyUpdates(asks, params.getJsonObject(1).getJsonArray("asks"));
-                applyUpdates(bids, params.getJsonObject(1).getJsonArray("bids"));
+                applyUpdates(asks, params.getJsonObject(1).getJsonArray("asks"), "ask");
+                applyUpdates(bids, params.getJsonObject(1).getJsonArray("bids"), "bid");
                 truncateOrderBook(asks);
                 truncateOrderBook(bids);
             }
@@ -1084,26 +1106,43 @@ public class OrderBookClient {
         return orderBookSide;
     }
 
-    private static void applyUpdates(List<IDepth> orderBookSide, JsonArray updates) {
+    private static void applyUpdates(List<IDepth> orderBookSide, JsonArray updates, String side) {
         for (JsonValue value : updates) {
             JsonArray level = value.asJsonArray();
             String price = level.getString(0);
             String amount = level.getString(1);
 
-            boolean found = false;
-            for (IDepth entry : orderBookSide) {
-                if (entry.getPrice().equals(price)) {
-                    if ("0".equals(amount)) {
-                        orderBookSide.remove(entry);
-                    } else {
-                        entry.setAmount(amount);
-                    }
-                    found = true;
+            int priceIndex = -1;
+            for (int i = 0; i < orderBookSide.size(); i++) {
+                if (orderBookSide.get(i).getPrice().equals(price)) {
+                    priceIndex = i;
                     break;
                 }
             }
-            if (!found && !"0".equals(amount)) {
-                orderBookSide.add(new IDepth(price, amount));
+
+            if ("0".equals(amount)) {
+                if (priceIndex != -1) {
+                    orderBookSide.remove(priceIndex);
+                }
+            } else {
+                if (priceIndex == -1) {
+                    int insertIndex = -1;
+                    for (int i = 0; i < orderBookSide.size(); i++) {
+                        if ((side.equals("ask") && orderBookSide.get(i).getPrice().compareTo(price) > 0) ||
+                            (side.equals("bid") && orderBookSide.get(i).getPrice().compareTo(price) < 0)) {
+                            insertIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (insertIndex == -1) {
+                        orderBookSide.add(new IDepth(price, amount));
+                    } else {
+                        orderBookSide.add(insertIndex, new IDepth(price, amount));
+                    }
+                } else {
+                    orderBookSide.get(priceIndex).setAmount(amount);
+                }
             }
         }
     }
