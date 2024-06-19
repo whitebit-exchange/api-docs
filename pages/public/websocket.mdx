@@ -864,73 +864,75 @@ When the client subscribes with a limit (e.g., 100), the API sends updates for o
 <Tabs items={['Typescript', 'Python', 'Java']}>
 <Tabs.Tab>
 ```typescript showLineNumbers copy
-type Hash<T = any> = { [key: string]: T };
 type IDepth = [string, string];
 
 interface OrderBook {
-  asks: Hash<IDepth[]>;
-  bids: Hash<IDepth[]>;
+    asks: IDepth[];
+    bids: IDepth[];
 }
 
-const ws = new WebSocket('wss://api.whitebit.com/ws');
+const ws = new WebSocket("wss://api.whitebit.com/ws");
 const orderBook: OrderBook = { asks: [], bids: [] };
 const LIMIT = 100;
 
-ws.on('open', () => {
-  ws.send(JSON.stringify({
-    id: 1,
-    method: 'depth_subscribe',
-    params: ['ETH_BTC', LIMIT, '0', true]
-  }));
+ws.addEventListener("open", () => {
+    ws.send(
+        JSON.stringify({
+            id: 1,
+            method: "depth_subscribe",
+            params: ["ETH_BTC", LIMIT, "0", true],
+        }),
+    );
 });
 
-ws.on('message', (data: WebSocket.Data) => {
-  const message = JSON.parse(data.toString());
+ws.addEventListener("message", (event: MessageEvent) => {
+    const message = JSON.parse(event.data.toString());
 
-  if (message.method === 'depth_update') {
-    const [fullReload, updateData] = message.params;
+    if (message.method === "depth_update") {
+        const [fullReload, updateData] = message.params as [boolean, Partial<OrderBook>];
 
-    if (fullReload) {
-      orderBook.asks = updateData.asks;
-      orderBook.bids = updateData.bids;
-    } else {
-      applyUpdates(orderBook.asks, updateData.asks);
-      applyUpdates(orderBook.bids, updateData.bids);
-      truncateOrderBook(orderBook.asks);
-      truncateOrderBook(orderBook.bids);
+        if (fullReload) {
+            orderBook.asks = updateData.asks ?? [];
+            orderBook.bids = updateData.bids ?? [];
+        } else {
+            applyUpdates(orderBook.asks, updateData.asks);
+            applyUpdates(orderBook.bids, updateData.bids);
+            truncateOrderBook(orderBook.asks);
+            truncateOrderBook(orderBook.bids);
+        }
     }
-  }
 });
 
-function applyUpdates(orderBookSide: Hash<IDepth[]>, updates: Hash<IDepth[]>) {
-  updates.forEach(([price, amount]) => {
-    // Find the index of an entry in orderBookSide that matches the given price.
-    const priceIndex = orderBookSide.findIndex(level => level[0] === price);
+function applyUpdates(orderBookSide: IDepth[], updates: IDepth[] | undefined) {
+    if (updates === undefined) return;
+    for (const [price, amount] of updates) {
+        // Find the index of an entry in orderBookSide that matches the given price.
+        const priceIndex = orderBookSide.findIndex((level) => level[0] === price);
 
-    // If the amount is '0', it means this price level should be removed from the orderBookSide.
-    if (amount === '0') {
-      if (priceIndex !== -1) {
-        // Remove the existing price level since the amount is '0'.
-        orderBookSide.splice(priceIndex, 1);
-      }
-    } else {
-      // If the amount is not '0', either update the existing price level or add a new one.
-      if (priceIndex !== -1) {
-        // Update the amount for the existing price level.
-        orderBookSide[priceIndex][1] = amount;
-      } else {
-        // Add a new price level to the order book.
-        orderBookSide.push([price, amount]);
-      }
+        // If the amount is '0', it means this price level should be removed from the orderBookSide.
+        if (amount === "0") {
+            if (priceIndex !== -1) {
+                // Remove the existing price level since the amount is '0'.
+                orderBookSide.splice(priceIndex, 1);
+            }
+        } else {
+            // If the amount is not '0', either update the existing price level or add a new one.
+            if (priceIndex === -1) {
+                // Add a new price level to the order book.
+                orderBookSide.push([price, amount]);
+            } else {
+                // Update the amount for the existing price level.
+                orderBookSide[priceIndex][1] = amount;
+            }
+        }
     }
-  });
 }
 
-function truncateOrderBook(orderBookSide: Hash<IDepth[]>) {
-  if (orderBookSide.length > LIMIT) {
-    // Only truncate if the length exceeds the LIMIT
-    orderBookSide.splice(LIMIT);
-  }
+function truncateOrderBook(orderBookSide: IDepth[]) {
+    if (orderBookSide.length > LIMIT) {
+        // Only truncate if the length exceeds the LIMIT
+        orderBookSide.splice(LIMIT);
+    }
 }
 ```
 </Tabs.Tab>
@@ -963,26 +965,34 @@ async def depth_subscribe():
 def handle_depth_update(params):
     full_reload, update_data = params
     if full_reload:
-        order_book.asks = {price: amount for price, amount in update_data['asks']}
-        order_book.bids = {price: amount for price, amount in update_data['bids']}
+        order_book.asks = update_data.get('asks', [])
+        order_book.bids = update_data.get('bids', [])
     else:
-        apply_updates(order_book.asks, update_data['asks'])
-        apply_updates(order_book.bids, update_data['bids'])
+        apply_updates(order_book.asks, update_data.get('asks', []))
+        apply_updates(order_book.bids, update_data.get('bids', []))
         truncate_order_book(order_book.asks)
         truncate_order_book(order_book.bids)
 
 def apply_updates(order_book_side, updates):
     for price, amount in updates:
-        if amount == '0':
-            order_book_side.pop(price, None)
+        amount = str(amount)
+        price = str(price)
+
+        # Find existing entry
+        for entry in order_book_side:
+            if entry[0] == price:
+                if amount == '0':
+                    order_book_side.remove(entry)
+                else:
+                    entry[1] = amount
+                break
         else:
-            order_book_side[price] = amount
+            if amount != '0':
+                order_book_side.append([price, amount])
 
 def truncate_order_book(order_book_side):
     if len(order_book_side) > LIMIT:
-        keys_to_remove = list(order_book_side.keys())[LIMIT:]
-        for key in keys_to_remove:
-            order_book_side.pop(key)
+        del order_book_side[LIMIT:]
 
 order_book = OrderBook()
 
@@ -994,23 +1004,18 @@ asyncio.get_event_loop().run_until_complete(depth_subscribe())
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.json.JsonValue;
-import javax.json.JsonWriter;
+import javax.json.*;
 import javax.websocket.*;
 
 @ClientEndpoint
 public class OrderBookClient {
     private static final int LIMIT = 100;
-    private static Map<String, IDepth> asks = new HashMap<>();
-    private static Map<String, IDepth> bids = new HashMap<>();
+    private static List<IDepth> asks = new ArrayList<>();
+    private static List<IDepth> bids = new ArrayList<>();
     private static CountDownLatch latch;
 
     public static void main(String[] args) throws URISyntaxException, InterruptedException {
@@ -1032,28 +1037,26 @@ public class OrderBookClient {
                         .add("0")
                         .add(true))
                 .build();
-        try (JsonWriter writer = Json.createWriter(session.getBasicRemote().getSendStream())) {
-            writer.write(message);
-        }
+        session.getBasicRemote().sendText(message.toString());
     }
 
     @OnMessage
     public void onMessage(String message, Session session) {
-        try (JsonReader reader = Json.createReader(() -> new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8)))) {
-            JsonObject jsonMessage = reader.readObject();
-            if ("depth_update".equals(jsonMessage.getString("method"))) {
-                JsonArray params = jsonMessage.getJsonArray("params");
-                boolean fullReload = params.getBoolean(0);
+        JsonReader reader = Json.createReader(new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8)));
+        JsonObject jsonMessage = reader.readObject();
 
-                if (fullReload) {
-                    asks = parseOrderBookSide(params.getJsonObject(1).getJsonArray("asks"));
-                    bids = parseOrderBookSide(params.getJsonObject(1).getJsonArray("bids"));
-                } else {
-                    applyUpdates(asks, params.getJsonObject(1).getJsonArray("asks"));
-                    applyUpdates(bids, params.getJsonObject(1).getJsonArray("bids"));
-                    truncateOrderBook(asks);
-                    truncateOrderBook(bids);
-                }
+        if ("depth_update".equals(jsonMessage.getString("method"))) {
+            JsonArray params = jsonMessage.getJsonArray("params");
+            boolean fullReload = params.getBoolean(0);
+
+            if (fullReload) {
+                asks = parseOrderBookSide(params.getJsonObject(1).getJsonArray("asks"));
+                bids = parseOrderBookSide(params.getJsonObject(1).getJsonArray("bids"));
+            } else {
+                applyUpdates(asks, params.getJsonObject(1).getJsonArray("asks"));
+                applyUpdates(bids, params.getJsonObject(1).getJsonArray("bids"));
+                truncateOrderBook(asks);
+                truncateOrderBook(bids);
             }
         }
     }
@@ -1070,43 +1073,50 @@ public class OrderBookClient {
         latch.countDown();
     }
 
-    private static Map<String, IDepth> parseOrderBookSide(JsonArray jsonArray) {
-        Map<String, IDepth> orderBookSide = new HashMap<>();
+    private static List<IDepth> parseOrderBookSide(JsonArray jsonArray) {
+        List<IDepth> orderBookSide = new ArrayList<>();
         for (JsonValue value : jsonArray) {
             JsonArray level = value.asJsonArray();
             String price = level.getString(0);
             String amount = level.getString(1);
-            orderBookSide.put(price, new IDepth(price, amount));
+            orderBookSide.add(new IDepth(price, amount));
         }
         return orderBookSide;
     }
 
-    private static void applyUpdates(Map<String, IDepth> orderBookSide, JsonArray updates) {
+    private static void applyUpdates(List<IDepth> orderBookSide, JsonArray updates) {
         for (JsonValue value : updates) {
             JsonArray level = value.asJsonArray();
             String price = level.getString(0);
             String amount = level.getString(1);
-            if ("0".equals(amount)) {
-                orderBookSide.remove(price);
-            } else {
-                orderBookSide.put(price, new IDepth(price, amount));
+
+            boolean found = false;
+            for (IDepth entry : orderBookSide) {
+                if (entry.getPrice().equals(price)) {
+                    if ("0".equals(amount)) {
+                        orderBookSide.remove(entry);
+                    } else {
+                        entry.setAmount(amount);
+                    }
+                    found = true;
+                    break;
+                }
+            }
+            if (!found && !"0".equals(amount)) {
+                orderBookSide.add(new IDepth(price, amount));
             }
         }
     }
 
-    private static void truncateOrderBook(Map<String, IDepth> orderBookSide) {
+    private static void truncateOrderBook(List<IDepth> orderBookSide) {
         if (orderBookSide.size() > LIMIT) {
-            // Only keep the most recent LIMIT entries
-            while (orderBookSide.size() > LIMIT) {
-                String firstKey = orderBookSide.keySet().iterator().next();
-                orderBookSide.remove(firstKey);
-            }
+            orderBookSide.subList(LIMIT, orderBookSide.size()).clear();
         }
     }
 
     static class IDepth {
         private final String price;
-        private final String amount;
+        private String amount;
 
         public IDepth(String price, String amount) {
             this.price = price;
@@ -1119,6 +1129,10 @@ public class OrderBookClient {
 
         public String getAmount() {
             return amount;
+        }
+
+        public void setAmount(String amount) {
+            this.amount = amount;
         }
     }
 }
