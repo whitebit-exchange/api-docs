@@ -98,19 +98,19 @@ Available statuses:
 ```json
 {
     "BSV": {
-        "main_balance": "0"           // main balance volume of BSV
+        "main_balance": "0"     // main balance volume of BSV
     },
     "BTC": {
-        "main_balance": "0"           // main balance volume of BTC
+        "main_balance": "0"     // main balance volume of BTC
     },
     "BTG": {
-        "main_balance": "0"           // main balance volume of BTG
+        "main_balance": "0"     // main balance volume of BTG
     },
     "BTT": {
-        "main_balance": "0"           // main balance volume of BTT
+        "main_balance": "0"     // main balance volume of BTT
     },
     "XLM": {
-        "main_balance": "36.48"       // main balance volume of XLM
+        "main_balance": "36.48" // main balance volume of XLM
     },
     "currecty_ticker": {...}
 }
@@ -184,18 +184,17 @@ Available statuses:
 {
   "account": {
     "address": "GDTSOI56XNVAKJNJBLJGRNZIVOCIZJRBIDKTWSCYEYNFAZEMBLN75RMN", // deposit address
-    "memo": "48565488244493" // memo if currency requires memo
+    "memo": "48565488244493"                                               // memo if currency requires memo
   },
   "required": {
-    "fixedFee": "0", // fixed deposit fee
-    "flexFee": {
-      // flexible fee - is fee that use percent rate
-      "maxFee": "0", // maximum fixed fee that you will pay
-      "minFee": "0", // minimum fixed fee that you will pay
-      "percent": "0" // percent of deposit that you will pay
+    "fixedFee": "0",  // fixed deposit fee
+    "flexFee": {      // flexible fee - is fee that use percent rate
+      "maxFee": "0",  // maximum fixed fee that you will pay
+      "minFee": "0",  // minimum fixed fee that you will pay
+      "percent": "0"  // percent of deposit that you will pay
     },
     "maxAmount": "0", // max amount of deposit that can be accepted by exchange - if you deposit more than that number, it won't be accepted by exchange
-    "minAmount": "1" // min amount of deposit that can be accepted by exchange - if you will deposit less than that number, it won't be accepted by exchange
+    "minAmount": "1"  // min amount of deposit that can be accepted by exchange - if you will deposit less than that number, it won't be accepted by exchange
   }
 }
 ```
@@ -1138,17 +1137,16 @@ Available statuses:
 {
   "account": {
     "address": "GDTSOI56XNVAKJNJBLJGRNZIVOCIZJRBIDKTWSCYEYNFAZEMBLN75RMN", // deposit address
-    "memo": "48565488244493" // memo if currency requires memo
+    "memo": "48565488244493"                                               // memo if currency requires memo
   },
   "required": {
     "maxAmount": "0", // max amount of deposit that can be accepted by exchange - if you deposit more than that number, it won't be accepted by exchange
     "minAmount": "1", // min amount of deposit that accepted by exchange - if you deposit less than that number, it won't be accepted by exchange
-    "fixedFee": "0", // fixed deposit fee
-    "flexFee": {
-      // flexible fee - is fee that use percent rate
-      "maxFee": "0", // maximum fixed fee that you will pay
-      "minFee": "0", // minimum fixed fee that you will pay
-      "percent": "0" // percent of deposit that you will pay
+    "fixedFee": "0",  // fixed deposit fee
+    "flexFee": {      // flexible fee - is fee that use percent rate
+      "maxFee": "0",  // maximum fixed fee that you will pay
+      "minFee": "0",  // minimum fixed fee that you will pay
+      "percent": "0"  // percent of deposit that you will pay
     }
   }
 }
@@ -1462,12 +1460,12 @@ Available statuses:
     "total": 15,
     "data": [
         {
-            "amount": "0.002",                                          // code amount
-            "code": "WBe11f4fce-2a53-4edc-b195-66b693bd77e3ETH",        // code
-            "date": 1598296332,                                         // code creation timestamp
-            "status": "Activated",                                      // code status
-            "ticker": "ETH",                                            // code ticker
-            "external_id": "cf7c3ff8-5eb0-11ed-9b6a-0242ac120002"       // code external id
+            "amount": "0.002",                                    // code amount
+            "code": "WBe11f4fce-2a53-4edc-b195-66b693bd77e3ETH",  // code
+            "date": 1598296332,                                   // code creation timestamp
+            "status": "Activated",                                // code status
+            "ticker": "ETH",                                      // code ticker
+            "external_id": "cf7c3ff8-5eb0-11ed-9b6a-0242ac120002" // code external id
         },
         {...}
     ],
@@ -1559,20 +1557,20 @@ Available statuses:
     "total": 29,
     "data": [
         {
-            "amount": "+0.002",                                           // code amount change; - is created; + is applied
-            "code": "WBe11f4fce-2a53-4edc-b195-66b693bd77e3ETH",          // code
-            "date": 1598296734,                                           // code activation timestamp
-            "status": "Activated",                                        // current code status
-            "ticker": "ETH",                                              // code ticker
-            "external_id": "cf7c3ff8-5eb0-11ed-9b6a-0242ac120002"         // code external id
+            "amount": "+0.002",                                   // code amount change; - is created; + is applied
+            "code": "WBe11f4fce-2a53-4edc-b195-66b693bd77e3ETH",  // code
+            "date": 1598296734,                                   // code activation timestamp
+            "status": "Activated",                                // current code status
+            "ticker": "ETH",                                      // code ticker
+            "external_id": "cf7c3ff8-5eb0-11ed-9b6a-0242ac120002" // code external id
         },
         {
-            "amount": "-0.002",                                           // code amount change; - is created; + is applied
-            "code": "WBe11f4fce-2a53-4edc-b195-66b693bd77e3ETH",          // code
-            "date": 1598296332,                                           // code creation timestamp
-            "status": "Activated",                                        // current code status
-            "ticker": "ETH",                                              // code ticker
-            "external_id": "52995812-5eb1-11ed-9b6a-0242ac120002"         // code external id
+            "amount": "-0.002",                                   // code amount change; - is created; + is applied
+            "code": "WBe11f4fce-2a53-4edc-b195-66b693bd77e3ETH",  // code
+            "date": 1598296332,                                   // code creation timestamp
+            "status": "Activated",                                // current code status
+            "ticker": "ETH",                                      // code ticker
+            "external_id": "52995812-5eb1-11ed-9b6a-0242ac120002" // code external id
         },
         {...}
     ],
@@ -1670,15 +1668,15 @@ Available statuses:
 [
   {
     "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51", // Invest plan identifier
-    "ticker": "USDT", // Source currency ticker
-    "status": 1, // Status (1 - active, 2 - no coins left, 3 - inactive, 4 - pause)
-    "percent": "10", // Interest percent
-    "duration": 14400, // Investment duration (in minutes)
-    "interestTicker": "USDT", // Target currency ticker
-    "interestRatio": "1", // Target currency to source currency ratio, see note
-    "minInvestment": "100", // Min investment amount
-    "maxInvestment": "10000", // Max investment amount
-    "maxPossibleInvestment": "3000" // Max investment amount due to current invest plan state
+    "ticker": "USDT",                             // Source currency ticker
+    "status": 1,                                  // Status (1 - active, 2 - no coins left, 3 - inactive, 4 - pause)
+    "percent": "10",                              // Interest percent
+    "duration": 14400,                            // Investment duration (in minutes)
+    "interestTicker": "USDT",                     // Target currency ticker
+    "interestRatio": "1",                         // Target currency to source currency ratio, see note
+    "minInvestment": "100",                       // Min investment amount
+    "maxInvestment": "10000",                     // Max investment amount
+    "maxPossibleInvestment": "3000"               // Max investment amount due to current invest plan state
   }
 ]
 ```
@@ -2019,8 +2017,7 @@ Available statuses:
   "records": [
     {
       "id": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5", // Investment id
-      "plan": {
-        // Similar to the record from Get plans response
+      "plan": {                                     // Similar to the record from Get plans response
         "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
         "ticker": "USDT",
         "status": 1,
@@ -2032,12 +2029,12 @@ Available statuses:
         "maxInvestment": "10000",
         "maxPossibleInvestment": "3000"
       },
-      "status": 1, // Investment status (1 - active, 2 - closed)
-      "created": 1646825196, // Timestamp of investment creation
-      "updated": 1646825196, // Timestamp of investment update
+      "status": 1,               // Investment status (1 - active, 2 - closed)
+      "created": 1646825196,     // Timestamp of investment creation
+      "updated": 1646825196,     // Timestamp of investment update
       "paymentTime": 1646839596, // Timestamp of the payment time
-      "amount": "100", // Investment amount
-      "interestPaid": "0" // Interest paid amount
+      "amount": "100",           // Investment amount
+      "interestPaid": "0"        // Interest paid amount
     }
   ]
 }
@@ -2108,11 +2105,11 @@ Available statuses:
   "limit": 100,
   "records": [
     {
-      "planId": "8e667b4a-0b71-4988-8af5-9474dbfaeb51", // Invest plan identifier
+      "planId": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",       // Invest plan identifier
       "investmentId": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5", // Investment identifier
-      "amount": "10", // Interest amount
-      "ticker": "USDT", // Interest currency ticker
-      "timestamp": 1646839596 // Transaction timestamp
+      "amount": "10",                                         // Interest amount
+      "ticker": "USDT",                                       // Interest currency ticker
+      "timestamp": 1646839596                                 // Transaction timestamp
     }
   ]
 }
@@ -2163,27 +2160,25 @@ Available statuses:
 ```json
 [
   {
-    "ticker": "BTC", // Ticker
-    "name": "Bitcoin", // Currency name
-    "can_deposit": "0", // Status currency
-    "can_withdraw": "0", // Status currency
-    "deposit": {
-      // Deposit fees/limits
-      "minFlex": "0", // Min fee amount when flex fee is enabled
-      "maxFlex": "0", // Max fee amount when flex fee is enabled
-      "percentFlex": "0", // Flex fee percent
-      "fixed": "0", // Fixed fee
+    "ticker": "BTC",         // Ticker
+    "name": "Bitcoin",       // Currency name
+    "can_deposit": "0",      // Status currency
+    "can_withdraw": "0",     // Status currency
+    "deposit": {             // Deposit fees/limits
+      "minFlex": "0",        // Min fee amount when flex fee is enabled
+      "maxFlex": "0",        // Max fee amount when flex fee is enabled
+      "percentFlex": "0",    // Flex fee percent
+      "fixed": "0",          // Fixed fee
       "minAmount": "0.0005", // Min deposit amount
-      "maxAmount": "0" // Max deposit amount
+      "maxAmount": "0"       // Max deposit amount
     },
-    "withdraw": {
-      // Withdrawal fees/limits
-      "minFlex": "0", // Min fee amount when flex fee is enabled
-      "maxFlex": "0", // Max fee amount when flex fee is enabled
-      "percentFlex": "0", // Flex fee percent
-      "fixed": "0.0004", // Fixed fee
-      "minAmount": "0.001", // Min withdrawal amount
-      "maxAmount": "0" // Max withdrawal amount
+    "withdraw": {            // Withdrawal fees/limits
+      "minFlex": "0",        // Min fee amount when flex fee is enabled
+      "maxFlex": "0",        // Max fee amount when flex fee is enabled
+      "percentFlex": "0",    // Flex fee percent
+      "fixed": "0.0004",     // Fixed fee
+      "minAmount": "0.001",  // Min withdrawal amount
+      "maxAmount": "0"       // Max withdrawal amount
     }
   }
 ]
@@ -2242,7 +2237,7 @@ Available statuses:
 
 ```json
 {
-  "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51", // subaccount id
+  "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",     // subaccount id
   "alias": "training",
   "userId": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5", // user accociated with account
   "email": "e***@g***m",
@@ -2444,7 +2439,7 @@ Available statuses:
   "limit": 10,
   "data": [
     {
-      "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51", // subaccount id
+      "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",     // subaccount id
       "alias": "training",
       "userId": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5", // user accociated with account
       "email": "e***@g***m",
