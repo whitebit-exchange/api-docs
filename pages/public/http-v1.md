@@ -59,15 +59,15 @@ NONE
   "message": null,
   "result": [
     {
-      "name": "BTC_USDT",      // Name of market pair
-      "stock": "BTC",          // Ticker of stock currency
-      "money": "USDT",         // Ticker of money currency
-      "stockPrec": "6",        // Precision of stock currency
-      "moneyPrec": "2",        // Precision of money currency
-      "feePrec": "4",          // Precision of fee
-      "makerFee": "0.001",     // Default maker fee ratio
-      "takerFee": "0.001",     // Default taker fee ratio
-      "minAmount": "0.0001"    // Minimal amount of stock to trade
+      "name": "BTC_USDT",   // Name of market pair
+      "stock": "BTC",       // Ticker of stock currency
+      "money": "USDT",      // Ticker of money currency
+      "stockPrec": "6",     // Precision of stock currency
+      "moneyPrec": "2",     // Precision of money currency
+      "feePrec": "4",       // Precision of fee
+      "makerFee": "0.001",  // Default maker fee ratio
+      "takerFee": "0.001",  // Default taker fee ratio
+      "minAmount": "0.0001" // Minimal amount of stock to trade
     },
     {
       ...
@@ -101,18 +101,18 @@ NONE
   "success": true,
   "message": null,
   "result": {
-    "BTC_USDT": {                         // Name of market pair
+    "BTC_USDT": {                     // Name of market pair
       "ticker": {
-        "bid": "9412.1",                  // Highest bid
-        "ask": "9416.33",                 // Lowest ask
-        "low": "9203.13",                 // Lowest price for 24h
-        "high": "9469.99",                // Highest price for 24h
-        "last": "9414.4",                 // Last deal price
-        "vol": "27324.819448",            // Volume in stock currency
-        "deal": "254587570.43407191",     // Volume in money currency
-        "change": "1.53"                  // Change in percent between open and last prices
+        "bid": "9412.1",              // Highest bid
+        "ask": "9416.33",             // Lowest ask
+        "low": "9203.13",             // Lowest price for 24h
+        "high": "9469.99",            // Highest price for 24h
+        "last": "9414.4",             // Last deal price
+        "vol": "27324.819448",        // Volume in stock currency
+        "deal": "254587570.43407191", // Volume in money currency
+        "change": "1.53"              // Change in percent between open and last prices
       },
-      "at": 159423219                     // Timestamp in seconds
+      "at": 159423219                 // Timestamp in seconds
     },
     "ETH_BTC": {
       ...
@@ -149,15 +149,15 @@ _1 second_
   "success": true,
   "message": null,
   "result": {
-    "open": "9267.98", // Open price for day
-    "bid": "9417.4", // The highest bid currently available
-    "ask": "9421.64", // The lowest ask currently available
-    "low": "9203.13", // Lowest price for day
-    "high": "9469.99", // Highest price for day
-    "last": "9419.55", // Latest deal price
-    "volume": "27303.824558", // Volume in stock
+    "open": "9267.98",            // Open price for day
+    "bid": "9417.4",              // The highest bid currently available
+    "ask": "9421.64",             // The lowest ask currently available
+    "low": "9203.13",             // Lowest price for day
+    "high": "9469.99",            // Highest price for day
+    "last": "9419.55",            // Latest deal price
+    "volume": "27303.824558",     // Volume in stock
     "deal": "254399191.68843464", // Volume in money
-    "change": "1.63" // Change between open and close price in percentage
+    "change": "1.63"              // Change between open and close price in percentage
   }
 }
 ```
@@ -198,13 +198,13 @@ _1440_
   "message": null,
   "result": [
     [
-        1631440800,            // Time in seconds
-        "45865.62",            // Open
-        "45958.14",            // Close
-        "45981.3",             // High
-        "45750.23",            // Low
-        "15.327634",           // Volume stock
-        "703140.24230131"      // Volume money
+        1631440800,       // Time in seconds
+        "45865.62",       // Open
+        "45958.14",       // Close
+        "45981.3",        // High
+        "45750.23",       // Low
+        "15.327634",      // Volume stock
+        "703140.24230131" // Volume money
     ],
     [...]
   ]
@@ -236,9 +236,9 @@ NONE
   "success": true,
   "message": null,
   "result": [
-    "BTC_USDT",      // Name of market pair
-    "ETH_BTC",       // Name of market pair
-    "ETH_USDT",      // Name of market pair
+    "BTC_USDT", // Name of market pair
+    "ETH_BTC",  // Name of market pair
+    "ETH_USDT", // Name of market pair
     ...
   ]
 }
@@ -272,23 +272,23 @@ _100 ms_
 {
   "asks": [
     [
-      "9431.9",            // Price of lowest ask
-      "0.705088"           // Amount of lowest ask
+      "9431.9",  // Price of lowest ask
+      "0.705088" // Amount of lowest ask
     ],
     [
-      "9433.67",           // Price of next ask
-      "0.324509"           // Amount of next ask
+      "9433.67", // Price of next ask
+      "0.324509" // Amount of next ask
     ],
     [...]
   ],
   "bids": [
     [
-      "9427.65",           // Price of highest bid
-      "0.547909"           // Amount of highest bid
+      "9427.65", // Price of highest bid
+      "0.547909" // Amount of highest bid
     ],
     [
-      "9427.3",            // Price of next bid
-      "0.669249"           // Amount of next bid
+      "9427.3",  // Price of next bid
+      "0.669249" // Amount of next bid
     ],
     [...]
   ]
@@ -326,11 +326,11 @@ _1 second_
   "message": null,
   "result": [
     {
-      "id": 156720314,              // Deal id
-      "time": 1594240477.849703,    // Deal time in seconds
-      "price": "9429.66",           // Deal price
-      "amount": "0.002784",         // Deal amount
-      "type": "sell"                // Deal type (buy or sell)
+      "id": 156720314,           // Deal id
+      "time": 1594240477.849703, // Deal time in seconds
+      "price": "9429.66",        // Deal price
+      "amount": "0.002784",      // Deal amount
+      "type": "sell"             // Deal type (buy or sell)
     },
     {
       "id": 156720309,

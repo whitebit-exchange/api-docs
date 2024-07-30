@@ -243,26 +243,26 @@ NONE
   "success": true,
   "message": null,
   "result": {
-      "lastUpdateTimestamp": "2020-07-09T14:49:12.000Z",     // Timestamp of last update
+      "lastUpdateTimestamp": "2020-07-09T14:49:12.000Z", // Timestamp of last update
       "asks": [
         [
-          "9431.9",                                          // Price of lowest ask
-          "0.705088"                                         // Amount of lowest ask
+          "9431.9",                                      // Price of lowest ask
+          "0.705088"                                     // Amount of lowest ask
         ],
         [
-          "9433.67",                                         // Price of the next ask
-          "0.324509"                                         // Amount of the next ask
+          "9433.67",                                     // Price of the next ask
+          "0.324509"                                     // Amount of the next ask
         ],
         [...]
       ],
       "bids": [
         [
-          "9427.65",                                         // Price of highest bid
-          "0.547909"                                         // Amount of highest bid
+          "9427.65",                                     // Price of highest bid
+          "0.547909"                                     // Amount of highest bid
         ],
         [
-          "9427.3",                                          // Price of next bid
-          "0.669249"                                         // Amount of next bid
+          "9427.3",                                      // Price of next bid
+          "0.669249"                                     // Amount of next bid
         ],
       ],
       [...]

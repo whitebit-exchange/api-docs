@@ -75,7 +75,7 @@ NONE
 ```json
 {
   "available": "0.2", // Available balance of currency for trading
-  "freeze": "1.02" // Balance of currency on orders
+  "freeze": "1.02"    // Balance of currency on orders
 }
 ```
 
@@ -229,20 +229,20 @@ NONE
 
 ```json
 {
-  "orderId": 4180284841, // order id
+  "orderId": 4180284841,           // order id
   "clientOrderId": "order1987111", // custom client order id; "clientOrderId": "" - if not specified.
-  "market": "BTC_USDT", // deal market
-  "side": "buy", // order side
-  "type": "limit", // order type
-  "timestamp": 1595792396.165973, // current timestamp
-  "dealMoney": "0", // if order finished - amount in money currency that finished
-  "dealStock": "0", // if order finished - amount in stock currency that finished
-  "amount": "0.001", // amount
-  "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - its rounded to zero
-  "takerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - its rounded to zero
-  "left": "0.001", // if order not finished - rest of amount that must be finished
-  "dealFee": "0", // fee in money that you pay if order is finished
-  "price": "40000" // price
+  "market": "BTC_USDT",            // deal market
+  "side": "buy",                   // order side
+  "type": "limit",                 // order type
+  "timestamp": 1595792396.165973,  // timestamp of order creation
+  "dealMoney": "0",                // if order finished - amount in money currency that finished
+  "dealStock": "0",                // if order finished - amount in stock currency that finished
+  "amount": "0.001",               // amount
+  "makerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - its rounded to zero
+  "takerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - its rounded to zero
+  "left": "0.001",                 // if order not finished - rest of amount that must be finished
+  "dealFee": "0",                  // fee in money that you pay if order is finished
+  "price": "40000"                 // price
 }
 ```
 
@@ -408,20 +408,20 @@ NONE
 
 ```json
 {
-  "amount": "0.001", // amount
-  "dealFee": "0", // fee in money that you pay if order is finished
-  "dealMoney": "0", // if order finished - amount in money currency that finished
-  "dealStock": "0", // if order finished - amount in stock currency that finished
-  "left": "0.001", // if order not finished - rest of amount that must be finished
-  "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - its rounded to zero
-  "market": "BTC_USDT", // deal market
-  "orderId": 4180284841, // order id
+  "amount": "0.001",               // amount
+  "dealFee": "0",                  // fee in money that you pay if order is finished
+  "dealMoney": "0",                // if order finished - amount in money currency that finished
+  "dealStock": "0",                // if order finished - amount in stock currency that finished
+  "left": "0.001",                 // if order not finished - rest of amount that must be finished
+  "makerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - its rounded to zero
+  "market": "BTC_USDT",            // deal market
+  "orderId": 4180284841,           // order id
   "clientOrderId": "order1987111", // custom client order id; "clientOrderId": "" - if not specified.
-  "price": "9800", // price
-  "side": "buy", // order side
-  "takerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - its rounded to zero
-  "timestamp": 1595792396.165973, // current timestamp
-  "type": "limit" // order type
+  "price": "9800",                 // price
+  "side": "buy",                   // order side
+  "takerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - its rounded to zero
+  "timestamp": 1595792396.165973,  // timestamp of order creation
+  "type": "limit"                  // order type
 }
 ```
 
@@ -532,7 +532,7 @@ NONE
         "market": "BTC_USDT",             // currency market
         "side": "buy",                    // order side
         "type": "limit",                  // unexecuted order type
-        "timestamp": 1594605801.49815,    // current timestamp of unexecuted order
+        "timestamp": 1594605801.49815,    // timestamp of order creation
         "dealMoney": "0",                 // executed amount in money
         "dealStock": "0",                 // executed amount in stock
         "amount": "2.241379",             // active order amount
@@ -656,7 +656,7 @@ NONE
                 "id": 3711942768,                 // executed order ID
                 "clientOrderId": "order11-23-3",  // custom client order ID; "clientOrderId": "" - if not specified.
                 "side": "sell",                   // executed order side
-                "ctime": 1594667731.724387,       // executed order creating time
+                "ctime": 1594667731.724387,       // timestamp of order creation
                 "takerFee": "0.001",              // taker fee ratio. If the number less than 0.0001 - it is rounded to zero
                 "ftime": 1594667731.724403,       // executed order finish time
                 "makerFee": "0.001",              // maker fee ratio. If the number less than 0.0001 - its rounded to zero
@@ -771,9 +771,9 @@ NONE
     "message": "",
     "result": [
         {
-            "id": 160305483,                  // orderID
+            "id": 160305483,                  // order id
             "clientOrderId": "order1987111",  // custom client order id; "clientOrderId": "" - if not specified.
-            "time": 1594667731.724403,        // Timestamp of executed order
+            "time": 1594667731.724403,        // timestamp of order creation
             "side": "sell",                   // Order side "sell" / "buy"
             "role": 2,                        // Role - 1 - maker, 2 - taker
             "amount": "0.000076",             // amount in stock
@@ -879,9 +879,9 @@ NONE
     "result": {
         "BTC_USDT": [
             {
-                "id": 160305483,                    // orderID
+                "id": 160305483,                    // order id
                 "clientOrderId": "order1987111",    // custom client order id; "clientOrderId": "" - if not specified.
-                "time": 1594667731.724403,          // Timestamp of executed order
+                "time": 1594667731.724403,          // timestamp of order creation
                 "side": "sell",                     // Order side "sell" / "buy"
                 "role": 2,                          // Role - 1 - maker, 2 - taker
                 "amount": "0.000076",               // amount in stock
@@ -997,15 +997,15 @@ Empty response if order is not yours
     "offset": 0,
     "records": [
       {
-        "id": 149156519, // id of trade
+        "id": 149156519,                 // deal id
         "clientOrderId": "order1987111", // custom client order id; "clientOrderId": "" - if not specified.
-        "amount": "598", // amount in stock
-        "time": 1593342324.613711, // Timestamp of executed order
-        "dealOrderId": 3134995325, // completed order ID
-        "role": 2, // Role - 1 - maker, 2 - taker
-        "deal": "0.00419198", // amount in money
-        "price": "0.00000701", // price
-        "fee": "0.00000419198" // paid fee
+        "amount": "598",                 // amount in stock
+        "time": 1593342324.613711,       // timestamp of order creation
+        "dealOrderId": 3134995325,       // completed order ID
+        "role": 2,                       // Role - 1 - maker, 2 - taker
+        "deal": "0.00419198",            // amount in money
+        "price": "0.00000701",           // price
+        "fee": "0.00000419198"           // paid fee
       }
     ]
   }
