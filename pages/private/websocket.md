@@ -186,7 +186,7 @@ It only needs to be done successfully once.
   "method": "authorize",
   "params": [
     "<get_your_token_via_api>", // WebSocket Token,
-    "public" // constant string, always should be "public"
+    "public"                    // constant string, always should be "public"
   ]
 }
 ```
@@ -231,11 +231,11 @@ It only needs to be done successfully once.
   "result": {
     "ETH": {
       "available": "0", // Amount available for trade
-      "freeze": "0" // Amount in active orders
+      "freeze": "0"     // Amount in active orders
     },
     "BTC": {
       "available": "0", // Amount available for trade
-      "freeze": "0" // Amount in active orders
+      "freeze": "0"     // Amount in active orders
     }
   },
   "error": null
@@ -344,16 +344,16 @@ When you open position, your balance will not change, but amount available for [
   "error": null,
   "result": {
     "BTC": {
-      "balance": "0.0006092", // total amount on collateral balance
-      "borrow": "0", // borrowed amount
-      "available_without_borrow": "0.0006092", // available amount to transfer from collateral balance without borrowing
-      "available_with_borrow": "0.00288701" // available amount to transfer  from collateral balance with borrowing
+      "balance": "0.0006092",                   // total amount on collateral balance
+      "borrow": "0",                            // borrowed amount
+      "available_without_borrow": "0.0006092",  // available amount to transfer from collateral balance without borrowing
+      "available_with_borrow": "0.00288701"     // available amount to transfer  from collateral balance with borrowing
     },
     "USDT": {
-      "balance": "0.00538073", // total amount on collateral balance
-      "borrow": "0", // borrowed amount
+      "balance": "0.00538073",                  // total amount on collateral balance
+      "borrow": "0",                            // borrowed amount
       "available_without_borrow": "0.00538073", // available amount to transfer from collateral balance without borrowing
-      "available_with_borrow": "28.43739825" // available amount to transfer  from collateral balance with borrowing
+      "available_with_borrow": "28.43739825"    // available amount to transfer  from collateral balance with borrowing
     }
   },
   "id": 1
@@ -396,16 +396,16 @@ Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbal
   "method": "balanceMargin_update",
   "params": [
     {
-      "a": "BTC", // asset ticker
-      "B": "0.0006092", // total amount on collateral balance
-      "b": "0", // borrowed amount
-      "av": "0.0006092", // available amount to transfer from collateral balance without borrowing
-      "ab": "0.00288701" // available amount to transfer  from collateral balance with borrowing
+      "a": "BTC",         // asset ticker
+      "B": "0.0006092",   // total amount on collateral balance
+      "b": "0",           // borrowed amount
+      "av": "0.0006092",  // available amount to transfer from collateral balance without borrowing
+      "ab": "0.00288701"  // available amount to transfer  from collateral balance with borrowing
     },
     {
-      "a": "USDT", // asset ticker
-      "B": "0.00538073", // total amount on collateral balance
-      "b": "0", // borrowed amount
+      "a": "USDT",        // asset ticker
+      "B": "0.00538073",  // total amount on collateral balance
+      "b": "0",           // borrowed amount
       "av": "0.00538073", // available amount to transfer from collateral balance without borrowing
       "ab": "28.43739825" // available amount to transfer  from collateral balance with borrowing
     }
@@ -454,8 +454,8 @@ Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbal
   "method": "ordersPending_request",
   "params": [
     "BTC_USDT", // market
-    0, // offset
-    30 // limit
+    0,          // offset
+    30          // limit
   ]
 }
 ```
@@ -505,7 +505,7 @@ All possible [order types](#order-types)
   "method": "ordersPending_subscribe",
   "params": [
     "BTC_USDT", // market
-    "ETH_BTC" // market
+    "ETH_BTC"   // market
   ]
 }
 ```
@@ -537,21 +537,21 @@ If new [order](./../glossary.md#orders) instantly matches an order from [orderbo
   "id": null,
   "method": "ordersPending_update",
   "params": [
-    2, // Update event ID (see above)
+    2,                             // Update event ID (see above)
     {
-      "id": 621879, // Order ID
-      "market": "BTC_USDT", // Market
-      "type": 1, // Order type. All types in table above
-      "side": 1, // Side 1 - sell, 2 - bid
-      "ctime": 1601475234.656275, // Created at in Unix time
-      "mtime": 1601475266.733574, // Modified at in Unix time
-      "price": "10646.12", // Order price
-      "amount": "0.01", // Stock amount
-      "left": "0.008026", // Stock amount that left to be executed.
-      "deal_stock": "0.001974", // Stock amount that executed
+      "id": 621879,                // Order ID
+      "market": "BTC_USDT",        // Market
+      "type": 1,                   // Order type. All types in table above
+      "side": 1,                   // Side 1 - sell, 2 - bid
+      "ctime": 1601475234.656275,  // Created at in Unix time
+      "mtime": 1601475266.733574,  // Modified at in Unix time
+      "price": "10646.12",         // Order price
+      "amount": "0.01",            // Stock amount
+      "left": "0.008026",          // Stock amount that left to be executed.
+      "deal_stock": "0.001974",    // Stock amount that executed
       "deal_money": "21.01544088", // Money amount that executed
-      "deal_fee": "2.101544088", // Charged fee amount in money,
-      "client_order_id": "22" // Custom client order id
+      "deal_fee": "2.101544088",   // Charged fee amount in money,
+      "client_order_id": "22"      // Custom client order id
     }
   ]
 }
@@ -601,8 +601,8 @@ All possible [order types](#order-types)
       "market": "BTC_USDT", // market
       "order_types": [1, 2] // Order types filter. See above
     },
-    0, // offset
-    30 // limit
+    0,                      // offset
+    30                      // limit
   ]
 }
 ```
@@ -653,9 +653,9 @@ All possible [order types](#order-types)
   "params": [
     [
       "BTC_USDT", // market
-      "ETH_BTC" // market
+      "ETH_BTC"   // market
     ],
-    0 // filter executed limit or market orders
+    0             // filter executed limit or market orders
   ]
 }
 ```
@@ -686,18 +686,18 @@ All possible [order types](#order-types)
   "method": "ordersExecuted_update",
   "params": [
     {
-      "id": 6887337167, // Order ID
-      "market": "BTC_USDT", // Market
-      "type": 1, // Order type. All types in table above
-      "side": 1, // Side 1 - sell, 2 - bid
+      "id": 6887337167,           // Order ID
+      "market": "BTC_USDT",       // Market
+      "type": 1,                  // Order type. All types in table above
+      "side": 1,                  // Side 1 - sell, 2 - bid
       "ctime": 1601478710.197908, // Created at in Unix time
       "mtime": 1601478710.197917, // Modified at in Unix time
-      "price": "10745.42", // Order price
-      "amount": "0.001", // Stock amount
-      "left": "0", // Stock amount that left to be executed.
-      "deal_stock": "0.001", // Stock amount that executed
-      "deal_money": "10.74563", // Money amount that executed
-      "deal_fee": "0.01074563" // Charged fee amount in money
+      "price": "10745.42",        // Order price
+      "amount": "0.001",          // Stock amount
+      "left": "0",                // Stock amount that left to be executed.
+      "deal_stock": "0.001",      // Stock amount that executed
+      "deal_money": "10.74563",   // Money amount that executed
+      "deal_fee": "0.01074563"    // Charged fee amount in money
     }
   ]
 }
@@ -743,8 +743,8 @@ Market should exist. The maximum limit is 100.
   "method": "deals_request",
   "params": [
     "BTC_USDT", // market
-    0, // offset
-    30 // limit
+    0,          // offset
+    30          // limit
   ]
 }
 ```
@@ -760,16 +760,16 @@ Market should exist. The maximum limit is 100.
         "total": 124,
         "records": [
             {
-                "time": 1602760519.688911,   // Deal time
-                "id": 251923106,             // Deal ID
-                "side": 1,                   // Side 1 - sell, 2 - bid
-                "role": 2,                   // Your role. 1 - maker, 2 - taker
-                "price": "11303.76",         // Deal price
-                "amount": "0.001",           // Stock amount
-                "deal": "11.30376",          // Money amount
-                "fee": "0.01130376",         // Deal fee in money
-                "market": "BTC_USDT",        // Market
-                "deal_order_id": 7421295951  // Order ID
+                "time": 1602760519.688911,  // Deal time
+                "id": 251923106,            // Deal ID
+                "side": 1,                  // Side 1 - sell, 2 - bid
+                "role": 2,                  // Your role. 1 - maker, 2 - taker
+                "price": "11303.76",        // Deal price
+                "amount": "0.001",          // Stock amount
+                "deal": "11.30376",         // Money amount
+                "fee": "0.01130376",        // Deal fee in money
+                "market": "BTC_USDT",       // Market
+                "deal_order_id": 7421295951 // Order ID
             },
             ...
         ]
@@ -791,7 +791,7 @@ Update interval: 0,5 sec
   "params": [
     [
       "BTC_USDT", // market
-      "ETH_BTC" // market
+      "ETH_BTC"   // market
     ]
   ]
 }
@@ -816,15 +816,15 @@ Update interval: 0,5 sec
   "id": null,
   "method": "deals_update",
   "params": [
-    252104486, // Deal ID
+    252104486,         // Deal ID
     1602770801.015587, // Deal time
-    "BTC_USDT", // Market
-    7425988844, // Order ID
-    "11399.24", // Price
-    "0.008256", // Stock amount
-    "0.094112125440", // Deal fee
-    "1234", // Custom client order id
-    1 // Side 1 - sell, 2 - bid
+    "BTC_USDT",        // Market
+    7425988844,        // Order ID
+    "11399.24",        // Price
+    "0.008256",        // Stock amount
+    "0.094112125440",  // Deal fee
+    "1234",            // Custom client order id
+    1                  // Side 1 - sell, 2 - bid
   ]
 }
 ```
