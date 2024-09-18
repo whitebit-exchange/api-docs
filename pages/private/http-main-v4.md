@@ -2828,8 +2828,8 @@ Available statuses:
       "totalReward": "3.15",
       "reward": "3.14",
       "fee": "0.01",
-      "fppsRate": "14",
-      "hashRate": "14",
+      "fppsRate": "0.00000068",
+      "hashRate": "658425440887845683",
       "date": 1715339355
     }
   ]
