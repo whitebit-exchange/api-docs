@@ -2825,7 +2825,7 @@ Available statuses:
   "data": [
     {
       "miningAccountName": "my-mining-account-01",
-      "totalReward": "USDT",
+      "totalReward": "3.15",
       "reward": "3.14",
       "fee": "0.01",
       "fppsRate": "14",
