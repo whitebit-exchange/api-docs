@@ -32,6 +32,8 @@
     - [Unblock Sub-Account](#unblock-sub-account)
     - [Sub-Account Balances](#sub-account-balances)
     - [Get Sub-Account Transfer History](#get-sub-account-transfer-history)
+  - [Mining Pool](#mining-pool)
+    - [Get Rewards](#get-rewards)
 
 Base URL is https://whitebit.com
 
@@ -2765,6 +2767,82 @@ Available statuses:
 {
   "code": 422,
   "message": "Account is not confirmed"
+}
+```
+
+</details>
+
+---
+
+## Mining Pool
+
+### Get Rewards
+
+```
+[POST] /api/v4/mining/rewards
+```
+
+This endpoint return rewards received from mining
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name      | Type    | Mandatory | Description                                                                                                                                                                                         |
+|-----------|---------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| account   | String  | **No**    | Mining pool account                                                                                                                                                                                 |
+| from      | Int     | **No**    | Date timestamp starting from which rewards are received                                                                                                                                             |
+| to        | Int     | **No**    | Date timestampt until which rewards are received                                                                                                                                                    |
+| limit     | Int     | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 30, Min: 1, Max: 100                                                                                        |
+| offset    | Int     | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000                               |
+
+**Request BODY raw:**
+
+```json
+{
+  "account": "my-mining-account-01",
+  "from": 1704067200,
+  "to": 1725148800,
+  "limit": 25,
+  "offset": 0
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 422 if request validation failed`
+
+```json
+{
+  "offset": 0,
+  "limit": 25,
+  "data": [
+    {
+      "miningAccountName": "my-mining-account-01",
+      "totalReward": "USDT",
+      "reward": "3.14",
+      "fee": "0.01",
+      "fppsRate": "14",
+      "hashRate": "14",
+      "date": 1715339355
+    }
+  ]
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 422,
+  "message": "Incorrect timestamp"
 }
 ```
 
