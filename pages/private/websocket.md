@@ -245,6 +245,7 @@ It only needs to be done successfully once.
 #### Subscribe
 
 Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbalance-trade).
+Update interval: 1 sec
 
 ##### ⤴️ Request:
 
@@ -363,6 +364,8 @@ When you open position, your balance will not change, but amount available for [
 #### Subscribe
 
 Subscribe to receive updates in [spot balances](./../glossary.md#balance-spotbalance-trade).
+
+Update interval: 1.5 sec
 
 ##### ⤴️ Request:
 
@@ -496,6 +499,8 @@ All possible [order types](#order-types)
 ```
 
 #### Subscribe
+
+Update interval: real-time
 
 ##### ⤴️ Request:
 
@@ -644,6 +649,8 @@ All possible [order types](#order-types)
 
 #### Subscribe
 
+Update interval: real-time
+
 ##### ⤴️ Request:
 
 ```json
@@ -780,7 +787,7 @@ Market should exist. The maximum limit is 100.
 
 #### Subscribe
 
-Update interval: 0,5 sec
+Update interval: real-time
 
 ##### ⤴️ Request:
 
@@ -846,6 +853,169 @@ Update interval: 0,5 sec
 ```json
 {
   "id": 16,
+  "result": {
+    "status": "success"
+  },
+  "error": null
+}
+```
+
+---
+
+### Positions
+
+
+#### Subscribe
+
+Update interval: 1 sec
+
+##### ⤴️ Request:
+
+```json
+{
+  "id": 16,
+  "method": "positionsMargin_subscribe",
+  "params": []
+}
+```
+
+##### ⤵️ Response:
+
+```json
+{
+  "id": 16,
+  "result": {
+    "status": "success"
+  },
+  "error": null
+}
+```
+
+##### 🔄 Update events:
+
+```json
+{
+  "method": "positionsMargin_update",
+  "params": {
+      "total": 1,                            // positions count
+      "records": [
+          {
+              "id": 2,                       // position ID
+              "market": "BTC_USDT",          // market name
+              "ctime": 1704067200,           // date of position opening
+              "mtime": 1704067200,           // date of position modifying (this is date of current event)
+              "amount": "-0.01",             // position amount
+              "amount_in_money": "118.762",  // position amount in money
+              "base_price": "60000",         // base price of position
+              "pnl": "-0.47",                // unrealized PnL in **money**
+              "liq_price": "65000",          // liquidation price according to current state of position
+              "liq_stage": null,             // liquidation state. Possible values: null, margin_call
+              "unrealized_funding": "0",     // funding that will be paid on next position stage change (order, liquidation, etc)
+              "funding": "0",                // funding that has already been disbursed
+              "margin": "23.8",              // own funds amount in open position **money**
+              "free_margin": "999932.92",    // free funds for trading
+              "realized_pnl": "0"            // Realized PnL in **money**
+          }
+      ]
+  },
+  "id": null
+}
+```
+
+#### Unsubscribe
+
+##### ⤴️ Request:
+
+```json
+{
+  "id": 17,
+  "method": "positionsMargin_unsubscribe",
+  "params": []
+}
+```
+
+##### ⤵️ Response:
+
+```json
+{
+  "id": 17,
+  "result": {
+    "status": "success"
+  },
+  "error": null
+}
+```
+
+---
+
+### Borrows
+
+
+#### Subscribe
+
+Update interval: 1.5 sec
+
+##### ⤴️ Request:
+
+```json
+{
+  "id": 18,
+  "method": "borrowsMargin_subscribe",
+  "params": []
+}
+```
+
+##### ⤵️ Response:
+
+```json
+{
+  "id": 18,
+  "result": {
+    "status": "success"
+  },
+  "error": null
+}
+```
+
+##### 🔄 Update events:
+
+```json
+{
+    "method": "borrowsMargin_update",
+    "params": {
+        "total": 1,                                 // borrows count 
+        "records": [
+            {
+                "asset": "BTC",                     // borrowed asset 
+                "ctime": 1704067200,                // borrow created date
+                "mtime": 1704067200,                // last update time
+                "amount": "-0.81",                  // borrow amount
+                "unrealized_funding": "0.00005042", // funding that will be paid on next borrow stage change 
+                "liq_price": "70000"                // borrow liquidation price
+            }
+        ]
+    },
+    "id": null
+}
+```
+
+#### Unsubscribe
+
+##### ⤴️ Request:
+
+```json
+{
+  "id": 19,
+  "method": "borrowsMargin_unsubscribe",
+  "params": []
+}
+```
+
+##### ⤵️ Response:
+
+```json
+{
+  "id": 19,
   "result": {
     "status": "success"
   },
