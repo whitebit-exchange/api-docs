@@ -7,6 +7,8 @@
 - [Orders Pending](#orders-pending)
 - [Orders Executed](#orders-executed)
 - [Deals](#deals)
+- [Positions](#positions)
+- [Borrows](#borrows)
 
 WebSocket endpoint is wss://api.whitebit.com/ws
 
@@ -949,7 +951,6 @@ Update interval: 1 sec
 ---
 
 ### Borrows
-
 
 #### Subscribe
 
