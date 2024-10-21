@@ -616,7 +616,7 @@ _1 second_
       "index_price": "24019.25",                      // Underlying index price
       "index_name": "Bitcoin",                        // Name of the underlying index if any
       "index_currency": "BTC",                        // Underlying currency for index
-      "funding_rate": "0.000044889033693137",         // Current funding rate
+      "funding_rate": "0.000044889033693137",         // The current funding rate, which may fluctuate due to market conditions.
       "next_funding_rate_timestamp": "1660665600000", // Timestamp of the next funding rate change
       "brackets": {                                   // Brackets
         "1": 0,
