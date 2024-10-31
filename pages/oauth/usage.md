@@ -56,7 +56,7 @@ For this request the IP of a client must be added to WB Allowlist.
 ❗ Rate limit 1 request/1 sec.
 
 **Request BODY x-www-form-urlencoded:**
-Need to send "client_id", "client_secret" and "refresh_token".
+Need to send "client_id", "client_secret" and "token".
 
 **Response:**
 
