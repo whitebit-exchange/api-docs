@@ -3399,10 +3399,14 @@ NONE
 
 **Parameters:**
 
-| Name       | Type   | Mandatory | Description                                                    |
-| ---------- | ------ | --------- | -------------------------------------------------------------- |
-| market     | String | **No**    | Requested [market](./../glossary.md#market). Example: BTC_USDT |
-| positionId | Int    | **No**    | Requested position                                             |
+| Name     | Type   | Mandatory | Description                                                                                                                                                           |
+|----------| ------ | --------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| market   | String | **No**    | Requested [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
+| positionId | Int    | **No**    | Requested position                                                                                                                                                    |
+| startDate | Int    | **No**    | Start date in Unix-time format                                                                                                                                        |
+| endDate  | Int    | **No**    | End date in Unix-time format                                                                                                                                          |
+| limit    | Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
+| offset   | Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
 
 **Request BODY raw:**
 
