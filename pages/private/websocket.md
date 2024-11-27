@@ -833,7 +833,7 @@ Update interval: real-time
     "0.008256",        // Stock amount
     "0.094112125440",  // Deal fee
     "1234",            // Custom client order id
-    1,                  // Side 1 - sell, 2 - bid
+    1,                 // Side 1 - sell, 2 - buy
     1                  // Your role. 1 - maker, 2 - taker
   ]
 }
