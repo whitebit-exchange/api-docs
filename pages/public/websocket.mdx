@@ -12,15 +12,42 @@ import { Tabs } from 'nextra/components'
 - [Market trades](#market-trades)
 - [Market depth](#market-depth)
 
-WebSocket endpoint is wss://api.whitebit.com/ws
+## WebSocket Connection Management
+
+WebSocket endpoint is **```wss://api.whitebit.com/ws```**
 
 The API is based on [JSON RPC](https://www.jsonrpc.org/specification) of WebSocket protocol.
 
-⚠️ Connection will be closed by server in cause of inactivity after 30s.
+⚠️ **Connection Timeout** ⚠️
+- Server closes websocket connection after **60 seconds of inactivity**
+- Inactivity is defined as no messages sent by the client
 
-❗ Rate limit 1000 ws connections per minute and 200 requests per minute in one connection.
+### Maintaining Connection
+To keep the websocket connection active:
+- Send periodic ping messages every **50 seconds**
+- Handle potential connection closures gracefully in your application logic
 
-All endpoints return time in Unix-time format.
+### Example Implementation
+
+```javascript
+// Establish websocket connection
+const socket = new WebSocket("wss://api.whitebit.com/ws");
+
+// Set up periodic ping
+setInterval(() => {
+  if (socket.readyState === WebSocket.OPEN) {
+    socket.send(JSON.stringify({
+            id: 0,
+            method: "ping",
+            params: [],
+        }));
+  }
+}, 50000); // Every 50 seconds
+```
+
+**❗ Rate limit 1000 ws connections per minute and 200 requests per minute in one connection.❗**
+
+**All endpoints return time in Unix-time format.**
 
 ## ⤴️ Request message
 
