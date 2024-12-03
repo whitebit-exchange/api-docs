@@ -339,7 +339,7 @@ NONE
 [GET] /api/v4/public/orderbook/{market}?limit=100&level=2
 ```
 
-This endpoint retrieves the current [order book](./../glossary.md#order-book as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)) with additional parameters.
+This endpoint retrieves the current [order book](./../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)) with additional parameters.
 
 **Response is cached for:**
 _100 ms_
@@ -453,7 +453,7 @@ _1 second_
       "flex": {                                   // flex fee only applies for all transactions but according to min/max fee. Nullable if there is no flex fee
         "min_fee": "100",                         // min fee amount
         "max_fee": "1000",                        // max fee amount
-        "percent": "10"                    
+        "percent": "10"
       }
     },
     "withdraw": {
