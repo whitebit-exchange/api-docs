@@ -28,7 +28,7 @@ Balance for [spot trading](./glossary#spot-trading), this balance is intended so
 
 ### BBO
 
-BBO (Best-Bid-Offer) is a function that determines the prices of Limit orders according to market conditions. When you activate the BBO option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Counterparty Method: The system sets the order price at the level of the best available market price in the opposite direction. For Buy orders, it is the lowest Ask price in the order book. For Sell orders, it is the highest Bid price. Queue Method: The system sets the order price at the best price on the same market side as the order itself. For Buy orders, it is at the level of the highest current buy price (Bid); for Sell orders, it is at the highest Ask price.
+BBO (Best-Bid-Offer) is a function that determines the prices of Limit orders according to market conditions. When you activate the BBO option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Counterparty Method: The system sets the order price at the level of the best available market price in the opposite direction. For Buy orders, it is the lowest Ask price in the [order book](./glossary#order-book). For Sell orders, it is the highest Bid price. Queue Method: The system sets the order price at the best price on the same market side as the order itself. For Buy orders, it is at the level of the highest current buy price (Bid); for Sell orders, it is at the highest Ask price.
 
 ### Bid
 
@@ -61,6 +61,10 @@ A transaction between two parties in which an [asset](./glossary#assets) or comm
 ### Derivative
 
 Crypto derivatives are contracts that derive their value from a primary underlying [asset](./glossary#assets). In the case of crypto derivatives, the primary asset would be a cryptocurrency such as Bitcoin
+
+### Depth
+
+Same as [order book](./glossary#order-book)
 
 ## E
 
@@ -166,7 +170,7 @@ This [order](./glossary#orders) allows you to place a combination of two orders 
 
 ## Order Book
 
-A separated list of buy (bids) and sell (asks) [active orders](./glossary#active-orders) for a specific [trading pair](./glossary#market).
+A separated list of buy (bids) and sell (asks) [active orders](./glossary#active-orders) for a specific [market](./glossary#market).
 
 ### Orders
 
@@ -234,7 +238,7 @@ A price set by you in advance
 
 ### Sub-Account
 
-Account (user) with specific permissions (for example disable [margin trading](#margin-trading)) is managed by main user 
+Account (user) with specific permissions (for example disable [margin trading](#margin-trading)) is managed by main user
 
 ## T
 
