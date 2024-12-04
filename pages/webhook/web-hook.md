@@ -68,7 +68,7 @@ On consumer side you can process security headers to be sure request was perform
 
 ### WhiteBIT code apply
 
-Performed when [code](./../glossary.md#whitebit-codescodes) was applied. Request example:
+Performed when [code](./../glossary.md#whitebit-codes) was applied. Request example:
 
 ```json
 {

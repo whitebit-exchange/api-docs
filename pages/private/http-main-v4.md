@@ -1222,7 +1222,7 @@ Available statuses:
 [POST] /api/v4/main-account/codes
 ```
 
-This endpoint creates [WhiteBIT code](./../glossary.md#whitebit-codescodes).
+This endpoint creates [WhiteBIT code](./../glossary.md#whitebit-codes).
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -1235,8 +1235,8 @@ NONE
 | ----------- | -------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ticker      | String         | **Yes**   | Currency's [ticker](./../glossary.md#ticker). Example: BTC                                                                                                                                               |
 | amount      | Numeric string | **Yes**   | Amount to transfer. Max [precision](./../glossary.md#precision) = 8, value should be greater than zero and your [main balance](./../glossary.md#balance-main).                                           |
-| passphrase  | String         | **No**    | Passphrase that will be used for applying [codes](./../glossary.md#whitebit-codescodes). Passphrase must contain only latin letters, numbers and symbols (like !@#$%^, no whitespaces). Max: 25 symbols. |
-| description | String         | **No**    | Additional text description for [code](./../glossary.md#whitebit-codescodes). Visible only for creator Max: 75 symbols.                                                                                  |
+| passphrase  | String         | **No**    | Passphrase that will be used for applying [codes](./../glossary.md#whitebit-codes). Passphrase must contain only latin letters, numbers and symbols (like !@#$%^, no whitespaces). Max: 25 symbols. |
+| description | String         | **No**    | Additional text description for [code](./../glossary.md#whitebit-codes). Visible only for creator Max: 75 symbols.                                                                                  |
 
 **Request BODY raw:**
 
@@ -1365,7 +1365,7 @@ Passphrase must contain only latin letters, numbers and symbols (like !@#$%^, no
 [POST] /api/v4/main-account/codes/apply
 ```
 
-This endpoint applies [WhiteBIT code](./../glossary.md#whitebit-codescodes).
+This endpoint applies [WhiteBIT code](./../glossary.md#whitebit-codes).
 
 ❗ Rate limit 60 requests/1 sec.
 
@@ -1376,8 +1376,8 @@ NONE
 
 | Name       | Type   | Mandatory | Description                                                                                                         |
 | ---------- | ------ | --------- | ------------------------------------------------------------------------------------------------------------------- |
-| code       | String | **Yes**   | [Code](./../glossary.md#whitebit-codescodes) that will be applied.                                                  |
-| passphrase | String | **No**    | Should be provided if the [code](./../glossary.md#whitebit-codescodes) was created with passphrase Max: 25 symbols. |
+| code       | String | **Yes**   | [Code](./../glossary.md#whitebit-codes) that will be applied.                                                  |
+| passphrase | String | **No**    | Should be provided if the [code](./../glossary.md#whitebit-codes) was created with passphrase Max: 25 symbols. |
 
 **Request BODY raw:**
 
@@ -1439,7 +1439,7 @@ Available statuses:
 [POST] /api/v4/main-account/codes/my
 ```
 
-This endpoint retrieves the list of [WhiteBIT codes](./../glossary.md#whitebit-codescodes) created by my account.
+This endpoint retrieves the list of [WhiteBIT codes](./../glossary.md#whitebit-codes) created by my account.
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -1536,7 +1536,7 @@ Available statuses:
 [POST] /api/v4/main-account/codes/history
 ```
 
-This endpoint retrieves the whole [codes](./../glossary.md#whitebit-codescodes) history on your account.
+This endpoint retrieves the whole [codes](./../glossary.md#whitebit-codes) history on your account.
 
 ❗ Rate limit 1000 requests/10 sec.
 
