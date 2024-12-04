@@ -270,7 +270,7 @@ The total number of shares or contracts exchanged between buyers and sellers of 
 
 ### WhiteBIT Codes
 
-Free alphanumeric codes with the [assets](./glossary#assets) packaged in it
+Easy and free way to turn your funds into a unique alphanumeric code.
 
 ## X
 
