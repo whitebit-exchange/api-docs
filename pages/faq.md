@@ -1,4 +1,4 @@
-## F.A.Q.
+## FAQ
 
 1. Q: Why am I getting a 429 error and can't make requests?
 
@@ -22,7 +22,7 @@ A: Open multiple WebSocket connections or call an equivalent HTTP method.
 
 A: You can only see the last 100 deals. If you want to see more, subscribe to our WebSocket and accumulate information on your side.
 
-1. Q: Why am I getting nonce errors?
+6. Q: Why am I getting nonce errors?
 
 A: The problem is solved by debugging your code and recreating the keys.
 
