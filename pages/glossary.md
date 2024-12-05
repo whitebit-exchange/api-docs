@@ -48,7 +48,7 @@ The cryptocurrency [asset](./glossary#assets) that the borrower pledges as a gua
 
 "Conditional Orders" is a collective term for orders with conditions. Currently, these include [OTO](#OTO) (One Triggers the Other) and [OCO](#OCO-orders) (One Cancels the Other) orders.
 
-### Crypto Lending(SMART Staking)
+### Crypto Lending
 
 A unique tool for passive income that allows depositing funds in specific plans and receiving a percentage from holding them for particular periods. Allows you to make profit by lending your funds to the exchange in a certain cryptocurrency by using one of the available plans
 
@@ -106,9 +106,9 @@ A function that cancel all [orders](./glossary#orders) automatically if the time
 
 ## L
 
-### Lending Plans(Smart Plans)
+### Lending Plans
 
-See [Crypto lending](./glossary#crypto-lendingsmart-staking)
+See [Crypto Lending](./glossary#crypto-lending)
 
 ### Leverage
 
@@ -208,13 +208,13 @@ Is the number of digits to the right of the decimal point
 
 ## S
 
-### Smart Plans(Lending Plans)
+### Smart Plans
 
-See [Crypto lending](./glossary#crypto-lendingsmart-staking)
+See [Crypto Lending](./glossary#crypto-lending)
 
 ### SMART Staking
 
-See [Crypto lending](./glossary#crypto-lendingsmart-staking)
+See [Crypto Lending](./glossary#crypto-lending)
 
 ### Spot trading
 

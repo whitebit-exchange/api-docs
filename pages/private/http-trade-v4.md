@@ -5695,7 +5695,7 @@ This endpoint creates a quote for converting one currency to another. Quote life
 |-----------|--------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | from      | String | **Yes**   | From currency. Example: BTC                                                                                                                                                                                       |
 | to        | String | **Yes**   | To currency. Example: USDT                                                                                                                                                                                        |
-| direction | String | **Yes**   | Convert amount direction, defines in which currency corresponding “amount” field is populated. Use “to” in case amount is in “to” currency, use “from” if amount is in “from” currency (see use case samples below) |
+| direction | String | **Yes**   | Convert amount direction, defines in which currency corresponding "amount" field is populated. Use "to" in case amount is in "to" currency, use "from" if amount is in "from" currency (see use case samples below) |
 | amount    | String | **Yes**   | Amount to convert or receive.                                                                                                                                                                                     |
 
 **Request BODY raw:**
@@ -5793,7 +5793,7 @@ Available statuses:
 [POST] /api/v4/convert/confirm
 ```
 
-This endpoint confirms an estimated quote. 
+This endpoint confirms an estimated quote.
 
 ❗ Rate limit 10000 requests/10 sec.
 
