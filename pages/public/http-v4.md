@@ -6,6 +6,7 @@
   - [Market activity](#market-activity)
   - [Asset status list](#asset-status-list)
   - [Orderbook](#orderbook)
+  - [Depth](#depth)
   - [Recent Trades](#recent-trades)
   - [Fee](#fee)
   - [Server Time](#server-time)
@@ -376,6 +377,44 @@ _100 ms_
 }
 ```
 
+### Depth
+
+```
+[GET] /v4/public/orderbook/depth/{market}
+```
+
+This endpoint retrieves depth price levels within ±2% of the market last price.
+
+**Response is cached for:**
+_1 sec_
+
+❗ Rate limit 2000 requests/10 sec.
+
+**Parameters:**
+NONE
+
+**Response:**
+
+```json
+{
+  "ticker_id": "BTC_PERP", // Market Name
+  "timestamp": 1594391413, // Current timestamp
+  "asks": [                // Array of ask orders
+    [
+      "9184.41",           // Price of lowest ask
+      "0.773162"           // Amount of lowest ask
+    ],
+    [ ... ]
+  ],
+  "bids": [                // Array of bid orders
+    [
+      "9181.19",           // Price of highest bid
+      "0.010873"           // Amount of highest bid
+    ],
+    [ ... ]
+  ]
+}
+```
 ---
 
 ### Recent Trades
