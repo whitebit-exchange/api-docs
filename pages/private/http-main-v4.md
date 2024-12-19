@@ -2788,64 +2788,6 @@ Available statuses:
 
 ## Mining Pool
 
-### Get Overview
-
-```
-[GET] /api/v4/public/mining-pool
-```
-
-This endpoint returns an overall information about the current mining pool state. 
-
-HashRate info represents in the H units.
-
-❗ Rate limit 1000 requests/10 sec.
-
-**Response is cached for:**
-NONE
-
-**Parameters:**
-NONE
-
-**Request BODY raw:**
-NONE
-
-**Response:**
-
-Available statuses:
-
-- `Status 200`
-
-```json
-{
-  "data": [
-    {
-      "connectionLinks": ["stratum+tcp://1.1.1.1:80", "stratum+tcp://1.1.1.2:80"],
-      "location": "global",
-      "assets": ["BTC"],
-      "rewardSchemes": ["FPPS"],
-      "workers": 1846,
-      "currentHashRate": "39353570.8006319183174839",
-      "last7daysHashRate": [
-        {
-          "timestamp": 1732579200,
-          "hashrate": "184425100325925.9259259259259259",
-        }
-      ],
-      "blocks": [
-        {
-          "blockFoundAt": 1715339355,
-          "blockHeight": 18329
-        },
-        {
-          "blockFoundAt": 1715329275,
-          "blockHeight": 18325
-        }
-      ]
-    }
-  ]
-}
-```
-
 ### Get Rewards
 
 ```
