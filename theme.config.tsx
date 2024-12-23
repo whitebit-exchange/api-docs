@@ -11,6 +11,10 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: "https://github.com/whitebit-exchange/api-docs/blob/main",
   color: { hue: 43 },
+  backgroundColor: {
+    light: "255,255,255",
+    dark: "0,0,0",
+  },
   footer: {
     component: <div />,
   },

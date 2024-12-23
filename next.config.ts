@@ -21,4 +21,7 @@ export default withNextra({
   output: "export",
   reactStrictMode: true,
   trailingSlash: true,
+  experimental: {
+    reactCompiler: true
+  }
 });
