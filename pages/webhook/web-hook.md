@@ -116,7 +116,7 @@ Performed when deposit was update. Request example:
 
 ```json
 {
-  "method": "deposit.update",
+  "method": "deposit.updated",
   "params": {
     "address": "wallet address", // deposit address
     "amount": "0.000600000000000000", // amount of deposit
