@@ -152,7 +152,7 @@ NONE
 | Name    | Type   | Mandatory                                                             | Description                                                                                                                                                                                                                                               |
 | ------- | ------ | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ticker  | String | **Yes**                                                               | Currencies [ticker](./../glossary.md#ticker). Example: BTC ⚠ Currency ticker should not be [fiat](./../glossary.md#fiat) and it's "can_deposit" status must be "true". You can find this status in https://whitebit.com/api/v4/public/assets respsonse.   |
-| network | String | **Yes, if currency is [multinetwork](./../glossary.md#multinetwork)** | Cryptocurrency network. ⚠ If currency has multiple networks like USDT - you need to specify network to be used. You can find [ticker](./../glossary.md#ticker) networks list in “networks” field from response https://whitebit.com/api/v4/public/assets. |
+| network | String | **Yes, if currency is [multinetwork](./../glossary.md#multinetwork)** | Cryptocurrency network. ⚠ If currency has multiple networks like USDT - you need to specify network to be used. You can find [ticker](./../glossary.md#ticker) networks list in "networks" field from response https://whitebit.com/api/v4/public/assets. |
 
 **Request BODY raw:**
 
@@ -451,24 +451,30 @@ NONE
 
 **Parameters:**
 
-| Name                  | Type           | Mandatory                                                                                                            | Description                                                                                                                                                                                                                                                               |
-| --------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ticker                | String         | **Yes**                                                                                                              | Currencies [ticker](./../glossary.md#ticker). Example: BTC ⚠ Currencies ticker must have "can_deposit" status equal to "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.                                                     |
-| amount                | Numeric string | **Yes**                                                                                                              | Withdraw amount (including [fee](./../glossary.md#fee)). If you want fee to be added to the specified amount, you need to use [/main-account/withdraw-pay](#create-withdraw-request-with-specifying-absolute-withdraw-amount) request (see examples there)                |
-| address               | String         | **Yes**                                                                                                              | Target address (wallet address for cryptocurrencies, identifier/card number for [fiat](./../glossary.md#fiat) currencies)                                                                                                                                                 |
-| memo                  | String         | **Yes, if currency is memoable**                                                                                     | Target address (wallet address for cryptocurrencies, identifier/card number for [fiat](./../glossary.md#fiat) currencies)                                                                                                                                                 |
-| uniqueId              | String         | **Yes**                                                                                                              | Unique transaction identifier. ⚠ Note that you should generate new unique id for each withdrawal request.                                                                                                                                                                 |
-| provider              | String         | **Yes, if currency is fiat**                                                                                         | [Fiat](./../glossary.md#fiat) currency [provider](./../glossary.md#provider). Example: VISAMASTER ⚠ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.                                                                            |
-| network               | String         | **No**                                                                                                               | Cryptocurrency network. Available for multi network currencies. Example: OMNI ⚠ Currency network should be taken from https://whitebit.com/api/v4/public/assets response. Default for USDT is ERC20                                                                       |
-| partialEnable         | Boolean        | **No**                                                                                                               | Optional parameter for [FIAT](./../glossary.md#fiat) withdrawals with increased Maximum Limit if set as “true”. In order to use this parameter your application should support “Partially successful” withdrawal status and latest updates in deposit/withdrawal history. |
-| beneficiary           | Object         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: UAH_IBAN, USD_VISAMASTER, EUR_VISAMASTER, USD, EUR** | Beneficiary information data array.                                                                                                                                                                                                                                       |
-| beneficiary.firstName | String         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR**                 | Beneficiary first name. Max length: 40 symbols, latin letters and special characters.                                                                                                                                                                                     |
-| beneficiary.lastName  | String         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR**                 | Beneficiary last name. Max length: 40 symbols, latin letters and special characters.                                                                                                                                                                                      |
-| beneficiary.tin       | Integer        | **Yes, if currency is UAH_IBAN**                                                                                     | Beneficiary TAX payer number. Integer, 10 digits.                                                                                                                                                                                                                         |
-| beneficiary.phone     | String         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: USD_VISAMASTER, EUR_VISAMASTER**                     | Beneficiary phone number.                                                                                                                                                                                                                                                 |
-| beneficiary.email     | String         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: USD_VISAMASTER, EUR_VISAMASTER**                     | Beneficiary email.                                                                                                                                                                                                                                                        |
+| Name                  | Type           | Mandatory                                                                                                           | Description                                                                                                                                                                                                                                                              |
+|-----------------------| -------------- |---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ticker                | String         | **Yes**                                                                                                             | Currencies [ticker](./../glossary.md#ticker). Example: BTC ⚠ Currencies ticker must have "can_deposit" status equal to "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.                                                    |
+| amount                | Numeric string | **Yes**                                                                                                             | Withdraw amount (including [fee](./../glossary.md#fee)). If you want fee to be added to the specified amount, you need to use [/main-account/withdraw-pay](#create-withdraw-request-with-specifying-absolute-withdraw-amount) request (see examples there)               |
+| address               | String         | **Yes**                                                                                                             | Target address (wallet address for cryptocurrencies, identifier/card number for [fiat](./../glossary.md#fiat) currencies)                                                                                                                                                |
+| memo                  | String         | **Yes, if currency is memoable**                                                                                    | Target address (wallet address for cryptocurrencies, identifier/card number for [fiat](./../glossary.md#fiat) currencies)                                                                                                                                                |
+| uniqueId              | String         | **Yes**                                                                                                             | Unique transaction identifier. ⚠ Note that you should generate new unique id for each withdrawal request.                                                                                                                                                                |
+| provider              | String         | **Yes, if currency is fiat**                                                                                        | [Fiat](./../glossary.md#fiat) currency [provider](./../glossary.md#provider). Example: VISAMASTER ⚠ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.                                                                           |
+| network               | String         | **No**                                                                                                              | Cryptocurrency network. Available for multi network currencies. Example: OMNI ⚠ Currency network should be taken from https://whitebit.com/api/v4/public/assets response. Default for USDT is ERC20                                                                      |
+| partialEnable         | Boolean        | **No**                                                                                                              | Optional parameter for [FIAT](./../glossary.md#fiat) withdrawals with increased Maximum Limit if set as "true". In order to use this parameter your application should support "Partially successful" withdrawal status and latest updates in deposit/withdrawal history. |
+| beneficiary           | Object         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: UAH_IBAN, USD_VISAMASTER, EUR_VISAMASTER, USD, EUR** | Beneficiary information data array.                                                                                                                                                                                                                                      |
+| beneficiary.firstName | String         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR**                | Beneficiary first name. Max length: 40 symbols, latin letters and special characters.                                                                                                                                                                                    |
+| beneficiary.lastName  | String         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR**                | Beneficiary last name. Max length: 40 symbols, latin letters and special characters.                                                                                                                                                                                     |
+| beneficiary.tin       | Integer        | **Yes, if currency is UAH_IBAN**                                                                                    | Beneficiary TAX payer number. Integer, 10 digits.                                                                                                                                                                                                                        |
+| beneficiary.phone     | String         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: USD_VISAMASTER, EUR_VISAMASTER**                    | Beneficiary phone number.                                                                                                                                                                                                                                                |
+| beneficiary.email     | String         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: USD_VISAMASTER, EUR_VISAMASTER**                    | Beneficiary email.                                                                                                                                                                                                                                                       |
+| travelRule            | Object         | **Yes, if currency is crypto and you are from EU**                                                                  | Travel Rule information data array                                                                                                                                                                                                                                       |
+| travelRule.type       | String         | **Yes, if currency is crypto and you are from EU**                                                                  | Travel rule receiver type. Values: "individual" or "entity"                                                                                                                                                                                                              |
+| travelRule.vasp       | String         | **Yes, if currency is crypto and you are from EU**                                                                  | Travel rule destination platform (VASP) name.                                                                                                                                                                                                                            |
+| travelRule.name       | String         | **Yes, if currency is crypto and you are from EU**                                                                  | Travel rule. If individual - first_name ; if entity - entity_name                                                                                                                                                                                                        |
+| travelRule.address    | String         | **Yes, if currency is crypto and you are from EU**                                                                  | Travel rule. If individual - last_name ; if entity - entity_address                                                                                                                                                                                                      |
 
 **Request BODY raw:**
+<a href="#withdraw-request-body-crypto"></a>
 
 ```json
 {
@@ -482,6 +488,7 @@ NONE
 ```
 
 **Request BODY (for multinetwork currency) raw:**
+<a href="#withdraw-request-body-multinetwork"></a>
 
 ```json
 {
@@ -496,6 +503,7 @@ NONE
 ```
 
 **Request BODY (for fiat currency) raw:**
+<a href="#withdraw-request-body-fiat"></a>
 
 ```json
 {
@@ -509,6 +517,7 @@ NONE
 ```
 
 **Request BODY (for fiat currency with partialEnable) raw:**
+<a href="#withdraw-request-body-fiat-partial"></a>
 
 ```json
 {
@@ -524,6 +533,7 @@ NONE
 ```
 
 **Request BODY (for fiat IBAN currency) raw:**
+<a href="#withdraw-request-body-fiat-iban"></a>
 
 ```json
 {
@@ -543,6 +553,7 @@ NONE
 ```
 
 **Request BODY (for fiat USD_VISAMASTER, EUR_VISAMASTER payment providers) raw:**
+<a href="#withdraw-request-body-fiat-visamaster"></a>
 
 ```json
 {
@@ -557,6 +568,47 @@ NONE
   },
   "provider": "USD_VISAMASTER",
   "uniqueId": "24529045",
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+
+**Request BODY for travel rule raw:**
+<a href="#withdraw-request-body-travel-rule"></a>
+
+```json
+{
+  "ticker": "BTC",
+  "amount": "0.5",
+  "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+  "uniqueId": "24529046",
+  "travelRule": {
+    "type": "individual",
+    "vasp": "Binance",
+    "name": "John",
+    "address": "Doe"
+  },
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Request BODY for travel rule with entity type raw:**
+<a href="#withdraw-request-body-travel-rule-entity"></a>
+
+```json
+{
+  "ticker": "BTC",
+  "amount": "1.2",
+  "address": "bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+  "uniqueId": "24529047",
+  "travelRule": {
+    "type": "entity",
+    "vasp": "Kraken",
+    "name": "Acme Corp",
+    "address": "123 Business Street, London, UK"
+  },
   "request": "{{request}}",
   "nonce": "{{nonce}}"
 }
@@ -993,7 +1045,7 @@ Available statuses:
         {...},
         {...}
     ],
-    "total": 300                                                                                    // total number of  transactions, use this for calculating ‘limit’ and ‘offset'
+    "total": 300                                                                                    // total number of  transactions, use this for calculating 'limit' and 'offset'
 }
 
 ```
