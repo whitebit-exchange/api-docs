@@ -68,6 +68,10 @@ Same as [order book](./glossary#order-book)
 
 ## E
 
+### EEA
+
+The European Economic Area (EEA) is an international agreement that enables the extension of the European Union's single market to non-EU member states. It consists of the EU member states and three EFTA states (Iceland, Liechtenstein, and Norway).
+
 ## F
 
 ### Fee
@@ -126,7 +130,7 @@ Trader who places [limit orders](./glossary#limit-order) on the [order book](./g
 
 ### Margin trading
 
-The use of exchange's funds to trade [assets](./glossary#assets), which allows placing [orders](./glossary#orders) for sums exceeding the initial deposit several times. The latter is called "margin” and its size depends on the leverage.
+The use of exchange's funds to trade [assets](./glossary#assets), which allows placing [orders](./glossary#orders) for sums exceeding the initial deposit several times. The latter is called "margin" and its size depends on the leverage.
 
 ### Market
 
