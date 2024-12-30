@@ -1,6 +1,7 @@
 import React from "react";
 import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
 import { useRouter } from "next/router";
+import seoConfig from "./seo.config";
 
 const config: DocsThemeConfig = {
   logo: (
@@ -19,20 +20,20 @@ const config: DocsThemeConfig = {
     component: <div />,
   },
   head: function useHead() {
-    const config = useConfig();
     const { route } = useRouter();
+    const pagePath = route === "/" ? "index" : route.replace(/^\//, "");
 
-    const description =
-      "Official WhiteBIT API docs: integrate, trade, and access market data with ease using our developer-friendly guides and endpoints.";
-    const title =
-      config.title + (route === "/" ? "" : " | WhiteBIT API Documentation");
+    const pageConfig = seoConfig[pagePath] || {
+      title: "WhiteBIT API Documentation",
+      description: "Official WhiteBIT API documentation: integrate, trade, and access market data with ease using our developer-friendly guides and endpoints.",
+    };
 
     return (
       <>
-        <title>{title}</title>
-        <meta property="og:title" content={title} />
-        <meta name="description" content={description} />
-        <meta property="og:description" content={description} />
+        <title>{pageConfig.title}</title>
+        <meta property="og:title" content={pageConfig.title} />
+        <meta name="description" content={pageConfig.description} />
+        <meta property="og:description" content={pageConfig.description} />
         <meta property="og:image" content={"/img/og-image.png"} />
 
         <meta httpEquiv="Content-Language" content="en" />
