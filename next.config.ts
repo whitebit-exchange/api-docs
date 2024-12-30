@@ -23,5 +23,6 @@ export default withNextra({
   trailingSlash: true,
   experimental: {
     reactCompiler: true
-  }
+  },
+  poweredByHeader: false,
 });
