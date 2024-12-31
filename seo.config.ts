@@ -12,6 +12,10 @@ const seoConfig: PageSEOConfig = {
     title: "WhiteBIT API Documentation",
     description: "Complete API documentation for WhiteBIT cryptocurrency exchange. Access trading endpoints, market data, and integration guides.",
   },
+  "colocation": {
+    title: "Crypto Colocation Services | Ultra-Low Latency Trading | WhiteBIT",
+    description: "Professional-grade colocation services for high-frequency trading (HFT). Execute trades in 5ms with direct connection to WhiteBIT's matching engine. AWS integration guide and 24/7 support.",
+  },
   // Private API endpoints
   "private/http-main-v4": {
     title: "Private HTTP API V4 - Main Balance Operations | WhiteBIT API",
