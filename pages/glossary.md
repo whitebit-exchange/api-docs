@@ -52,6 +52,14 @@ The cryptocurrency [asset](./glossary#assets) that the borrower pledges as a gua
 
 A unique tool for passive income that allows depositing funds in specific plans and receiving a percentage from holding them for particular periods. Allows you to make profit by lending your funds to the exchange in a certain cryptocurrency by using one of the available plans
 
+### Colocation
+
+The practice of placing trading servers in close physical proximity to an exchange's matching engine to minimize latency. This setup is crucial for high-frequency trading (HFT) operations.
+
+### Cross-Connect
+
+A direct, physical network connection between a client's server and the exchange's infrastructure within a colocation facility, providing the lowest possible latency.
+
 ## D
 
 ### Deal (Trade)
@@ -98,6 +106,10 @@ Users can open Long and Short positions and use leverage and they pay a [fee](./
 
 ## H
 
+### High-Frequency Trading (HFT)
+
+An automated trading strategy that involves executing a large number of orders at extremely high speeds, typically utilizing [colocation](./glossary#colocation) services to minimize latency.
+
 ## I
 
 ## J
@@ -121,6 +133,10 @@ The ratio of the margin to the borrowed funds used to open a position. In other 
 ### Limit order
 
 This [order](./glossary#orders) allows you to buy or sell an [asset](./glossary#assets) at a fixed price
+
+### Latency
+
+The time delay between sending a trading order and its execution. In [high-frequency trading](./glossary#high-frequency-trading-hft), latency is measured in milliseconds or microseconds.
 
 ## M
 
@@ -159,6 +175,10 @@ The currency that is used to buy and sell [assets](./glossary#assets) on a tradi
 ### Multinetwork
 
 Cryptocurrency like USDT obtained in different networks, like: OMNI, Tron, Ethereum etc. Network should be selected in order to make a deposit or withdraw.
+
+### Matching Engine
+
+The core system of an exchange that pairs buy and sell orders. In [colocation](./glossary#colocation) setups, trading servers are placed close to the matching engine to minimize execution time.
 
 ## N
 
