@@ -56,10 +56,6 @@ A unique tool for passive income that allows depositing funds in specific plans 
 
 The practice of placing trading servers in close physical proximity to an exchange's matching engine to minimize latency. This setup is crucial for high-frequency trading (HFT) operations.
 
-### Cross-Connect
-
-A direct, physical network connection between a client's server and the exchange's infrastructure within a colocation facility, providing the lowest possible latency.
-
 ## D
 
 ### Deal (Trade)
