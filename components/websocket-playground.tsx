@@ -5,13 +5,74 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const PING_INTERVAL = 50000; // 50 seconds
+
+type Method = { name: string; description: string };
+type MethodGroup = { label: string; methods: Method[] };
+type MethodGroups = Record<string, MethodGroup>;
+
+const METHOD_GROUPS: MethodGroups = {
+  service: {
+    label: "Service Methods",
+    methods: [
+      { name: "ping", description: "Check server connection" },
+      { name: "time", description: "Get server time" }
+    ]
+  },
+  candles: {
+    label: "Candles Methods",
+    methods: [
+      { name: "candles_request", description: "Get historical kline/candlestick data" },
+      { name: "candles_subscribe", description: "Subscribe to real-time candlestick updates" },
+      { name: "candles_unsubscribe", description: "Unsubscribe from candlestick updates" }
+    ]
+  },
+  price: {
+    label: "Market Price Methods",
+    methods: [
+      { name: "lastprice_request", description: "Get latest price for a market" },
+      { name: "lastprice_subscribe", description: "Subscribe to real-time price updates" },
+      { name: "lastprice_unsubscribe", description: "Unsubscribe from price updates" }
+    ]
+  },
+  stats: {
+    label: "Market Statistics Methods",
+    methods: [
+      { name: "market_request", description: "Get 24h market statistics" },
+      { name: "market_subscribe", description: "Subscribe to market statistics updates" },
+      { name: "market_unsubscribe", description: "Unsubscribe from market statistics" },
+      { name: "marketToday_query", description: "Get current day UTC market statistics" },
+      { name: "marketToday_subscribe", description: "Subscribe to current day market updates" },
+      { name: "marketToday_unsubscribe", description: "Unsubscribe from current day updates" }
+    ]
+  },
+  trades: {
+    label: "Trade Methods",
+    methods: [
+      { name: "trades_request", description: "Get recent trades for a market" },
+      { name: "trades_subscribe", description: "Subscribe to real-time trade updates" },
+      { name: "trades_unsubscribe", description: "Unsubscribe from trade updates" }
+    ]
+  },
+  depth: {
+    label: "Depth Methods",
+    methods: [
+      { name: "depth_request", description: "Get order book for a market" },
+      { name: "depth_subscribe", description: "Subscribe to order book updates" },
+      { name: "depth_unsubscribe", description: "Unsubscribe from order book updates" }
+    ]
+  }
+} as const;
+
+// Create a type for all available methods
+type AvailableMethod = typeof METHOD_GROUPS[keyof typeof METHOD_GROUPS]["methods"][number]["name"];
 
 export function WebSocketPlayground() {
   const [connected, setConnected] = useState(false);
   const [messages, setMessages] = useState<string[]>([]);
-  const [method, setMethod] = useState("");
+  const [method, setMethod] = useState<AvailableMethod | "">("");
   const [params, setParams] = useState("");
   const [websocketUrl, setWebsocketUrl] = useState("wss://api.whitebit.com/ws");
   const socketRef = useRef<WebSocket | null>(null);
@@ -137,13 +198,27 @@ export function WebSocketPlayground() {
       <div className="space-y-2">
         <div>
           <Label htmlFor="method">Method</Label>
-          <Input
-            id="method"
-            placeholder="Enter method (e.g., ping, time, kline)"
+          <Select
             value={method}
-            onChange={(e) => setMethod(e.target.value)}
+            onValueChange={setMethod}
             disabled={!connected}
-          />
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select a method" />
+            </SelectTrigger>
+            <SelectContent className="max-h-[300px]">
+              {Object.entries(METHOD_GROUPS).map(([key, group]) => (
+                <SelectGroup key={key}>
+                  <SelectLabel>{group.label}</SelectLabel>
+                  {group.methods.map((m) => (
+                    <SelectItem key={m.name} value={m.name}>
+                      {m.name} - {m.description}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         <div>
