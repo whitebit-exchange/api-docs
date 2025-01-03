@@ -29,6 +29,7 @@
     - [Collateral Account Summary](#collateral-account-summary)
     - [Open Positions](#open-positions)
     - [Positions History](#positions-history)
+    - [Funding History](#funding-history)
     - [Change Collateral Account Leverage](#change-collateral-account-leverage)
     - [Query unexecuted(active) conditional orders](#query-unexecutedactive-conditional-orders)
     - [Query unexecuted(active) OCO orders](#query-unexecutedactive-oco-orders)
@@ -4111,6 +4112,76 @@ Available statuses:
 ```
 
 ---
+
+### Funding History
+
+```
+[POST] /api/v4/collateral-account/funding-history
+```
+
+Retrieves the history of realized funding payments for an account.
+
+❗ Rate limit 12000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name     | Type   | Mandatory | Description                                                                                                                                       |
+|----------| ------ |-----------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| market   | String | **Yes**    | Requested futures [market](./../glossary.md#market). Example: BTC_PERP                                                                            |
+| startDate | Int    | **No**    | Start date in Unix-time format                                                                                                                    |
+| endDate  | Int    | **No**    | End date in Unix-time format                                                                                                                      |
+| limit    | Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 100, Min: 1, Max: 100                                     |
+| offset   | Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0 |
+
+**Request BODY raw:**
+
+```json
+{
+  "market": "BTC_PERP",
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+Available statuses:
+
+- `Status 200`
+- `Status 422 if inner validation failed`
+- `Status 503 if service temporary unavailable`
+
+```json
+{
+  "records": [
+    {
+      "market": "BTC_PERP", // market name
+      "fundingTime": "1708704000000", // funding time
+      "fundingRate": "0.00017674", // funding rate
+      "fundingAmount": "-0.171053531892", // funding amount
+      "positionAmount": "0.019", // position amount
+      "settlementPrice": "50938.2", // settlement price
+      "rateCalculatedTime": "1708675200000" // rate calculated time
+    },
+    {
+      "market": "BTC_PERP", 
+      "fundingTime": "1688457600000",
+      "fundingRate": "-0.000177877800093587",
+      "fundingAmount": "-0.0054997859133136",
+      "positionAmount": "-0.001",
+      "settlementPrice": "30918.9",
+      "rateCalculatedTime": "1688428800000"
+    }
+  ],
+  "limit": 100,
+  "offset": 0
+}
+```
+
+---
+
 
 ### Change Collateral Account Leverage
 
