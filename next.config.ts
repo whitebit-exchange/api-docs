@@ -4,6 +4,9 @@ const withNextra = nextra({
   theme: "nextra-theme-docs",
   themeConfig: "./theme.config.tsx",
   defaultShowCopyCode: true,
+  search: {
+    codeblocks: false
+  },
   mdxOptions: {
     rehypePrettyCodeOptions: {
       theme: {
@@ -22,7 +25,7 @@ export default withNextra({
   reactStrictMode: true,
   trailingSlash: true,
   experimental: {
-    reactCompiler: true
+    reactCompiler: false
   },
   poweredByHeader: false,
 });
