@@ -1,6 +1,13 @@
 export default {
   index: {
-    title: "Introduction",
+    title: "Home",
+    theme: {
+      toc: false,
+      layout: "full",
+    },
+  },
+  overview: {
+    title: "Overview",
     theme: {
       toc: false,
       layout: "full",
