@@ -58,14 +58,14 @@ export default {
       layout: "full",
     },
   },
-  toc: {
-    title: "Terms & Conditions ↗",
+  hiring: {
+    title: "We are hiring!",
     type: "page",
-    href: "https://whitebit.com/terms/api",
+    href: "https://whitebit.hurma.work/public-vacancies",
     newWindow: true,
   },
   contact: {
-    title: "Contact ✉",
+    title: "Contact",
     type: "page",
     href: "mailto:support@whitebit.com",
     newWindow: true,
