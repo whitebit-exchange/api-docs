@@ -5,6 +5,8 @@
 :root {
   --background: 0 0% 100%;
   --foreground: 0 0% 3.9%;
+  --font-inter: 'Inter', sans-serif;
+  --font-manrope: 'Manrope', sans-serif;
   --card: 0 0% 100%;
   --card-foreground: 0 0% 3.9%;
   --popover: 0 0% 100%;
@@ -63,8 +65,12 @@
   }
   html {
     scrollbar-gutter: stable;
+    font-family: var(--font-inter);
   }
   body {
     @apply bg-background text-foreground;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-manrope);
   }
 }
