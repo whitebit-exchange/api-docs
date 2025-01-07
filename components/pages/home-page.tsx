@@ -72,7 +72,7 @@ export default function HomePage() {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <h3 className="text-xl font-semibold">
-                        Live API Activity
+                        API Activity
                       </h3>
                       <div className="flex items-center gap-2 rounded-full bg-secondary/50 px-2 py-1">
                         <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
