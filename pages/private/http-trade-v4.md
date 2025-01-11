@@ -3969,7 +3969,7 @@ Available statuses:
   "unrealizedFunding": "0.0292207414003268",        // funding that will be paid on next position stage change (order, liquidation, etc)
   "pnl": "-832.9535",                               // curren profit and loss in USDT
   "leverage": 10,                                   // current leverage of account which affect amount of lending funds
-  "marginFraction": "6.2446758120916304",           // margin fraction
+  "marginFraction": "6.2446758120916304",           // margin fraction (Note: value of 1000000000000000000000 indicates no positions)
   "maintenanceMarginFraction": "1.2446758120916304" // maintenance margin fraction
 }
 ```
@@ -4166,7 +4166,7 @@ Available statuses:
       "rateCalculatedTime": "1708675200000" // rate calculated time
     },
     {
-      "market": "BTC_PERP", 
+      "market": "BTC_PERP",
       "fundingTime": "1688457600000",
       "fundingRate": "-0.000177877800093587",
       "fundingAmount": "-0.0054997859133136",
@@ -5850,7 +5850,7 @@ Available statuses:
         "from": [
             "Conversion markets not available"
         ]
-    }
+  }
 }
 ```
 
@@ -5872,7 +5872,6 @@ This endpoint confirms an estimated quote.
 NONE
 
 **Parameters:**
-
 | Name    | Type   | Mandatory | Description |
 |---------|--------|-----------|-------------|
 | quoteId | String | **Yes**   | Quote ID    |
@@ -6018,3 +6017,4 @@ Available statuses:
 </details>
 
 ---
+
