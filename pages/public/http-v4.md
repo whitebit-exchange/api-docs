@@ -380,7 +380,7 @@ _100 ms_
 ### Depth
 
 ```
-[GET] /v4/public/orderbook/depth/{market}
+[GET] /api/v4/public/orderbook/depth/{market}
 ```
 
 This endpoint retrieves depth price levels within ±2% of the market last price.
