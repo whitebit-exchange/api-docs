@@ -14,7 +14,7 @@
     - [Apply code](#apply-code)
     - [Get my codes](#get-my-codes)
     - [Get codes history](#get-codes-history)
-  - [Crypto Lеnding](#crypto-lеnding)
+  - [Crypto Lending](#crypto-lending)
     - [Get plans](#get-plans)
     - [Invest](#invest)
     - [Close investment](#close-investment)
@@ -114,7 +114,6 @@ Available statuses:
     "XLM": {
         "main_balance": "36.48" // main balance volume of XLM
     },
-    "currecty_ticker": {...}
 }
 ```
 
@@ -151,7 +150,7 @@ NONE
 
 | Name    | Type   | Mandatory                                                             | Description                                                                                                                                                                                                                                               |
 | ------- | ------ | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ticker  | String | **Yes**                                                               | Currencies [ticker](./../glossary.md#ticker). Example: BTC ⚠ Currency ticker should not be [fiat](./../glossary.md#fiat) and it's "can_deposit" status must be "true". You can find this status in https://whitebit.com/api/v4/public/assets respsonse.   |
+| ticker  | String | **Yes**                                                               | Currencies [ticker](./../glossary.md#ticker). Example: BTC ⚠ Currency ticker should not be [fiat](./../glossary.md#fiat) and it's "can_deposit" status must be "true". You can find this status in https://whitebit.com/api/v4/public/assets response.   |
 | network | String | **Yes, if currency is [multinetwork](./../glossary.md#multinetwork)** | Cryptocurrency network. ⚠ If currency has multiple networks like USDT - you need to specify network to be used. You can find [ticker](./../glossary.md#ticker) networks list in "networks" field from response https://whitebit.com/api/v4/public/assets. |
 
 **Request BODY raw:**
@@ -229,7 +228,7 @@ Available statuses:
   "code": 1,
   "message": "Inner validation failed",
   "errors": {
-    "ticker": ["Currency is not depositable"]
+    "ticker": ["Currency is not deposable"]
   }
 }
 ```
@@ -307,7 +306,7 @@ NONE
     "lastName": "Doe",
     "email": "john_doe@email.com",
     "address": {
-      "line1":"Martínez Campos 37",
+      "line1":"Martinez Campos 37",
       "city":"Madrid",
       "zipCode":"28010",
       "countryCode":"ES"
@@ -1688,9 +1687,9 @@ Available statuses:
 
 ---
 
-## Crypto Lеnding
+## Crypto Lending
 
-This API provides endpoints for interacting with [Crypto Lеnding](./../glossary.md#crypto-lendingsmart-staking): getting active plans, creating/closing investments, retrieving investments/interest payments history.
+This API provides endpoints for interacting with [Crypto Lending](./../glossary.md#crypto-lending): getting active plans, creating/closing investments, retrieving investments/interest payments history.
 
 These endpoints are available only for B2B partner services, you need to fill the form https://whitebit.com/institutional-services/b2b in order to get permissions to use these endpoints.
 
@@ -1700,7 +1699,7 @@ These endpoints are available only for B2B partner services, you need to fill th
 [POST] /api/v4/main-account/smart/plans
 ```
 
-This endpoint retrieves all active [plans](./../glossary.md#crypto-lendingsmart-staking)
+This endpoint retrieves all active [plans](./../glossary.md#crypto-lending)
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -1711,7 +1710,7 @@ NONE
 
 | Name   | Type   | Mandatory | Description                                                                                                                   |
 | ------ | ------ | --------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| ticker | String | **No**    | [Invest plan](./../glossary.md#crypto-lendingsmart-staking) source currency's [ticker](./../glossary.md#ticker). Example: BTC |
+| ticker | String | **No**    | [Invest plan](./../glossary.md#crypto-lending) source currency's [ticker](./../glossary.md#ticker). Example: BTC |
 
 **Request BODY raw:**
 
@@ -1778,7 +1777,7 @@ Examples:
 [POST] /api/v4/main-account/smart/investment
 ```
 
-This endpoint creates a new investment to the specified [invest plan](./../glossary.md#crypto-lendingsmart-staking)
+This endpoint creates a new investment to the specified [invest plan](./../glossary.md#crypto-lending)
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -1789,7 +1788,7 @@ NONE
 
 | Name   | Type           | Mandatory | Description                                                            |
 | ------ | -------------- | --------- | ---------------------------------------------------------------------- |
-| planId | String         | **Yes**   | [Invest plan](./../glossary.md#crypto-lendingsmart-staking) identifier |
+| planId | String         | **Yes**   | [Invest plan](./../glossary.md#crypto-lending) identifier |
 | amount | Numeric String | **Yes**   | Investment amount                                                      |
 
 **Request BODY raw:**
@@ -2052,7 +2051,7 @@ NONE
 | Name   | Type    | Mandatory | Description                                                                                                                                                           |
 | ------ | ------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | id     | String  | **No**    | Investment identifier                                                                                                                                                 |
-| ticker | String  | **No**    | [Invest plan](./../glossary.md#crypto-lendingsmart-staking) source currency's [ticker](./../glossary.md#ticker)                                                       |
+| ticker | String  | **No**    | [Invest plan](./../glossary.md#crypto-lending) source currency's [ticker](./../glossary.md#ticker)                                                       |
 | status | Integer | **No**    | Investment status (1 - active, 2 - closed)                                                                                                                            |
 | limit  | Int     | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 100, Min: 1, Max: 100                                                         |
 | offset | Int     | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
@@ -2142,8 +2141,8 @@ NONE
 
 | Name   | Type   | Mandatory | Description                                                                                                                                                           |
 | ------ | ------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| planId | String | **No**    | [Invest plan](./../glossary.md#crypto-lendingsmart-staking) identifier                                                                                                |
-| ticker | String | **No**    | [Invest plan](./../glossary.md#crypto-lendingsmart-staking) target currency's [ticker](./../glossary.md#ticker)                                                       |
+| planId | String | **No**    | [Invest plan](./../glossary.md#crypto-lending) identifier                                                                                                |
+| ticker | String | **No**    | [Invest plan](./../glossary.md#crypto-lending) target currency's [ticker](./../glossary.md#ticker)                                                       |
 | limit  | Int    | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 100, Min: 1, Max: 100                                                         |
 | offset | Int    | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
 
@@ -2507,7 +2506,7 @@ Available statuses:
     {
       "id": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",     // subaccount id
       "alias": "training",
-      "userId": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5", // user accociated with account
+      "userId": "0d7b66ff-1909-4938-ab7a-d16d9a64dcd5", // user associated with account
       "email": "e***@g***m",
       "status": "active",
       "color": "#FF0000",
@@ -2859,7 +2858,7 @@ NONE
 |-----------|---------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | account   | String  | **No**    | Mining pool account                                                                                                                                                                                 |
 | from      | Int     | **No**    | Date timestamp starting from which rewards are received                                                                                                                                             |
-| to        | Int     | **No**    | Date timestampt until which rewards are received                                                                                                                                                    |
+| to        | Int     | **No**    | Date timestamp until which rewards are received                                                                                                                                                    |
 | limit     | Int     | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 30, Min: 1, Max: 100                                                                                        |
 | offset    | Int     | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000                               |
 
