@@ -8,7 +8,9 @@
 - [Orders Executed](#orders-executed)
 - [Deals](#deals)
 - [Positions](#positions)
+- [Account margin positions events](#account-margin-positions-events)
 - [Borrows](#borrows)
+- [Account borrows events](#account-borrows-events)
 
 ## WebSocket Connection Management
 
@@ -977,6 +979,86 @@ Update interval: 1 sec
 ```
 
 ---
+### Account margin positions events
+
+#### Subscribe
+
+##### ⤴️ Request:
+
+```json
+{
+    "method": "positionsAccountMargin_subscribe",
+    "params": [],
+    "id": 1
+}
+```
+
+##### ⤵️ Response:
+
+```json
+{
+    "error": null,
+    "result": {
+        "status": "success"
+    },
+    "id": 1
+}
+```
+
+##### 🔄 Update events:
+
+```json
+{
+    "method": "positionsAccountMargin_update",
+    "params": [
+        1,   // Possible Values 1,2 (1 - Margin call , 2 - liquidation)
+        {
+            "id": 184,                                  //  position ID
+            "market": "BTC_USDT",                       //  market name
+            "ctime": 1737731271.3069341,                //  date of position opening
+            "mtime": 1737731271.3069341,                //  date of position modifying (this is date of current event)
+            "amount": "-0.094048",                      //  position amount
+            "amount_in_money": "9939.79769088",         //  position amount in money
+            "base_price": "105688.56",                  //  base price of position
+            "pnl": "-1157.88",                          //  unrealized PnL in **money**
+            "liq_price": "126462.54",                   //  liquidation price according to current state of position
+            "liq_stage": "margin_call",                 //  liquidation state. Possible values: margin_call , liquidation
+            "unrealized_funding": "0.0231431327519745", //  funding that will be paid on next position stage change (order, liquidation, etc)
+            "funding": "0",                             //  funding that has already been disbursed
+            "margin": "1109.77",                        //  own funds amount in open position **money**
+            "free_margin": "-652.9",                    //  free funds for trading
+            "realized_pnl": "-8.945817921792"           //  Realized PnL in **money**
+        }
+    ],
+    "id": null
+}
+```
+
+#### Unsubscribe
+
+##### ⤴️ Request:
+
+```json
+{
+    "method": "positionsAccountMargin_unsubscribe",
+    "params": [],
+    "id": 1
+}
+```
+
+##### ⤵️ Response:
+
+```json
+{
+    "error": null,
+    "result": {
+        "status": "success"
+    },
+    "id": 1
+}
+```
+
+---
 
 ### Borrows
 
@@ -1049,5 +1131,75 @@ Update interval: 1.5 sec
     "status": "success"
   },
   "error": null
+}
+```
+
+### Account borrows events
+
+#### Subscribe
+
+##### ⤴️ Request:
+
+```json
+{
+    "method": "borrowsAccountMargin_subscribe",
+    "params": [],
+    "id": 1
+}
+```
+
+##### ⤵️ Response:
+
+```json
+{
+    "error": null,
+    "result": {
+        "status": "success"
+    },
+    "id": 1
+}
+```
+
+##### 🔄 Update events:
+
+```json
+{
+    "method": "borrowsAccountMargin_update",
+    "params": [
+        1,  // Possible Values 1,2 (1 - Margin call , 2 - liquidation)
+        {
+            "asset": "USDT",                    // borrowed asset
+            "ctime": 1737731478.6904421,        // borrow created date
+            "mtime": 1737731478.6904421,        // last update time
+            "amount": "-3895.7476176",          // borrow amount
+            "unrealized_funding": "0.00267248", // funding that will be paid on next borrow stage change
+            "liq_price": "NaN"                  // borrow liquidation price
+        }
+    ],
+    "id": null
+}
+```
+
+#### Unsubscribe
+
+##### ⤴️ Request:
+
+```json
+{
+    "method": "borrowsAccountMargin_unsubscribe",
+    "params": [],
+    "id": 1
+}
+```
+
+##### ⤵️ Response:
+
+```json
+{
+    "error": null,
+    "result": {
+        "status": "success"
+    },
+    "id": 1
 }
 ```
