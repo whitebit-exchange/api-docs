@@ -32,6 +32,14 @@
     - [Unblock Sub-Account](#unblock-sub-account)
     - [Sub-Account Balances](#sub-account-balances)
     - [Get Sub-Account Transfer History](#get-sub-account-transfer-history)
+    - [Create Sub-Account API Key](#create-sub-account-api-key)
+    - [Edit Sub-Account API Key](#edit-sub-account-api-key)
+    - [Delete Sub-Account API Key](#delete-sub-account-api-key)
+    - [List Sub-Account API Keys](#list-sub-account-api-keys)
+    - [Reset Sub-Account API Key](#reset-sub-account-api-key)
+    - [List Sub-Account API Key IP Addresses](#list-sub-account-api-key-ip-addresses)
+    - [Create Sub-Account API Key IP Address](#create-sub-account-api-key-ip-address)
+    - [Delete Sub-Account API Key IP Address](#delete-sub-account-api-key-ip-address)
   - [Mining Pool](#mining-pool)
     - [Get Rewards](#get-rewards)
 
@@ -2834,6 +2842,370 @@ Available statuses:
 ```
 
 </details>
+
+---
+
+### Create Sub-Account API Key
+
+```
+[POST] /api/v4/sub-account/api-key/create
+```
+
+This endpoint creates a new API key for a sub-account
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name         | Type   | Mandatory | Description                                                |
+|-------------|--------|------------|------------------------------------------------------------|
+| type        | String | **Yes**   | Type of API key                                           |
+| subAccountId| String | **Yes**   | ID of the sub-account to create the API key for           |
+| title       | String | **No**    | Custom title/name for the API key                         |
+
+**Request BODY raw:**
+
+```json
+{
+  "type": "trade",
+  "subAccountId": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
+  "title": "Trading Bot Key"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 201`
+- `Status 400 if request validation failed`
+
+```json
+{
+  "id": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",  // API key ID
+  "key": "your-api-key",                          // API key
+  "secret": "your-api-secret"                     // API secret
+}
+```
+
+---
+
+### Edit Sub-Account API Key
+
+```
+[POST] /api/v4/sub-account/api-key/edit
+```
+
+This endpoint updates an existing sub-account API key
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name     | Type   | Mandatory | Description                                    |
+|----------|--------|-----------|------------------------------------------------|
+| apiKeyId | String | **Yes**   | ID of the API key to update                   |
+| title    | String | **Yes**   | New title for the API key                     |
+| urls     | Array  | **No**    | Array of URL objects for API key restrictions |
+
+**Request BODY raw:**
+
+```json
+{
+  "apiKeyId": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",
+  "title": "Updated Trading Bot Key",
+  "urls": [
+    {
+      "url": "https://example.com",
+      "enabled": true
+    }
+  ]
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if request validation failed`
+
+```json
+{
+  // empty response
+}
+```
+
+---
+
+### Delete Sub-Account API Key
+
+```
+[POST] /api/v4/sub-account/api-key/delete
+```
+
+This endpoint deletes a sub-account API key
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name     | Type   | Mandatory | Description                  |
+|----------|--------|-----------|------------------------------|
+| apiKeyId | String | **Yes**   | ID of the API key to delete |
+
+**Request BODY raw:**
+
+```json
+{
+  "apiKeyId": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if request validation failed`
+
+```json
+{
+  // empty response
+}
+```
+
+---
+
+### List Sub-Account API Keys
+
+```
+[POST] /api/v4/sub-account/api-key/list
+```
+
+This endpoint retrieves a list of API keys for a sub-account.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name         | Type   | Mandatory | Description                                                |
+|-------------|--------|------------|------------------------------------------------------------|
+| subAccountId| String | **Yes**   | ID of the sub-account to list API keys for                |
+
+**Request BODY raw:**
+
+```json
+{
+  "subAccountId": "8e667b4a-0b71-4988-8af5-9474dbfaeb51"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if request validation failed`
+
+```json
+{
+  "data": [
+    {
+      "id": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",  // API key ID
+      "title": "Trading Bot Key",                      // API key title/name
+      "type": "trade",                                // API key type
+      "createdAt": 1646825196                         // Creation timestamp
+    }
+  ]
+}
+```
+
+### Reset Sub-Account API Key
+
+```
+[POST] /api/v4/sub-account/api-key/reset
+```
+
+This endpoint resets (regenerates) an existing sub-account API key.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name     | Type   | Mandatory | Description                  |
+|----------|--------|-----------|------------------------------|
+| apiKeyId | String | **Yes**   | ID of the API key to reset  |
+
+**Request BODY raw:**
+
+```json
+{
+  "apiKeyId": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if request validation failed`
+
+```json
+{
+  "id": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",  // API key ID
+  "key": "your-new-api-key",                      // New API key
+  "secret": "your-new-api-secret"                 // New API secret
+}
+```
+
+### List Sub-Account API Key IP Addresses
+
+```
+[POST] /api/v4/sub-account/api-key/ip-address/list
+```
+
+This endpoint retrieves the list of IP addresses allowed for a sub-account API key.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name     | Type   | Mandatory | Description                                    |
+|----------|--------|-----------|------------------------------------------------|
+| apiKeyId | String | **Yes**   | ID of the API key to list IP addresses for    |
+
+**Request BODY raw:**
+
+```json
+{
+  "apiKeyId": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if request validation failed`
+
+```json
+{
+  "data": [
+    "127.10.10.255",
+    "192.168.1.1"
+  ]
+}
+```
+
+### Create Sub-Account API Key IP Address
+
+```
+[POST] /api/v4/sub-account/api-key/ip-address/create
+```
+
+This endpoint adds a new IP address to the allowed list for a sub-account API key.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name     | Type   | Mandatory | Description                                    |
+|----------|--------|-----------|------------------------------------------------|
+| apiKeyId | String | **Yes**   | ID of the API key to add IP address to        |
+| ip       | String | **Yes**   | IP address to add to allowed list             |
+
+**Request BODY raw:**
+
+```json
+{
+  "apiKeyId": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",
+  "ip": "127.10.10.255"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 201`
+- `Status 400 if request validation failed`
+
+```json
+{
+  "data": [
+    "127.10.10.255",
+    "192.168.1.1"
+  ]
+}
+```
+
+### Delete Sub-Account API Key IP Address
+
+```
+[POST] /api/v4/sub-account/api-key/ip-address/delete
+```
+
+This endpoint removes an IP address from the allowed list for a sub-account API key.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name     | Type   | Mandatory | Description                                    |
+|----------|--------|-----------|------------------------------------------------|
+| apiKeyId | String | **Yes**   | ID of the API key to remove IP address from   |
+| ip       | String | **Yes**   | IP address to remove from allowed list        |
+
+**Request BODY raw:**
+
+```json
+{
+  "apiKeyId": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",
+  "ip": "127.10.10.255"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 400 if request validation failed`
+
+```json
+{
+  "data": [
+    "192.168.1.1"
+  ]
+}
+```
 
 ---
 
