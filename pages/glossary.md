@@ -278,6 +278,10 @@ See [Deal](./glossary#deal-trade)
 
 See [Volume](./glossary#volumetrade-volume)
 
+### TPSL (Take Profit/Stop Loss)
+
+A risk management feature that allows traders to set predefined price levels at which a position will automatically close. Take Profit (TP) is a price level higher than the current market price where a long position will be closed for profit or a short position will be closed for loss. Stop Loss (SL) is a price level lower than the current market price where a long position will be closed for loss or a short position will be closed for profit. These orders help traders manage their risk and lock in profits automatically.
+
 ## U
 
 ## V
