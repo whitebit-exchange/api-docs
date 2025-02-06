@@ -4397,12 +4397,36 @@ Available statuses:
     "freeMargin": "619385.67",                // free funds for trading according to
     "funding": "0",                           // funding that will be paid on next position stage change (order, liquidation, etc)
     "unrealizedFunding": "0.0019142920201966" // funding that will be paid on next position stage change (order, liquidation, etc)
+    "tpsl": {
+        "takeProfitId" : 123,                   // take profit order ID
+        "takeProfit": "40000"                   // take profit price
+        "stopLossId" : 124,                    // stop loss order ID
+        "stopLoss": "50000",                    // stop loss price
+    },
+  },
+  {
+    "positionId": 528,                        // position ID
+    "market": "ETH_USDT",                     // market name
+    "openDate": 1651568067.789679,            // date of position opening
+    "modifyDate": 1651568067.789679,          // date of position modifying (this is date of current event)
+    "amount": "0.1",                          // amount of order
+    "basePrice": "5658.349",                 // base price of position
+    "liquidationPrice": null,                 // liquidation price according to current state of position
+    "liquidationState": null,                 // state of liquidation. Possible values: null, margin_call, liquidation
+    "pnl": "-168.42",                         // current profit and loss in **money**
+    "pnlPercent": "-0.43",                    // current profit and loss in percentage
+    "margin": "8316.74",                      // amount of funds in open position **money**
+    "freeMargin": "19385.67",                // free funds for trading according to
+    "funding": "0",                           // funding that will be paid on next position stage change (order, liquidation, etc)
+    "unrealizedFunding": "0.0020142920201966" // funding that will be paid on next position stage change (order, liquidation, etc)
+    "tpsl": null,
   },
   ...
 ]
 ```
 
 - NOTE: In case of position opening using trigger or [limit order](./../glossary.md#limit-order) you can get situation when `basePrice`, `liquidationPrice`, `amount`, `pnl`, `pnlPercent` returns with null value. It happens when funds are lending, and you start to pay funding [fee](./../glossary.md#fee), but position is not completely opened, cos activation price hadn't been triggered yet.
+- NOTE: In case of position have take profit or stop loss, you will get `tpsl` object with `takeProfitId`, `takeProfit`, `stopLossId`, `stopLoss` fields else you will get `tpsl` object with `null` value.
 
 ---
 
