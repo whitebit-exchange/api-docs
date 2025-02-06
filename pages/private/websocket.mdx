@@ -502,27 +502,29 @@ All possible [order types](#order-types)
 {
     "id": 8,
     "result": {
-        "limit": 100,                       // Limit from request
-        "offset": 0,                        // Offset from request
-        "total": 124,                       // Total count of records
+        "limit": 100,                          // Limit from request
+        "offset": 0,                           // Offset from request
+        "total": 1,                            // Total count of records
         "records": [
             {
-                "id": 6880290,              // Order ID
-                "market": "BTC_USDT",       // Market
-                "type": 1,                  // Order type. All types in table above
-                "side": 1,                  // Side 1 - sell, 2 - bid
-                "post_only": true,          // Post only flag
-                "ctime": 1601464682.998461, // Created at in Unix time
-                "mtime": 1601464682.998461, // Modified at in Unix time
-                "price": "10900",           // Order price
-                "amount": "0.773232",       // Stock amount
-                "left": "0.773232",         // Stock amount that left to be executed
-                "deal_stock": "0",          // Stock amount that executed
-                "deal_money": "0",          // Money amount that executed
-                "deal_fee": "0",            // Charged fee amount in money,
-                "client_order_id": "22"     // Custom client order id
-            },
-            ...
+                "id": 1212901344783,           // Order ID
+                "market": "BTC_USDT",          // Market
+                "type": 1,                     // Order type. All types in table above
+                "side": 2,                     // Side 1 - sell, 2 - bid
+                "post_only": false,            // Post only flag
+                "ioc": false,                  // IOC flag
+                "ctime": 1738250918.558867,    // Created at in Unix time
+                "mtime": 1738250918.558867,    // Modified at in Unix time
+                "price": "90000",              // Order price
+                "amount": "1",                 // Stock amount
+                "left": "1",                   // Stock amount that left to be executed
+                "deal_stock": "0",             // Stock amount that executed
+                "deal_money": "0",             // Money amount that executed
+                "deal_fee": "0",               // Charged fee amount in money
+                "client_order_id": "",         // Custom client order id
+                "stp": "no",                   // stp flag; [no, co, cn, cb]. No Prevention (no), Cancel Oldest (co), Cancel Newest (cn), Cancel Both (cb)
+                "status": "OPEN"               // Order status. All statuses in table above
+            }
         ]
     },
     "error": null
@@ -572,24 +574,28 @@ If new [order](./../glossary.md#orders) instantly matches an order from [orderbo
 {
   "id": null,
   "method": "ordersPending_update",
-  "params": [
-    2,                             // Update event ID (see above)
-    {
-      "id": 621879,                // Order ID
-      "market": "BTC_USDT",        // Market
-      "type": 1,                   // Order type. All types in table above
-      "side": 1,                   // Side 1 - sell, 2 - bid
-      "ctime": 1601475234.656275,  // Created at in Unix time
-      "mtime": 1601475266.733574,  // Modified at in Unix time
-      "price": "10646.12",         // Order price
-      "amount": "0.01",            // Stock amount
-      "left": "0.008026",          // Stock amount that left to be executed.
-      "deal_stock": "0.001974",    // Stock amount that executed
-      "deal_money": "21.01544088", // Money amount that executed
-      "deal_fee": "2.101544088",   // Charged fee amount in money,
-      "client_order_id": "22"      // Custom client order id
-    }
-  ]
+    "params": [
+        1,                              // Update event ID (see above)
+        {
+            "id": 1212904480922,        // Order ID
+            "market": "BTC_USDT",       // Market
+            "type": 1,                  // Order type. All types in table above
+            "side": 2,                  // Side 1 - sell, 2 - bid
+            "post_only": false,         // Post only flag
+            "ioc": false,               // IOC flag
+            "ctime": 1738250982.28914,  // Created at in Unix time
+            "mtime": 1738250982.28914,  // Modified at in Unix time
+            "price": "90000",           // Order price
+            "amount": "1",              // Stock amount
+            "left": "1",                // Stock amount that left to be executed
+            "deal_stock": "0",          // Stock amount that executed
+            "deal_money": "0",          // Money amount that executed
+            "deal_fee": "0",            // Charged fee amount in money
+            "client_order_id": "",      // Custom client order id
+            "stp": "no",                // STP flag; [no, co, cn, cb]. No Prevention (no), Cancel Oldest (co), Cancel Newest (cn), Cancel Both (cb)
+            "status": "OPEN"            // Order status. All statuses in table above
+        }
+    ],
 }
 ```
 
@@ -653,23 +659,25 @@ All possible [order types](#order-types)
     "result": {
         "limit": 100,
         "offset": 0,
-        "total": 124,
         "records": [
             {
-                "id": 3848860,                // Order ID
-                "ctime": 1594999374.147639,   // Created at in Unix time
-                "ftime": 1594999817.987435,   // Finished at in Unix time
-                "market": "BTC_USDT",         // Market
-                "type": 1,                    // Order type. All types in table above
-                "side": 2,                    // Side 1 - sell, 2 - bid
-                "status": 1,                  // Status 1 - finished, 2 - cancelled
-                "post_only": true,            // Post only flag
-                "price": "9157.95",           // Order price
-                "amount": "0.633232",         // Stock amount
-                "deal_stock": "0.633232",     // Stock amount that executed
-                "deal_money": "5799.1069944", // Money amount that executed
-                "deal_fee": "5.7991069944",   // Charged fee amount in money,
-                "client_order_id": "-a-a-a"   // Custom client order id
+                "id": 1212266594338,              // Order ID
+                "ctime": 1738230617.8867061,      // Created at in Unix time
+                "ftime": 1738230617.8867061,      // Finished at in Unix time
+                "market": "BTC_USDT",             // Market
+                "source": "web",                  // Source
+                "type": 2,                        // Order type. All types in table above
+                "side": 1,                        // Side 1 - sell, 2 - bid
+                "post_only": false,               // Post only flag
+                "ioc": false,                     // IOC flag
+                "price": "0",                     // Order price
+                "amount": "1",                    // Stock amount
+                "deal_stock": "1",                // Stock amount that executed
+                "deal_money": "105366.06693468",  // Money amount that executed
+                "deal_fee": "10.536606693468",    // Charged fee amount in money
+                "client_order_id": "",            // Custom client order id
+                "status": "FILLED",               // Order status. All statuses in table above
+                "fee_asset": "USDT"               // Fee asset type
             },
             ...
         ]
@@ -722,22 +730,27 @@ Update interval: real-time
 {
   "id": null,
   "method": "ordersExecuted_update",
-  "params": [
-    {
-      "id": 6887337167,           // Order ID
-      "market": "BTC_USDT",       // Market
-      "type": 1,                  // Order type. All types in table above
-      "side": 1,                  // Side 1 - sell, 2 - bid
-      "ctime": 1601478710.197908, // Created at in Unix time
-      "mtime": 1601478710.197917, // Modified at in Unix time
-      "price": "10745.42",        // Order price
-      "amount": "0.001",          // Stock amount
-      "left": "0",                // Stock amount that left to be executed.
-      "deal_stock": "0.001",      // Stock amount that executed
-      "deal_money": "10.74563",   // Money amount that executed
-      "deal_fee": "0.01074563"    // Charged fee amount in money
-    }
-  ]
+    "params": [
+        {
+            "id": 1212907216814,           // Order ID
+            "market": "ETH_BTC",           // Market
+            "type": 1,                     // Order type. All types in table above
+            "side": 2,                     // Side 1 - sell, 2 - bid
+            "post_only": false,            // Post only flag
+            "ioc": false,                  // IOC flag
+            "ctime": 1738251046.7203979,   // Created at in Unix time
+            "mtime": 1738251048.4428461,   // Modified at in Unix time
+            "price": "0.030832",           // Order price
+            "amount": "1",                 // Stock amount
+            "left": "0",                   // Stock amount that left to be executed
+            "deal_stock": "1",             // Stock amount that executed
+            "deal_money": "0.030832",      // Money amount that executed
+            "deal_fee": "0.001",           // Charged fee amount in money
+            "client_order_id": "",
+            "stp": "no",                   // STP flag; [no, co, cn, cb]. No Prevention (no), Cancel Oldest (co), Cancel Newest (cn), Cancel Both (cb)
+            "status": "FILLED"             // Order status. All statuses in table above
+        }
+    ]
 }
 ```
 
@@ -795,19 +808,21 @@ Market should exist. The maximum limit is 100.
     "result": {
         "limit": 100,
         "offset": 0,
-        "total": 124,
         "records": [
             {
-                "time": 1602760519.688911,  // Deal time
-                "id": 251923106,            // Deal ID
-                "side": 1,                  // Side 1 - sell, 2 - bid
-                "role": 2,                  // Your role. 1 - maker, 2 - taker
-                "price": "11303.76",        // Deal price
-                "amount": "0.001",          // Stock amount
-                "deal": "11.30376",         // Money amount
-                "fee": "0.01130376",        // Deal fee in money
-                "market": "BTC_USDT",       // Market
-                "deal_order_id": 7421295951 // Order ID
+                "time": 1738230617.8867061,        // Deal time
+                "id": 13663227034,                 // Deal ID
+                "side": 1,                         // Side 1 - sell, 2 - bid
+                "role": 2,                         // Your role. 1 - maker, 2 - taker
+                "price": "105361.32",              // Deal price
+                "amount": "0.160998",              // Stock amount
+                "deal": "16962.96179736",          // Money amount
+                "fee": "1.696296179736",           // Deal fee expressed in asset in "fee_asset"
+                "order_id": 1212266594338,         // Order ID
+                "deal_order_id": 1212266160846,    // Counterparty Order ID
+                "market": "BTC_USDT",              // Market
+                "client_order_id": "",             // Client Order ID
+                "fee_asset": "USDT"                // Fee asset type
             },
             ...
         ]
@@ -854,17 +869,18 @@ Update interval: real-time
   "id": null,
   "method": "deals_update",
   "params": [
-    252104486,         // Deal ID
-    1602770801.015587, // Deal time
-    "BTC_USDT",        // Market
-    7425988844,        // Order ID
-    "11399.24",        // Price
-    "0.008256",        // Stock amount
-    "0.094112125440",  // Deal fee
-    "1234",            // Custom client order id
-    1,                 // Side 1 - sell, 2 - buy
-    1                  // Your role. 1 - maker, 2 - taker
-  ]
+    13674578673,        // Deal ID
+    1738251095.345432,  // Deal time
+    "ETH_BTC",          // Market
+    1212909726406,      // Order ID
+    "0.03084",          // Price
+    "0.2625",           // Stock amount
+    "0.0002625",        // Deal fee
+    "",                 // Custom client order id
+    2,                  // Side 1 - sell, 2 - buy
+    2,                  // Your role. 1 - maker, 2 - taker
+    "ETH"               // Fee asset type
+    ],
 }
 ```
 
