@@ -2885,13 +2885,23 @@ Available statuses:
 
 ```json
 {
-  "id": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",  // API key ID
-  "key": "your-api-key",                          // API key
-  "secret": "your-api-secret"                     // API secret
+  "subAccountId": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",  // Sub-account ID
+  "id": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",           // API key ID
+  "title": "Trading Bot Key",                               // API key title/name
+  "isEnabled": true,                                        // Whether the API key is enabled
+  "apiKey": "your-api-key",                                // API key
+  "apiSecret": "your-api-secret",                          // API secret
+  "type": "trade",                                         // API key type
+  "lastActivity": 1646825196,                              // Last activity timestamp
+  "restrictAccess": true,                                  // Whether access is restricted
+  "accessEndpoints": [                                     // List of allowed endpoints
+    {
+      "name": "endpoint-name",                             // Endpoint name
+      "title": "Endpoint Title"                            // Endpoint title
+    }
+  ]
 }
 ```
-
----
 
 ### Edit Sub-Account API Key
 
@@ -2912,7 +2922,7 @@ NONE
 |----------|--------|-----------|------------------------------------------------|
 | apiKeyId | String | **Yes**   | ID of the API key to update                   |
 | title    | String | **Yes**   | New title for the API key                     |
-| urls     | Array  | **No**    | Array of URL objects for API key restrictions |
+| urls     | Array  | **Yes**   | Array of URL objects for API key restrictions |
 
 **Request BODY raw:**
 
@@ -2941,8 +2951,6 @@ Available statuses:
   // empty response
 }
 ```
-
----
 
 ### Delete Sub-Account API Key
 
@@ -2984,8 +2992,6 @@ Available statuses:
 }
 ```
 
----
-
 ### List Sub-Account API Keys
 
 ```
@@ -3003,13 +3009,17 @@ NONE
 
 | Name         | Type   | Mandatory | Description                                                |
 |-------------|--------|------------|------------------------------------------------------------|
-| subAccountId| String | **Yes**   | ID of the sub-account to list API keys for                |
+| subAccountId| String | **No**    | ID of the sub-account to list API keys for                |
+| limit       | Int    | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 30, Min: 1, Max: 100 |
+| offset      | Int    | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
 
 **Request BODY raw:**
 
 ```json
 {
-  "subAccountId": "8e667b4a-0b71-4988-8af5-9474dbfaeb51"
+  "subAccountId": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",
+  "limit": 10,
+  "offset": 0
 }
 ```
 
@@ -3022,12 +3032,25 @@ Available statuses:
 
 ```json
 {
+  "limit": 10,
+  "offset": 0,
   "data": [
     {
-      "id": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",  // API key ID
-      "title": "Trading Bot Key",                      // API key title/name
-      "type": "trade",                                // API key type
-      "createdAt": 1646825196                         // Creation timestamp
+      "subAccountId": "8e667b4a-0b71-4988-8af5-9474dbfaeb51",  // Sub-account ID
+      "id": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",           // API key ID
+      "title": "Trading Bot Key",                               // API key title/name
+      "isEnabled": true,                                        // Whether the API key is enabled
+      "apiKey": "your-api-key",                                // API key
+      "apiSecret": "your-api-secret",                          // API secret
+      "type": "trade",                                         // API key type
+      "lastActivity": 1646825196,                              // Last activity timestamp
+      "restrictAccess": true,                                  // Whether access is restricted
+      "accessEndpoints": [                                     // List of allowed endpoints
+        {
+          "name": "endpoint-name",                             // Endpoint name
+          "title": "Endpoint Title"                            // Endpoint title
+        }
+      ]
     }
   ]
 }
@@ -3069,9 +3092,7 @@ Available statuses:
 
 ```json
 {
-  "id": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",  // API key ID
-  "key": "your-new-api-key",                      // New API key
-  "secret": "your-new-api-secret"                 // New API secret
+  // empty response
 }
 ```
 
