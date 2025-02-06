@@ -4396,12 +4396,12 @@ Available statuses:
     "margin": "8316.74",                      // amount of funds in open position **money**
     "freeMargin": "619385.67",                // free funds for trading according to
     "funding": "0",                           // funding that will be paid on next position stage change (order, liquidation, etc)
-    "unrealizedFunding": "0.0019142920201966" // funding that will be paid on next position stage change (order, liquidation, etc)
+    "unrealizedFunding": "0.0019142920201966", // funding that will be paid on next position stage change (order, liquidation, etc)
     "tpsl": {
-        "takeProfitId" : 123,                   // take profit order ID
-        "takeProfit": "40000"                   // take profit price
-        "stopLossId" : 124,                    // stop loss order ID
-        "stopLoss": "50000",                    // stop loss price
+        "takeProfitId": 123,                   // take profit order ID
+        "takeProfit": "50000",                   // take profit price
+        "stopLossId": 124,                    // stop loss order ID
+        "stopLoss": "35000",                    // stop loss price
     },
   },
   {
@@ -4418,10 +4418,9 @@ Available statuses:
     "margin": "8316.74",                      // amount of funds in open position **money**
     "freeMargin": "19385.67",                // free funds for trading according to
     "funding": "0",                           // funding that will be paid on next position stage change (order, liquidation, etc)
-    "unrealizedFunding": "0.0020142920201966" // funding that will be paid on next position stage change (order, liquidation, etc)
+    "unrealizedFunding": "0.0020142920201966", // funding that will be paid on next position stage change (order, liquidation, etc)
     "tpsl": null,
   },
-  ...
 ]
 ```
 
