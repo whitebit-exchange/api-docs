@@ -185,6 +185,7 @@ This endpoint creates [limit trading order](./../glossary.md#limit-order).
 | postOnly      | boolean       | **No**    | [Orders](./../glossary.md#orders) are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: 'true' / 'false' Example: 'false'.                                                                                                  |
 | ioc           | boolean       | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                                                                  |
 | bboRole       | Integer       | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables:  1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 2. |
+| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                                                                                                            |                                                                                                                                                                 |
 
 **Request BODY raw:**
 
@@ -221,13 +222,13 @@ Available statuses:
   "dealMoney": "0",                // if order finished - amount in money currency that is finished
   "dealStock": "0",                // if order finished - amount in stock currency that is finished
   "amount": "0.01",                // amount
-  "takerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-  "makerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
   "left": "0.001",                 // if order not finished - rest of the amount that must be finished
   "dealFee": "0",                  // fee in money that you pay if order is finished
   "price": "40000",                // price
   "postOnly": false,               // PostOnly
-  "ioc": false                     // IOC
+  "ioc": false,                     // IOC
+  "status": "FILLED" ,            // order status
+  "stp": "no"                      // self trade prevention mode
 }
 ```
 
@@ -537,13 +538,13 @@ Available statuses:
       "dealMoney": "641.988",         // if order finished - amount in money currency that is finished
       "dealStock": "0.02",            // if order finished - amount in stock currency that is finished
       "amount": "0.02",               // amount
-      "takerFee": "0.002",            // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-      "makerFee": "0.02",             // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
       "left": "0",                    // if order not finished - rest of the amount that must be finished
       "dealFee": "1.283976",          // fee in money that you pay if order is finished
       "ioc": false,                   // IOC
       "postOnly": false,              // PostOnly
-      "price": "40000"                // price
+      "price": "40000",                // price
+      "status": "FILLED" ,            // order status
+      "stp": "no"                      // self trade prevention mode
     },
     "error": null
   },
@@ -568,13 +569,13 @@ Available statuses:
       "dealMoney": "641.988",
       "dealStock": "0.02",
       "amount": "0.02",
-      "takerFee": "0.002",
-      "makerFee": "0.02",
       "left": "0",
       "dealFee": "1.283976",
       "ioc": false,
       "postOnly": false,
-      "price": "41000"
+      "price": "41000",
+      "status": "FILLED" ,            
+      "stp": "no"
     },
     "error": null
   }
@@ -849,6 +850,7 @@ NONE
 | side          | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                                                                                                     |
 | amount        | String/Number | **Yes**   | ⚠️ Amount of [money](./../glossary.md#money) currency to buy or amount in [stock](./../glossary.md#stock) currency to sell. Example: '5 USDT' for buy (min total) and '0.001 BTC' for sell (min amount). |
 | clientOrderId | String        | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.                                                                            |
+| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                                       |
 
 **Request BODY raw:**
 
@@ -893,10 +895,10 @@ Available statuses:
   "dealMoney": "0",                // amount in money currency that finished
   "dealStock": "0",                // amount in stock currency that finished
   "amount": "0.001",               // amount
-  "takerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - its rounded to zero
-  "makerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - its rounded to zero
   "left": "0.001",                 // rest of amount that must be finished
-  "dealFee": "0"                   // fee in money that you pay if order is finished
+  "dealFee": "0",                   // fee in money that you pay if order is finished
+  "status": "FILLED" ,            // order status
+  "stp": "no"                      // self trade prevention mode
 }
 ```
 
@@ -1104,7 +1106,7 @@ NONE
 | side          | String        | **Yes**   | Order type. Available variables: "buy", "sell"                                                                                |
 | amount        | String/Number | **Yes**   | ⚠️ Amount in [stock](./../glossary.md#stock) currency for buy or sell. Example: "0.0001" or 0.0001.                           |
 | clientOrderId | String        | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours. |
-
+| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
 **Request BODY raw:**
 
 ```json
@@ -1137,10 +1139,10 @@ Available statuses:
   "dealMoney": "0",                // amount in money currency that finished
   "dealStock": "0",                // amount in stock currency that finished
   "amount": "0.001",               // amount
-  "takerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - its rounded to zero
-  "makerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - its rounded to zero
   "left": "0.001",                 // rest of amount that must be finished
   "dealFee": "0"                   // fee in money that you pay if order is finished
+  "status": "FILLED" ,            // order status
+  "stp": "no"                      // self trade prevention mode
 }
 ```
 
@@ -1330,6 +1332,7 @@ NONE
 | price            | String/Number | **Yes**   | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800                                                    |
 | activation_price | String/Number | **Yes**   | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                       |
 | clientOrderId    | String        | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours. |
+| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
 
 **Request BODY raw:**
 
@@ -1371,6 +1374,8 @@ Available statuses:
   "dealFee": "0",                  // fee in money that you pay if order is finished
   "price": "40000",                // price
   "activation_price": "40000"      // activation price
+  "status": "FILLED" ,            // order status
+  "stp": "no"                      // self trade prevention mode
 }
 ```
 
@@ -1696,6 +1701,7 @@ NONE
 | amount           | String/Number | **Yes**   | ⚠️Amount of [**`money`**](./../glossary.md#money) currency to **buy** or amount in [**`stock`**](./../glossary.md#stock) currency to **sell**. Example: '0.01' or 0.01 for buy and '0.0001' for sell. |
 | activation_price | String/Number | **Yes**   | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                                                                                               |
 | clientOrderId    | String        | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.                                                                         |
+| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
 
 **Request BODY raw:**
 
@@ -1740,11 +1746,11 @@ Available statuses:
   "dealMoney": "0",                // if order finished - amount in money currency that finished
   "dealStock": "0",                // if order finished - amount in stock currency that finished
   "amount": "0.001",               // amount
-  "takerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-  "makerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
   "left": "0.001",                 // if order not finished - rest of amount that must be finished
   "dealFee": "0",                  // fee in money that you pay if order is finished
-  "activation_price": "40000"      // activation price
+  "activation_price": "40000",      // activation price
+  "status": "FILLED" ,            // order status
+  "stp": "no"                      // self trade prevention mode
 }
 ```
 
@@ -2052,7 +2058,9 @@ Available statuses:
   "left": "0.001",                // if order not finished - rest of the amount that must be finished
   "dealFee": "0",                 // fee in money that you pay if order is finished
   "price": "40000",               // price if price isset
-  "activation_price": "40000"     // activation price if activation price is set
+  "activation_price": "40000",     // activation price if activation price is set
+  "status": "FILLED" ,            // order status
+  "stp": "no"                      // self trade prevention mode
 }
 ```
 
@@ -2320,6 +2328,8 @@ Available statuses:
         "left": "2.241379",            // unexecuted amount in stock
         "dealFee": "0",                // executed fee by deal
         "price": "40000",              // unexecuted order price
+        "status": "FILLED" ,            // order status
+        "stp": "no",                     // self trade prevention mode
         "oto": {                       // OTO order data - if stopLoss or takeProfit is specified
           "otoId": 29457221,           // ID of the OTO
           "stopLoss": "30000",         // stop loss order price - if stopLoss is specified
@@ -2487,6 +2497,7 @@ Available statuses:
             "price": "9264.21",            // price
             "deal": "0.70407996",          // amount in money
             "fee": "0.00070407996"         // paid fee
+            "feeAsset": "USDT",              // fee asset
         },
         {...}
     ],
@@ -2621,6 +2632,7 @@ Available statuses:
       "clientOrderId": "customId11", // custom order id; "clientOrderId": "" - if not specified.
       "role": 2,                     // Role - 1 - maker, 2 - taker
       "deal": "0.00419198"           // amount in money
+      "feeAsset": "USDT",              // fee asset
     }
   ],
   "offset": 0,
@@ -2722,14 +2734,14 @@ NONE
 
 **Parameters:**
 
-| Name          | Type        | Mandatory | Description                                                                                                                                                           |
-|---------------|-------------| --------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| market        | String/Int  | **No**    | Requested available market. Example: BTC_USDT                                                                                                                         |
-| orderId       | String/Int  | **No**    | Requested available orderId. Example: 3134995325                                                                                                                      |
-| clientOrderId | String      | **No**    | Requested available clientOrderId. Example: clientOrderId                                                                                                             |
-| limit         | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
+| Name          | Type        | Mandatory | Description                                                                                                                                                          |
+|---------------|-------------| --------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| market        | String/Int  | **No**    | Requested available market. Example: BTC_USDT                                                                                                                        |
+| orderId       | String/Int  | **No**    | Requested available orderId. Example: 3134995325                                                                                                                     |
+| clientOrderId | String      | **No**    | Requested available clientOrderId. Example: clientOrderId                                                                                                            |
+| limit         | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                         |
 | offset        | String/Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
-| status        | String      | **No**    | Possible values: "all", "filled", "canceled"                                                                                                                          |
+| status        | String      | **No**    | Possible values: "ALL", "FILLED", "CANCELED", "PARTIALLY_FILLED"                                                                                     |
 
 **Request BODY raw:**
 
@@ -2775,7 +2787,9 @@ Empty response if order is not yours
             "dealMoney": "41.258268",      // amount in money currency that finished
             "postOnly": false,             // PostOnly flag
             "ioc": false,                  // IOC flag
-            "status": "canceled"           // Order status: either "filled" or "canceled"
+            "status": "CANCELED",           // Order status
+           "feeAsset": "USDT",              // fee asset
+           "stp": "no"                      // self trade prevention mode
         },
         {...}
     ]
@@ -2919,13 +2933,13 @@ Available statuses:
     "dealMoney": "0",
     "dealStock": "0",
     "amount": "0.001",
-    "takerFee": "0",
-    "makerFee": "0",
     "left": "0.001",
     "dealFee": "0",
     "ioc": false,
     "price": "38635",
-    "postOnly": false
+    "postOnly": false,
+    "status": "FILLED" ,
+    "stp": "no"                  
   }
 ]
 ```
@@ -3292,6 +3306,7 @@ NONE
 | postOnly      | boolean | **No**    | Orders are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: true / false Example: false.                                                                                                                                   |
 | ioc           | boolean | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                                                                  |
 | bboRole       | Integer | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables:  1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 1. |
+| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
 
 **Request BODY raw:**
 
@@ -3329,13 +3344,13 @@ Available statuses:
   "dealMoney": "0",                // if order finished - amount in money currency that is finished
   "dealStock": "0",                // if order finished - amount in stock currency that is finished
   "amount": "0.01",                // amount
-  "takerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-  "makerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
   "left": "0.001",                 // if order not finished - rest of the amount that must be finished
   "dealFee": "0",                  // fee in money that you pay if order is finished
   "price": "40000",                // price
   "postOnly": false,               // PostOnly
   "ioc": false,                    // IOC
+  "status": "FILLED" ,            // order status
+  "stp": "no",                     // self trade prevention mode
   "oto": {                         // OTO order data - if stopLoss or takeProfit is specified
     "otoId": 29457221,             // ID of the OTO
     "stopLoss": "30000",           // stop loss order price - if stopLoss is specified
@@ -3368,7 +3383,6 @@ Detailed information about errors response you can find in [Create limit order](
 ```
 [POST] /api/v4/order/collateral/bulk
 ```
-
 This endpoint creates bulk collateral [limit trading orders](./../glossary.md#limit-order).
 
 ❗Limit - From 1 to 20 orders by request.
@@ -3439,13 +3453,13 @@ Available statuses:
       "dealMoney": "641.988",         // if order finished - amount in money currency that is finished
       "dealStock": "0.02",            // if order finished - amount in stock currency that is finished
       "amount": "0.02",               // amount
-      "takerFee": "0.002",            // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-      "makerFee": "0.02",             // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
       "left": "0",                    // if order not finished - rest of the amount that must be finished
       "dealFee": "1.283976",          // fee in money that you pay if order is finished
       "ioc": false,                   // IOC
       "postOnly": false,              // PostOnly
-      "price": "40000"                // price
+      "price": "40000",                // price
+      "status": "FILLED" ,            // order status
+      "stp": "no",                     // self trade prevention mode
     },
     "error": null
   },
@@ -3470,13 +3484,13 @@ Available statuses:
       "dealMoney": "641.988",
       "dealStock": "0.02",
       "amount": "0.02",
-      "takerFee": "0.002",
-      "makerFee": "0.02",
       "left": "0",
       "dealFee": "1.283976",
       "ioc": false,
       "postOnly": false,
-      "price": "41000"
+      "price": "41000",
+      "status": "FILLED" ,            // order status
+      "stp": "no"                     // self trade prevention mode
     },
     "error": null
   }
@@ -3753,6 +3767,7 @@ NONE
 | clientOrderId | String | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.                                                                                                                      |
 | stopLoss      | String | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                        |
 | takeProfit    | String | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                    |
+| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
 
 **Request BODY raw:**
 
@@ -3798,10 +3813,10 @@ Available statuses:
   "dealMoney": "0",                // amount in money currency that finished
   "dealStock": "0",                // amount in stock currency that finished
   "amount": "0.001",               // amount
-  "takerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - its rounded to zero
-  "makerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - its rounded to zero
   "left": "0.001",                 // rest of amount that must be finished
   "dealFee": "0",                  // fee in money that you pay if order is finished
+  "status": "FILLED" ,            // order status
+  "stp": "no",                     // self trade prevention mode
   "oto": {                         // OTO order data - if stopLoss or takeProfit is specified
     "otoId": 29457221,             // ID of the OTO
     "stopLoss": "50000",           // stop loss order price - if stopLoss is specified
@@ -3853,6 +3868,7 @@ NONE
 | clientOrderId    | String        | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours. |
 | stopLoss         | String/Number | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                        |
 | takeProfit       | String/Number | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                    |
+| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
 
 **Request BODY raw:**
 
@@ -3890,12 +3906,12 @@ Available statuses:
   "dealMoney": "0",                // if order finished - amount in money currency that finished
   "dealStock": "0",                // if order finished - amount in stock currency that finished
   "amount": "0.001",               // amount
-  "takerFee": "0.001",             // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-  "makerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
   "left": "0.001",                 // if order not finished - rest of amount that must be finished
   "dealFee": "0",                  // fee in money that you pay if order is finished
   "price": "40000",                // price
   "activation_price": "40000",     // activation price
+  "status": "FILLED" ,            // order status
+  "stp": "no",                     // self trade prevention mode
   "oto": {                         // OTO order data - if stopLoss or takeProfit is specified
     "otoId": 29457221,             // ID of the OTO
     "stopLoss": "30000",           // stop loss order price - if stopLoss is specified
@@ -4228,6 +4244,7 @@ NONE
 | clientOrderId    | String | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.                                                                                           |
 | stopLoss         | String | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                        |
 | takeProfit       | String | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                    |
+| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
 
 **Request BODY raw:**
 
@@ -4274,11 +4291,11 @@ Available statuses:
   "dealMoney": "0",                // if order finished - amount in money currency that finished
   "dealStock": "0",                // if order finished - amount in stock currency that finished
   "amount": "0.001",               // amount
-  "takerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-  "makerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
   "left": "0.001",                 // if order not finished - rest of amount that must be finished
   "dealFee": "0",                  // fee in money that you pay if order is finished
   "activation_price": "40000",     // activation price
+  "status": "FILLED" ,            // order status
+  "stp": "no",                     // self trade prevention mode
   "oto": {                         // OTO order data - if stopLoss or takeProfit is specified
     "otoId": 29457221,             // ID of the OTO
     "stopLoss": "50000",           // stop loss order price - if stopLoss is specified
@@ -4691,7 +4708,9 @@ Available statuses:
         "price": "19928.79",            // unexecuted order price
         "activation_price": "29928.79", // activation price
         "activation_condition": "gte",  // activation condition
-        "activated": 0                  // activation status
+        "activated": 0,                  // activation status
+        "status": "FILLED" ,            // order status
+        "stp": "no"                     // self trade prevention mode
       },
       "take_profit": {
         "orderId": 117703764515,        // unexecuted order ID
@@ -4709,7 +4728,9 @@ Available statuses:
         "dealFee": "0",                 // executed fee by deal
         "post_only": false,             // orders are guaranteed to be the maker order when executed.
         "mtime": 1662478154.941582,     // timestamp of order modification
-        "price": "9928.79"              // unexecuted order price
+        "price": "9928.79",              // unexecuted order price
+        "status": "FILLED" ,            // order status
+        "stp": "no"                     // self trade prevention mode
       }
     },
     {
@@ -4732,7 +4753,9 @@ Available statuses:
           "makerFee": "0.001",           // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
           "left": "2.241379",            // unexecuted amount in stock
           "dealFee": "0",                // executed fee by deal
-          "price": "40000"               // unexecuted order price
+          "price": "40000" ,              // unexecuted order price
+          "status": "FILLED" ,            // order status
+          "stp": "no"                     // self trade prevention mode
         }
     },
     {
@@ -4909,7 +4932,9 @@ Available statuses:
       "price": "19928.79",            // unexecuted order price
       "activation_price": "29928.79", // activation price
       "activation_condition": "gte",  // activation condition
-      "activated": 0                  // activation status
+      "activated": 0,                  // activation status
+      "status": "FILLED" ,            // order status
+      "stp": "no"                     // self trade prevention mode
     },
     "take_profit": {
       "orderId": 117703764515,        // unexecuted order ID
@@ -4927,7 +4952,9 @@ Available statuses:
       "dealFee": "0",                 // executed fee by deal
       "post_only": false,             // orders are guaranteed to be the maker order when executed.
       "mtime": 1662478154.941582,     // timestamp of order modification
-      "price": "9928.79"              // unexecuted order price
+      "price": "9928.79",              // unexecuted order price
+      "status": "FILLED" ,            // order status
+      "stp": "no"                     // self trade prevention mode
     }
   },
     {...}
@@ -5059,6 +5086,7 @@ NONE
 | activation_price | String/Number | **Yes**   | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                                |
 | stop_limit_price | String/Number | **Yes**   | Price in [money](./../glossary.md#money) currency for [stop limit order](./../glossary.md#stop-limit-order). Example: '10100' or 10100 |
 | clientOrderId    | String        | **No**    | Identifier should be unique and contain letters, dashes or numbers only. The identifier must be unique for the next 24 hours.          |
+| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
 
 **Request BODY raw:**
 
@@ -5106,7 +5134,9 @@ Available statuses:
     "price": "19928.79",            // unexecuted order price
     "activation_price": "29928.79", // activation price
     "activation_condition": "gte",  // activation condition
-    "activated": 0                  // activation status
+    "activated": 0,                  // activation status
+    "status": "FILLED" ,            // order status
+    "stp": "no"                     // self trade prevention mode
   },
   "take_profit": {
     "orderId": 117703764515,        // unexecuted order ID
@@ -5124,7 +5154,9 @@ Available statuses:
     "dealFee": "0",                 // executed fee by deal
     "post_only": false,             // orders are guaranteed to be the maker order when executed.
     "mtime": 1662478154.941582,     // timestamp of order modification
-    "price": "9928.79"              // unexecuted order price
+    "price": "9928.79",              // unexecuted order price
+    "status": "FILLED" ,            // order status
+    "stp": "no"                     // self trade prevention mode
   }
 }
 ```
@@ -5598,7 +5630,9 @@ Available statuses:
     "price": "19928.79",            // unexecuted order price
     "activation_price": "29928.79", // activation price
     "activation_condition": "gte",  // activation condition
-    "activated": 0                  // activation status
+    "activated": 0,                  // activation status
+    "status": "CANCELED" ,            // order status
+    "stp": "no"                     // self trade prevention mode
   },
   "take_profit": {
     "orderId": 117703764515,        // unexecuted order ID
@@ -5610,13 +5644,13 @@ Available statuses:
     "dealMoney": "0",               // executed amount in money
     "dealStock": "0",               // executed amount in stock
     "amount": "0.635709",           // active order amount
-    "takerFee": "0.001",            // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "makerFee": "0.001",            // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
     "left": "0.635709",             // unexecuted amount in stock
     "dealFee": "0",                 // executed fee by deal
     "post_only": false,             // orders are guaranteed to be the maker order when executed.
     "mtime": 1662478154.941582,     // timestamp of order modification
-    "price": "9928.79"              // unexecuted order price
+    "price": "9928.79",              // unexecuted order price
+    "status": "CANCELED" ,            // order status
+    "stp": "no"                     // self trade prevention mode
   }
 }
 ```
