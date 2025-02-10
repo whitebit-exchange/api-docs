@@ -2,6 +2,9 @@
 
 - [Private HTTP API V4 for trading](#private-http-api-v4-for-trading)
   - [Error messages V4 format](#error-messages-v4-format)
+  - [Market Fee](#market-fee)
+    - [Query Market Fee](#query-market-fee)
+    - [Query All Market Fees](#query-all-market-fees)
   - [Spot](#spot)
     - [Trading balance](#trading-balance)
     - [Create limit order](#create-limit-order)
@@ -71,6 +74,60 @@ For receiving responses from API calls please use http method **POST**
 ```
 
 ---
+
+## Market Fee
+
+### Query Market Fee
+
+```
+[POST] /api/v4/market/fee?market=BTC_USDT
+```
+
+This endpoint retrieves the maker and taker fees for a specific market.
+
+**Parameters:**
+
+| Name   | Type   | Mandatory | Description                                                    |
+|--------|--------|-----------|----------------------------------------------------------------|
+| market | String | **Yes**   | Available market. Example: BTC_USDT                            |
+
+**Response:**
+Available statuses:
+- `Status 200`
+- `Status 422 if validation failed`
+
+```json
+{
+  "error": null,
+  "taker": "0.1",
+  "maker": "0.1"
+}
+```
+
+### Query All Market Fees
+
+```
+[POST] /api/v4/market/fee
+```
+
+This endpoint retrieves the maker and taker fees for all markets, including any custom fees.
+
+**Response:**
+Available statuses:
+- `Status 200`
+- `Status 422 if validation failed`
+
+```json
+{
+  "error": null,
+  "taker": "0.1",
+  "maker": "0.1",
+  "custom_fee": {
+    "BTC_USDT": ["0.1", "0.2"],
+    "ETH_USDT": ["0.1", "0.2"]
+  }
+}
+```
 
 ## Spot
 
@@ -574,7 +631,7 @@ Available statuses:
       "ioc": false,
       "postOnly": false,
       "price": "41000",
-      "status": "FILLED" ,            
+      "status": "FILLED",
       "stp": "no"
     },
     "error": null
@@ -2938,8 +2995,8 @@ Available statuses:
     "ioc": false,
     "price": "38635",
     "postOnly": false,
-    "status": "FILLED" ,
-    "stp": "no"                  
+    "status": "FILLED",
+    "stp": "no"
   }
 ]
 ```
