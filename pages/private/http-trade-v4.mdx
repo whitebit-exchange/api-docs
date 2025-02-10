@@ -1,3 +1,5 @@
+import { ApiEndpoint } from '@/components/api-endpoint'
+
 # Private HTTP API V4 for trading
 
 - [Private HTTP API V4 for trading](#private-http-api-v4-for-trading)
@@ -79,9 +81,7 @@ For receiving responses from API calls please use http method **POST**
 
 ### Query Market Fee
 
-```
-[POST] /api/v4/market/fee?market=BTC_USDT
-```
+<ApiEndpoint method="POST" path="/api/v4/market/fee?market=BTC_USDT" />
 
 This endpoint retrieves the maker and taker fees for a specific market.
 
@@ -106,9 +106,7 @@ Available statuses:
 
 ### Query All Market Fees
 
-```
-[POST] /api/v4/market/fee
-```
+<ApiEndpoint method="POST" path="/api/v4/market/fee" />
 
 This endpoint retrieves the maker and taker fees for all markets, including any custom fees.
 
@@ -133,9 +131,7 @@ Available statuses:
 
 ### Trading balance
 
-```
-[POST] /api/v4/trade-account/balance
-```
+<ApiEndpoint method="POST" path="/api/v4/trade-account/balance" />
 
 This endpoint retrieves the [trade balance](./../glossary.md#balance-spotbalance-trade) by currency [ticker](./../glossary.md#ticker) or all balances.
 
@@ -222,9 +218,7 @@ ___
 
 ### Create limit order
 
-```
-[POST] /api/v4/order/new
-```
+<ApiEndpoint method="POST" path="/api/v4/order/new" />
 
 This endpoint creates [limit trading order](./../glossary.md#limit-order).
 
@@ -521,9 +515,7 @@ Error codes:
 
 ### Bulk limit order
 
-```
-[POST] /api/v4/order/bulk
-```
+<ApiEndpoint method="POST" path="/api/v4/order/bulk" />
 
 This endpoint creates bulk [limit trading orders](./../glossary.md#limit-order).
 
@@ -888,9 +880,7 @@ Error codes:
 
 ### Create market order
 
-```
-[POST] /api/v4/order/market
-```
+<ApiEndpoint method="POST" path="/api/v4/order/market" />
 
 This endpoint creates [market trading order](./../glossary.md#market-order).
 
@@ -1144,9 +1134,7 @@ Error codes:
 
 ### Create buy stock market order
 
-```
-[POST] /api/v4/order/stock_market
-```
+<ApiEndpoint method="POST" path="/api/v4/order/stock_market" />
 
 This endpoint creates buy [stock](./../glossary.md#stock) market trading [order](./../glossary.md#orders).
 
@@ -1368,9 +1356,7 @@ Error codes:
 
 ### Create stop-limit order
 
-```
-[POST] /api/v4/order/stop_limit
-```
+<ApiEndpoint method="POST" path="/api/v4/order/stop_limit" />
 
 This endpoint creates [stop-limit trading order](./../glossary.md#stop-limit-order)
 
@@ -1738,9 +1724,7 @@ Error codes:
 
 ### Create stop-market order
 
-```
-[POST] /api/v4/order/stop_market
-```
+<ApiEndpoint method="POST" path="/api/v4/order/stop_market" />
 
 This endpoint creates [stop-market trading order](./../glossary.md#stop-market-order)
 
@@ -2061,9 +2045,7 @@ Error codes:
 
 ### Cancel order
 
-```
-[POST] /api/v4/order/cancel
-```
+<ApiEndpoint method="POST" path="/api/v4/order/cancel" />
 
 Cancel existing [order](./../glossary.md#orders)
 
@@ -2209,9 +2191,7 @@ Error codes:
 
 ### Cancel all orders
 
-```
-[POST] /api/v4/order/cancel/all
-```
+<ApiEndpoint method="POST" path="/api/v4/order/cancel/all" />
 
 Cancel existing [order](./../glossary.md#orders)
 
@@ -2322,9 +2302,7 @@ Error codes:
 
 ### Query unexecuted(active) orders
 
-```
-[POST] /api/v4/orders
-```
+<ApiEndpoint method="POST" path="/api/v4/orders" />
 
 This endpoint retrieves [unexecuted orders](./../glossary.md#active-orders) only.
 
@@ -2500,9 +2478,7 @@ Available statuses:
 
 ### Query executed order history
 
-```
-[POST] /api/v4/trade-account/executed-history
-```
+<ApiEndpoint method="POST" path="/api/v4/trade-account/executed-history" />
 
 This endpoint retrieves the deals history. Can be sorted by single market if needed.
 
@@ -2636,9 +2612,7 @@ Available statuses:
 
 ### Query executed order deals
 
-```
-[POST] /api/v4/trade-account/order
-```
+<ApiEndpoint method="POST" path="/api/v4/trade-account/order" />
 
 This endpoint retrieves [deals](./../glossary.md#deal-trade) history details on pending or [executed order](./../glossary.md#finished-orders).
 
@@ -2778,9 +2752,7 @@ Available statuses:
 
 ### Query executed orders
 
-```
-[POST] /api/v4/trade-account/order/history
-```
+<ApiEndpoint method="POST" path="/api/v4/trade-account/order/history" />
 
 This endpoint retrieves [executed order](./../glossary.md#finished-orders) history by [market](./../glossary.md#market).
 
@@ -2925,9 +2897,7 @@ Empty response if order is not yours
 
 ### Modify order
 
-```
-[POST] /api/v4/order/modify
-```
+<ApiEndpoint method="POST" path="/api/v4/order/modify" />
 
 This endpoint modify existing [order](./../glossary.md#orders)
 
@@ -3218,9 +3188,7 @@ Error codes:
 
 ### Collateral Account Balance
 
-```
-[POST] /api/v4/collateral-account/balance
-```
+<ApiEndpoint method="POST" path="/api/v4/collateral-account/balance" />
 
 This endpoint returns a current [collateral balance](./../glossary.md#balance-collateral)
 
@@ -3278,9 +3246,7 @@ Available statuses:
 
 ### Collateral Account Balance Summary
 
-```
-[POST] /api/v4/collateral-account/balance-summary
-```
+<ApiEndpoint method="POST" path="/api/v4/collateral-account/balance-summary" />
 
 This endpoint returns a current [collateral balance](./../glossary.md#balance-collateral) summary
 
@@ -3338,9 +3304,7 @@ Available statuses:
 
 ### Collateral Limit Order
 
-```
-[POST] /api/v4/order/collateral/limit
-```
+<ApiEndpoint method="POST" path="/api/v4/order/collateral/limit" />
 
 This endpoint creates [limit order](./../glossary.md#limit-order) using [collateral balance](./../glossary.md#balance-collateral)
 
@@ -3437,9 +3401,8 @@ Detailed information about errors response you can find in [Create limit order](
 
 ### Collateral bulk limit order
 
-```
-[POST] /api/v4/order/collateral/bulk
-```
+<ApiEndpoint method="POST" path="/api/v4/order/collateral/bulk" />
+
 This endpoint creates bulk collateral [limit trading orders](./../glossary.md#limit-order).
 
 ❗Limit - From 1 to 20 orders by request.
@@ -3803,9 +3766,7 @@ Error codes:
 
 ### Collateral Market Order
 
-```
-[POST] /api/v4/order/collateral/market
-```
+<ApiEndpoint method="POST" path="/api/v4/order/collateral/market" />
 
 This endpoint creates [market trading order](./../glossary.md#market-order).
 
@@ -3902,9 +3863,7 @@ Detailed information about errors response you can find in [Create market order]
 
 ### Collateral Stop-Limit Order
 
-```
-[POST] /api/v4/order/collateral/stop-limit
-```
+<ApiEndpoint method="POST" path="/api/v4/order/collateral/stop-limit" />
 
 This endpoint creates collateral [stop-limit trading order](./../glossary.md#stop-limit-order)
 
@@ -4279,9 +4238,7 @@ Error codes:
 
 ### Collateral Trigger Market Order
 
-```
-[POST] /api/v4/order/collateral/trigger-market
-```
+<ApiEndpoint method="POST" path="/api/v4/order/collateral/trigger-market" />
 
 This endpoint creates margin trigger [market order](./../glossary.md#market-order)
 
@@ -4377,9 +4334,7 @@ Error codes:
 
 ### Collateral Account Summary
 
-```
-[POST] /api/v4/collateral-account/summary
-```
+<ApiEndpoint method="POST" path="/api/v4/collateral-account/summary" />
 
 This endpoint retrieves summary of [collateral](./../glossary.md#collateral) account
 
@@ -4420,9 +4375,7 @@ Available statuses:
 
 ### Open Positions
 
-```
-[POST] /api/v4/collateral-account/positions/open
-```
+<ApiEndpoint method="POST" path="/api/v4/collateral-account/positions/open" />
 
 This endpoint returns all open positions
 
@@ -4505,9 +4458,7 @@ Available statuses:
 
 ### Positions History
 
-```
-[POST] /api/v4/collateral-account/positions/history
-```
+<ApiEndpoint method="POST" path="/api/v4/collateral-account/positions/history" />
 
 This endpoint returns past positions history. Each position represented by position states. Each of them means event that shows current position changes such [order](./../glossary.md#orders), position close, liquidation, etc.
 
@@ -4580,9 +4531,7 @@ Available statuses:
 
 ### Funding History
 
-```
-[POST] /api/v4/collateral-account/funding-history
-```
+<ApiEndpoint method="POST" path="/api/v4/collateral-account/funding-history" />
 
 Retrieves the history of realized funding payments for an account.
 
@@ -4650,9 +4599,7 @@ Available statuses:
 
 ### Change Collateral Account Leverage
 
-```
-[POST] /api/v4/collateral-account/leverage
-```
+<ApiEndpoint method="POST" path="/api/v4/collateral-account/leverage" />
 
 This endpoint changes the current leverage of account.
 
@@ -4697,9 +4644,7 @@ Available statuses:
 
 ### Query unexecuted(active) conditional orders
 
-```
-[POST] /api/v4/conditional-orders
-```
+<ApiEndpoint method="POST" path="/api/v4/conditional-orders" />
 
 This endpoint retrieves unexecuted [conditional orders](./../glossary.md#conditional-orders) only.
 
@@ -4925,13 +4870,11 @@ Available statuses:
 
 ### Query unexecuted(active) OCO orders
 
-```
-[POST] /api/v4/oco-orders
-```
+<ApiEndpoint method="POST" path="/api/v4/oco-orders" />
 
 This endpoint retrieves unexecuted [oco orders](./../glossary.md#oco-orders) only.
 
-❗ Deprecated - use [GET /api/v4/conditional-orders](#query-unexecutedactive-conditional-orders) instead.
+❗ Deprecated - use [/api/v4/conditional-orders](#query-unexecutedactive-conditional-orders) instead.
 ❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
@@ -5121,9 +5064,7 @@ Available statuses:
 
 ### Create collateral OCO order
 
-```
-[POST] /api/v4/order/collateral/oco
-```
+<ApiEndpoint method="POST" path="/api/v4/order/collateral/oco" />
 
 This endpoint creates [collateral](./../glossary.md#collateral) trading [OCO order](./../glossary.md#oco-orders)
 
@@ -5627,9 +5568,7 @@ Error codes:
 
 ### Cancel OCO order
 
-```
-[POST] /api/v4/order/oco-cancel
-```
+<ApiEndpoint method="POST" path="/api/v4/order/oco-cancel" />
 
 Cancel existing [order](./../glossary.md#orders)
 
@@ -5790,9 +5729,7 @@ Error codes:
 
 ### Cancel conditional order
 
-```
-[POST] /api/v4/order/conditional-cancel
-```
+<ApiEndpoint method="POST" path="/api/v4/order/conditional-cancel" />
 
 Cancel existing [order](./../glossary.md#orders)
 
@@ -5910,9 +5847,7 @@ Error codes:
 
 ### Cancel OTO order
 
-```
-[POST] /api/v4/order/oto-cancel
-```
+<ApiEndpoint method="POST" path="/api/v4/order/oto-cancel" />
 
 Cancel existing [order](./../glossary.md#orders)
 
@@ -6030,9 +5965,7 @@ Error codes:
 
 ### Sync kill-switch timer
 
-```
-[POST] /api/v4/order/kill-switch
-```
+<ApiEndpoint method="POST" path="/api/v4/order/kill-switch" />
 
 This endpoint creates, updates, deletes [kill-switch timer](./../glossary.md#kill-switch-timer)
 
@@ -6149,9 +6082,7 @@ Error codes:
 
 ### Status kill-switch timer
 
-```
-[POST] /api/v4/order/kill-switch/status
-```
+<ApiEndpoint method="POST" path="/api/v4/order/kill-switch/status" />
 
 This endpoint retrieves the status of [kill-switch timer](./../glossary.md#kill-switch-timer)
 
@@ -6234,9 +6165,7 @@ Error codes:
 
 ### Convert Estimate
 
-```
-[POST] /api/v4/convert/estimate
-```
+<ApiEndpoint method="POST" path="/api/v4/convert/estimate" />
 
 This endpoint creates a quote for converting one currency to another. Quote lifetime is 10 seconds, then quote will be expired.
 
@@ -6342,9 +6271,7 @@ Available statuses:
 
 ### Convert Confirm
 
-```
-[POST] /api/v4/convert/confirm
-```
+<ApiEndpoint method="POST" path="/api/v4/convert/confirm" />
 
 This endpoint confirms an estimated quote.
 
@@ -6404,9 +6331,7 @@ Available statuses:
 
 ### Convert History
 
-```
-[POST] /api/v4/convert/history
-```
+<ApiEndpoint method="POST" path="/api/v4/convert/history" />
 
 This endpoint returns convert history.
 

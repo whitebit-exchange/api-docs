@@ -1,3 +1,5 @@
+import { ApiEndpoint } from '@/components/api-endpoint'
+
 # Private HTTP API V1
 
 #### Those endpoints are deprecated. Use [V4 alternatives](./http-trade-v4) instead
@@ -43,9 +45,7 @@ For receiving responses from API calls please use http method **POST**
 
 #### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#trading-balance) instead
 
-```
-[POST] /api/v1/account/balance
-```
+<ApiEndpoint method="POST" path="/api/v1/account/balance" />
 
 This endpoint retrieves the [trade balance](./../glossary.md#balance-spotbalance-trade) by currency [ticker](./../glossary.md#ticker).
 
@@ -105,9 +105,7 @@ ___
 
 #### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#trading-balance) instead
 
-```
-[POST] /api/v1/account/balances
-```
+<ApiEndpoint method="POST" path="/api/v1/account/balances" />
 
 This endpoint retrieves all available [balances for trading](./../glossary.md#balance-spotbalance-trade).
 
@@ -190,9 +188,7 @@ NONE
 
 #### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#create-limit-order) instead
 
-```
-[POST] /api/v1/order/new
-```
+<ApiEndpoint method="POST" path="/api/v1/order/new" />
 
 This endpoint creates [limit trading order](./../glossary.md#orders).
 
@@ -375,9 +371,7 @@ NONE
 
 #### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#cancel-order) instead
 
-```
-[POST] /api/v1/order/cancel
-```
+<ApiEndpoint method="POST" path="/api/v1/order/cancel" />
 
 This endpoint cancels the existing [order](./../glossary.md#orders).
 
@@ -491,9 +485,7 @@ NONE
 
 #### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#query-unexecutedactive-orders) instead
 
-```
-[POST] /api/v1/orders
-```
+<ApiEndpoint method="POST" path="/api/v1/orders" />
 
 This endpoint retrieves [unexecuted orders](./../glossary.md#active-orders) only.
 
@@ -611,9 +603,7 @@ NONE
 
 #### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#query-executed-orders) instead
 
-```
-[POST] /api/v1/account/order_history
-```
+<ApiEndpoint method="POST" path="/api/v1/account/order_history" />
 
 This endpoint retrieves [orders](./../glossary.md#orders) history sorted by all markets
 
@@ -732,9 +722,7 @@ NONE
 
 #### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#query-executed-order-history) instead
 
-```
-[POST] /api/v1/account/executed_history
-```
+<ApiEndpoint method="POST" path="/api/v1/account/executed_history" />
 
 This endpoint retrieves [deals](./../glossary.md#deal-trade) history sorted by single market
 
@@ -841,9 +829,7 @@ NONE
 
 #### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#query-executed-order-history) instead
 
-```
-[POST] /api/v1/account/executed_history/all
-```
+<ApiEndpoint method="POST" path="/api/v1/account/executed_history/all" />
 
 This endpoint retrieves [orders](./../glossary.md#orders) history sorted by all markets.
 
@@ -953,9 +939,7 @@ NONE
 
 #### This endpoint is deprecated. Use [V4 endpoint](./http-trade-v4#query-executed-order-deals) instead
 
-```
-[POST] /api/v1/account/order
-```
+<ApiEndpoint method="POST" path="/api/v1/account/order" />
 
 This endpoint retrieves more details on [order](./../glossary.md#orders) deals history.
 

@@ -1,10 +1,12 @@
+import { MethodLabel } from "@/components/method-label";
+import { Code, CopyToClipboard } from "nextra/components";
+import { ApiEndpoint } from "@/components/api-endpoint";
+
 # OAuth 2.0 API
 
-### Get token
+## Get token
 
-```
-[POST] /oauth2/token
-```
+<ApiEndpoint method="POST" path="/oauth2/token" />
 
 This endpoint activates access token.
 
@@ -43,9 +45,7 @@ Need to send "client_id", "client_secret" and "code".
 
 ### Refresh token
 
-```
-[POST] /oauth2/refresh_token
-```
+<ApiEndpoint method="POST" path="/oauth2/refresh_token" />
 
 This endpoint creates refresh token.
 
