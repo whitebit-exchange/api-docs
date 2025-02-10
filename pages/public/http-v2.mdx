@@ -1,3 +1,5 @@
+import { ApiEndpoint } from "@/components/api-endpoint";
+
 # Public HTTP API V2
 
 - [Error messages V2 format](#error-messages-v2-format)
@@ -36,9 +38,7 @@ If endpoint required parameters you will need to send them as `query string`
 
 ### Market Info
 
-```
-[GET] /api/v2/public/markets
-```
+<ApiEndpoint method="GET" path="/api/v2/public/markets" />
 
 This endpoint retrieves all information about available [markets](./../glossary.md#market).
 
@@ -68,9 +68,6 @@ NONE
       "minTotal": "0.001",       // Minimal amount of money to trade
       "tradesEnabled": true      // Is trading enabled
     },
-    {
-      ...
-    }
   ]
 }
 ```
@@ -79,9 +76,7 @@ NONE
 
 ### Market activity
 
-```
-[GET] /api/v2/public/ticker
-```
+<ApiEndpoint method="GET" path="/api/v2/public/ticker" />
 
 This endpoint retrieves information on recent trading activity on all [markets](./../glossary.md#market).
 
@@ -108,9 +103,6 @@ NONE
       "quoteVolume24h": "350.113082102",                     // Volume in money currency
       "tradesEnabled": true                                  // Is trading enabled on exchange
     },
-    {
-      ...
-    }
   ]
 }
 ```
@@ -119,9 +111,7 @@ NONE
 
 ### Recent Trades
 
-```
-[GET] /api/v2/public/trades/{market}
-```
+<ApiEndpoint method="GET" path="/api/v2/public/trades/{market}" />
 
 This endpoint retrieves the [trades](./../glossary.md#deal-trade) that have been executed recently on the requested [market](./../glossary.md#market)
 
@@ -145,10 +135,7 @@ NONE
       "time": "2020-07-09T14:13:01.000Z",   // Time.
       "isBuyerMaker": true                  // Sell order is taker: true, Buy order is taker: false
     },
-    {
-      ...
-    }
-  }
+  ]
 }
 ```
 
@@ -156,9 +143,7 @@ NONE
 
 ### Fee
 
-```
-[GET] /api/v2/public/fee
-```
+<ApiEndpoint method="GET" path="/api/v2/public/fee" />
 
 This endpoint retrieves the trading [fee](./../glossary.md#fee).
 
@@ -185,9 +170,7 @@ NONE
 
 ### Asset Status List
 
-```
-[GET] /api/v2/public/assets
-```
+<ApiEndpoint method="GET" path="/api/v2/public/assets" />
 
 This endpoint retrieves the [assets](./../glossary.md#assets) status.
 
@@ -215,7 +198,6 @@ NONE
       "makerFee": "0.1",                                    // Maker fee for currency
       "takerFee": "0.1"                                     // Taker fee for currency
     },
-    {...}
   }
 }
 ```
@@ -224,9 +206,7 @@ NONE
 
 ### Orderbook
 
-```
-[GET] /api/v2/public/depth/{market}
-```
+<ApiEndpoint method="GET" path="/api/v2/public/depth/{market}" />
 
 This endpoint retrieves the current [order book](../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)).
 
@@ -253,7 +233,6 @@ NONE
           "9433.67",                                     // Price of the next ask
           "0.324509"                                     // Amount of the next ask
         ],
-        [...]
       ],
       "bids": [
         [
@@ -265,7 +244,6 @@ NONE
           "0.669249"                                     // Amount of next bid
         ],
       ],
-      [...]
   },
 }
 ```

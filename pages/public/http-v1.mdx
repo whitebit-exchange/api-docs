@@ -1,3 +1,5 @@
+import { ApiEndpoint } from "@/components/api-endpoint";
+
 # Public HTTP API V1
 
 - [Error messages V1 format](#error-messages-v1-format)
@@ -37,9 +39,7 @@ If an endpoint requires parameters you should send them as `query string`
 
 ### Market Info
 
-```
-[GET] /api/v1/public/markets
-```
+<ApiEndpoint method="GET" path="/api/v1/public/markets" />
 
 This endpoint retrieves all information about available markets.
 
@@ -69,9 +69,6 @@ NONE
       "takerFee": "0.001",  // Default taker fee ratio
       "minAmount": "0.0001" // Minimal amount of stock to trade
     },
-    {
-      ...
-    }
   ]
 }
 ```
@@ -80,9 +77,7 @@ NONE
 
 ### Market Activity
 
-```
-[GET] /api/v1/public/tickers
-```
+<ApiEndpoint method="GET" path="/api/v1/public/tickers" />
 
 This endpoint retrieves information about recent trading activity on all markets.
 
@@ -114,9 +109,6 @@ NONE
       },
       "at": 159423219                 // Timestamp in seconds
     },
-    "ETH_BTC": {
-      ...
-    }
   }
 }
 ```
@@ -125,9 +117,7 @@ NONE
 
 ### Single market activity
 
-```
-[GET] /api/v1/public/ticker?market=ETH_BTC
-```
+<ApiEndpoint method="GET" path="/api/v1/public/ticker?market=ETH_BTC" />
 
 This endpoint retrieves information about recent trading activity on the requested market.
 
@@ -166,9 +156,7 @@ _1 second_
 
 ### Kline
 
-```
-[GET] /api/v1/public/kline?market=BTC_USDT&interval=1h
-```
+<ApiEndpoint method="GET" path="/api/v1/public/kline?market=BTC_USDT&interval=1h" />
 
 This endpoint retrieves information about market kline.
 
@@ -206,7 +194,6 @@ _1440_
         "15.327634",      // Volume stock
         "703140.24230131" // Volume money
     ],
-    [...]
   ]
 }
 ```
@@ -215,9 +202,7 @@ _1440_
 
 ### Symbols
 
-```
-[GET] /api/v1/public/symbols
-```
+<ApiEndpoint method="GET" path="/api/v1/public/symbols" />
 
 This endpoint retrieves information about all available markets for trading.
 
@@ -239,7 +224,6 @@ NONE
     "BTC_USDT", // Name of market pair
     "ETH_BTC",  // Name of market pair
     "ETH_USDT", // Name of market pair
-    ...
   ]
 }
 ```
@@ -248,9 +232,7 @@ NONE
 
 ### Order depth
 
-```
-[GET] /api/v1/public/depth/result?market=BTC_USDT
-```
+<ApiEndpoint method="GET" path="/api/v1/public/depth/result?market=BTC_USDT" />
 
 This endpoint retrieves the current [order book](./../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask))
 
@@ -279,7 +261,6 @@ _100 ms_
       "9433.67", // Price of next ask
       "0.324509" // Amount of next ask
     ],
-    [...]
   ],
   "bids": [
     [
@@ -290,7 +271,6 @@ _100 ms_
       "9427.3",  // Price of next bid
       "0.669249" // Amount of next bid
     ],
-    [...]
   ]
 }
 ```
@@ -299,9 +279,7 @@ _100 ms_
 
 ### Trade History
 
-```
-[GET] /api/v1/public/history?market=BTC_USDT&lastId=1
-```
+<ApiEndpoint method="GET" path="/api/v1/public/history?market=BTC_USDT&lastId=1" />
 
 This endpoint retrieves [trades](./../glossary.md#trade) that have been executed for the requested [market](./../glossary.md#market).
 
@@ -339,7 +317,6 @@ _1 second_
       "amount": "0.002455",
       "type": "sell"
     },
-    {...}
   ]
 }
 ```

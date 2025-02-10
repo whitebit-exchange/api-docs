@@ -1,3 +1,5 @@
+import { ApiEndpoint } from "@/components/api-endpoint";
+
 # Public HTTP API V4
 
 - [Error messages V4 format](#error-messages-v4-format)
@@ -42,9 +44,7 @@ If an endpoint requires parameters you should send them as `query string`
 
 ### Maintenance status
 
-```
-[GET] /api/v4/public/platform/status
-```
+<ApiEndpoint method="GET" path="/api/v4/public/platform/status" />
 
 This endpoint retrieves maintenance status
 
@@ -60,9 +60,7 @@ This endpoint retrieves maintenance status
 
 ### Market Info
 
-```
-[GET] /api/v4/public/markets
-```
+<ApiEndpoint method="GET" path="/api/v4/public/markets" />
 
 This endpoint retrieves all information about available spot and futures markets.
 
@@ -94,9 +92,6 @@ NONE
       "isCollateral": true,      // Is margin trading enabled
       "type": "spot"             // Market type. Possible values: "spot", "futures"
     },
-    {
-      ...
-    }
 ]
 ```
 
@@ -104,9 +99,7 @@ NONE
 
 ### Market activity
 
-```
-[GET] /api/v4/public/ticker
-```
+<ApiEndpoint method="GET" path="/api/v4/public/ticker" />
 
 This endpoint retrieves a 24-hour pricing and volume summary for each market pair available on the exchange.
 
@@ -131,7 +124,6 @@ NONE
     "isFrozen": false,                   // Identifies if trades are closed
     "change": "0.57"                     // Change in percent between open and last prices
   },
-  {...}
 }
 ```
 
@@ -139,9 +131,7 @@ NONE
 
 ### Asset status list
 
-```
-[GET] /api/v4/public/assets
-```
+<ApiEndpoint method="GET" path="/api/v4/public/assets" />
 
 This endpoint retrieves the assets status.
 
@@ -270,7 +260,6 @@ NONE
         "TRC20": {
           "min": "5"     // If there is no max limit, it is not returned
         },
-        ...
       },
       "withdraw": {      // Withdraws limits
         "ERC20": {       // Network
@@ -280,7 +269,6 @@ NONE
         "TRC20": {
           "min": "10"    // If there is no max limit, it is not returned
         },
-        ...
       }
     },
     "confirmations": {
@@ -317,18 +305,15 @@ NONE
           "min": "50",    // Min deposit amount
           "max": "50000"  // Max deposit amount
         },
-      ...
       },
       "withdraw": {      // Withdraws limits
         "VISAMASTER": {  // Provider
           "min": "50",   // Min withdraw amount
           "max": "50000" // Max withdraw amount
         },
-        ...
       }
     }
   },
-  {...}
 }
 ```
 
@@ -336,9 +321,7 @@ NONE
 
 ### Orderbook
 
-```
-[GET] /api/v4/public/orderbook/{market}?limit=100&level=2
-```
+<ApiEndpoint method="GET" path="/api/v4/public/orderbook/{market}?limit=100&level=2" />
 
 This endpoint retrieves the current [order book](./../glossary.md#order-book) as two arrays ([bids](./../glossary.md#bid) / [asks](./../glossary.md#ask)) with additional parameters.
 
@@ -365,23 +348,19 @@ _100 ms_
       "9184.41",           // Price of lowest ask
       "0.773162"           // Amount of lowest ask
     ],
-    [ ... ]
   ],
   "bids": [                // Array of bid orders
     [
       "9181.19",           // Price of highest bid
       "0.010873"           // Amount of highest bid
     ],
-    [ ... ]
   ]
 }
 ```
 
 ### Depth
 
-```
-[GET] /api/v4/public/orderbook/depth/{market}
-```
+<ApiEndpoint method="GET" path="/api/v4/public/orderbook/depth/{market}" />
 
 This endpoint retrieves depth price levels within ±2% of the market last price.
 
@@ -404,14 +383,12 @@ NONE
       "9184.41",           // Price of lowest ask
       "0.773162"           // Amount of lowest ask
     ],
-    [ ... ]
   ],
   "bids": [                // Array of bid orders
     [
       "9181.19",           // Price of highest bid
       "0.010873"           // Amount of highest bid
     ],
-    [ ... ]
   ]
 }
 ```
@@ -419,9 +396,7 @@ NONE
 
 ### Recent Trades
 
-```
-[GET] /api/v4/public/trades/{market}?type=sell
-```
+<ApiEndpoint method="GET" path="/api/v4/public/trades/{market}?type=sell" />
 
 This endpoint retrieves the [trades](./../glossary.md#deal-trade) that have been executed recently on the requested [market](./../glossary.md#market).
 
@@ -456,17 +431,14 @@ _1 second_
     "trade_timestamp": 1594391746,
     "type": "sell"
   },
-  {...}
-}
+]
 ```
 
 ---
 
 ### Fee
 
-```
-[GET] /api/v4/public/fee
-```
+<ApiEndpoint method="GET" path="/api/v4/public/fee" />
 
 This endpoint retrieves the list of [fees](./../glossary.md#fee) and min/max amount for deposits and withdraws
 
@@ -546,9 +518,7 @@ _1 second_
 
 ### Server Time
 
-```
-[GET] /api/v4/public/time
-```
+<ApiEndpoint method="GET" path="/api/v4/public/time" />
 
 This endpoint retrieves the current server time.
 
@@ -567,9 +537,7 @@ _1 second_
 
 ### Server Status
 
-```
-[GET] /api/v4/public/ping
-```
+<ApiEndpoint method="GET" path="/api/v4/public/ping" />
 
 This endpoint retrieves the current API life-state.
 
@@ -586,9 +554,7 @@ _1 second_
 
 ### Collateral Markets List
 
-```
-[GET] /api/v4/public/collateral/markets
-```
+<ApiEndpoint method="GET" path="/api/v4/public/collateral/markets" />
 
 This endpoint returns the list of [markets](./../glossary.md#market) that available for [collateral](./../glossary.md#collateral) trading
 
@@ -621,9 +587,7 @@ _1 second_
 
 ### Available Futures Markets List
 
-```
-[GET] /api/v4/public/futures
-```
+<ApiEndpoint method="GET" path="/api/v4/public/futures" />
 
 This endpoint returns the list of available futures markets.
 
@@ -675,9 +639,7 @@ _1 second_
 
 ### Mining Pool Overview
 
-```
-[GET] /api/v4/public/mining-pool
-```
+<ApiEndpoint method="GET" path="/api/v4/public/mining-pool" />
 
 This endpoint returns an overall information about the current mining pool state.
 

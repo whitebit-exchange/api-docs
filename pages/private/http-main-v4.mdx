@@ -1,3 +1,5 @@
+import { ApiEndpoint } from '@/components/api-endpoint'
+
 # Private HTTP API V4 for Main balance changes
 
 - [Error messages V4 format](#error-messages-v4-format)
@@ -72,9 +74,7 @@ For receiving responses from API calls please use http method **POST**
 
 ### Main balance
 
-```
-[POST] /api/v4/main-account/balance
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/balance" />
 
 This endpoint retrieves the [main balance](./../glossary.md#balance-main) by currency [ticker](./../glossary.md#ticker) or all balances.
 
@@ -143,9 +143,7 @@ ___
 
 ### Get cryptocurrency deposit address
 
-```
-[POST] /api/v4/main-account/address
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/address" />
 
 This endpoint retrieves a deposit address of the cryptocurrency.
 
@@ -257,9 +255,7 @@ Available statuses:
 
 ### Get fiat deposit address
 
-```
-[POST] /api/v4/main-account/fiat-deposit-url
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/fiat-deposit-url" />
 
 This endpoint retrieves a deposit url of the [fiat](./../glossary.md#fiat) invoice. Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality.
 
@@ -445,9 +441,7 @@ Available statuses:
 
 ### Create withdraw request
 
-```
-[POST] /api/v4/main-account/withdraw
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/withdraw" />
 
 This endpoint creates withdraw for the specified ticker.
 
@@ -772,9 +766,7 @@ Also, fiat currencies can't be withdrawn without KYC:
 
 ### Create withdraw request with the specific withdraw amount (fee is not included)
 
-```
-[POST] /api/v4/main-account/withdraw-pay
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/withdraw-pay" />
 
 This endpoint has the similar logic as [/main-account/withdraw](#create-withdraw-request), but with the only difference: amount that is specified will not include [fee](./../glossary.md#fee) (it will be calculated to make target withdraw amount equal to the specified amount).
 
@@ -792,9 +784,7 @@ Example:
 
 ### Transfer between balances
 
-```
-[POST] /api/v4/main-account/transfer
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/transfer" />
 
 This endpoint transfers the specified amount between [main](./../glossary.md#balance-main), [trade](./../glossary.md#balance-spotbalance-trade) and [collateral](./../glossary.md#balance-collateral) balances
 
@@ -951,9 +941,7 @@ Also, fiat currencies can't be withdrawn without KYC:
 
 ### Get deposit/withdraw history
 
-```
-[POST] /api/v4/main-account/history
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/history" />
 
 This endpoint retrieves the history of deposits and withdraws
 
@@ -1141,9 +1129,7 @@ Available statuses:
 
 ### Create new address for deposit
 
-```
-[POST] /api/v4/main-account/create-new-address
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/create-new-address" />
 
 This endpoint creates a new address even when the last created address is not used. This endpoint is not available by default, you need to contact support@whitebit.com in order to get permissions to use this endpoint.
 
@@ -1277,9 +1263,7 @@ Available statuses:
 
 ### Create code
 
-```
-[POST] /api/v4/main-account/codes
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/codes" />
 
 This endpoint creates [WhiteBIT code](./../glossary.md#whitebit-codes).
 
@@ -1420,9 +1404,7 @@ Passphrase must contain only latin letters, numbers and symbols (like !@#$%^, no
 
 ### Apply code
 
-```
-[POST] /api/v4/main-account/codes/apply
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/codes/apply" />
 
 This endpoint applies [WhiteBIT code](./../glossary.md#whitebit-codes).
 
@@ -1494,9 +1476,7 @@ Available statuses:
 
 ### Get my codes
 
-```
-[POST] /api/v4/main-account/codes/my
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/codes/my" />
 
 This endpoint retrieves the list of [WhiteBIT codes](./../glossary.md#whitebit-codes) created by my account.
 
@@ -1591,9 +1571,7 @@ Available statuses:
 
 ### Get codes history
 
-```
-[POST] /api/v4/main-account/codes/history
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/codes/history" />
 
 This endpoint retrieves the whole [codes](./../glossary.md#whitebit-codes) history on your account.
 
@@ -1703,9 +1681,7 @@ These endpoints are available only for B2B partner services, you need to fill th
 
 ### Get plans
 
-```
-[POST] /api/v4/main-account/smart/plans
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/smart/plans" />
 
 This endpoint retrieves all active [plans](./../glossary.md#crypto-lending)
 
@@ -1781,9 +1757,7 @@ Examples:
 
 ### Invest
 
-```
-[POST] /api/v4/main-account/smart/investment
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/smart/investment" />
 
 This endpoint creates a new investment to the specified [invest plan](./../glossary.md#crypto-lending)
 
@@ -1986,9 +1960,7 @@ When there are no funds in plan to cover target interest amount
 
 ### Close investment
 
-```
-[POST] /api/v4/main-account/smart/investment/close
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/smart/investment/close" />
 
 This endpoint closes active investment
 
@@ -2043,9 +2015,7 @@ Available statuses:
 
 ### Get investments history
 
-```
-[POST] /api/v4/main-account/smart/investments
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/smart/investments" />
 
 This endpoint retrieves an investments history
 
@@ -2134,9 +2104,7 @@ Available statuses:
 
 ### Get interest payments history
 
-```
-[POST] /api/v4/main-account/smart/interest-payment-history
-```
+<ApiEndpoint method="POST" path="/api/v4/main-account/smart/interest-payment-history" />
 
 This endpoint retrieves the history of interest payments
 
@@ -2212,12 +2180,10 @@ This API provides an endpoint for getting deposit/withdrawal [fees](./../glossar
 
 ### Get fees
 
+<ApiEndpoint method="POST" path="/api/v4/main-account/fee" />
+
 Returns an array of objects containing deposit/withdrawal settings for the corresponding currencies.
 Zero value in amount fields means that the setting is disabled.
-
-```
-[POST] /api/v4/main-account/fee
-```
 
 ❗ Rate limit 1000 requests/10 sec.
 
@@ -2265,9 +2231,7 @@ This API provides endpoints to manage [sub-accounts](./../glossary.md#sub-accoun
 
 ### Create Sub-Account
 
-```
-[POST] /api/v4/sub-account/create
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/create" />
 
 This endpoint creates new sub-account
 
@@ -2347,9 +2311,7 @@ Available statuses:
 
 ### Delete Sub-Account
 
-```
-[POST] /api/v4/sub-account/delete
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/delete" />
 
 This endpoint deletes sub-account
 
@@ -2404,9 +2366,7 @@ Available statuses:
 
 ### Edit Sub-Account
 
-```
-[POST] /api/v4/sub-account/edit
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/edit" />
 
 This endpoint edit sub-account
 
@@ -2470,9 +2430,7 @@ Available statuses:
 
 ### List of Sub-Accounts
 
-```
-[POST] /api/v4/sub-account/list
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/list" />
 
 This endpoint returns list of current user sub-accounts
 
@@ -2534,9 +2492,7 @@ Available statuses:
 
 ### Sub-Account Transfer
 
-```
-[POST] /api/v4/sub-account/transfer
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/transfer" />
 
 This endpoint creates transfer from main account to sub-account or vice versa
 
@@ -2599,9 +2555,7 @@ Available statuses:
 
 ### Block Sub-Account
 
-```
-[POST] /api/v4/sub-account/block
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/block" />
 
 This endpoint blocks sub-account
 
@@ -2657,9 +2611,7 @@ Available statuses:
 
 ### Unblock Sub-Account
 
-```
-[POST] /api/v4/sub-account/unblock
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/unblock" />
 
 This endpoint unblocks sub-account
 
@@ -2715,9 +2667,7 @@ Available statuses:
 
 ### Sub-Account Balances
 
-```
-[POST] /api/v4/sub-account/balances
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/balances" />
 
 This endpoint returns sub-account balances
 
@@ -2778,9 +2728,7 @@ Available statuses:
 
 ### Get Sub-Account Transfer History
 
-```
-[POST] /api/v4/sub-account/transfer/history
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/transfer/history" />
 
 This endpoint returns history of transfers between main account and sub-account
 
@@ -2847,9 +2795,7 @@ Available statuses:
 
 ### Create Sub-Account API Key
 
-```
-[POST] /api/v4/sub-account/api-key/create
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/api-key/create" />
 
 This endpoint creates a new API key for a sub-account
 
@@ -2905,9 +2851,7 @@ Available statuses:
 
 ### Edit Sub-Account API Key
 
-```
-[POST] /api/v4/sub-account/api-key/edit
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/api-key/edit" />
 
 This endpoint updates an existing sub-account API key
 
@@ -2954,9 +2898,7 @@ Available statuses:
 
 ### Delete Sub-Account API Key
 
-```
-[POST] /api/v4/sub-account/api-key/delete
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/api-key/delete" />
 
 This endpoint deletes a sub-account API key
 
@@ -2994,9 +2936,7 @@ Available statuses:
 
 ### List Sub-Account API Keys
 
-```
-[POST] /api/v4/sub-account/api-key/list
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/api-key/list" />
 
 This endpoint retrieves a list of API keys for a sub-account.
 
@@ -3058,9 +2998,7 @@ Available statuses:
 
 ### Reset Sub-Account API Key
 
-```
-[POST] /api/v4/sub-account/api-key/reset
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/api-key/reset" />
 
 This endpoint resets (regenerates) an existing sub-account API key.
 
@@ -3098,9 +3036,7 @@ Available statuses:
 
 ### List Sub-Account API Key IP Addresses
 
-```
-[POST] /api/v4/sub-account/api-key/ip-address/list
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/api-key/ip-address/list" />
 
 This endpoint retrieves the list of IP addresses allowed for a sub-account API key.
 
@@ -3141,9 +3077,7 @@ Available statuses:
 
 ### Create Sub-Account API Key IP Address
 
-```
-[POST] /api/v4/sub-account/api-key/ip-address/create
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/api-key/ip-address/create" />
 
 This endpoint adds a new IP address to the allowed list for a sub-account API key.
 
@@ -3186,9 +3120,7 @@ Available statuses:
 
 ### Delete Sub-Account API Key IP Address
 
-```
-[POST] /api/v4/sub-account/api-key/ip-address/delete
-```
+<ApiEndpoint method="POST" path="/api/v4/sub-account/api-key/ip-address/delete" />
 
 This endpoint removes an IP address from the allowed list for a sub-account API key.
 
@@ -3234,9 +3166,7 @@ Available statuses:
 
 ### Get Rewards
 
-```
-[POST] /api/v4/mining/rewards
-```
+<ApiEndpoint method="POST" path="/api/v4/mining/rewards" />
 
 This endpoint return rewards received from mining
 
