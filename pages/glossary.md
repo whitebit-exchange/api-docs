@@ -236,6 +236,10 @@ See [Crypto Lending](./glossary#crypto-lending)
 
 See [Crypto Lending](./glossary#crypto-lending)
 
+### STP
+
+Self Trade Prevention (STP) is a mechanism that prevents traders from executing trades against their own [orders](./glossary#orders). This feature helps avoid unintentional self-trading and ensures market integrity by automatically canceling or modifying orders that would result in a self-match.
+
 ### Spot trading
 
 Buying and selling [assets](./glossary#assets) for immediate settlement

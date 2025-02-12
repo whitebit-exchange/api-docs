@@ -1,0 +1,66 @@
+# Self Trade Prevention (STP)
+
+Self Trade Prevention (STP) is a mechanism that prevents traders from executing trades against their own orders. This feature helps maintain market integrity and avoid unintentional self-trading scenarios.
+
+## Overview
+
+When placing [orders](./../glossary.md#orders), you can specify how the system should handle potential self-trades using the `stp` parameter. This parameter determines the behavior when an order would match against another order from the same account.
+
+## STP Modes
+
+The following STP modes are available:
+
+| Mode | Description |
+|------|-------------|
+| `no` | Default mode. Self-trades are allowed |
+| `cancel_both` | Both the new order and the existing order will be canceled |
+| `cancel_new` | The new order will be canceled, and the existing order will remain |
+| `cancel_old` | The existing order will be canceled, and the new order will be placed |
+
+## Usage
+
+You can specify the STP mode when placing any type of order:
+- [Limit orders](./../glossary.md#limit-order)
+- [Market orders](./../glossary.md#market-order)
+- [Stop-limit orders](./../glossary.md#stop-limit-order)
+- [Stop-market orders](./../glossary.md#stop-market-order)
+- [OCO orders](./../glossary.md#oco-orders) (One Cancels Other)
+- [Collateral orders](./../glossary.md#collateral)
+
+### Example
+
+```json
+{
+  "market": "BTC_USDT",
+  "side": "buy",
+  "amount": "0.001",
+  "price": "40000",
+  "stp": "cancel_both"  // STP mode specification
+}
+```
+
+## Supported Endpoints
+
+STP is supported on the following API endpoints:
+
+- [POST `/api/v4/order/new`](../private/http-trade-v4#create-limit-order) (Limit orders)
+- [POST `/api/v4/order/market`](../private/http-trade-v4#create-market-order) (Market orders)
+- [POST `/api/v4/order/stock_market`](../private/http-trade-v4#create-buy-stock-market-order) (Stock market orders)
+- [POST `/api/v4/order/stop_limit`](../private/http-trade-v4#create-stop-limit-order) (Stop-limit orders)
+- [POST `/api/v4/order/stop_market`](../private/http-trade-v4#create-stop-market-order) (Stop-market orders)
+- [POST `/api/v4/order/collateral/market`](../private/http-trade-v4#collateral-market-order) (Collateral market orders)
+- [POST `/api/v4/order/collateral/stop-limit`](../private/http-trade-v4#collateral-stop-limit-order) (Collateral stop-limit orders)
+- [POST `/api/v4/order/collateral/trigger-market`](../private/http-trade-v4#collateral-trigger-market-order) (Collateral trigger market orders)
+- [POST `/api/v4/order/collateral/oco`](../private/http-trade-v4#create-collateral-oco-order) (Collateral OCO orders)
+
+## Best Practices
+
+1. **Default Behavior**: If you don't specify an STP mode, the system defaults to `no`, allowing self-trades.
+2. **Risk Management**: For automated trading systems or when running multiple strategies, it's recommended to use `cancel_both` or `cancel_new` to prevent unintentional self-trades.
+3. **Market Making**: When running [market making](./../glossary.md#maker) strategies, consider using `cancel_new` to maintain existing orders' queue position.
+
+## Response Handling
+
+When an order is affected by STP rules, the order response will include the `stp` field indicating the mode that was applied. The order status will reflect the outcome based on the STP mode:
+- Orders canceled due to STP will have a "CANCELED" status
+- Successfully placed orders will proceed with normal status progression

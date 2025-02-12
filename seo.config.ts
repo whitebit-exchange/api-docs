@@ -12,11 +12,16 @@ const seoConfig: PageSEOConfig = {
     title: "WhiteBIT API Documentation | Cryptocurrency Exchange API",
     description: "Powerful cryptocurrency exchange API with comprehensive documentation. Access real-time market data, automated trading, secure authentication, and WebSocket feeds for seamless integration.",
   },
-  overview: {
+  "platform/overview": {
     title: "API Overview | WhiteBIT Documentation",
     description: "Overview of WhiteBIT's API capabilities, features, and integration options. Learn about our REST APIs, WebSocket feeds, and authentication methods.",
   },
-  colocation: {
+  // Platform features
+  "platform/self-trade-prevention": {
+    title: "Self Trade Prevention (STP) | Trading Features | WhiteBIT",
+    description: "Implement Self Trade Prevention (STP) in your trading strategy. Learn about STP modes, best practices for algorithmic trading, and how to prevent unintentional self-matching on WhiteBIT exchange.",
+  },
+  "platform/colocation": {
     title: "Colocation Services | Ultra-Low Latency Trading | WhiteBIT",
     description: "Professional-grade colocation services for high-frequency trading (HFT). Execute trades in 5ms with direct connection to WhiteBIT's matching engine. AWS integration guide and 24/7 support.",
   },
@@ -59,16 +64,16 @@ const seoConfig: PageSEOConfig = {
     description: "Real-time market data access through WhiteBIT's WebSocket API. Stream live prices, order book updates, and trading activity.",
   },
   // Webhook documentation
-  "webhook/web-hook": {
+  "platform/webhook": {
     title: "Webhooks Integration | Real-time Notifications | WhiteBIT",
     description: "Implement real-time notifications for account and trading events using WhiteBIT's webhook system. Complete setup and integration guide.",
   },
   // OAuth documentation
-  "oauth/overview": {
+  "platform/oauth": {
     title: "OAuth 2.0 Overview | Authentication | WhiteBIT",
     description: "Introduction to WhiteBIT's OAuth 2.0 implementation. Learn about secure third-party authentication and authorization flows.",
   },
-  "oauth/usage": {
+  "platform/oauth/usage": {
     title: "OAuth 2.0 Guide | Implementation | WhiteBIT",
     description: "Step-by-step guide for implementing OAuth 2.0 authentication with WhiteBIT. Includes code examples and best practices.",
   },

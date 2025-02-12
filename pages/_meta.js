@@ -6,11 +6,10 @@ export default {
       layout: "full",
     },
   },
-  overview: {
-    title: "Overview",
+  platform: {
+    title: "Platform",
     theme: {
-      toc: false,
-      layout: "full",
+      breadcrumb: false,
     },
   },
   public: {
@@ -21,25 +20,6 @@ export default {
   },
   private: {
     title: "Private",
-    theme: {
-      breadcrumb: false,
-    },
-  },
-  colocation: {
-    title: "Colocation Services",
-    theme: {
-      breadcrumb: false,
-    },
-  },
-  oauth: {
-    title: "OAuth",
-    theme: {
-      toc: false,
-      layout: "full",
-    },
-  },
-  webhook: {
-    title: "Webhook",
     theme: {
       breadcrumb: false,
     },
