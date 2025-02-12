@@ -1,0 +1,6 @@
+/overview /platform/overview 301
+/colocation /platform/colocation 301
+/oauth /platform/oauth 301
+/oauth/* /platform/oauth/:splat 301
+/webhook /platform/webhook 301
+/webhook/* /platform/webhook/ 301
