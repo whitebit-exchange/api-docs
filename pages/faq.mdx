@@ -1,0 +1,120 @@
+# Frequently Asked Questions (FAQ)
+
+## Rate Limits and Errors
+
+### Q: Why am I getting a 429 error and can't make requests?
+
+If the rate limit for an endpoint is exceeded, you will receive a 429 error. To resolve this:
+- Wait for the rate limit window to reset
+- Check the specific rate limit value in the endpoint description
+- Consider implementing rate limiting in your code
+
+### Q: Why do I get a CORS error when requesting the whitebit.com/api/v4/public/ticker method?
+
+CORS requests to this endpoint are forbidden for security reasons. Make the request from your backend instead of client-side.
+
+### Q: Why am I getting a 403 error when making requests to the Smartplan endpoints?
+
+These endpoints are restricted to B2B partner services only. To gain access:
+- Contact [support@whitebit.com](mailto:support@whitebit.com)
+- Request permissions for Smartplan endpoints
+- Provide your use case details
+
+## WebSocket and Data Access
+
+### Q: Can I get information on pairs for multiple time periods in the WebSocket Kline method?
+
+There are two solutions:
+1. Open multiple WebSocket connections
+2. Use the equivalent HTTP method instead
+
+For more details, see the [Kline documentation](https://whitebit-exchange.github.io/api-docs/public/websocket/#kline).
+
+### Q: Why can't I see trade history for a pair in the last 24 hours?
+
+The system only shows the last 100 deals by default. To see more:
+- Subscribe to our WebSocket feed
+- Accumulate and store the data on your side
+- Process the data as needed for your use case
+
+## Authentication and Nonce
+
+### Q: Why am I getting nonce errors?
+
+To resolve nonce errors:
+1. Debug your code implementation
+2. Recreate your API keys
+3. Ensure your system time is properly synchronized
+
+## Balance and Transfers
+
+### Q: Why doesn't the transfer between balances occur when transferring assets via API?
+
+When making transfers and withdrawals:
+- Wait for transfers to complete (approximately 2 seconds)
+- Don't initiate withdrawals before transfer completion
+- Implement proper error handling for transfer states
+
+### Q: I get an error that there are insufficient funds for withdrawal, even though there are assets on the balance.
+
+This occurs when the withdrawal amount plus the fee exceeds your available balance. Remember to:
+- Account for withdrawal fees in your calculations
+- Check the [fees documentation](https://github.com/whitebit-exchange/api-docs/blob/main/docs/Private/http-main-v4.md#fees)
+- Ensure sufficient balance for both amount and fees
+
+## Technical Requirements
+
+### Q: Is https required for Webhook API communication? What port is used?
+
+Yes, HTTPS is required:
+- Communication occurs over port 443
+- SSL/TLS encryption is mandatory
+- HTTP connections are not supported
+
+### Q: How can I check if deposits and withdrawals are available for a specific currency?
+
+You can check currency status through the assets endpoint:
+- URL: [https://whitebit.com/api/v4/public/assets](https://whitebit.com/api/v4/public/assets)
+- This endpoint provides real-time status of all currencies
+- Check the currency-specific enabled/disabled flags
+
+## API Keys and Security
+
+### Q: How do I ensure my API keys are secure?
+
+To maintain API key security:
+- Never share your API keys
+- Store keys securely (use environment variables)
+- Restrict IP addresses when possible
+- Use the minimum required permissions
+- Rotate keys periodically
+
+### Q: What should I do if I suspect my API key is compromised?
+
+If you suspect key compromise:
+1. Immediately delete the compromised key
+2. Review account activity for unauthorized actions
+3. Create new API keys with fresh permissions
+4. Update your application with the new keys
+5. Contact support if unauthorized activity is detected
+
+
+## Performance and Optimization
+
+### Q: How can I optimize my API usage for high-frequency trading?
+
+For optimal API performance:
+- Use WebSocket for real-time data
+- Batch requests when possible
+- Implement proper rate limiting
+- Cache frequently accessed data
+- Monitor network latency
+
+### Q: What's the best way to handle API disconnections?
+
+To handle disconnections effectively:
+- Implement automatic reconnection logic
+- Use exponential backoff for retries
+- Maintain local order state
+- Log all critical operations
+- Set up monitoring and alerts
