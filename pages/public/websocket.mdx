@@ -797,11 +797,9 @@ This endpoint allows clients to request the current market depth for a specific 
         "timestamp": 1689600180.5164471,
         "asks": [                   // sorted ascending
             ["0.020846", "29.369"], // [price, amount]
-            ...
         ],
         "bids": [                   // sorted descending
             ["0.02083", "9.598"],   // [price, amount]
-            ...
         ]
     },
     "error": null
@@ -811,9 +809,8 @@ This endpoint allows clients to request the current market depth for a specific 
 
 #### Subscribe
 
-This endpoint allows clients to subscribe to real-time updates of market depth data.
-
-Update interval: 100 ms
+This endpoint allows clients to subscribe to market depth data updates. The server pushes updates every 100ms to subscribed clients.
+The updates can be either full reloads of the order book or partial updates containing only the changes since the last update. See the update events section below for details.
 
 ##### ⤴️ Request
 
@@ -859,12 +856,10 @@ Update events provide real-time updates to the subscribed market depth.
             "asks": [
                 ["0.020861", "0"],      // for partial update - finished orders will be [price, "0"]
                 ["0.020900", "2.5"],
-                ...
             ],
             "bids": [
                 ["0.020844", "5.949"],
                 ["0.020800", "0"],
-                ...
             ]
         },
         "ETH_BTC"                       // market pair
