@@ -2837,7 +2837,7 @@ Available statuses:
   "isEnabled": true,                                        // Whether the API key is enabled
   "apiKey": "your-api-key",                                // API key
   "apiSecret": "your-api-secret",                          // API secret
-  "type": "trade",                                         // API key type
+  "type": 2,                                               // API key type (1 - info and trading, 2 - info, trading, deposit and withdraw)
   "lastActivity": 1646825196,                              // Last activity timestamp
   "restrictAccess": true,                                  // Whether access is restricted
   "accessEndpoints": [                                     // List of allowed endpoints
@@ -2876,9 +2876,26 @@ NONE
   "title": "Updated Trading Bot Key",
   "urls": [
     {
-      "url": "https://example.com",
-      "enabled": true
+      "url": "/api/v4/main-account/address",
+      "enable": true
+    },
+    {
+      "url": "/api/v4/main-account/fiat-deposit-url",
+      "enable": true
+    },
+    {
+      "url": "/api/v4/main-account/create-new-address",
+      "enable": true
+    },
+    {
+      "url": "/api/v4/main-account/withdraw",
+      "enable": false
+    },
+    {
+      "url": "/api/v4/main-account/balance",
+      "enable": false
     }
+    // ... and many more endpoints available in the documentation
   ]
 }
 ```
