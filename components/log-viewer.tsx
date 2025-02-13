@@ -272,7 +272,7 @@ export default function LogViewer({ className }: { className?: string }) {
         return (
           <div className="flex gap-2 items-center max-w-[520px] truncate font-mono text-sm">
             <span
-              className={`shrink-0 px-1.5 py-0.5 rounded-sm text-xs font-medium ${
+              className={`shrink-0 px-1.5 py-0.5 rounded-sm text-xs font-medium w-12 text-center ${
                 payload.side === "buy"
                   ? "bg-green-500/10 text-green-500"
                   : "bg-red-500/10 text-red-500"
