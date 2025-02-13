@@ -29,10 +29,10 @@ export default function HomePage() {
               transition={{ duration: 0.5 }}
               className="flex flex-col gap-6"
             >
-              <h1 className="text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50">
                 WhiteBIT API Platform
               </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed">
+              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                 Access the global cryptocurrency market with WhiteBIT's
                 comprehensive trading APIs. Build powerful trading applications
                 with our developer-friendly tools.
@@ -87,7 +87,6 @@ export default function HomePage() {
                     </p>
                   </div>
                 </header>
-
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
                   <LogViewer className="shadow-lg rounded-lg border bg-card/50 backdrop-blur-sm overflow-hidden" />
@@ -108,8 +107,8 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-4">Everything You Need</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Everything You Need</h2>
+            <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
               Build powerful trading applications with our comprehensive suite
               of APIs and tools
             </p>
@@ -164,8 +163,8 @@ export default function HomePage() {
                 <div className="mb-4 p-2.5 w-fit rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
                   <feature.icon className="text-primary h-5 w-5" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <h3 className="text-lg md:text-xl font-bold mb-2">{feature.title}</h3>
+                <p className="text-sm md:text-base text-muted-foreground">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -182,8 +181,8 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-            <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to Get Started?</h2>
+            <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-2xl mx-auto">
               Join thousands of developers building with WhiteBIT's API platform
             </p>
             <div className="flex gap-4 justify-center">
