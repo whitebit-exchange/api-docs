@@ -12,6 +12,10 @@ const seoConfig: PageSEOConfig = {
     title: "WhiteBIT API Documentation | Cryptocurrency Exchange API",
     description: "Powerful cryptocurrency exchange API with comprehensive documentation. Access real-time market data, automated trading, secure authentication, and WebSocket feeds for seamless integration.",
   },
+  "guides/client-order-id": {
+    title: "Client Order ID Guide | Order Management | WhiteBIT",
+    description: "Learn how to use clientOrderId for order tracking, broker implementations, and automated trading. Complete guide with examples for managing orders across multiple clients and strategies.",
+  },
   "platform/overview": {
     title: "API Overview | WhiteBIT Documentation",
     description: "Overview of WhiteBIT's API capabilities, features, and integration options. Learn about our REST APIs, WebSocket feeds, and authentication methods.",

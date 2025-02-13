@@ -1,4 +1,16 @@
 export default {
-  "overview": "Overview",
-  "usage": "Usage"
+  "overview": {
+    title: "Overview",
+    theme: {
+      toc: false,
+      layout: "full"
+    }
+  },
+  "usage": {
+    title: "Usage",
+    theme: {
+      toc: false,
+      layout: "full"
+    }
+  }
 }

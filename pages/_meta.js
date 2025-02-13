@@ -24,6 +24,12 @@ export default {
       breadcrumb: false,
     },
   },
+  guides: {
+    title: "Guides",
+    theme: {
+      breadcrumb: false,
+    },
+  },
   sdks: {
     title: "SDKs",
     theme: {

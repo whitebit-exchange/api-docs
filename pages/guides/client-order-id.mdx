@@ -1,0 +1,548 @@
+import { Badge } from "@/components/ui/badge";
+import { Callout } from "nextra/components";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+# Client Order ID
+
+This guide provides information about using `clientOrderId` in your trading operations, including best practices and common use cases.
+
+## Overview
+
+<Card className="mt-6">
+  <CardContent className="pt-6 text-foreground/90">
+    The `clientOrderId` is an optional identifier that allows you to track and manage your orders with your own custom identifiers. It provides an additional layer of order management and tracking capabilities alongside the exchange-provided `orderId`.
+  </CardContent>
+</Card>
+
+## Specifications
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+  <Card>
+    <CardHeader>
+      <CardTitle>Type & Requirements</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <ul className="space-y-2 text-sm text-foreground/80">
+        <li>• Type: String</li>
+        <li>• Mandatory: No</li>
+        <li>• Uniqueness: Must be unique for 24 hours</li>
+      </ul>
+    </CardContent>
+  </Card>
+
+  <Card>
+    <CardHeader>
+      <CardTitle>Allowed Characters</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <ul className="space-y-2 text-sm text-foreground/80">
+        <li>• Latin letters</li>
+        <li>• Numbers</li>
+        <li>• Dashes (-)</li>
+        <li>• Dots (.)</li>
+        <li>• Underscores (_)</li>
+      </ul>
+    </CardContent>
+  </Card>
+</div>
+
+<Card className="my-6">
+  <CardHeader>
+    <CardTitle>Length and Format Guidelines</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="space-y-2 text-sm text-foreground/80">
+        <div>• Recommended maximum length: 32 characters</div>
+        <div>• Case-sensitive: "Order1" and "order1" are different IDs</div>
+      </div>
+      <div className="space-y-2 text-sm text-foreground/80">
+        <div>• Leading/trailing spaces are not allowed</div>
+        <div>• Cannot be an empty string if provided</div>
+      </div>
+    </div>
+  </CardContent>
+</Card>
+
+## Best Practices
+
+<Tabs defaultValue="naming" className="mt-6">
+  <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4">
+    <TabsTrigger value="naming">Naming Convention</TabsTrigger>
+    <TabsTrigger value="timestamp">Timestamp</TabsTrigger>
+    <TabsTrigger value="strategy">Strategy</TabsTrigger>
+    <TabsTrigger value="examples">Examples</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="naming" className="mt-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>Structured Naming Convention</CardTitle>
+      </CardHeader>
+      <CardContent>
+        ```typescript
+        // Format: strategy-pair-type-timestamp
+        const clientOrderId = "scalp-btcusdt-limit-1678234567";
+
+        // Format: botId-strategy-sequence
+        const clientOrderId = "bot123-grid-0001";
+
+        // Format: userAccount-orderType-customSequence
+        const clientOrderId = "trade15-market-a7b8c9";
+        ```
+      </CardContent>
+    </Card>
+  </TabsContent>
+
+  <TabsContent value="timestamp" className="mt-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>Timestamp Integration</CardTitle>
+      </CardHeader>
+      <CardContent>
+        ```typescript
+        const getClientOrderId = (prefix: string) => {
+          const timestamp = Date.now();
+          return `${prefix}-${timestamp}`;
+        };
+
+        // Usage
+        const orderId = getClientOrderId("btc-dca"); // "btc-dca-1678234567890"
+        ```
+      </CardContent>
+    </Card>
+  </TabsContent>
+
+  <TabsContent value="strategy" className="mt-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>Strategy Identification</CardTitle>
+      </CardHeader>
+      <CardContent>
+        ```typescript
+        const generateStrategyOrderId = (
+          strategy: string,
+          pair: string,
+          action: string
+        ) => {
+          const sequence = Math.floor(Math.random() * 1000)
+            .toString()
+            .padStart(3, "0");
+          return `${strategy}-${pair}-${action}-${sequence}`;
+        };
+
+        // Usage
+        const orderId = generateStrategyOrderId("grid", "btcusdt", "buy");
+        ```
+      </CardContent>
+    </Card>
+  </TabsContent>
+
+  <TabsContent value="examples" className="mt-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <Card>
+        <CardHeader>
+          <CardTitle>Basic Examples</CardTitle>
+        </CardHeader>
+        <CardContent className="text-sm text-foreground/80 space-y-2">
+          <p>• spot-btcusdt-buy-001</p>
+          <p>• dca-ethusdt-sell-002</p>
+          <p>• grid-solusdt-buy-003</p>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>Advanced Examples</CardTitle>
+        </CardHeader>
+        <CardContent className="text-sm text-foreground/80 space-y-2">
+          <p>• bot1-grid-btc-h4-001</p>
+          <p>• arb-eth-ftm-cross-002</p>
+          <p>• hedge-btc-perp-003</p>
+        </CardContent>
+      </Card>
+    </div>
+  </TabsContent>
+</Tabs>
+
+## Common Use Cases
+
+<Tabs defaultValue="limit" className="mt-6">
+  <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4">
+    <TabsTrigger value="limit">Limit Order</TabsTrigger>
+    <TabsTrigger value="market">Market Order</TabsTrigger>
+    <TabsTrigger value="stop">Stop-Limit</TabsTrigger>
+    <TabsTrigger value="oto">OTO Orders</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="limit" className="mt-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>Basic Limit Order</CardTitle>
+      </CardHeader>
+      <CardContent>
+        ```typescript
+        // Simple limit order with clientOrderId
+        const limitOrderRequest = {
+          market: "BTC_USDT",
+          side: "buy",
+          amount: "0.01",
+          price: "40000",
+          clientOrderId: "limit-btc-buy-001"
+        };
+        ```
+      </CardContent>
+    </Card>
+  </TabsContent>
+
+  <TabsContent value="market" className="mt-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>Market Order with Strategy Tag</CardTitle>
+      </CardHeader>
+      <CardContent>
+        ```typescript
+        // Market order for DCA strategy
+        const marketOrderRequest = {
+          market: "BTC_USDT",
+          side: "buy",
+          amount: "50", // Buy BTC for 50 USDT
+          clientOrderId: "dca-btc-market-002"
+        };
+        ```
+      </CardContent>
+    </Card>
+  </TabsContent>
+
+  <TabsContent value="stop" className="mt-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>Stop-Limit Order with Position Tracking</CardTitle>
+      </CardHeader>
+      <CardContent>
+        ```typescript
+        // Stop-limit order with position tracking
+        const stopLimitOrderRequest = {
+          market: "BTC_USDT",
+          side: "sell",
+          amount: "0.01",
+          price: "39000",
+          activation_price: "39500",
+          clientOrderId: "pos1-sl-btc-001"
+        };
+        ```
+      </CardContent>
+    </Card>
+  </TabsContent>
+
+  <TabsContent value="oto" className="mt-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>OTO (One-Triggers-Other) Orders</CardTitle>
+      </CardHeader>
+      <CardContent>
+        ```typescript
+        // Main order with stop loss and take profit
+        const otoOrderRequest = {
+          market: "BTC_USDT",
+          side: "buy",
+          amount: "0.01",
+          price: "40000",
+          clientOrderId: "oto-btc-main-001",
+          stopLoss: "38000",
+          takeProfit: "42000"
+        };
+        ```
+      </CardContent>
+    </Card>
+  </TabsContent>
+</Tabs>
+
+## Order Management
+
+<Card className="my-6">
+  <CardHeader>
+    <CardTitle>Tracking Orders</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="text-foreground/80 mb-4">
+      You can track orders using `clientOrderId` through the following endpoints:
+    </div>
+
+    <div className="space-y-6">
+      <div>
+        <h4 className="font-medium mb-2 text-foreground/90">1. Query Active Orders</h4>
+        <div className="text-sm text-foreground/80 mb-2">
+          Use the [Query Active Orders endpoint](../private/http-trade-v4#query-unexecutedactive-orders) (`/api/v4/orders`) to get all unexecuted orders:
+        </div>
+
+        ```typescript
+        // Request
+        const queryActiveOrders = {
+          market: "BTC_USDT",
+          clientOrderId: "dca-btc-market-002"
+        };
+        ```
+
+        <Callout type="info" className="mt-4">
+          <div>Example response includes order details such as ID, status, and execution information:</div>
+        </Callout>
+
+        ```json
+        {
+          "orderId": 4180284841,
+          "clientOrderId": "dca-btc-market-002",
+          "market": "BTC_USDT",
+          "side": "buy",
+          "type": "limit",
+          "timestamp": 1595792396.165973,
+          "dealMoney": "0",
+          "dealStock": "0",
+          "amount": "0.001",
+          "price": "40000",
+          "status": "NEW"
+        }
+        ```
+      </div>
+
+      <div>
+        <h4 className="font-medium mb-2 text-foreground/90">2. Query Order History</h4>
+        <div className="text-sm text-foreground/80 mb-2">
+          Use the [Query Order History endpoint](../private/http-trade-v4#query-executed-orders) (`/api/v4/trade-account/order/history`) to get executed orders:
+        </div>
+
+        ```typescript
+        // Request
+        const queryOrderHistory = {
+          market: "BTC_USDT",
+          clientOrderId: "grid-btc-sell-003",
+          limit: 50,
+          offset: 0
+        };
+        ```
+
+        <Callout type="info" className="mt-4">
+          <div>Example response showing execution details and final order status:</div>
+        </Callout>
+
+        ```json
+        {
+          "records": [
+            {
+              "orderId": 4180284841,
+              "clientOrderId": "grid-btc-sell-003",
+              "market": "BTC_USDT",
+              "side": "sell",
+              "type": "limit",
+              "timestamp": 1595792396.165973,
+              "dealMoney": "41.258268",
+              "dealStock": "0.001",
+              "amount": "0.001",
+              "price": "41258.27",
+              "status": "FILLED"
+            }
+          ]
+        }
+        ```
+      </div>
+    </div>
+  </CardContent>
+</Card>
+
+### Order Cancellation
+
+<Callout type="warning" className="mb-4">
+  <div>
+    You can cancel orders using their `orderId`. Support for cancellation using `clientOrderId` will be implemented in an upcoming release. Once available, this feature will allow you to cancel orders directly using your custom identifiers.
+  </div>
+</Callout>
+
+## Error Handling
+
+<Card className="my-6">
+  <CardHeader>
+    <CardTitle>Common Error Cases</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Duplicate ID</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-sm text-foreground/80">The `clientOrderId` must be unique for 24 hours</div>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Invalid Format</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-sm text-foreground/80">Ensure the ID only contains allowed characters</div>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Length Limit</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-sm text-foreground/80">Keep the ID length reasonable (recommended: under 32 characters)</div>
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Order Not Found</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-sm text-foreground/80">Handle cases where an order with the specified `clientOrderId` doesn't exist</div>
+        </CardContent>
+      </Card>
+    </div>
+
+    <div className="mt-6">
+      <h4 className="font-medium mb-2 text-foreground/90">Example error handling:</h4>
+      ```typescript
+      try {
+        const order = await queryOrderByClientId("dca-btc-market-002");
+        // Process order
+      } catch (error) {
+        if (error.code === 36) {
+          console.error("Invalid clientOrderId format");
+        } else if (error.code === 2) {
+          console.error("Order not found");
+        } else {
+          console.error("Unexpected error:", error);
+        }
+      }
+      ```
+    </div>
+  </CardContent>
+</Card>
+
+## Example: Broker Implementation
+
+<Card className="my-6">
+  <CardHeader>
+    <CardTitle>Broker Implementation Guide</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="space-y-6">
+      <div>
+        <h3 className="font-medium mb-2 text-foreground/90">ClientOrderId Structure</h3>
+        <div className="text-sm text-foreground/80 mb-2">Format:</div>
+        <code className="text-sm bg-muted p-2 rounded-md block text-foreground">
+          brk-{'{clientId}'}-{'{orderType}'}-{'{purpose}'}-{'{timestamp}'}
+        </code>
+        <div className="text-sm text-foreground/80 mt-2">Example: `brk-ind123-limit-spot-1678234567`</div>
+      </div>
+
+      <div>
+        <h4 className="font-medium mb-2 text-foreground/90">Components:</h4>
+        <ul className="space-y-2 text-sm text-foreground/80">
+          <li>• `brk`: Broker identifier prefix</li>
+          <li>• `clientId`: Your internal client identifier</li>
+          <li>• `orderType`: Order type (market/limit)</li>
+          <li>• `purpose`: Trading purpose/strategy</li>
+          <li>• `timestamp`: Ensures 24-hour uniqueness</li>
+        </ul>
+      </div>
+    </div>
+  </CardContent>
+</Card>
+
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-base">Individual Clients</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <code className="text-sm">brk-ind123-market-spot-1678234567</code>
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-base">Corporate Clients</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <code className="text-sm">brk-corp789-limit-hedge-1678234567</code>
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-base">Managed Portfolios</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <code className="text-sm">brk-port555-market-dca-1678234567</code>
+    </CardContent>
+  </Card>
+</div>
+
+### Trading Purpose Examples
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-base">Spot Trading</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <code className="text-sm">brk-ind123-market-spot-1678234567</code>
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-base">DCA Strategy</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <code className="text-sm">brk-port555-market-dca-1678234567</code>
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-base">Grid Trading</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <code className="text-sm">brk-ind123-limit-grid-1678234567</code>
+    </CardContent>
+  </Card>
+  <Card>
+    <CardHeader>
+      <CardTitle className="text-base">Portfolio Rebalancing</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <code className="text-sm">brk-port555-limit-rebal-1678234567</code>
+    </CardContent>
+  </Card>
+</div>
+
+### API Usage Example
+
+<Card className="my-6">
+  <CardContent className="pt-6">
+    ```typescript
+    // Create an order for a client
+    const createClientOrder = {
+      market: "BTC_USDT",
+      side: "buy",
+      amount: "0.01",
+      price: "40000",
+      clientOrderId: "brk-ind123-limit-spot-1678234567"
+    };
+
+    // Query client's active orders
+    const queryClientOrders = {
+      market: "BTC_USDT",
+      clientOrderId: "brk-ind123-limit-spot-1678234567"
+    };
+    ```
+
+    <div className="mt-4 text-sm text-foreground/80">
+      This structured approach allows brokers to:
+      <ul className="list-disc pl-4 mt-2 space-y-1">
+        <li>Track orders for multiple clients</li>
+        <li>Identify order types and purposes</li>
+        <li>Maintain unique identifiers</li>
+        <li>Query and manage orders efficiently</li>
+      </ul>
+    </div>
+  </CardContent>
+</Card>
