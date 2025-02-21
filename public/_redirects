@@ -1,6 +1,23 @@
-/overview /platform/overview 301
-/colocation /platform/colocation 301
-/oauth /platform/oauth 301
-/oauth/* /platform/oauth/:splat 301
+/oauth /platform/oauth/overview 301
+/oauth/* /platform/oauth/overview 301
+
 /webhook /platform/webhook 301
 /webhook/* /platform/webhook/ 301
+
+/colocation /platform/colocation 301
+/colocation/ /platform/colocation 301
+
+/overview /platform/overview 301
+/overview/* /platform/overview 301
+
+/platform/sdks /sdks 301
+/platform/sdks/* /sdks 301
+
+/platform/glossary /glossary 301
+/platform/glossary/* /glossary 301
+
+/platform/faq /faq 301
+/platform/faq/* /faq 301
+
+/platform/oauth /platform/oauth/overview/ 301
+/platform/oauth/* /platform/oauth/overview/ 301
