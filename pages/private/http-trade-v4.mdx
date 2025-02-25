@@ -9,6 +9,8 @@ import { ApiEndpoint } from '@/components/api-endpoint'
     - [Query All Market Fees](#query-all-market-fees)
   - [Spot](#spot)
     - [Trading balance](#trading-balance)
+    - [Market fee] (#market-fee)
+    - [Query all market fees] (#query-all-market-fees)
     - [Create limit order](#create-limit-order)
     - [Bulk limit order](#bulk-limit-order)
     - [Create market order](#create-market-order)
@@ -2059,7 +2061,10 @@ NONE
 | Name    | Type       | Mandatory | Description                                                    |
 | ------- | ---------- | --------- | -------------------------------------------------------------- |
 | market  | String     | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT |
-| orderId | String/Int | **Yes**   | Order Id. Example: 4180284841 or "4180284841"                  |
+| orderId | String/Int | **No if clientOrderId is set**   | Order Id. Example: 4180284841 or "4180284841"                  |
+| clientOrderId | String | **No if orderId is set**   | Custom client order id. Example: "customId11"                  |
+
+❗ Modification by clientOrderId takes priority over orderId.
 
 **Request BODY raw:**
 
@@ -2912,15 +2917,15 @@ NONE
 | Name            | Type          | Mandatory | Description                                                                                                                   |
 |-----------------|---------------|-----------|-------------------------------------------------------------------------------------------------------------------------------|
 | orderId         | Integer       | **Yes**   | Active order id [order](./../glossary.md#active-orders). Example: 834506                                                      |
+| clientOrderId   | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. Search by this identifier works within 24 hours after creation. |
 | market          | String        | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                |
 | amount          | String/Number | **No**    | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                  |
 | total           | String/Number | **No**    | Total of [money](./../glossary.md#money) currency to buy or sell. Example: '0.001' or 0.001                                   |
 | price           | String/Number | **No**    | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800                                                    |
 | activationPrice | String/Number | **No**    | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                       |
-| clientOrderId   | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique for the next 24 hours. |
 
 ❗ Use total parameter instead of amount for modify buy stop market order
-
+❗ Modification by clientOrderId takes priority
 **Request BODY raw:**
 
 ```json
