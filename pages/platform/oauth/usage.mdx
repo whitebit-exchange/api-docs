@@ -2,20 +2,72 @@ import { MethodLabel } from "@/components/method-label";
 import { Code, CopyToClipboard } from "nextra/components";
 import { ApiEndpoint } from "@/components/api-endpoint";
 
-# OAuth 2.0 API
+# OAuth 2.0 API Reference
 
-## Get token
+## Authentication
+
+### OAuth 2.0 Authorization
+
+**Example Request:**
+
+<ApiEndpoint method="GET" path="https://whitebit.com/auth/login?clientId=YOUR_CLIENT_ID" />
+
+This endpoint initiates the OAuth 2.0 authorization flow for user authentication and obtaining an authorization code.
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `clientId` | string | **Yes** | Your application's client ID |
+
+**Note:** OAuth scopes are predefined during client application setup and cannot be modified during the authorization request. The access token will include all scopes that were approved during client creation.
+
+**Available Scopes:**
+The following scopes can be requested during client setup:
+
+| Scope | Description |
+|-------|-------------|
+| `general` | General API access |
+| `show.userinfo` | Access to basic user information |
+| `users.read` | Read user data |
+| `users.email.read` | Read user email information |
+| `users.kyc.read` | Read user KYC information |
+| `orders.read` | Read trading orders |
+| `orders.create` | Create trading orders |
+| `orders.delete` | Delete trading orders |
+| `balances.read` | Read account balances |
+| `markets.read` | Read market information |
+| `deals.read` | Read trading deals |
+| `orders_history.read` | Read order history |
+| `users.transactions.read` | Read user transactions |
+| `users.converts.read` | Read currency conversion history |
+| `users.balances.read` | Read user account balances |
+| `users.orders.read` | Read user orders |
+| `users.deals.read` | Read user deals |
+
+### Get Access Token
 
 <ApiEndpoint method="POST" path="/oauth2/token" />
 
-This endpoint activates access token.
+This endpoint activates an access token by exchanging an authorization code.
 
-For this request the IP of a client must be added to WB Allowlist.
+❗ Important Notes:
+- Access token duration is 300 seconds
+- The IP of the client must be added to WB Allowlist
 
-❗ Access token duration is 300 sec.
+**Request Headers:**
 
-**Request BODY x-www-form-urlencoded:**
-Need to send "client_id", "client_secret" and "code".
+| Header | Value |
+|--------|-------|
+| `Content-Type` | `application/x-www-form-urlencoded` |
+
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `client_id` | string | **Yes** | Your application's client ID |
+| `client_secret` | string | **Yes** | Your application's client secret |
+| `code` | string | **Yes** | The authorization code received from the authorization endpoint |
 
 **Response:**
 
@@ -31,10 +83,9 @@ Need to send "client_id", "client_secret" and "code".
 }
 ```
 
-## Errors:
+**Error Responses:**
 
-"This action is unauthorized."
-
+Status 401 - Not authorized:
 ```json
 {
   "data": {
@@ -43,20 +94,42 @@ Need to send "client_id", "client_secret" and "code".
 }
 ```
 
-### Refresh token
+Status 422 - Validation errors:
+```json
+{
+  "errors": {
+    "client_id": ["validation.required"],
+    "client_secret": ["validation.required"],
+    "code": ["validation.required"]
+  },
+  "notification": null
+}
+```
+
+### Refresh Token
 
 <ApiEndpoint method="POST" path="/oauth2/refresh_token" />
 
-This endpoint creates refresh token.
+This endpoint creates a new access token using a refresh token.
 
-For this request the IP of a client must be added to WB Allowlist.
+❗ Important Notes:
+- Refresh token duration is 600 seconds
+- Rate limit: 1 request per second
+- The IP of the client must be added to WB Allowlist
 
-❗ Refresh token duration is 600 sec.
+**Request Headers:**
 
-❗ Rate limit 1 request/1 sec.
+| Header | Value |
+|--------|-------|
+| `Content-Type` | `application/x-www-form-urlencoded` |
 
-**Request BODY x-www-form-urlencoded:**
-Need to send "client_id", "client_secret" and "token".
+**Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `client_id` | string | **Yes** | Your application's client ID |
+| `client_secret` | string | **Yes** | Your application's client secret |
+| `token` | string | **Yes** | The refresh token received from the token endpoint |
 
 **Response:**
 
@@ -72,9 +145,7 @@ Need to send "client_id", "client_secret" and "token".
 }
 ```
 
-## Errors:
-
-"Invalid token."
+**Error Response:**
 
 ```json
 {
@@ -83,3 +154,105 @@ Need to send "client_id", "client_secret" and "token".
   }
 }
 ```
+
+## Account Endpoints
+
+### Get Account Transactions
+
+<ApiEndpoint method="POST" path="/api/v4/accounts/transactions" />
+
+This endpoint retrieves a paginated list of account transactions.
+
+**Request Headers:**
+
+| Header | Value |
+|--------|-------|
+| `Authorization` | `Bearer YOUR_ACCESS_TOKEN` |
+| `Content-Type` | `application/json` |
+
+📖 [View complete documentation](https://docs.whitebit.com/private/http-main-v4/#get-depositwithdraw-history)
+
+---
+
+### Get Currency Conversions
+
+<ApiEndpoint method="POST" path="/api/v4/accounts/converts" />
+
+This endpoint retrieves the history of currency conversions.
+
+**Request Headers:**
+
+| Header | Value |
+|--------|-------|
+| `Authorization` | `Bearer YOUR_ACCESS_TOKEN` |
+| `Content-Type` | `application/json` |
+
+📖 [View complete documentation](https://docs.whitebit.com/private/http-trade-v4/#convert-history)
+
+---
+
+### Get Orders History
+
+<ApiEndpoint method="POST" path="/api/v4/accounts/orders" />
+
+This endpoint retrieves the history of trading orders.
+
+**Request Headers:**
+
+| Header | Value |
+|--------|-------|
+| `Authorization` | `Bearer YOUR_ACCESS_TOKEN` |
+| `Content-Type` | `application/json` |
+
+📖 [View complete documentation](https://docs.whitebit.com/private/http-trade-v4/#query-executed-orders)
+
+---
+
+### Get Executed Deals
+
+<ApiEndpoint method="POST" path="/api/v4/accounts/deals" />
+
+This endpoint retrieves the history of executed deals.
+
+**Request Headers:**
+
+| Header | Value |
+|--------|-------|
+| `Authorization` | `Bearer YOUR_ACCESS_TOKEN` |
+| `Content-Type` | `application/json` |
+
+📖 [View complete documentation](https://docs.whitebit.com/private/http-trade-v4/#query-executed-order-history)
+
+---
+
+### Get Main Account Balance
+
+<ApiEndpoint method="POST" path="/api/v4/accounts/balances/main" />
+
+This endpoint retrieves the main account balance information.
+
+**Request Headers:**
+
+| Header | Value |
+|--------|-------|
+| `Authorization` | `Bearer YOUR_ACCESS_TOKEN` |
+| `Content-Type` | `application/json` |
+
+📖 [View complete documentation](https://docs.whitebit.com/private/http-main-v4/#main-balance)
+
+---
+
+### Get Spot Account Balance
+
+<ApiEndpoint method="POST" path="/api/v4/accounts/balances/spot" />
+
+This endpoint retrieves the spot trading account balance information.
+
+**Request Headers:**
+
+| Header | Value |
+|--------|-------|
+| `Authorization` | `Bearer YOUR_ACCESS_TOKEN` |
+| `Content-Type` | `application/json` |
+
+📖 [View complete documentation](https://docs.whitebit.com/private/http-trade-v4/#trading-balance)

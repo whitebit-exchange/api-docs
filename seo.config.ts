@@ -78,10 +78,6 @@ const seoConfig: PageSEOConfig = {
     description: "Introduction to WhiteBIT's OAuth 2.0 implementation. Learn about secure third-party authentication and authorization flows.",
   },
   "platform/oauth/usage": {
-    title: "OAuth 2.0 Guide | WhiteBIT",
-    description: "Step-by-step guide for implementing OAuth 2.0 authentication with WhiteBIT. Includes code examples and best practices.",
-  },
-  "platform/oauth/docs": {
     title: "OAuth 2.0 API Reference | WhiteBIT",
     description: "Complete OAuth 2.0 API reference documentation including authorization flows, token management, scopes, and account endpoints with detailed request/response examples.",
   },
