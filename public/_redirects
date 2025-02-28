@@ -1,15 +1,17 @@
 # Authentication & OAuth redirects
 /oauth                     /platform/oauth/overview/          301
-/oauth/*                   /platform/oauth/overview/          301
 
 # API Documentation redirects
 /webhook                   /platform/webhook/                 301
-/webhook/*                 /platform/webhook/                 301
 
 # Infrastructure redirects
 /colocation               /platform/colocation/              301
-/colocation/*             /platform/colocation/              301
 
 # Platform documentation redirects
 /overview                 /platform/overview/                301
+
+# Wildcard redirects
+/oauth/*                   /platform/oauth/overview/          301
+/webhook/*                 /platform/webhook/                 301
+/colocation/*             /platform/colocation/              301
 /overview/*               /platform/overview/                301
