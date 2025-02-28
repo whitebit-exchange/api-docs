@@ -29,6 +29,14 @@ export default {
     theme: {
       breadcrumb: false,
     },
+    items: {
+      oauth: {
+        title: "OAuth Authentication",
+        theme: {
+          breadcrumb: true,
+        },
+      },
+    },
   },
   sdks: {
     title: "SDKs",
