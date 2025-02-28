@@ -8,12 +8,5 @@ export default {
   },
   "usage": {
     title: "Usage",
-    theme: {
-      toc: false,
-      layout: "full"
-    }
   },
-  "docs": {
-    title: "Documentation",
-  }
 }
