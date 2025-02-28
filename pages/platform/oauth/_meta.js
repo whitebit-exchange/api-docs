@@ -12,5 +12,8 @@ export default {
       toc: false,
       layout: "full"
     }
+  },
+  "docs": {
+    title: "Documentation",
   }
 }
