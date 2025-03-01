@@ -1,34 +1,44 @@
-# Overview
+# API Overview
 
-### WhiteBIT API supports `private` and `public` endpoints
+## Introduction
 
-### By using any of the WhiteBIT API endpoints you are confirming your agreement to the [Terms of Use](https://whitebit.com/terms/api)
+WhiteBIT API provides comprehensive access to our trading platform through both `public` and `private` endpoints. By using any WhiteBIT API endpoints, you confirm your agreement to the [Terms of Use](https://whitebit.com/terms/api).
 
-### Using Public endpoints:
+## Public API Endpoints
 
-1. Public endpoints are cached. You can find specific cache refresh interval for each particular request in API documentation.
-2. Use HTTP method `GET` method when making a request.
-3. Use [query string](https://en.wikipedia.org/wiki/Query_string) if you need to send additional data.
+Public endpoints provide access to market data and other non-account-specific information:
 
-### Using Private endpoints:
+- **Cache Policy**: All public endpoints return cached data with specific refresh intervals documented for each endpoint
+- **HTTP Method**: Use `GET` for all public requests
+- **Parameters**: Pass parameters via [query string](https://en.wikipedia.org/wiki/Query_string)
+- **Documentation**: [Public HTTP API v4](/public/http-v4) | [Public HTTP API v2](/public/http-v2) | [Public HTTP API v1](/public/http-v1)
 
-1. Read full guide [Private API Authentication Documentation](./private/http-auth)
-2. You can add up to 5 trusted IPs
-3. Read [API Quick start helper](https://github.com/whitebit-exchange/api-quickstart) to find the list of languages our API supports (and instructions for each language)
-4. Auth request should be using `POST` method and include Body data and Headers
+## Private API Endpoints
 
-### WhiteBIT API supports private and public websockets
+Private endpoints provide secure access to account-specific functions like trading and balance management:
 
-> [Public WebSocket API](./public/websocket) - General methods, Kline, Last Price, Market Statistics for current day UTC, Market Trades, Market depth.
+- **Authentication**: Required for all private endpoints - [Authentication Guide](/private/http-auth)
+- **IP Restrictions**: Up to 5 trusted IPs can be configured for security
+- **HTTP Method**: Use `POST` with appropriate Body data and Headers
+- **Documentation**: [Private API v4 - Main](/private/http-main-v4) | [Private API v4 - Trade](/private/http-trade-v4)
+- **Helper Library**: [API Quick Start Helper](https://github.com/whitebit-exchange/api-quickstart) with examples in multiple languages
 
-> [Private WebSocket API](./private/websocket) - Authentication + private methods (trade balance, orders, deals methods).
+## WebSocket API
 
-### WhiteBIT API supports [**Webhooks**](./webhook/web-hook)
+WebSocket connections provide real-time data streaming and interaction:
 
-> [Private Webhooks Documentation - Main balance](./webhook/web-hook) - Documentation for processing webhooks
+- [Public WebSocket API](/public/websocket) - Market data, klines, order book, trades, and statistics
+- [Private WebSocket API](/private/websocket) - Account data, balances, orders, and deals
 
-### [SDKs](./sdks)
+## Other Integration Options
 
-### [Glossary](./glossary)
+- [**Webhooks**](/platform/webhook) - Receive events and notifications on your server
+- [**OAuth**](/platform/oauth) - Implement secure third-party authorization
+- [**Colocation**](/platform/colocation) - Low-latency trading infrastructure services
+- [**Self-Trade Prevention**](/platform/self-trade-prevention) - Mechanisms to prevent wash trading
 
-### [FAQ](./faq)
+## Resources
+
+- [**SDKs**](/sdks) - Official software development kits
+- [**Glossary**](/glossary) - Terminology and definitions
+- [**FAQ**](/faq) - Frequently asked questions
