@@ -1,32 +1,41 @@
 # Private HTTP API Authentication
 
-### How to use:
+## Overview
 
-1. Go to your account on [whitebit.com/settings/api](https://whitebit.com/settings/api).
-2. Select the appropriate configuration tab for your API keys. Different API keys allow access to different API calls.
-3. Generate an API key.
-4. Enable IP restrictions by specifying up to 5 trusted IPs _(optional, **recommended**)_
-5. Enable Endpoint access restrictions. Select only those endpoints, that you are going to use and click "Apply" button.
+This guide explains how to authenticate with WhiteBit's private HTTP API endpoints, which require authentication for security purposes.
 
-### Requirements:
+## Getting Started
 
-Auth request should be using `POST` method and should include:
+### Setting Up API Keys
 
-1. [Body data](#body-data)
-2. [Headers](#headers)
+1. Navigate to [WhiteBit API Settings](https://whitebit.com/settings/api)
+2. Select the appropriate configuration tab for your API keys
+   > Different API keys provide access to different API endpoints
+3. Generate a new API key
+4. **Recommended Security Measures:**
+   - Enable IP restrictions (specify up to 5 trusted IPs)
+   - Enable Endpoint access restrictions (select only necessary endpoints)
 
-### Body data
+## Authentication Requirements
 
-**JSON** that includes:
+All authenticated requests must:
+1. Use the `POST` HTTP method
+2. Include specific body data
+3. Contain required headers
 
-1. **'request'** - a request path without the domain name. Example: `'/api/v4/trade-account/balance'`.
-2. [**'nonce'**](./../glossary.md#nonce) - a number that is always **greater** than the previous request’s nonce number. Example: `'1594297865'`. A good method of creating a **nonce** is to use the unix timestamp in milliseconds. This way you'll always get an incrementing number, but make sure not to send two API calls at the same time, otherwise their nonce will be identical.
-3. **'nonceWindow'** - boolean. In cases when you can't guarantee consecutive increment of [**nonce**](./../glossary.md#nonce) you can use **nonceWindow** field. If it set to true nonce validation will be work a bit different. You have to passed nonce as unix timestamp in milliseconds. The api will validate that your nonce enter the range of current time +/- 5 seconds (5000 milliseconds). Also your nonce will be checked as unique, to avoid double spending. This feature can be useful in [high-frequency trading](../glossary#high-frequency-trading-hft) concurrent systems when a lot of requests is being generated in a short period of time.
-4. **params of request**
+### Body Data Format
 
-Example:
+Your request body must be a JSON object containing:
 
-```
+| Field | Description | Example |
+|-------|-------------|---------|
+| `request` | Request path without domain name | `'/api/v4/trade-account/balance'` |
+| `nonce` | An incrementing number larger than previous requests | `'1594297865'` |
+| `nonceWindow` | Optional boolean to enable time-based nonce validation | `true` |
+| Request-specific parameters | Additional parameters required by the endpoint | `"ticker": "BTC"` |
+
+**Example Request Body:**
+```json
 {
     "request": "/api/v4/trade-account/balance",
     "nonce": 1594297865,
@@ -35,162 +44,54 @@ Example:
 }
 ```
 
-### Headers
+#### About Nonce Values
 
-With every request you need to provide next **headers**:
+- A good practice is to use the Unix timestamp in milliseconds
+- Ensure each nonce is larger than previous requests
+- When `nonceWindow` is enabled:
+  - Provide Unix timestamp in milliseconds as the nonce
+  - Timestamp must be within ±5 seconds of server time
+  - Each nonce must be unique to prevent double processing
+  - Useful for high-frequency trading systems with concurrent requests
 
-1. `'Content-type': 'application/json'`
-2. `'X-TXC-APIKEY': api_key` - where api_key is your public WhiteBit API key
-3. `'X-TXC-PAYLOAD': payload'` - where payload is base64-encoded body data
-4. `'X-TXC-SIGNATURE': signature` - where signature is `hex(HMAC_SHA512(payload), key=api_secret))`
+### Required Headers
 
-### Examples of auth
+Every authenticated request requires these headers:
 
-To help you get started with our API, we've created the [API Quick start helper](https://github.com/whitebit-exchange/api-quickstart) library. It supports the following languages:
+| Header | Value | Description |
+|--------|-------|-------------|
+| `Content-type` | `application/json` | Specifies JSON format |
+| `X-TXC-APIKEY` | `your_api_key` | Your public WhiteBit API key |
+| `X-TXC-PAYLOAD` | `base64_encoded_payload` | Base64-encoded request body |
+| `X-TXC-SIGNATURE` | `signature` | HMAC-SHA512 signature (hex encoded) |
 
-```json
-1. Python
-2. PHP
-3. NodeJS
-4. Go
-5. JavaScript
-6. Kotlin
-7. DotNet
-8. Ruby
-9. C++
-10. Rust
-```
+The signature is created using: `hex(HMAC_SHA512(payload, key=api_secret))`
 
-### Errors:
+## Implementation Examples
 
-**"Too many requests."** - this error occurs if the [**"nonce"**](./../glossary.md#nonce) in your current request is equal or is lower than the one in the previous request.
+We provide the [API Quick Start Helper](https://github.com/whitebit-exchange/api-quickstart) library with examples in multiple languages:
 
----
+- Python
+- PHP
+- NodeJS
+- Go
+- JavaScript
+- Kotlin
+- DotNet
+- Ruby
+- C++
+- Rust
 
-```json
-{
-  "message": [["Too many requests."]],
-  "result": [],
-  "success": false
-}
-```
+## Common Errors
 
----
-
-**"This action is unauthorized. Enable your key in API settings"** - this error occurs when you are using disabled API key. You can enable your API key in account API settings https://whitebit.com/settings/api. Note: Your API key is disabled automatically after disabling 2FA. Also, the API key will be disabled if the request is received from unknown IP (if IP access restrictions are turned on).
-
----
-
-```json
-{
-  "message": [["This action is unauthorized. Enable your key in API settings"]],
-  "result": [],
-  "success": false
-}
-```
-
----
-
-**"You don't have permission to use this endpoint. Please contact support for more details"** - this error occurs when you are using an endpoint that is disabled for a specific API key in API key settings. You can enable endpoint by editing "Endpoint access restrictions" for this API key in account settings https://whitebit.com/settings/api.
-
----
-
-```json
-{
-  "message": [
-    [
-      "You don't have permission to use this endpoint. Please contact support for more details"
-    ]
-  ],
-  "result": [],
-  "success": false
-}
-```
-
----
-
-**"Invalid payload"** - this error occurs when the data that was provided in the body of the request doesn't match the **base64-decoded** payload.
-
----
-
-```json
-{
-  "message": [["Invalid payload."]],
-  "result": [],
-  "success": false
-}
-```
-
----
-
-**"Unauthorized request."** - this error occurs if the request was signed incorrectly.
-
----
-
-```json
-{
-  "message": [["Unauthorized request."]],
-  "result": [],
-  "success": false
-}
-```
-
----
-
-**"[Nonce](./../glossary.md#nonce) not provided."** - this error occurs if your request is missing **"nonce"** in the request body.
-
----
-
-```json
-{
-  "message": [["Nonce not provided."]],
-  "result": [],
-  "success": false
-}
-```
-
----
-
-**"Your [nonce](./../glossary.md#nonce) is more than 5 seconds lesser than the current nonce"** - this error occurs if **nonceWindow** set to true, but you passed not a valid timestamp in **nonce** - it should be current timestamp in milliseconds.
-
----
-
-```json
-{
-  "message": [
-    ["Your nonce is more than 5 seconds lesser than the current nonce"]
-  ],
-  "result": [],
-  "success": false
-}
-```
-
----
-
-**"Invalid nonceWindow."** - this error occurs if **nonceWindow** is not boolean.
-
----
-
-```json
-{
-  "message": [["Invalid nonceWindow."]],
-  "result": [],
-  "success": false
-}
-```
-
----
-
-**"Request not provided."** - this error occurs if your request is missing **"request"** path in the request body.
-
----
-
-```json
-{
-  "message": [["Request not provided."]],
-  "result": [],
-  "success": false
-}
-```
-
----
+| Error Message | Cause | Solution |
+|---------------|-------|----------|
+| "Too many requests." | Nonce value is not greater than previous request | Use incrementing nonce values |
+| "This action is unauthorized. Enable your key in API settings" | Using disabled API key | Enable key in API settings or check IP restrictions |
+| "You don't have permission to use this endpoint." | Endpoint access is restricted | Update endpoint access in API key settings |
+| "Invalid payload" | Payload doesn't match decoded value | Ensure proper base64 encoding of request body |
+| "Unauthorized request." | Request signed incorrectly | Verify signature creation process |
+| "Nonce not provided." | Missing nonce in request body | Include nonce in all requests |
+| "Your nonce is more than 5 seconds lesser than the current nonce" | Invalid timestamp when using nonceWindow | Use current timestamp in milliseconds |
+| "Invalid nonceWindow." | nonceWindow is not a boolean | Ensure nonceWindow is set to true or false |
+| "Request not provided." | Missing request path in body | Include request path in all requests |
