@@ -1,9 +1,71 @@
-# OAuth 2.0 Overview
+# OAuth 2.0 on WhiteBIT
 
-OAuth 2.0 is a widely adopted standard that enables websites and applications to access resources from other web apps on behalf of users. It offers a secure and consent-based approach, ensuring that client apps can interact with resources without compromising user credentials. It's important to note that OAuth 2.0 primarily serves as an authorization protocol, focusing on granting access to specific resources such as remote APIs or user data, rather than an authentication protocol.
+OAuth 2.0 integration with WhiteBIT enables secure, token-based authorization for third-party applications to access the WhiteBIT platform on behalf of users. This implementation follows industry standards while providing specialized features tailored for cryptocurrency trading and account management.
 
-In OAuth 2.0, the usage of Access Tokens plays a crucial role. These tokens serve as authorization credentials, representing the permission to access resources on behalf of the end-user. While OAuth 2.0 does not prescribe a specific format for Access Tokens, the JSON Web Token (JWT) format is commonly used in various contexts. JWT allows token issuers to include additional data within the token itself, providing flexibility and extensibility.
+## Key Benefits
 
-Additionally, for enhanced security, Access Tokens often come with expiration dates. This ensures that access to resources is time-limited and reduces the risk of unauthorized usage.
+- **Enhanced Security**: Users grant access without sharing their WhiteBIT credentials with third-party applications
+- **Granular Permissions**: Fine-grained scope controls allow users to limit what third-party applications can access
+- **Streamlined Trading Experience**: Enables seamless integration with portfolio trackers, trading bots, and analysis tools
+- **Developer-Friendly**: Standardized implementation familiar to developers across the ecosystem
 
-If you have any further questions or need assistance with OAuth 2.0 integration, please feel free to reach out to us at [support@whitebit.com](mailto:support@whitebit.com). Our team will be happy to help you with any inquiries you may have.
+## How WhiteBIT OAuth Works
+
+1. **Authorization**: Users approve access for a third-party application through WhiteBIT's authorization page
+2. **Token Exchange**: The application exchanges the authorization code for an access token
+3. **API Access**: The application uses the access token to make API calls to WhiteBIT on the user's behalf
+4. **Token Refresh**: When the access token expires, the application can use a refresh token to obtain a new one
+
+## Use Cases
+
+### Trading Bots & Algorithmic Trading
+Enable automated trading strategies without storing WhiteBIT credentials in third-party systems. Trading bots can place, modify, and cancel orders while only having the specific permissions they need.
+
+### Portfolio Trackers & Analytics
+Allow portfolio management applications to read balance and trade history information without write access to trading functions, providing users with consolidated views of their assets across multiple platforms.
+
+### Mobile Applications
+Provide a seamless authentication experience in mobile apps without requiring users to enter and store their WhiteBIT credentials in the app.
+
+### Enterprise Integrations
+Enable business systems to securely connect to WhiteBIT for institutional trading, reporting, and compliance purposes with proper audit controls.
+
+## Available Scopes
+
+WhiteBIT OAuth 2.0 implementation supports a wide range of permission scopes that can be requested during client setup, including:
+
+- Account information access
+- Balance and transaction history
+- Order management (read, create, delete)
+- Market data access
+- Trading history
+- And more specialized permissions
+
+For a complete list of available scopes and detailed implementation instructions, please visit the [Usage](/platform/oauth/usage/#available-scopes) page.
+
+## Getting Started
+
+To integrate WhiteBIT OAuth 2.0 with your application, please contact our support team at [support@whitebit.com](mailto:support@whitebit.com). Our team will guide you through the OAuth integration process, including:
+
+1. Application registration and approval
+2. Scope request and configuration
+3. Implementation support for the OAuth 2.0 authorization flow
+4. Technical documentation for token exchange and API authentication
+
+Once your integration request is approved, you'll receive detailed instructions for implementing the OAuth 2.0 flow with your application.
+
+## Next Steps: Implementation Details
+
+Now that you understand the benefits and use cases of WhiteBIT's OAuth 2.0 implementation, you're ready to dive into the technical details. Our [Usage](/platform/oauth/usage) page provides comprehensive documentation on:
+
+- Endpoint specifications for authorization and token exchange
+- Request and response formats with example code
+- Complete list of available scopes and their permissions
+- Step-by-step implementation guides for common scenarios
+- Troubleshooting tips and best practices
+
+The usage documentation will guide you through the entire implementation process from initial setup to making your first authenticated API calls.
+
+## Support
+
+If you have questions or need assistance with OAuth 2.0 integration, please contact our developer support team at [support@whitebit.com](mailto:support@whitebit.com).
