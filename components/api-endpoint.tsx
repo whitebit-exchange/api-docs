@@ -41,23 +41,51 @@ export function ApiEndpoint({ method, path }: ApiEndpointProps) {
     });
   };
 
+  // Parse query parameters with formatting
+  const renderQueryParams = (queryStr: string) => {
+    if (!queryStr) return null;
+
+    // Split by & but keep the & symbol for display
+    return queryStr.split('&').map((param, index) => {
+      const [key, value] = param.split('=').map((part) => part.trim());
+
+      return (
+        <span key={index} className="inline">
+          {index > 0 && <span className="text-gray-500">&</span>}
+          <span className="whitespace-nowrap inline-block text-amber-600 dark:text-amber-500 font-medium">
+            <span>{key}</span>
+            {value && (
+              <>
+                <span>{'='}{value}</span>
+              </>
+            )}
+          </span>
+        </span>
+      );
+    });
+  };
+
   return (
     <div className={cn(
-      "flex flex-row items-center gap-2 my-6 p-3 rounded-lg border transition-colors",
+      "flex flex-col sm:flex-row items-start gap-2 my-6 p-3 rounded-lg border transition-colors relative",
       methodBackgrounds[method]
     )}>
-      <div className="flex items-center gap-2 w-full sm:w-auto">
+      <div className="flex flex-col sm:flex-row items-start gap-2 w-full">
         <MethodLabel method={method} className="text-sm md:text-base" />
-        <code className="text-base md:text-lg overflow-hidden text-ellipsis whitespace-nowrap">
+        <code className="text-base md:text-lg w-full break-all">
           <span className="text-gray-900 dark:text-gray-100">{renderPath(basePath)}</span>
           {queryString && (
             <>
-              <span className="text-amber-600 dark:text-amber-500 font-medium">?{queryString}</span>
+              <span className="text-amber-600 dark:text-amber-500 font-medium">?</span>
+              {renderQueryParams(queryString)}
             </>
           )}
         </code>
       </div>
-      <CopyToClipboard getValue={() => path} className="ml-auto" />
+      <CopyToClipboard
+        getValue={() => path}
+        className="absolute sm:relative right-3 top-3 sm:right-auto sm:top-auto sm:self-start"
+      />
     </div>
   );
 }

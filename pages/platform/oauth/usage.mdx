@@ -1,5 +1,5 @@
 import { MethodLabel } from "@/components/method-label";
-import { Code, CopyToClipboard } from "nextra/components";
+import { Code, CopyToClipboard, Tabs } from "nextra/components";
 import { ApiEndpoint } from "@/components/api-endpoint";
 
 # OAuth 2.0 API Reference
@@ -10,7 +10,7 @@ import { ApiEndpoint } from "@/components/api-endpoint";
 
 **Example Request:**
 
-<ApiEndpoint method="GET" path="https://whitebit.com/auth/login?clientId=YOUR_CLIENT_ID" />
+<ApiEndpoint method="GET" path="https://whitebit.com/auth/login?clientId=YOUR_CLIENT_ID&state=SECURE_RANDOM_STATE" />
 
 This endpoint initiates the OAuth 2.0 authorization flow for user authentication and obtaining an authorization code.
 
@@ -19,6 +19,1129 @@ This endpoint initiates the OAuth 2.0 authorization flow for user authentication
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `clientId` | string | **Yes** | Your application's client ID |
+| `state` | string | **Recommended** | A secure random string used to maintain state between the request and callback and prevent CSRF attacks |
+
+**Using the State Parameter (Best Practice)**
+
+The `state` parameter is crucial for security in OAuth flows:
+
+<Tabs items={['TypeScript', 'PHP', 'Go', 'Java', 'Python']}>
+  <Tabs.Tab>
+  ```typescript
+  import crypto from 'crypto';
+  import http from 'http';
+  import https from 'https';
+  import { URL, URLSearchParams } from 'url';
+  import { parse as parseUrl } from 'url';
+  import { parse as parseQueryString } from 'querystring';
+
+  // Simple in-memory session store (for production use a proper store)
+  const sessions = new Map<string, Record<string, any>>();
+
+  // Generate a secure random state value
+  function generateSecureState(): string {
+    return crypto.randomBytes(32)
+      .toString('base64')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '');
+  }
+
+  // Generate session ID
+  function generateSessionId(): string {
+    return crypto.randomBytes(16).toString('hex');
+  }
+
+  // Create HTTP server
+  const server = http.createServer((req, res) => {
+    // Get or create session
+    let sessionId = '';
+    const cookies = req.headers.cookie?.split(';').map(c => c.trim());
+    const sessionCookie = cookies?.find(c => c.startsWith('sessionId='));
+
+    if (sessionCookie) {
+      sessionId = sessionCookie.split('=')[1];
+      if (!sessions.has(sessionId)) {
+        sessionId = '';
+      }
+    }
+
+    if (!sessionId) {
+      sessionId = generateSessionId();
+      res.setHeader('Set-Cookie', `sessionId=${sessionId}; HttpOnly; Path=/; Max-Age=600`);
+      sessions.set(sessionId, {});
+    }
+
+    const session = sessions.get(sessionId) || {};
+
+    // Parse URL and path
+    const parsedUrl = parseUrl(req.url || '');
+    const pathname = parsedUrl.pathname || '';
+
+    // Handle routes
+    if (pathname === '/auth/login') {
+      // Initiate OAuth flow
+      const state = generateSecureState();
+      session.oauth_state = state;
+
+      res.writeHead(302, {
+        'Location': `https://whitebit.com/auth/login?clientId=YOUR_CLIENT_ID&state=${state}`
+      });
+      res.end();
+    }
+    else if (pathname === '/auth/callback') {
+      // Handle OAuth callback
+      const query = parseQueryString(parsedUrl.query || '');
+      const receivedState = query.state as string;
+      const storedState = session.oauth_state;
+
+      // Clear the stored state immediately
+      delete session.oauth_state;
+
+      // Verify the state parameter
+      if (!receivedState || receivedState !== storedState) {
+        res.writeHead(400);
+        res.end('State validation failed');
+        return;
+      }
+
+      // State is valid, proceed with code exchange
+      const code = query.code as string;
+      if (code) {
+        // Exchange code for token
+        exchangeCodeForToken(code, sessionId, res);
+      } else {
+        res.writeHead(400);
+        res.end('Missing authorization code');
+      }
+    }
+    else {
+      // Handle other routes or 404
+      res.writeHead(404);
+      res.end('Not found');
+    }
+  });
+
+  // Exchange the authorization code for access token
+  function exchangeCodeForToken(
+    code: string,
+    sessionId: string,
+    res: http.ServerResponse
+  ): void {
+    const params = new URLSearchParams({
+      client_id: 'YOUR_CLIENT_ID',
+      client_secret: 'YOUR_CLIENT_SECRET',
+      code: code
+    }).toString();
+
+    const options = {
+      hostname: 'whitebit.com',
+      port: 443,
+      path: '/oauth2/token',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': Buffer.byteLength(params)
+      }
+    };
+
+    const request = https.request(options, (tokenRes) => {
+      let data = '';
+
+      tokenRes.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      tokenRes.on('end', () => {
+        try {
+          const tokenData = JSON.parse(data);
+
+          // Store tokens in session
+          const session = sessions.get(sessionId);
+          if (session) {
+            session.access_token = tokenData.data.access_token;
+            session.refresh_token = tokenData.data.refresh_token;
+          }
+
+          // Redirect to dashboard
+          res.writeHead(302, {
+            'Location': '/dashboard'
+          });
+          res.end();
+        } catch (error) {
+          console.error('Failed to parse token response:', error);
+          res.writeHead(500);
+          res.end('Authentication failed');
+        }
+      });
+    });
+
+    request.on('error', (error) => {
+      console.error('Token exchange failed:', error);
+      res.writeHead(500);
+      res.end('Authentication failed');
+    });
+
+    // Write data to request body
+    request.write(params);
+    request.end();
+  }
+
+  const PORT = process.env.PORT || 3000;
+  server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+  ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ```php
+  <?php
+  declare(strict_types=1);
+
+  /**
+   * Generate a cryptographically secure random state value
+   *
+   * @return string The secure random state value
+   */
+  function generateSecureState(): string {
+      return bin2hex(random_bytes(32)); // 256 bits of entropy
+  }
+
+  /**
+   * Initiate OAuth flow and redirect user to authorization endpoint
+   *
+   * @return void
+   */
+  function initiateOAuthFlow(): void {
+      // Start secure session
+      session_start([
+          'cookie_httponly' => true,
+          'cookie_secure' => true,
+          'cookie_samesite' => 'Lax',
+          'use_strict_mode' => true
+      ]);
+
+      // Generate and store state
+      $state = generateSecureState();
+      $_SESSION['oauth_state'] = $state;
+      $_SESSION['oauth_state_created_at'] = time();
+
+      // Set short expiration time for state
+      $_SESSION['oauth_state_expires_at'] = time() + 600; // 10 minutes
+
+      // Redirect to authorization endpoint
+      $authUrl = 'https://whitebit.com/auth/login?clientId=' .
+                 urlencode('YOUR_CLIENT_ID') .
+                 '&state=' . urlencode($state);
+
+      // Prevent header injection
+      if (!headers_sent()) {
+          header('Location: ' . $authUrl);
+          exit;
+      }
+  }
+
+  /**
+   * Handle OAuth callback and validate state parameter
+   *
+   * @return void
+   */
+  function handleOAuthCallback(): void {
+      // Start secure session
+      session_start([
+          'cookie_httponly' => true,
+          'cookie_secure' => true,
+          'cookie_samesite' => 'Lax',
+          'use_strict_mode' => true
+      ]);
+
+      // Retrieve states
+      $receivedState = $_GET['state'] ?? '';
+      $storedState = $_SESSION['oauth_state'] ?? '';
+      $expiresAt = $_SESSION['oauth_state_expires_at'] ?? 0;
+
+      // Clear the stored state immediately
+      unset($_SESSION['oauth_state'], $_SESSION['oauth_state_expires_at'], $_SESSION['oauth_state_created_at']);
+
+      // Verify the state parameter
+      if (empty($receivedState) ||
+          $receivedState !== $storedState ||
+          time() > $expiresAt) {
+
+          // Potential CSRF attack or expired state - abort authentication
+          error_log('OAuth state validation failed');
+          http_response_code(400);
+          echo 'State validation failed';
+          exit;
+      }
+
+      // State is valid, proceed with code exchange
+      $code = $_GET['code'] ?? '';
+      if (!empty($code)) {
+          exchangeCodeForToken($code);
+      } else {
+          http_response_code(400);
+          echo 'Missing authorization code';
+          exit;
+      }
+  }
+
+  /**
+   * Exchange authorization code for access token
+   *
+   * @param string $code The authorization code to exchange
+   * @return void
+   */
+  function exchangeCodeForToken(string $code): void {
+      // Prepare request parameters
+      $params = [
+          'client_id' => 'YOUR_CLIENT_ID',
+          'client_secret' => 'YOUR_CLIENT_SECRET',
+          'code' => $code
+      ];
+
+      // Initialize cURL session
+      $ch = curl_init();
+
+      // Set cURL options
+      curl_setopt_array($ch, [
+          CURLOPT_URL => 'https://whitebit.com/oauth2/token',
+          CURLOPT_POST => true,
+          CURLOPT_POSTFIELDS => http_build_query($params),
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_HTTPHEADER => [
+              'Content-Type: application/x-www-form-urlencoded',
+              'Accept: application/json'
+          ],
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_SSL_VERIFYPEER => true
+      ]);
+
+      // Execute request
+      $response = curl_exec($ch);
+      $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+      curl_close($ch);
+
+      // Check for errors
+      if ($httpCode !== 200 || $response === false) {
+          error_log('Token exchange failed with HTTP code: ' . $httpCode);
+          http_response_code(500);
+          echo 'Authentication failed';
+          exit;
+      }
+
+      // Parse response
+      $tokenData = json_decode($response, true);
+
+      // Store tokens securely in session
+      $_SESSION['access_token'] = $tokenData['data']['access_token'] ?? null;
+      $_SESSION['refresh_token'] = $tokenData['data']['refresh_token'] ?? null;
+      $_SESSION['token_expires_at'] = time() + ($tokenData['data']['expires_in'] ?? 300);
+
+      // Redirect to dashboard
+      header('Location: /dashboard');
+      exit;
+  }
+  ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ```go
+  package main
+
+  import (
+  	"bytes"
+  	"context"
+  	"crypto/rand"
+  	"encoding/base64"
+  	"encoding/json"
+  	"fmt"
+  	"io"
+  	"log"
+  	"net/http"
+  	"net/url"
+  	"time"
+
+  	"golang.org/x/crypto/bcrypt"
+  )
+
+  // TokenResponse represents the OAuth token response
+  type TokenResponse struct {
+  	Data struct {
+  		AccessToken  string `json:"access_token"`
+  		ExpiresIn    int    `json:"expires_in"`
+  		RefreshToken string `json:"refresh_token"`
+  		Scope        string `json:"scope"`
+  		TokenType    string `json:"token_type"`
+  	} `json:"data"`
+  }
+
+  // SessionStore is a simple in-memory session store
+  // In production, use a proper session store like Redis
+  type SessionStore struct {
+  	sessions map[string]map[string]interface{}
+  }
+
+  // NewSessionStore creates a new session store
+  func NewSessionStore() *SessionStore {
+  	return &SessionStore{
+  		sessions: make(map[string]map[string]interface{}),
+  	}
+  }
+
+  // Get retrieves a session by ID
+  func (s *SessionStore) Get(id string) (map[string]interface{}, bool) {
+  	session, ok := s.sessions[id]
+  	return session, ok
+  }
+
+  // Set creates or updates a session
+  func (s *SessionStore) Set(id string, data map[string]interface{}) {
+  	s.sessions[id] = data
+  }
+
+  // Delete removes a session
+  func (s *SessionStore) Delete(id string) {
+  	delete(s.sessions, id)
+  }
+
+  // Global session store
+  var sessionStore = NewSessionStore()
+
+  // Generate a secure random state value
+  func generateSecureState() (string, error) {
+  	b := make([]byte, 32) // 256 bits of entropy
+  	_, err := rand.Read(b)
+  	if err != nil {
+  		return "", err
+  	}
+  	return base64.RawURLEncoding.EncodeToString(b), nil
+  }
+
+  // Generate a secure session ID
+  func generateSessionID() (string, error) {
+  	b := make([]byte, 16)
+  	_, err := rand.Read(b)
+  	if err != nil {
+  		return "", err
+  	}
+  	return base64.RawURLEncoding.EncodeToString(b), nil
+  }
+
+  // Create a secure cookie
+  func createSecureCookie(w http.ResponseWriter, name, value string, maxAge int) {
+  	http.SetCookie(w, &http.Cookie{
+  		Name:     name,
+  		Value:    value,
+  		Path:     "/",
+  		HttpOnly: true,
+  		Secure:   true,
+  		SameSite: http.SameSiteLaxMode,
+  		MaxAge:   maxAge,
+  	})
+  }
+
+  // Initiate OAuth flow
+  func initiateOAuthFlowHandler(w http.ResponseWriter, r *http.Request) {
+  	// Generate state and session ID
+  	state, err := generateSecureState()
+  	if err != nil {
+  		http.Error(w, "Failed to generate state", http.StatusInternalServerError)
+  		return
+  	}
+
+  	sessionID, err := generateSessionID()
+  	if err != nil {
+  		http.Error(w, "Failed to generate session ID", http.StatusInternalServerError)
+  		return
+  	}
+
+  	// Create session with state and expiration
+  	sessionStore.Set(sessionID, map[string]interface{}{
+  		"oauth_state":        state,
+  		"oauth_state_expiry": time.Now().Add(10 * time.Minute).Unix(),
+  	})
+
+  	// Set session cookie
+  	createSecureCookie(w, "session_id", sessionID, 600) // 10 minutes
+
+  	// Build authorization URL
+  	authURL, _ := url.Parse("https://whitebit.com/auth/login")
+  	q := authURL.Query()
+  	q.Set("clientId", "YOUR_CLIENT_ID")
+  	q.Set("state", state)
+  	authURL.RawQuery = q.Encode()
+
+  	// Redirect to authorization endpoint
+  	http.Redirect(w, r, authURL.String(), http.StatusFound)
+  }
+
+  // Handle OAuth callback
+  func oauthCallbackHandler(w http.ResponseWriter, r *http.Request) {
+  	// Get session ID from cookie
+  	sessionCookie, err := r.Cookie("session_id")
+  	if err != nil {
+  		http.Error(w, "Missing session", http.StatusBadRequest)
+  		return
+  	}
+
+  	// Get session data
+  	session, ok := sessionStore.Get(sessionCookie.Value)
+  	if !ok {
+  		http.Error(w, "Invalid session", http.StatusBadRequest)
+  		return
+  	}
+
+  	// Get state from query and session
+  	receivedState := r.URL.Query().Get("state")
+  	storedState, ok := session["oauth_state"].(string)
+  	if !ok {
+  		http.Error(w, "Invalid session state", http.StatusBadRequest)
+  		return
+  	}
+
+  	// Get state expiration
+  	expiry, ok := session["oauth_state_expiry"].(int64)
+  	if !ok || time.Now().Unix() > expiry {
+  		http.Error(w, "State expired", http.StatusBadRequest)
+  		return
+  	}
+
+  	// Clear state from session
+  	delete(session, "oauth_state")
+  	delete(session, "oauth_state_expiry")
+  	sessionStore.Set(sessionCookie.Value, session)
+
+  	// Verify state
+  	if receivedState == "" || receivedState != storedState {
+  		http.Error(w, "OAuth state validation failed", http.StatusBadRequest)
+  		return
+  	}
+
+  	// Get authorization code
+  	code := r.URL.Query().Get("code")
+  	if code == "" {
+  		http.Error(w, "Missing authorization code", http.StatusBadRequest)
+  		return
+  	}
+
+  	// Exchange code for token
+  	token, err := exchangeCodeForToken(r.Context(), code)
+  	if err != nil {
+  		log.Printf("Token exchange failed: %v", err)
+  		http.Error(w, "Authentication failed", http.StatusInternalServerError)
+  		return
+  	}
+
+  	// Store tokens in session
+  	session["access_token"] = token.Data.AccessToken
+  	session["refresh_token"] = token.Data.RefreshToken
+  	session["token_expires_at"] = time.Now().Add(time.Duration(token.Data.ExpiresIn) * time.Second).Unix()
+  	sessionStore.Set(sessionCookie.Value, session)
+
+  	// Redirect to dashboard
+  	http.Redirect(w, r, "/dashboard", http.StatusFound)
+  }
+
+  // Exchange authorization code for access token
+  func exchangeCodeForToken(ctx context.Context, code string) (*TokenResponse, error) {
+  	// Prepare request data
+  	data := url.Values{}
+  	data.Set("client_id", "YOUR_CLIENT_ID")
+  	data.Set("client_secret", "YOUR_CLIENT_SECRET")
+  	data.Set("code", code)
+
+  	// Create HTTP request
+  	req, err := http.NewRequestWithContext(
+  		ctx,
+  		"POST",
+  		"https://whitebit.com/oauth2/token",
+  		bytes.NewBufferString(data.Encode()),
+  	)
+  	if err != nil {
+  		return nil, err
+  	}
+
+  	// Set headers
+  	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+  	req.Header.Set("Accept", "application/json")
+
+  	// Create HTTP client with timeout
+  	client := &http.Client{
+  		Timeout: 30 * time.Second,
+  	}
+
+  	// Send request
+  	resp, err := client.Do(req)
+  	if err != nil {
+  		return nil, err
+  	}
+  	defer resp.Body.Close()
+
+  	// Check status code
+  	if resp.StatusCode != http.StatusOK {
+  		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+  	}
+
+  	// Read response body
+  	body, err := io.ReadAll(resp.Body)
+  	if err != nil {
+  		return nil, err
+  	}
+
+  	// Parse response
+  	var tokenResponse TokenResponse
+  	if err := json.Unmarshal(body, &tokenResponse); err != nil {
+  		return nil, err
+  	}
+
+  	return &tokenResponse, nil
+  }
+
+  func main() {
+  	// Set up HTTP server
+  	mux := http.NewServeMux()
+  	mux.HandleFunc("/auth/login", initiateOAuthFlowHandler)
+  	mux.HandleFunc("/auth/callback", oauthCallbackHandler)
+
+  	// Start server
+  	server := &http.Server{
+  		Addr:           ":3000",
+  		Handler:        mux,
+  		ReadTimeout:    10 * time.Second,
+  		WriteTimeout:   10 * time.Second,
+  		MaxHeaderBytes: 1 << 20,
+  	}
+
+  	log.Println("Server running on port 3000")
+  	log.Fatal(server.ListenAndServe())
+  }
+  ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ```java
+  import java.io.BufferedReader;
+  import java.io.IOException;
+  import java.io.InputStreamReader;
+  import java.io.OutputStream;
+  import java.net.HttpURLConnection;
+  import java.net.InetSocketAddress;
+  import java.net.URI;
+  import java.net.URL;
+  import java.net.URLEncoder;
+  import java.nio.charset.StandardCharsets;
+  import java.security.SecureRandom;
+  import java.time.Instant;
+  import java.util.Base64;
+  import java.util.HashMap;
+  import java.util.Map;
+  import java.util.concurrent.ConcurrentHashMap;
+  import java.util.stream.Collectors;
+
+  import com.sun.net.httpserver.HttpExchange;
+  import com.sun.net.httpserver.HttpHandler;
+  import com.sun.net.httpserver.HttpServer;
+
+  public class OAuthServer {
+      // Simple in-memory session store (use Redis or similar for production)
+      private static final Map<String, Map<String, Object>> sessions = new ConcurrentHashMap<>();
+      private static final SecureRandom secureRandom = new SecureRandom();
+      private static final Base64.Encoder encoder = Base64.getUrlEncoder().withoutPadding();
+
+      public static void main(String[] args) throws IOException {
+          // Create HTTP server
+          HttpServer server = HttpServer.create(new InetSocketAddress(3000), 0);
+
+          // Register handlers
+          server.createContext("/auth/login", new InitiateOAuthFlowHandler());
+          server.createContext("/auth/callback", new OAuthCallbackHandler());
+
+          // Start server
+          server.setExecutor(null);
+          server.start();
+          System.out.println("Server started on port 3000");
+      }
+
+      /**
+       * Generate a cryptographically secure random string
+       */
+      private static String generateSecureToken(int byteLength) {
+          byte[] bytes = new byte[byteLength];
+          secureRandom.nextBytes(bytes);
+          return encoder.encodeToString(bytes);
+      }
+
+      /**
+       * Handler for initiating OAuth flow
+       */
+      static class InitiateOAuthFlowHandler implements HttpHandler {
+          @Override
+          public void handle(HttpExchange exchange) throws IOException {
+              // Generate secure state and session ID
+              String state = generateSecureToken(32);
+              String sessionId = generateSecureToken(16);
+
+              // Store state in session with expiry
+              Map<String, Object> sessionData = new HashMap<>();
+              sessionData.put("oauth_state", state);
+              sessionData.put("oauth_state_expiry", Instant.now().plusSeconds(600).getEpochSecond());
+              sessions.put(sessionId, sessionData);
+
+              // Set session cookie
+              String cookie = String.format(
+                  "session_id=%s; Path=/; HttpOnly; SameSite=Lax; Max-Age=600", sessionId);
+              if (exchange.getRequestHeaders().containsKey("X-Forwarded-Proto") &&
+                  exchange.getRequestHeaders().getFirst("X-Forwarded-Proto").equals("https")) {
+                  cookie += "; Secure";
+              }
+
+              exchange.getResponseHeaders().add("Set-Cookie", cookie);
+
+              // Build authorization URL
+              String redirectUrl = String.format(
+                  "https://whitebit.com/auth/login?clientId=%s&state=%s",
+                  URLEncoder.encode("YOUR_CLIENT_ID", StandardCharsets.UTF_8),
+                  URLEncoder.encode(state, StandardCharsets.UTF_8)
+              );
+
+              // Redirect to authorization endpoint
+              exchange.getResponseHeaders().add("Location", redirectUrl);
+              exchange.sendResponseHeaders(302, -1);
+              exchange.close();
+          }
+      }
+
+      /**
+       * Handler for OAuth callback
+       */
+      static class OAuthCallbackHandler implements HttpHandler {
+          @Override
+          public void handle(HttpExchange exchange) throws IOException {
+              try {
+                  // Parse query parameters
+                  String query = exchange.getRequestURI().getQuery();
+                  Map<String, String> queryParams = parseQueryString(query);
+
+                  // Get received state
+                  String receivedState = queryParams.get("state");
+                  if (receivedState == null || receivedState.isEmpty()) {
+                      sendErrorResponse(exchange, 400, "Missing state parameter");
+                      return;
+                  }
+
+                  // Get session ID from cookie
+                  String sessionId = getSessionIdFromCookie(exchange);
+                  if (sessionId == null) {
+                      sendErrorResponse(exchange, 400, "Invalid session");
+                      return;
+                  }
+
+                  // Get session data
+                  Map<String, Object> session = sessions.get(sessionId);
+                  if (session == null) {
+                      sendErrorResponse(exchange, 400, "Session not found");
+                      return;
+                  }
+
+                  // Verify state expiry
+                  Long expiryTime = (Long) session.get("oauth_state_expiry");
+                  if (expiryTime == null || Instant.now().getEpochSecond() > expiryTime) {
+                      sessions.remove(sessionId);
+                      sendErrorResponse(exchange, 400, "State expired");
+                      return;
+                  }
+
+                  // Get stored state
+                  String storedState = (String) session.get("oauth_state");
+
+                  // Clear stored state
+                  session.remove("oauth_state");
+                  session.remove("oauth_state_expiry");
+
+                  // Verify state
+                  if (storedState == null || !storedState.equals(receivedState)) {
+                      sendErrorResponse(exchange, 400, "State validation failed");
+                      return;
+                  }
+
+                  // Get authorization code
+                  String code = queryParams.get("code");
+                  if (code == null || code.isEmpty()) {
+                      sendErrorResponse(exchange, 400, "Missing authorization code");
+                      return;
+                  }
+
+                  // Exchange code for token
+                  TokenResponse tokenResponse = exchangeCodeForToken(code);
+
+                  // Store tokens in session
+                  session.put("access_token", tokenResponse.accessToken);
+                  session.put("refresh_token", tokenResponse.refreshToken);
+                  session.put("token_expires_at", Instant.now().plusSeconds(tokenResponse.expiresIn).getEpochSecond());
+
+                  // Redirect to dashboard
+                  exchange.getResponseHeaders().add("Location", "/dashboard");
+                  exchange.sendResponseHeaders(302, -1);
+              } catch (Exception e) {
+                  e.printStackTrace();
+                  sendErrorResponse(exchange, 500, "Internal server error");
+              } finally {
+                  exchange.close();
+              }
+          }
+
+          /**
+           * Get session ID from cookie
+           */
+          private String getSessionIdFromCookie(HttpExchange exchange) {
+              String cookiesHeader = exchange.getRequestHeaders().getFirst("Cookie");
+              if (cookiesHeader == null) {
+                  return null;
+              }
+
+              // Parse cookies
+              String[] cookies = cookiesHeader.split(";");
+              for (String cookie : cookies) {
+                  String[] parts = cookie.trim().split("=", 2);
+                  if (parts.length == 2 && parts[0].equals("session_id")) {
+                      return parts[1];
+                  }
+              }
+
+              return null;
+          }
+
+          /**
+           * Send error response
+           */
+          private void sendErrorResponse(HttpExchange exchange, int statusCode, String message) throws IOException {
+              byte[] response = message.getBytes(StandardCharsets.UTF_8);
+              exchange.sendResponseHeaders(statusCode, response.length);
+              try (OutputStream os = exchange.getResponseBody()) {
+                  os.write(response);
+              }
+          }
+      }
+
+      /**
+       * Parse query string into map
+       */
+      private static Map<String, String> parseQueryString(String query) {
+          Map<String, String> params = new HashMap<>();
+          if (query == null || query.isEmpty()) {
+              return params;
+          }
+
+          String[] pairs = query.split("&");
+          for (String pair : pairs) {
+              String[] keyValue = pair.split("=", 2);
+              if (keyValue.length == 2) {
+                  params.put(keyValue[0], keyValue[1]);
+              }
+          }
+
+          return params;
+      }
+
+      /**
+       * Exchange authorization code for access token
+       */
+      private static TokenResponse exchangeCodeForToken(String code) throws IOException {
+          // Prepare request data
+          String requestBody = String.format(
+              "client_id=%s&client_secret=%s&code=%s",
+              URLEncoder.encode("YOUR_CLIENT_ID", StandardCharsets.UTF_8),
+              URLEncoder.encode("YOUR_CLIENT_SECRET", StandardCharsets.UTF_8),
+              URLEncoder.encode(code, StandardCharsets.UTF_8)
+          );
+
+          // Create connection
+          URL url = new URL("https://whitebit.com/oauth2/token");
+          HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+          connection.setRequestMethod("POST");
+          connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+          connection.setRequestProperty("Accept", "application/json");
+          connection.setDoOutput(true);
+          connection.setConnectTimeout(5000);
+          connection.setReadTimeout(5000);
+
+          // Send request
+          try (OutputStream os = connection.getOutputStream()) {
+              os.write(requestBody.getBytes(StandardCharsets.UTF_8));
+          }
+
+          // Handle error response
+          int responseCode = connection.getResponseCode();
+          if (responseCode != 200) {
+              throw new IOException("HTTP error code: " + responseCode);
+          }
+
+          // Read response
+          try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                  connection.getInputStream(), StandardCharsets.UTF_8))) {
+              String responseText = br.lines().collect(Collectors.joining("\n"));
+              return parseTokenResponse(responseText);
+          }
+      }
+
+      /**
+       * Parse token response
+       */
+      private static TokenResponse parseTokenResponse(String json) {
+          // In a real application, use a proper JSON library like Jackson or Gson
+          // This is a simplified example that assumes valid JSON
+          TokenResponse response = new TokenResponse();
+
+          // Extract access_token
+          int accessTokenStart = json.indexOf("\"access_token\":\"") + 15;
+          int accessTokenEnd = json.indexOf("\"", accessTokenStart);
+          response.accessToken = json.substring(accessTokenStart, accessTokenEnd);
+
+          // Extract refresh_token
+          int refreshTokenStart = json.indexOf("\"refresh_token\":\"") + 16;
+          int refreshTokenEnd = json.indexOf("\"", refreshTokenStart);
+          response.refreshToken = json.substring(refreshTokenStart, refreshTokenEnd);
+
+          // Extract expires_in
+          int expiresInStart = json.indexOf("\"expires_in\":") + 13;
+          int expiresInEnd = json.indexOf(",", expiresInStart);
+          if (expiresInEnd == -1) {
+              expiresInEnd = json.indexOf("}", expiresInStart);
+          }
+          response.expiresIn = Integer.parseInt(json.substring(expiresInStart, expiresInEnd).trim());
+
+          return response;
+      }
+
+      /**
+       * Token response object
+       */
+      static class TokenResponse {
+          String accessToken;
+          String refreshToken;
+          int expiresIn;
+      }
+  }
+  ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ```python
+  import http.server
+  import http.cookies
+  import json
+  import secrets
+  import socketserver
+  import time
+  import urllib.error
+  import urllib.parse
+  import urllib.request
+  from typing import Dict, Any, Optional, Tuple
+
+  # Simple in-memory session store (use Redis or similar for production)
+  sessions: Dict[str, Dict[str, Any]] = {}
+
+  class OAuthRequestHandler(http.server.BaseHTTPRequestHandler):
+      """HTTP request handler for OAuth flow"""
+
+      def do_GET(self):
+          """Handle GET requests"""
+          parsed_path = urllib.parse.urlparse(self.path)
+          path = parsed_path.path
+
+          if path == '/auth/login':
+              self._handle_login()
+          elif path == '/auth/callback':
+              self._handle_callback()
+          else:
+              self._send_response(404, b'Not Found')
+
+      def _handle_login(self):
+          """Handle OAuth login initiation"""
+          # Generate secure state and session ID
+          state = generate_secure_token(32)
+          session_id = generate_secure_token(16)
+
+          # Create session with state and expiry
+          sessions[session_id] = {
+              'oauth_state': state,
+              'oauth_state_expiry': time.time() + 600  # 10 minutes
+          }
+
+          # Set session cookie
+          cookie = http.cookies.SimpleCookie()
+          cookie['session_id'] = session_id
+          cookie['session_id']['path'] = '/'
+          cookie['session_id']['httponly'] = True
+          cookie['session_id']['samesite'] = 'Lax'
+          cookie['session_id']['max-age'] = 600
+
+          if self.headers.get('X-Forwarded-Proto') == 'https':
+              cookie['session_id']['secure'] = True
+
+          # Build redirect URL
+          redirect_url = (
+              f"https://whitebit.com/auth/login?"
+              f"clientId={urllib.parse.quote('YOUR_CLIENT_ID')}&"
+              f"state={urllib.parse.quote(state)}"
+          )
+
+          # Send redirect response
+          self.send_response(302)
+          self.send_header('Location', redirect_url)
+          self.send_header('Set-Cookie', cookie.output(header=''))
+          self.end_headers()
+
+      def _handle_callback(self):
+          """Handle OAuth callback"""
+          # Parse query parameters
+          parsed_path = urllib.parse.urlparse(self.path)
+          query_params = urllib.parse.parse_qs(parsed_path.query)
+
+          # Get received state
+          received_state = query_params.get('state', [''])[0]
+          if not received_state:
+              self._send_response(400, b'Missing state parameter')
+              return
+
+          # Get session ID from cookie
+          session_id = self._get_session_id_from_cookie()
+          if not session_id or session_id not in sessions:
+              self._send_response(400, b'Invalid session')
+              return
+
+          # Get session data
+          session = sessions[session_id]
+
+          # Verify state expiry
+          expiry_time = session.get('oauth_state_expiry', 0)
+          if time.time() > expiry_time:
+              del sessions[session_id]
+              self._send_response(400, b'State expired')
+              return
+
+          # Get stored state
+          stored_state = session.get('oauth_state', '')
+
+          # Clear stored state
+          session.pop('oauth_state', None)
+          session.pop('oauth_state_expiry', None)
+
+          # Verify state
+          if not stored_state or stored_state != received_state:
+              self._send_response(400, b'State validation failed')
+              return
+
+          # Get authorization code
+          code = query_params.get('code', [''])[0]
+          if not code:
+              self._send_response(400, b'Missing authorization code')
+              return
+
+          try:
+              # Exchange code for token
+              token_response = exchange_code_for_token(code)
+
+              # Store tokens in session
+              session['access_token'] = token_response['access_token']
+              session['refresh_token'] = token_response['refresh_token']
+              session['token_expires_at'] = time.time() + token_response['expires_in']
+
+              # Redirect to dashboard
+              self.send_response(302)
+              self.send_header('Location', '/dashboard')
+              self.end_headers()
+          except Exception as e:
+              print(f"Token exchange failed: {e}")
+              self._send_response(500, b'Authentication failed')
+
+      def _get_session_id_from_cookie(self) -> Optional[str]:
+          """Extract session ID from cookies"""
+          cookie_str = self.headers.get('Cookie')
+          if not cookie_str:
+              return None
+
+          cookie = http.cookies.SimpleCookie()
+          cookie.load(cookie_str)
+
+          if 'session_id' not in cookie:
+              return None
+
+          return cookie['session_id'].value
+
+      def _send_response(self, status_code: int, content: bytes):
+          """Send HTTP response with content"""
+          self.send_response(status_code)
+          self.send_header('Content-Type', 'text/plain')
+          self.send_header('Content-Length', str(len(content)))
+          self.end_headers()
+          self.wfile.write(content)
+
+def generate_secure_token(length: int) -> str:
+    """Generate a cryptographically secure random token"""
+    return secrets.token_urlsafe(length)
+
+def exchange_code_for_token(code: str) -> Dict[str, Any]:
+    """Exchange authorization code for access token"""
+    # Prepare request data
+    data = urllib.parse.urlencode({
+        'client_id': 'YOUR_CLIENT_ID',
+        'client_secret': 'YOUR_CLIENT_SECRET',
+        'code': code
+    }).encode('ascii')
+
+    # Prepare request
+    headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json'
+    }
+
+    # Create request
+    req = urllib.request.Request(
+        'https://whitebit.com/oauth2/token',
+        data=data,
+        headers=headers,
+        method='POST'
+    )
+
+    try:
+        # Send request and get response
+        with urllib.request.urlopen(req, timeout=10) as response:
+            response_data = response.read()
+            response_json = json.loads(response_data)
+
+            # Extract token data
+            return {
+                'access_token': response_json['data']['access_token'],
+                'refresh_token': response_json['data']['refresh_token'],
+                'expires_in': response_json['data']['expires_in'],
+                'token_type': response_json['data']['token_type'],
+                'scope': response_json['data']['scope']
+            }
+    except urllib.error.HTTPError as e:
+        print(f"HTTP error: {e.code} - {e.reason}")
+        raise
+    except urllib.error.URLError as e:
+        print(f"URL error: {e.reason}")
+        raise
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        raise
+
+def main():
+    """Run the server"""
+    port = 3000
+    handler = OAuthRequestHandler
+
+    with socketserver.TCPServer(("", port), handler) as httpd:
+        print(f"Server running on port {port}")
+        httpd.serve_forever()
+
+if __name__ == "__main__":
+    main()
+  ```
+  </Tabs.Tab>
+</Tabs>
+
+This approach protects users from cross-site request forgery attacks and ensures the authorization response was intended for your application.
 
 **Note:** OAuth scopes are predefined during client application setup and cannot be modified during the authorization request. The access token will include all scopes that were approved during client creation.
 
