@@ -345,24 +345,11 @@ This guide provides information about using `clientOrderId` in your trading oper
         }
         ```
       </div>
-    </div>
-  </CardContent>
-</Card>
 
-<Card className="my-6">
-  <CardHeader>
-    <CardTitle>Cancelling Orders Using ClientOrderId</CardTitle>
-  </CardHeader>
-  <CardContent>
-    <div className="text-foreground/80 mb-4">
-      You can now cancel orders using either the `orderId` or `clientOrderId` through the Cancel Order endpoint.
-    </div>
-
-    <div className="space-y-6">
       <div>
-        <h4 className="font-medium mb-2 text-foreground/90">Cancel Order Endpoint</h4>
+        <h4 className="font-medium mb-2 text-foreground/90">3. Cancelling Orders Using ClientOrderId</h4>
         <div className="text-sm text-foreground/80 mb-2">
-          Use the Cancel Order endpoint (`/api/v4/order/cancel`) to cancel an order by its `clientOrderId`:
+          Use the [Cancel Order endpoint](../private/http-trade-v4#cancel-order) (`/api/v4/order/cancel`) to cancel an order by its `clientOrderId`:
         </div>
 
         ```typescript
@@ -579,6 +566,20 @@ This guide provides information about using `clientOrderId` in your trading oper
       market: "BTC_USDT",
       clientOrderId: "brk-ind123-limit-spot-1678234567"
     };
+
+    // Cancel client's order using clientOrderId
+    const cancelClientOrder = {
+      market: "BTC_USDT",
+      clientOrderId: "brk-ind123-limit-spot-1678234567"
+    };
+
+    // Get historical data for client orders
+    const getClientOrderHistory = {
+      market: "BTC_USDT",
+      clientOrderId: "brk-ind123-limit-spot-1678234567",
+      limit: 50,
+      offset: 0
+    };
     ```
 
     <div className="mt-4 text-sm text-foreground/80">
@@ -589,6 +590,161 @@ This guide provides information about using `clientOrderId` in your trading oper
         <li>Maintain unique identifiers</li>
         <li>Query and manage orders efficiently</li>
       </ul>
+    </div>
+  </CardContent>
+</Card>
+
+### Order Management for Brokers
+
+<Card className="my-6">
+  <CardHeader>
+    <CardTitle>Client Order Management</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="space-y-6">
+      <div>
+        <h4 className="font-medium mb-2 text-foreground/90">Cancelling Client Orders</h4>
+        <div className="text-sm text-foreground/80 mb-3">
+          Brokers can efficiently cancel orders for any of their clients using the structured clientOrderId:
+        </div>
+
+        ```typescript
+        // Function to cancel a client's order
+        async function cancelClientOrder(clientId, orderPurpose, orderId) {
+          const cancelRequest = {
+            market: "BTC_USDT",
+            clientOrderId: `brk-${clientId}-limit-${orderPurpose}-${orderId}`
+          };
+
+          try {
+            const response = await api.post('/api/v4/order/cancel', cancelRequest);
+            return response.data;
+          } catch (error) {
+            console.error(`Failed to cancel order for client ${clientId}:`, error);
+            throw error;
+          }
+        }
+
+        // Example usage
+        await cancelClientOrder('ind123', 'spot', '1678234567');
+        ```
+      </div>
+
+      <div>
+        <h4 className="font-medium mb-2 text-foreground/90">Retrieving Historical Client Orders</h4>
+        <div className="text-sm text-foreground/80 mb-3">
+          Brokers can retrieve and analyze historical order data for reporting, analysis, and compliance:
+        </div>
+
+        ```typescript
+        // Function to get client order history with optional filtering
+        async function getClientOrderHistory(clientId, orderPurpose, startTime, endTime) {
+          // Base query parameters
+          const queryParams = {
+            market: "BTC_USDT",
+            limit: 100,
+            offset: 0
+          };
+
+          // Add clientOrderId filter if specific client and purpose
+          if (clientId && orderPurpose) {
+            // Using partial match prefix to get all orders matching the pattern
+            queryParams.clientOrderId = `brk-${clientId}-*-${orderPurpose}-*`;
+          }
+
+          // Add time range if specified
+          if (startTime) queryParams.start_time = startTime;
+          if (endTime) queryParams.end_time = endTime;
+
+          try {
+            const response = await api.get('/api/v4/trade-account/order/history', { params: queryParams });
+            return response.data.records;
+          } catch (error) {
+            console.error("Failed to fetch client order history:", error);
+            throw error;
+          }
+        }
+
+        // Example: Get all spot trades for a specific client
+        const clientSpotOrders = await getClientOrderHistory('ind123', 'spot',
+          Date.now() - 30 * 24 * 60 * 60 * 1000, // 30 days ago
+          Date.now() // now
+        );
+
+        // Example: Get all DCA orders across clients
+        const allDcaOrders = await getClientOrderHistory(null, 'dca');
+        ```
+      </div>
+    </div>
+  </CardContent>
+</Card>
+
+<Card className="my-6">
+  <CardHeader>
+    <CardTitle>Broker Analytics and Reporting</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="space-y-4 text-sm text-foreground/80">
+      <p>
+        With structured clientOrderId patterns, brokers can implement powerful analytics and reporting by parsing the IDs:
+      </p>
+
+      ```typescript
+      // Parse clientOrderId to extract metadata
+      function parseClientOrderId(clientOrderId) {
+        // Format: brk-{clientId}-{orderType}-{purpose}-{timestamp}
+        const parts = clientOrderId.split('-');
+        if (parts.length !== 5 || parts[0] !== 'brk') {
+          throw new Error('Invalid broker clientOrderId format');
+        }
+
+        return {
+          clientId: parts[1],
+          orderType: parts[2],
+          purpose: parts[3],
+          timestamp: parseInt(parts[4])
+        };
+      }
+
+      // Example usage for reporting
+      function generateClientReport(orderHistory) {
+        const clientStats = {};
+
+        orderHistory.forEach(order => {
+          try {
+            const { clientId, purpose } = parseClientOrderId(order.clientOrderId);
+
+            if (!clientStats[clientId]) {
+              clientStats[clientId] = {
+                totalOrders: 0,
+                volume: 0,
+                byPurpose: {}
+              };
+            }
+
+            // Update client stats
+            clientStats[clientId].totalOrders++;
+            clientStats[clientId].volume += parseFloat(order.dealMoney);
+
+            // Update purpose-specific stats
+            if (!clientStats[clientId].byPurpose[purpose]) {
+              clientStats[clientId].byPurpose[purpose] = {
+                count: 0,
+                volume: 0
+              };
+            }
+
+            clientStats[clientId].byPurpose[purpose].count++;
+            clientStats[clientId].byPurpose[purpose].volume += parseFloat(order.dealMoney);
+
+          } catch (error) {
+            console.warn("Skipping order with invalid clientOrderId:", order.clientOrderId);
+          }
+        });
+
+        return clientStats;
+      }
+      ```
     </div>
   </CardContent>
 </Card>
