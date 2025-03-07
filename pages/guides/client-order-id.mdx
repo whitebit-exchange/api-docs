@@ -349,13 +349,59 @@ This guide provides information about using `clientOrderId` in your trading oper
   </CardContent>
 </Card>
 
-### Order Cancellation
+<Card className="my-6">
+  <CardHeader>
+    <CardTitle>Cancelling Orders Using ClientOrderId</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <div className="text-foreground/80 mb-4">
+      You can now cancel orders using either the `orderId` or `clientOrderId` through the Cancel Order endpoint.
+    </div>
 
-<Callout type="warning" className="mb-4">
-  <div>
-    You can cancel orders using their `orderId`. Support for cancellation using `clientOrderId` will be implemented in an upcoming release. Once available, this feature will allow you to cancel orders directly using your custom identifiers.
-  </div>
-</Callout>
+    <div className="space-y-6">
+      <div>
+        <h4 className="font-medium mb-2 text-foreground/90">Cancel Order Endpoint</h4>
+        <div className="text-sm text-foreground/80 mb-2">
+          Use the Cancel Order endpoint (`/api/v4/order/cancel`) to cancel an order by its `clientOrderId`:
+        </div>
+
+        ```typescript
+        // Request
+        const cancelOrderRequest = {
+          market: "BTC_USDT",
+          clientOrderId: "dca-btc-market-002"
+        };
+        ```
+
+        <Callout type="info" className="mt-4">
+          <div>Important notes about order cancellation:</div>
+          <ul className="mt-2 space-y-1 text-sm">
+            <li>• Cancellation by `clientOrderId` takes priority over `orderId`</li>
+            <li>• You can use either `orderId` or `clientOrderId`, but not both in the same request</li>
+          </ul>
+        </Callout>
+
+        ```json
+        // Example response
+        {
+          "orderId": 4180284841,
+          "clientOrderId": "dca-btc-market-002",
+          "market": "BTC_USDT",
+          "side": "buy",
+          "type": "limit",
+          "timestamp": 1595792396.165973,
+          "dealMoney": "0",
+          "dealStock": "0",
+          "amount": "0.001",
+          "left": "0.001",
+          "price": "40000",
+          "status": "CANCELED"
+        }
+        ```
+      </div>
+    </div>
+  </CardContent>
+</Card>
 
 ## Error Handling
 
