@@ -9,6 +9,8 @@ import { ApiEndpoint } from '@/components/api-endpoint'
     - [Query All Market Fees](#query-all-market-fees)
   - [Spot](#spot)
     - [Trading balance](#trading-balance)
+    - [Market fee] (#market-fee)
+    - [Query all market fees] (#query-all-market-fees)
     - [Create limit order](#create-limit-order)
     - [Bulk limit order](#bulk-limit-order)
     - [Create market order](#create-market-order)
@@ -399,7 +401,7 @@ Error codes:
   "message": "Validation failed",
   "errors": {
     "clientOrderId": [
-      "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+      "This client order id is already used by the current account."
     ]
   }
 }
@@ -764,7 +766,7 @@ Error codes:
   "message": "Validation failed",
   "errors": {
     "clientOrderId": [
-      "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+      "This client order id is already used by the current account."
     ]
   }
 }
@@ -1062,7 +1064,7 @@ Error codes:
   "message": "Validation failed",
   "errors": {
     "clientOrderId": [
-      "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+      "This client order id is already used by the current account."
     ]
   }
 }
@@ -1304,7 +1306,7 @@ Error codes:
   "message": "Validation failed",
   "errors": {
     "clientOrderId": [
-      "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+      "This client order id is already used by the current account."
     ]
   }
 }
@@ -1558,7 +1560,7 @@ Error codes:
   "message": "Validation failed",
   "errors": {
     "clientOrderId": [
-      "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+      "This client order id is already used by the current account."
     ]
   }
 }
@@ -1909,7 +1911,7 @@ Error codes:
   "message": "Validation failed",
   "errors": {
     "clientOrderId": [
-      "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+      "This client order id is already used by the current account."
     ]
   }
 }
@@ -2056,10 +2058,15 @@ NONE
 
 **Parameters:**
 
-| Name    | Type       | Mandatory | Description                                                    |
-| ------- | ---------- | --------- | -------------------------------------------------------------- |
-| market  | String     | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT |
-| orderId | String/Int | **Yes**   | Order Id. Example: 4180284841 or "4180284841"                  |
+| Name          | Type         | Mandatory                      | Description                                                    |
+| ------------- | ------------ | ------------------------------ | -------------------------------------------------------------- |
+| market        | String       | **Yes**                        | Available [market](./../glossary.md#market). Example: BTC_USDT |
+| orderId       | String/Int   | **No if clientOrderId is set** | Order Id. Example: 4180284841 or "4180284841"                  |
+| clientOrderId | String       | **No if orderId is set**       | Custom client order id. Example: "customId11"                  |
+
+❗ Modification by clientOrderId takes priority over orderId.
+❗ The request supports working only with orderId or only with clientOrderId.
+❗ You cannot pass both values at the same time.
 
 **Request BODY raw:**
 
@@ -2909,18 +2916,20 @@ NONE
 
 **Parameters:**
 
-| Name            | Type          | Mandatory | Description                                                                                                                   |
-|-----------------|---------------|-----------|-------------------------------------------------------------------------------------------------------------------------------|
-| orderId         | Integer       | **Yes**   | Active order id [order](./../glossary.md#active-orders). Example: 834506                                                      |
-| market          | String        | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                |
-| amount          | String/Number | **No**    | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                  |
-| total           | String/Number | **No**    | Total of [money](./../glossary.md#money) currency to buy or sell. Example: '0.001' or 0.001                                   |
-| price           | String/Number | **No**    | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800                                                    |
-| activationPrice | String/Number | **No**    | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                       |
-| clientOrderId   | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique for the next 24 hours. |
+| Name            | Type          | Mandatory                      | Description                                                                                                                                            |
+|-----------------|---------------|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| orderId         | Integer       | **No if clientOrderId is set** | Active order id [order](./../glossary.md#active-orders). Example: 834506                                                                               |
+| clientOrderId   | String        | **No if orderId is set**       | Identifier should be unique and contain letters, dashes, numbers, dots or underscores.                                                                 |
+| market          | String        | **Yes**                        | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                         |
+| amount          | String/Number | **No**                         | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                                           |
+| total           | String/Number | **No**                         | Total of [money](./../glossary.md#money) currency to buy or sell. Example: '0.001' or 0.001                                                            |
+| price           | String/Number | **No**                         | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800                                                                             |
+| activationPrice | String/Number | **No**                         | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                                                |
 
-❗ Use total parameter instead of amount for modify buy stop market order
-
+❗ Use total parameter instead of amount for modify buy stop market order.
+❗ Modification by clientOrderId takes priority.
+❗ The request supports working only with orderId or only with clientOrderId.
+❗ You cannot pass both values at the same time.
 **Request BODY raw:**
 
 ```json
@@ -3081,7 +3090,7 @@ Error codes:
   "message": "Validation failed",
   "errors": {
     "clientOrderId": [
-      "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+      "This client order id is already used by the current account."
     ]
   }
 }
@@ -3318,13 +3327,13 @@ NONE
 | side          | String  | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite [order](./../glossary.md#orders) with current position amount.                                                 |
 | amount        | String  | **Yes**   | ⚠️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.                                                                                                                                                                                                                 |
 | price         | String  | **Yes**   | Price in [money](./../glossary.md#money) currency. Example: '9800'                                                                                                                                                                                                                                 |
-| clientOrderId | String  | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique for the next 24 hours.                                                                                                                                                                      |
+| clientOrderId | String  | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique for the next 24 hours.                                                                                                                                                        |
 | stopLoss      | String  | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                                                                        |
 | takeProfit    | String  | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                                                                    |
 | postOnly      | boolean | **No**    | Orders are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: true / false Example: false.                                                                                                                                   |
 | ioc           | boolean | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                                                                  |
 | bboRole       | Integer | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables:  1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 1. |
-| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
+| stp           | String  | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
 
 **Request BODY raw:**
 
@@ -3647,7 +3656,7 @@ Error codes:
   "message": "Validation failed",
   "errors": {
     "clientOrderId": [
-      "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+      "This client order id is already used by the current account."
     ]
   }
 }
@@ -4069,7 +4078,7 @@ Error codes:
   "message": "Validation failed",
   "errors": {
     "clientOrderId": [
-      "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+      "This client order id is already used by the current account."
     ]
   }
 }
@@ -4500,7 +4509,6 @@ Available statuses:
 
 ```json
 [
-
   {
       "positionId": 111,               // position ID
       "market": "BTC_USDT",            // position market
@@ -4514,7 +4522,7 @@ Available statuses:
       "orderDetail": {                 // details of order which changes position
         "id": 97067934,                // order ID
         "tradeAmount": "0.1",          // trade amount of order
-        "basePrice": "41507.59",       // order's base price
+        "price": "41507.59",           // order's price
         "tradeFee": "415.07",          // order's trade fee
         "fundingFee": null,            // funding fee which was captured by this position change (order)
         "realizedPnl": null            // realized pnl
@@ -5304,7 +5312,7 @@ Error codes:
   "message": "Validation failed",
   "errors": {
     "clientOrderId": [
-      "This client order id is already used by the current account. It will become available in 24 hours (86400 seconds)."
+      "This client order id is already used by the current account."
     ]
   }
 }
