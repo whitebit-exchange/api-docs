@@ -13,8 +13,8 @@ const config: DocsThemeConfig = {
   docsRepositoryBase: "https://github.com/whitebit-exchange/api-docs/blob/main",
   color: { hue: 43, saturation: 79, lightness: 61 },
   backgroundColor: {
-    light: "241,245,249",
-    dark: "9,9,11",
+    light: "hsl(220, 14%, 98%)",
+    dark: "hsl(240, 10%, 4%)",
   },
   footer: {
     component: <div />,
