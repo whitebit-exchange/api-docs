@@ -1,0 +1,27 @@
+{
+  "upcomingChanges": [
+    {
+      "title": "Travel Rule Updates",
+      "timeframe": "31 March 2025",
+      "status": "planned",
+      "changes": [
+        {
+          "title": "HTTP Main V4 API - Birth Date Addition",
+          "description": "Added beneficiary.birthDate field to withdrawal requests and customer.birthDate to deposit requests.",
+          "type": "planned",
+          "links": [
+            {
+              "title": "Withdraw",
+              "url": "/private/http-main-v4/#create-withdraw-request"
+            },
+            {
+              "title": "Fiat Deposit",
+              "url": "/private/http-main-v4/#get-fiat-deposit-address"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "previousChanges": {}
+}

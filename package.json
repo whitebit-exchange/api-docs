@@ -30,7 +30,8 @@
     "nextra-theme-docs": "^3.3.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-virtuoso": "^4.12.5"
+    "react-virtuoso": "^4.12.5",
+    "sonner": "^2.0.1"
   },
   "devDependencies": {
     "@types/node": "^22.13.13",
