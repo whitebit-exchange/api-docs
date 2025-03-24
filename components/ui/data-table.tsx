@@ -82,7 +82,7 @@ export function DataTable<TData, TValue>({
         fixedHeaderContent={() =>
           table.getHeaderGroups().map((headerGroup) => (
             // Change header background color to non-transparent
-            <TableRow className="bg-card" key={headerGroup.id}>
+            <TableRow className="bg-card" key={headerGroup.id} data-header>
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead
