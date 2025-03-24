@@ -30,6 +30,17 @@ const seoConfig: PageSEOConfig = {
       description: "Complete guide to cryptocurrency exchange API"
     }
   },
+  changelog: {
+    title: "API Changelog | WhiteBIT API Documentation",
+    description: "Track all updates, improvements, and upcoming changes to the WhiteBIT API platform. Stay informed about new features, deprecations, and platform evolution.",
+    keywords: ["changelog", "api updates", "release notes", "api changes", "platform updates", "whitebit"],
+    category: "Platform",
+    section: "Updates",
+    ogImage: {
+      title: "API Changelog",
+      description: "Track API platform evolution"
+    }
+  },
   "guides/client-order-id": {
     title: "Client Order ID Guide | WhiteBIT API Documentation",
     description: "Complete guide to using clientOrderId for order tracking and strategy identification. Includes naming conventions and best practices.",

@@ -45,6 +45,13 @@ export default {
       layout: "full",
     },
   },
+  changelog: {
+    title: "Changelog",
+    theme: {
+      toc: false,
+      layout: "full",
+    },
+  },
   glossary: {
     title: "Glossary",
     theme: {
