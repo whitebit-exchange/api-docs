@@ -7,7 +7,7 @@
       "changes": [
         {
           "title": "HTTP Main V4 API - Birth Date Addition",
-          "description": "Added beneficiary.birthDate field to withdrawal requests and customer.birthDate to deposit requests.",
+          "description": "Added beneficiary.birthDate field (Format: YYYY-MM-DD) to withdrawal requests and customer.birthDate (Format: YYYY-MM-DD) to deposit requests.",
           "type": "planned",
           "links": [
             {
