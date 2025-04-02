@@ -1,14 +1,13 @@
 {
-  "upcomingChanges": [
+  "changes": [
     {
       "title": "Deposit and Withdrawal Updates",
-      "timeframe": "31 March 2025",
-      "status": "planned",
+      "timeframe": "2025-03-31",
       "changes": [
         {
           "title": "HTTP Main V4 API - Birth Date Addition",
           "description": "Added beneficiary.birthDate field (Format: YYYY-MM-DD) to withdrawal requests and customer.birthDate (Format: YYYY-MM-DD) to deposit requests.",
-          "type": "planned",
+          "type": "fiat",
           "links": [
             {
               "title": "Withdraw",
@@ -22,6 +21,5 @@
         }
       ]
     }
-  ],
-  "previousChanges": {}
+  ]
 }
