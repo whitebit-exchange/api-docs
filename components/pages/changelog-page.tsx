@@ -1,19 +1,21 @@
+'use client';
+
 import Link from "next/link";
 import { toast } from "sonner";
+import { useQuery } from "@tanstack/react-query";
 import {
-  ChevronRight,
   AlertCircle,
   CheckCircle2,
   Clock,
   Info,
-  Download,
   AlertTriangle,
   ExternalLink,
   Link as LinkIcon,
+  CreditCard,
 } from "lucide-react";
-import changelogData from "@/data/changelog.json";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ChangelogLink {
   title: string;
@@ -27,28 +29,21 @@ interface ChangelogChange {
   links?: ChangelogLink[];
 }
 
-interface ChangelogVersion {
-  version: string;
-  date: string;
-  isLatest?: boolean;
-  changes: ChangelogChange[];
-}
-
 interface ChangelogItem {
   title: string;
   timeframe: string;
-  status: string;
   changes: ChangelogChange[];
 }
 
-interface ChangelogData {
-  upcomingChanges: ChangelogItem[];
-  previousChanges: {
-    [key: string]: ChangelogVersion[];
-  };
+interface RawChangelogData {
+  changes: ChangelogItem[];
 }
 
-// Helper function to render the appropriate icon based on change type
+interface ProcessedChangelogData {
+  upcomingChanges: ChangelogItem[];
+  previousChanges: ChangelogItem[];
+}
+
 const renderChangeTypeIcon = (type: string) => {
   switch (type) {
     case "feature":
@@ -65,12 +60,13 @@ const renderChangeTypeIcon = (type: string) => {
       return <Clock className="h-5 w-5 text-blue-500" />;
     case "roadmap":
       return <AlertCircle className="h-5 w-5 text-purple-500" />;
+    case "fiat":
+      return <CreditCard className="h-5 w-5 text-green-500" />;
     default:
       return <Info className="h-5 w-5 text-gray-500" />;
   }
 };
 
-// Helper function to render change links
 const renderChangeLinks = (links?: ChangelogLink[]) => {
   if (!links?.length) return null;
 
@@ -90,7 +86,6 @@ const renderChangeLinks = (links?: ChangelogLink[]) => {
   );
 };
 
-// Helper function to create a slug from version or title
 const createSlug = (text: string) => {
   return text
     .toLowerCase()
@@ -98,20 +93,269 @@ const createSlug = (text: string) => {
     .replace(/(^-|-$)/g, "");
 };
 
-// Helper function to copy link to clipboard
 const copyLinkToClipboard = (slug: string) => {
   const url = `${window.location.origin}${window.location.pathname}#${slug}`;
   navigator.clipboard.writeText(url);
   toast.success("Link copied to clipboard");
 };
 
+async function fetchChangelogData(): Promise<RawChangelogData> {
+  const response = await fetch("/data/changelog.json");
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return response.json();
+}
+
+function ChangelogCardSkeleton() {
+  return (
+    <Card className="mb-6">
+      <CardHeader className="pb-3">
+        <div className="flex justify-between items-start gap-4">
+          <div className="flex items-start gap-2 w-full">
+            <div className="w-full">
+              <Skeleton className="h-6 w-3/4 mb-2" />
+              <Skeleton className="h-4 w-1/2" />
+            </div>
+            <Skeleton className="h-8 w-8 rounded-md flex-shrink-0" />
+          </div>
+        </div>
+      </CardHeader>
+    </Card>
+  );
+}
+
+function ChangelogLoadingSkeleton() {
+  return (
+    <>
+      <div className="mb-14">
+        <div className="flex items-center gap-3 mb-6">
+          <Skeleton className="h-7 w-48" />
+          <Skeleton className="h-px bg-border flex-grow" />
+        </div>
+        <ChangelogCardSkeleton />
+        <ChangelogCardSkeleton />
+      </div>
+      <div>
+        <div className="flex items-center gap-3 mb-6">
+           <Skeleton className="h-7 w-48" />
+          <Skeleton className="h-px bg-border flex-grow" />
+        </div>
+        <ChangelogCardSkeleton />
+        <ChangelogCardSkeleton />
+      </div>
+    </>
+  );
+}
+
 export default function ChangelogPage() {
-  const typedChangelogData = changelogData as ChangelogData;
+  const { data, isLoading, isError, error } = useQuery<RawChangelogData, Error, ProcessedChangelogData>({
+    queryKey: ['changelogData'],
+    queryFn: fetchChangelogData,
+    select: (rawData) => {
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
+
+      const upcoming: ChangelogItem[] = [];
+      const previous: ChangelogItem[] = [];
+
+      rawData.changes.forEach((item) => {
+        try {
+          const itemDate = new Date(item.timeframe);
+          itemDate.setHours(0, 0, 0, 0);
+
+          if (itemDate >= now) {
+            upcoming.push(item);
+          } else {
+            previous.push(item);
+          }
+        } catch (e) {
+          console.error(`Invalid date format for item: ${item.title}`, e);
+        }
+      });
+
+      upcoming.sort(
+        (a, b) => new Date(a.timeframe).getTime() - new Date(b.timeframe).getTime()
+      );
+
+      previous.sort(
+        (a, b) => new Date(b.timeframe).getTime() - new Date(a.timeframe).getTime()
+      );
+
+      return {
+        upcomingChanges: upcoming,
+        previousChanges: previous
+      }
+    },
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 15,
+  });
+
+  function renderContent() {
+    if (isLoading) {
+      return <ChangelogLoadingSkeleton />;
+    }
+
+    if (isError) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      return (
+        <div className="text-center text-red-500">
+          Error loading changelog: {errorMessage}
+        </div>
+      );
+    }
+
+    if (data) {
+      const { upcomingChanges, previousChanges } = data;
+      const hasUpcoming = upcomingChanges.length > 0;
+      const hasPrevious = previousChanges.length > 0;
+
+      if (!hasUpcoming && !hasPrevious) {
+        return (
+          <div className="text-center text-muted-foreground">
+            No changelog entries found.
+          </div>
+        );
+      }
+
+      return (
+        <>
+          {hasUpcoming && (
+            <div className="mb-14">
+              <div className="flex items-center gap-3 mb-6">
+                <h2 className="text-2xl font-bold text-primary ">
+                  Upcoming Changes
+                </h2>
+                <div className="h-px bg-border flex-grow"></div>
+              </div>
+              {upcomingChanges.map((item, index) => {
+                const slug = createSlug(item.title);
+                return (
+                  <Card key={`upcoming-${index}`} className="mb-6" id={slug}>
+                    <CardHeader className="pb-3">
+                      <div className="flex justify-between items-start gap-4">
+                        <div className="flex items-start gap-2">
+                          <div>
+                            <CardTitle className="text-xl font-semibold">
+                              {item.title}
+                            </CardTitle>
+                            <p className="text-sm text-muted-foreground mt-1">
+                              {new Date(item.timeframe).toLocaleDateString(
+                                undefined,
+                                { year: "numeric", month: "long", day: "numeric" }
+                              )}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => copyLinkToClipboard(slug)}
+                            className="p-2 hover:bg-accent rounded-md transition-colors"
+                            aria-label="Copy link to section"
+                          >
+                            <LinkIcon className="h-4 w-4 text-muted-foreground" />
+                          </button>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-6">
+                        {item.changes.map((change, changeIndex) => (
+                          <div key={`upcoming-change-${changeIndex}`} className="flex gap-4">
+                            <div className="flex-shrink-0 mt-1">
+                              {renderChangeTypeIcon(change.type)}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="text-base font-semibold text-foreground">
+                                {change.title}
+                              </h4>
+                              <p className="text-sm leading-relaxed text-muted-foreground mt-2">
+                                {change.description}
+                              </p>
+                              {renderChangeLinks(change.links)}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+
+          {hasPrevious && (
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <h2 className="text-2xl font-bold">Previous Changes</h2>
+                <div className="h-px bg-border flex-grow"></div>
+              </div>
+              {previousChanges.map((item, index) => {
+                const slug = createSlug(item.title);
+                return (
+                  <Card key={`previous-${index}`} className="mb-6" id={slug}>
+                    <CardHeader className="pb-3">
+                      <div className="flex justify-between items-start gap-4">
+                        <div className="flex items-start gap-2">
+                          <div>
+                            <CardTitle className="text-xl font-semibold">
+                              {item.title}
+                            </CardTitle>
+                            <p className="text-sm text-muted-foreground mt-1">
+                              {new Date(item.timeframe).toLocaleDateString(
+                                undefined,
+                                { year: "numeric", month: "long", day: "numeric" }
+                              )}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => copyLinkToClipboard(slug)}
+                            className="p-2 hover:bg-accent rounded-md transition-colors"
+                            aria-label="Copy link to section"
+                          >
+                            <LinkIcon className="h-4 w-4 text-muted-foreground" />
+                          </button>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-6">
+                        {item.changes.map((change, changeIndex) => (
+                          <div key={`previous-change-${changeIndex}`} className="flex gap-4">
+                            <div className="flex-shrink-0 mt-1">
+                              {renderChangeTypeIcon(change.type)}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h5 className="text-base font-semibold text-foreground">
+                                {change.title}
+                              </h5>
+                              <p className="text-sm leading-relaxed text-muted-foreground mt-2">
+                                {change.description}
+                              </p>
+                              {renderChangeLinks(change.links)}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+        </>
+      );
+    }
+
+    return (
+      <div className="text-center text-muted-foreground">
+        No changelog data available.
+      </div>
+    );
+  }
 
   return (
     <div className="py-6 max-w-[1200px] mx-auto px-4">
       <div className="mb-10">
-        <h1 className="text-4xl font-bold mb-4  text-foreground">
+        <h1 className="text-4xl font-bold mb-4 text-foreground">
           WhiteBIT API Changelog
         </h1>
         <p className="text-lg leading-relaxed text-muted-foreground">
@@ -120,144 +364,9 @@ export default function ChangelogPage() {
           help you stay informed about our platform's evolution.
         </p>
       </div>
-      {typedChangelogData.upcomingChanges.length > 0 ? (
-        <div className="mb-14">
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-2xl font-bold text-primary ">
-              Upcoming Changes
-            </h2>
-            <div className="h-px bg-border flex-grow"></div>
-          </div>
-          {typedChangelogData.upcomingChanges.map((item, index) => {
-            const slug = createSlug(item.title);
-            return (
-              <Card key={index} className="mb-6" id={slug}>
-                <CardHeader className="pb-3">
-                  <div className="flex justify-between items-start gap-4">
-                    <div className="flex items-start gap-2">
-                      <div>
-                        <CardTitle className="text-xl font-semibold">
-                          {item.title}
-                        </CardTitle>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          {item.timeframe}
-                        </p>
-                      </div>
-                      <button
-                        onClick={() => copyLinkToClipboard(slug)}
-                        className="p-2 hover:bg-accent rounded-md transition-colors"
-                        aria-label="Copy link to section"
-                      >
-                        <LinkIcon className="h-4 w-4 text-muted-foreground" />
-                      </button>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
-                    {item.changes.map((change, changeIndex) => (
-                      <div key={changeIndex} className="flex gap-4">
-                        <div className="flex-shrink-0 mt-1">
-                          {renderChangeTypeIcon(change.type)}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h4 className="text-base font-semibold  text-foreground">
-                            {change.title}
-                          </h4>
-                          <p className="text-sm leading-relaxed text-muted-foreground mt-2">
-                            {change.description}
-                          </p>
-                          {renderChangeLinks(change.links)}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-      ) : null}
-
-      {Object.keys(typedChangelogData.previousChanges).length > 0 ? (
-        <div>
-          <div className="flex items-center gap-3 mb-6">
-            <h2 className="text-2xl font-bold">Previous Changes</h2>
-            <div className="h-px bg-border flex-grow"></div>
-          </div>
-
-          {Object.entries(typedChangelogData.previousChanges)
-            .sort(
-              ([yearA], [yearB]) =>
-                Number.parseInt(yearB) - Number.parseInt(yearA)
-            )
-            .map(([year, versions]) => (
-              <div key={year} className="mb-12">
-                <div className="flex items-center gap-3 mb-4">
-                  <h3 className="text-xl font-bold ">{year}</h3>
-                  <div className="h-px bg-border flex-grow"></div>
-                </div>
-
-                {versions.map((version, vIndex) => {
-                  const slug = createSlug(version.version);
-                  return (
-                    <Card key={vIndex} className="mb-6" id={slug}>
-                      <CardHeader className="pb-3">
-                        <div className="flex justify-between items-start gap-4">
-                          <div className="flex items-start gap-2">
-                            <div>
-                              <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                                {version.version}
-                                {version.isLatest && (
-                                  <Badge
-                                    variant="default"
-                                    className="text-xs font-medium"
-                                  >
-                                    Latest
-                                  </Badge>
-                                )}
-                              </CardTitle>
-                              <p className="text-sm text-muted-foreground mt-1">
-                                {version.date}
-                              </p>
-                            </div>
-                            <button
-                              onClick={() => copyLinkToClipboard(slug)}
-                              className="p-2 hover:bg-accent rounded-md transition-colors"
-                              aria-label="Copy link to section"
-                            >
-                              <LinkIcon className="h-4 w-4 text-muted-foreground" />
-                            </button>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-6">
-                          {version.changes.map((change, changeIndex) => (
-                            <div key={changeIndex} className="flex gap-4">
-                              <div className="flex-shrink-0 mt-1">
-                                {renderChangeTypeIcon(change.type)}
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <h5 className="text-base font-semibold  text-foreground">
-                                  {change.title}
-                                </h5>
-                                <p className="text-sm leading-relaxed text-muted-foreground mt-2">
-                                  {change.description}
-                                </p>
-                                {renderChangeLinks(change.links)}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            ))}
-        </div>
-      ) : null}
+      <div className="changelog-content">
+        {renderContent()}
+      </div>
     </div>
   );
 }

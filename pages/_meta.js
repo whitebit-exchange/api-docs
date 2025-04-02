@@ -69,7 +69,7 @@ export default {
   hiring: {
     title: "We are hiring!",
     type: "page",
-    href: "https://whitebit.hurma.work/public-vacancies",
+    href: "https://whitebit.com/m/careers?utm_source=whitebit-docs",
     newWindow: true,
   },
   contact: {
