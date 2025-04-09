@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  --nextra-sidebar-bg: 0 0% 100%;
   --background: var(--nextra-bg);
   --foreground: 0 0% 3.9%;
   --font-inter: 'Inter', sans-serif;
@@ -33,6 +34,7 @@
 }
 
 .dark {
+  --nextra-sidebar-bg: 0 0% 0%;
   --background: var(--nextra-bg);
   --foreground: 0 0% 98%;
   --card: 0 0% 3.9%;
@@ -57,6 +59,10 @@
   --chart-3: 30 80% 55%;
   --chart-4: 280 65% 60%;
   --chart-5: 340 75% 55%
+}
+
+.nextra-sidebar-container {
+  background-color: hsl(var(--nextra-sidebar-bg));
 }
 
 @layer base {
