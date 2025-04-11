@@ -61,8 +61,10 @@
   --chart-5: 340 75% 55%
 }
 
-.nextra-sidebar-container {
-  background-color: hsl(var(--nextra-sidebar-bg));
+@media (max-width: 768px) {
+  .nextra-sidebar-container {
+    background-color: hsl(var(--nextra-sidebar-bg));
+  }
 }
 
 @layer base {
