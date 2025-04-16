@@ -44,6 +44,7 @@ import { ApiEndpoint } from '@/components/api-endpoint'
     - [Delete Sub-Account API Key IP Address](#delete-sub-account-api-key-ip-address)
   - [Mining Pool](#mining-pool)
     - [Get Rewards](#get-rewards)
+    - [Get Mining Account Hashrate]("#get-mining-account-hashrate")
 
 Base URL is https://whitebit.com
 
@@ -3237,6 +3238,74 @@ Available statuses:
       "hashRate": "658425440887845683",
       "date": 1715339355
     }
+  ]
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 422,
+  "message": "Incorrect timestamp"
+}
+```
+
+</details>
+
+---
+
+### Get Mining Account Hashrate
+
+<ApiEndpoint method="POST" path="/api/v4/mining/hashrate" />
+
+This endpoint returns hashrate of mining pool account
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name      | Type    | Mandatory | Description                                                                                                                                                                                         |
+|-----------|---------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| account   | String  | **Yes**   | Mining pool account                                                                                                                                                                                 |
+| from      | Int     | **No**    | Unix timestamp of starting point                                                                                                                                                                    |
+| to        | Int     | **No**    | Unix timestamp of final point                                                                                                                                                                        |
+| interval  | String  | **No**    | Timestamp interval (5m, 1h, 1d). Default: 1h                                                                                                                                                        |
+
+**Request BODY raw:**
+
+```json
+{
+  "account": "my-mining-account-01",
+  "from": 1717671600,
+  "to": 1717675200,
+  "interval": "1h"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+- `Status 422 if request validation failed`
+
+```json
+{
+  "account": "my-mining-account-01",
+  "hashrate": [
+     {
+        "timestamp": 1717671600,
+        "hashrate": "123.4533333333333333",
+     },
+     {
+        "timestamp": 1717675200,
+        "hashrate": "322.4533333333333333",
+     }
   ]
 }
 ```
