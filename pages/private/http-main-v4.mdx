@@ -2250,8 +2250,8 @@ NONE
 | email                         | String | **No**    | Sub-account email. If this field is provided on this e-mail address will be sent invitation link. If not - new user without e-mail will be created |
 | shareKyc                      | bool   | **No**    | If KYC shared with main account                                                                                                                    |
 | permissions                   | object | **Yes**   | Sub-account permissions                                                                                                                            |
-| permissions.spotEnabled       | bool   | **Yes**   | Enable spot trading                                                                                                                                |
-| permissions.collateralEnabled | bool   | **Yes**   | Enable collateral trading                                                                                                                          |
+| permissions.spotEnabled       | bool   | **Yes**   | Enable transfers to trade balance                                                                                                                                |
+| permissions.collateralEnabled | bool   | **Yes**   | Enable transfers to collateral balance                                                                                                                      |
 
 **Request BODY raw:**
 
@@ -2384,8 +2384,8 @@ NONE
 | id                            | string | **yes**   | Sub-account id            |
 | alias                         | String | **Yes**   | Name for sub-account      |
 | permissions                   | object | **Yes**   | Sub-account permissions   |
-| permissions.spotEnabled       | bool   | **Yes**   | Enable spot trading       |
-| permissions.collateralEnabled | bool   | **Yes**   | Enable collateral trading |
+| permissions.spotEnabled       | bool   | **Yes**   | Enable transfers to trade balance       |
+| permissions.collateralEnabled | bool   | **Yes**   | Enable transfers to collateral balance |
 
 **Request BODY raw:**
 
