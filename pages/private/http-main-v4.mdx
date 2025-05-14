@@ -967,14 +967,23 @@ NONE
 | offset            | Int    | **No**   | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000                                                                |
 | status            | Array  | **No**    | Can be used for filtering transactions by status codes. ❗ Caution: You must use this parameter with appropriate `transactionMethod` and use valid status codes for this method. You can find them below. Example: `"status": [3,7]` |
 
-| Deposit status codes:     |
-| ------------------------- |
-| `Successful` - 3, 7       |
-| `Canceled` - 4, 9         |
-| `Unconfirmed by user` - 5 |
-| `Frozen` - 21         |
-| `Uncredited` - 22         |
-| `Pending` - 15            |
+| Deposit status codes:         |
+| ------------------------------|
+| `Successful` - 3, 7           |
+| `Canceled` - 4, 9             |
+| `Unconfirmed by user` - 5     |
+| `Frozen` - 21                 |
+| `Uncredited` - 22             |
+| `Pending` - 15                |
+
+
+| Travel Rule Deposit check status codes  | Description |
+| ----------------------------------------|-------------|
+| `Awaiting verification` - 27            | The transaction has been frozen due to the lack of data required under the Travel Rule. The user is required to provide this data manually through the exchange interface. |
+| `Confirmation in progress` - 28         | The Travel Rule data provided by the user is currently being verified by WhiteBIT. |
+
+❗ Due to regulatory requirements in Turkey and EU, every inbound crypto deposit must be put on hold (frozen) until transaction’s origin being confirmed. Must be provided certain details if the transaction is from another Virtual Asset Service Provider (VASP) or verify the address if it is from a self-hosted wallet. Only after successful verification can the deposited funds be credited to account.
+
 
 | Withdraw status codes:                              |
 | --------------------------------------------------- |
@@ -982,7 +991,7 @@ NONE
 | `Successful` - 3, 7                                 |
 | `Canceled` - 4                                      |
 | `Unconfirmed by user` - 5                           |
-| `Frozen` - 21                                   |
+| `Frozen` - 21                                       |
 | `Partially successful` - 18                         |
 
 **Request BODY raw:**
