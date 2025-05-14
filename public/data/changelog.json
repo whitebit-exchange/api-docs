@@ -1,6 +1,23 @@
 {
   "changes": [
     {
+      "title": "ANNOUNCMENT | Travel Rule Update",
+      "timeframe": "2025-05-19",
+      "changes": [
+        {
+          "title": "HTTP Main V4 API - Birth Date Addition",
+          "description": "Added new statuses DEPOSIT_TRAVEL_RULE_FROZEN (27) and DEPOSIT_TRAVEL_RULE_FROZEN_PROCESSING (28) to the deposit endpoint.",
+          "type": "crypto",
+          "links": [
+            {
+              "title": "Get deposit/withdraw history",
+              "url": "/private/http-main-v4/#get-depositwithdraw-history"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "title": "Deposit and Withdrawal Updates",
       "timeframe": "2025-03-31",
       "changes": [
