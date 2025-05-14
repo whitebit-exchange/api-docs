@@ -5,7 +5,7 @@
       "timeframe": "2025-05-19",
       "changes": [
         {
-          "title": "HTTP Main V4 API - Birth Date Addition",
+          "title": "HTTP Main V4 API - Travel Rule",
           "description": "Added new statuses DEPOSIT_TRAVEL_RULE_FROZEN (27) and DEPOSIT_TRAVEL_RULE_FROZEN_PROCESSING (28) to the deposit endpoint.",
           "type": "crypto",
           "links": [
