@@ -6349,11 +6349,16 @@ NONE
 |------------|--------|-----------|-------------------------------------------|
 | fromTicker | String | **No**    | From currency. Example: BTC               |
 | toTicker   | String | **No**    | To currency. Example: USDT                |
-| from       | String | **No**    | From time filter. Example: 1699260637     |
-| to         | String | **No**    | To time filter. Example: 1699260637       |
+| from       | String | **No**    | From time filter. Example: 1699260637. Default: `now()`     |
+| to         | String | **No**    | To time filter. Example: 1699260637. Default: `now() +`      |
 | quoteId    | String | **No**    | Quote Id. Example: 4050                   |
 | limit      | String | **No**    | How many records to receive. Default: 100 |
 | offset     | String | **No**    | Amount to convert or receive. Default 0   |
+
+⚠️ **Important Limitations** ⚠️
+
+Date Range: The time range between the `from` and `to` parameters must not exceed 30 days. Requests with a date range wider than 30 days will result in an error.
+
 
 **Request BODY raw:**
 
