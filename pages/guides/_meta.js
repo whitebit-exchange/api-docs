@@ -5,4 +5,10 @@ export default {
       breadcrumb: false,
     },
   },
+  "fireblocks": {
+    title: "Fireblocks",
+    theme: {
+      breadcrumb: false,
+    },
+  },
 };

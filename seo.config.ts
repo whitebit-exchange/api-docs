@@ -52,6 +52,17 @@ const seoConfig: PageSEOConfig = {
       description: "Track orders & identify trading strategies"
     }
   },
+  "guides/fireblocks": {
+    title: "Fireblocks Integration Guide | WhiteBIT API Documentation",
+    description: "Step-by-step instructions for connecting your WhiteBIT account to Fireblocks via API, including API key generation and security best practices.",
+    keywords: ["fireblocks", "integration", "api", "whitebit", "security", "api key"],
+    category: "Guides",
+    section: "Integrations",
+    ogImage: {
+      title: "Fireblocks Integration Guide",
+      description: "Connect WhiteBIT to Fireblocks via API"
+    }
+  },
   "platform/overview": {
     title: "API Overview | WhiteBIT API Documentation",
     description: "Complete overview of WhiteBIT's API including public/private endpoints, WebSockets, webhooks, and authentication requirements.",
