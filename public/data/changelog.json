@@ -1,5 +1,74 @@
 {
   "changes": [
+
+    {
+      "title": "Trade Engine Update",
+      "timeframe": "2025-06-10",
+      "changes": [
+        {
+          "title": "Hedge mode support",
+          "description": "The Hedge mode is now available for all users. This mode allows you to hold both long and short positions in the same asset simultaneously, providing greater flexibility in managing your trades.",
+          "type": "improvement",
+          "links": [
+            {
+              "title": "Collateral Limit Order",
+              "url": "/private/http-trade-v4/#collateral-limit-order"
+            },
+            {
+              "title": "Collateral Stop Limit Order",
+              "url": "/private/http-trade-v4/#collateral-stop-limit-order"
+            },
+            {
+              "title": "Collateral Market Order",
+              "url": "/private/http-trade-v4/#collateral-market-order"
+            },
+            {
+              "title": "Collateral OCO Order",
+              "url": "/private/http-trade-v4/#create-collateral-oco-order"
+            },
+            {
+              "title": "Collateral Trigger Market Order",
+              "url": "/private/http-trade-v4/#collateral-trigger-market-order"
+            },
+            {
+              "title": "Collateral Account Hedge Mode",
+              "url": "/private/http-trade-v4/#collateral-account-hedge-mode"
+            },
+            {
+              "title": "Update Collateral Account Hedge Mode",
+              "url": "/private/http-trade-v4/#update-collateral-account-hedge-mode"
+            }
+          ]
+        },
+        {
+          "title": "Queries Limited to the Last 6 Months",
+          "description": "To enhance performance and focus on the most relevant data, our API will soon limit data queries to the past 6 months. This means you will be able to retrieve data up to six months old from the current date. ",
+          "type": "improvement",
+          "links": [
+            {
+              "title": "Convert History",
+              "url": "/private/http-trade-v4/#convert-history"
+            },
+            {
+              "title": "Executed order deals",
+              "url": "/private/http-trade-v4/#query-executed-order-deals"
+            },
+            {
+              "title": "Executed orders",
+              "url": "/private/http-trade-v4/#query-executed-orders"
+            },
+            {
+              "title": "Executed order history",
+              "url": "/private/http-trade-v4/#query-executed-order-history"
+            },
+            {
+              "title": "Positions history",
+              "url": "/private/http-trade-v4/#positions-history"
+            }
+          ]
+        }
+      ]
+    },
     {
       "title": "Withdraw update",
       "timeframe": "2025-05-29",
