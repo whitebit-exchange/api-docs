@@ -4667,10 +4667,6 @@ NONE
 | limit    | Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
 | offset   | Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
 
-<Alert type="warning" 
-header="Important Limitations" 
-message="This method can retrieve data not older than 6 months from current month. If you need older data - you can use Report on the History page in your account." 
-showAfter="2025-06-09T09:00:00Z" />
 
 **Request BODY raw:**
 
@@ -4913,36 +4909,10 @@ Available statuses:
 <summary><b>Errors:</b></summary>
 ```json
 {
-  "hedgeMode": true
-}
-```
-
-```json
-{
     "code": 113,
     "message": "Validation failed",
     "errors": {
         "hedgeMode": ["Position side cannot be changed if there exists futures positions or orders"],
-    }
-}
-```
-
-```json
-{
-    "code": 114,
-    "message": "Validation failed",
-    "errors": {
-        "hedgeMode": ["Order's position side does not match user's setting"],
-    }
-}
-```
-
-```json
-{
-    "code": 115,
-    "message": "Validation failed",
-    "errors": {
-        "hedgeMode": ["Order would result in a new position in the opposite direction"],
     }
 }
 ```
