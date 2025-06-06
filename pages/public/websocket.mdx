@@ -794,7 +794,7 @@ This endpoint allows clients to request the current market depth for a specific 
 {
     "id": 11,
     "result": {
-        "timestamp": 1689600180.5164471,
+        "timestamp": 1689600180.5164471, // timestamp of the update from matchengine
         "asks": [                   // sorted ascending
             ["0.020846", "29.369"], // [price, amount]
         ],
@@ -852,7 +852,7 @@ Update events provide real-time updates to the subscribed market depth.
     "params": [
         false,   // full_reload_flag | true - full reload, false - partial update
         {
-            "timestamp": 1689600180.5164471,
+            "timestamp": 1689600180.5164471, // timestamp of the update from matchengine
             "update_id": 214403,
             "post_update_id": 214399, // this field will not be populated in first event
             "asks": [
