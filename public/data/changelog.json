@@ -37,6 +37,18 @@
             {
               "title": "Update Collateral Account Hedge Mode",
               "url": "/private/http-trade-v4/#update-collateral-account-hedge-mode"
+            },
+            {
+              "title": "Orders Pending WebSocket",
+              "url": "/private/websocket/#orders-pending"
+            },
+            {
+              "title": "Orders Executed WebSocket",
+              "url": "/private/websocket/#orders-executed"
+            },
+            {
+              "title": "Orders Executed WebSocket",
+              "url": "/private/websocket/#orders-executed"
             }
           ]
         },
@@ -46,24 +58,36 @@
           "type": "improvement",
           "links": [
             {
-              "title": "Convert History",
+              "title": "v4 - Convert History",
               "url": "/private/http-trade-v4/#convert-history"
             },
             {
-              "title": "Executed order deals",
+              "title": "v4 - Executed order deals",
               "url": "/private/http-trade-v4/#query-executed-order-deals"
             },
             {
-              "title": "Executed orders",
+              "title": "v4 - Executed orders",
               "url": "/private/http-trade-v4/#query-executed-orders"
             },
             {
-              "title": "Executed order history",
+              "title": "v4 - Executed order history",
               "url": "/private/http-trade-v4/#query-executed-order-history"
             },
             {
-              "title": "Positions history",
+              "title": "v4 - Positions history",
               "url": "/private/http-trade-v4/#positions-history"
+            },
+            {
+              "title": "v1 - Order history",
+              "url": "/private/http-trade-v1/#query-order-history"
+            },
+            {
+              "title": "v1 - Executed History by single market",
+              "url": "/private/http-trade-v1/#query-executed-order-history-by-single-market"
+            },
+            {
+              "title": "v1 - Executed History by all markets",
+              "url": "/private/http-trade-v1/#query-executed-order-history-by-all-markets"
             }
           ]
         }
