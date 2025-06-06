@@ -523,7 +523,8 @@ All possible [order types](#order-types)
                 "deal_fee": "0",               // Charged fee amount in money
                 "client_order_id": "",         // Custom client order id
                 "stp": "no",                   // stp flag; [no, co, cn, cb]. No Prevention (no), Cancel Oldest (co), Cancel Newest (cn), Cancel Both (cb)
-                "status": "OPEN"               // Order status. All statuses in table above
+                "status": "OPEN",              // Order status. All statuses in table above
+                "position_side": "LONG"         // position side - LONG or SHORT or BOTH
             }
         ]
     },
@@ -593,7 +594,8 @@ If new [order](./../glossary.md#orders) instantly matches an order from [orderbo
             "deal_fee": "0",            // Charged fee amount in money
             "client_order_id": "",      // Custom client order id
             "stp": "no",                // STP flag; [no, co, cn, cb]. No Prevention (no), Cancel Oldest (co), Cancel Newest (cn), Cancel Both (cb)
-            "status": "OPEN"            // Order status. All statuses in table above
+            "status": "OPEN",           // Order status. All statuses in table above
+            "position_side": "LONG"      // position side - LONG or SHORT or BOTH
         }
     ],
 }
@@ -748,7 +750,8 @@ Update interval: real-time
             "deal_fee": "0.001",           // Charged fee amount in money
             "client_order_id": "",
             "stp": "no",                   // STP flag; [no, co, cn, cb]. No Prevention (no), Cancel Oldest (co), Cancel Newest (cn), Cancel Both (cb)
-            "status": "FILLED"             // Order status. All statuses in table above
+            "status": "FILLED",            // Order status. All statuses in table above
+            "position_side": "LONG"         // position side - LONG or SHORT or BOTH
         }
     ]
 }
@@ -962,7 +965,8 @@ Update interval: 1 sec
               "funding": "0",                // funding that has already been disbursed
               "margin": "23.8",              // own funds amount in open position **money**
               "free_margin": "999932.92",    // free funds for trading
-              "realized_pnl": "0"            // Realized PnL in **money**
+              "realized_pnl": "0",           // Realized PnL in **money**
+              "position_side": "LONG"         // position side - LONG or SHORT or BOTH
           }
       ]
   },
@@ -1043,7 +1047,8 @@ Update interval: 1 sec
             "funding": "0",                             //  funding that has already been disbursed
             "margin": "1109.77",                        //  own funds amount in open position **money**
             "free_margin": "-652.9",                    //  free funds for trading
-            "realized_pnl": "-8.945817921792"           //  Realized PnL in **money**
+            "realized_pnl": "-8.945817921792",          //  Realized PnL in **money**
+            "position_side": "LONG"                      // position side - LONG or SHORT or BOTH
         }
     ],
     "id": null

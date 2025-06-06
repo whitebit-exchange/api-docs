@@ -1,4 +1,5 @@
 import { ApiEndpoint } from '@/components/api-endpoint'
+import { Alert } from "@/components/alert";
 
 # Private HTTP API V1
 
@@ -620,6 +621,12 @@ NONE
 | limit  | Int    | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
 | offset | Int    | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
 
+<Alert type="warning" 
+header="Important Limitations" 
+message="This method can retrieve data not older than 6 months from current month. If you need older data - you can use Report on the History page in your account." 
+showAfter="2025-06-09T09:00:00Z" 
+/>
+
 **Request BODY raw:**
 
 ```json
@@ -739,6 +746,12 @@ NONE
 | limit  | Int    | **No**    | LIMIT is a special clause used to limit records that a particular query can return. Default: 50, Min: 1, Max: 100                                                     |
 | offset | Int    | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
 
+<Alert type="warning" 
+header="Important Limitations" 
+message="This method can retrieve data not older than 6 months from current month. If you need older data - you can use Report on the History page in your account." 
+showAfter="2025-06-09T09:00:00Z" 
+/>
+
 **Request BODY raw:**
 
 ```json
@@ -844,6 +857,12 @@ NONE
 | ------ | ---- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | limit  | Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
 | offset | Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+
+<Alert type="warning" 
+header="Important Limitations" 
+message="This method can retrieve data not older than 6 months from current month. If you need older data - you can use Report on the History page in your account." 
+showAfter="2025-06-09T09:00:00Z" 
+/>
 
 **Request BODY raw:**
 
