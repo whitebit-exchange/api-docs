@@ -6,49 +6,68 @@
       "timeframe": "2025-06-10",
       "changes": [
         {
+          "title": "Event time and update id introduced in WebSocket events",
+          "description": "WebSocket events now include `event_time` and `update_id` fields. The `event_time` field provides the timestamp of the event, while the `update_id` field is a unique identifier for each update, allowing for better tracking and synchronization of events.",
+          "type": "improvement",
+          "links": [
+            {
+              "title": "ws - Market Depth Subscribe",
+              "url": "/public/websocket/#subscribe-5"
+            }
+          ]
+        },
+        {
           "title": "Hedge mode support",
           "description": "The Hedge mode is now available for all users. This mode allows you to hold both long and short positions in the same asset simultaneously, providing greater flexibility in managing your trades.",
           "type": "improvement",
           "links": [
             {
-              "title": "Collateral Limit Order",
+              "title": "v4 - Collateral Limit Order",
               "url": "/private/http-trade-v4/#collateral-limit-order"
             },
             {
-              "title": "Collateral Stop Limit Order",
+              "title": "v4 - Collateral Stop Limit Order",
               "url": "/private/http-trade-v4/#collateral-stop-limit-order"
             },
             {
-              "title": "Collateral Market Order",
+              "title": "v4 - Collateral Market Order",
               "url": "/private/http-trade-v4/#collateral-market-order"
             },
             {
-              "title": "Collateral OCO Order",
+              "title": "v4 - Collateral OCO Order",
               "url": "/private/http-trade-v4/#create-collateral-oco-order"
             },
             {
-              "title": "Collateral Trigger Market Order",
+              "title": "v4 - Collateral Trigger Market Order",
               "url": "/private/http-trade-v4/#collateral-trigger-market-order"
             },
             {
-              "title": "Collateral Account Hedge Mode",
+              "title": "v4 - Collateral Account Hedge Mode",
               "url": "/private/http-trade-v4/#collateral-account-hedge-mode"
             },
             {
-              "title": "Update Collateral Account Hedge Mode",
+              "title": "v4 - Update Collateral Account Hedge Mode",
               "url": "/private/http-trade-v4/#update-collateral-account-hedge-mode"
             },
             {
-              "title": "Orders Pending WebSocket",
+              "title": "ws - Orders Pending WebSocket",
               "url": "/private/websocket/#orders-pending"
             },
             {
-              "title": "Orders Executed WebSocket",
+              "title": "ws - Orders Executed",
               "url": "/private/websocket/#orders-executed"
             },
             {
-              "title": "Orders Executed WebSocket",
+              "title": "ws - Orders Executed",
               "url": "/private/websocket/#orders-executed"
+            },
+            {
+              "title": "ws - Orders Executed",
+              "url": "/private/websocket/#orders-executed"
+            },
+            {
+              "title": "ws - Positions",
+              "url": "/private/websocket/#positions"
             }
           ]
         },

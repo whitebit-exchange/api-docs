@@ -853,6 +853,8 @@ Update events provide real-time updates to the subscribed market depth.
         false,   // full_reload_flag | true - full reload, false - partial update
         {
             "timestamp": 1689600180.5164471,
+            "update_id": 214403,
+            "post_update_id": 214399, // this field will not be populated in first event
             "asks": [
                 ["0.020861", "0"],      // for partial update - finished orders will be [price, "0"]
                 ["0.020900", "2.5"],
@@ -860,7 +862,8 @@ Update events provide real-time updates to the subscribed market depth.
             "bids": [
                 ["0.020844", "5.949"],
                 ["0.020800", "0"],
-            ]
+            ],
+            "event_time": 1749026542.817343
         },
         "ETH_BTC"                       // market pair
     ]

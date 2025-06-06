@@ -1153,6 +1153,7 @@ NONE
 | amount        | String/Number | **Yes**   | ⚠️ Amount in [stock](./../glossary.md#stock) currency for buy or sell. Example: "0.0001" or 0.0001.                           |
 | clientOrderId | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique. |
 | stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
+
 **Request BODY raw:**
 
 ```json
@@ -5036,7 +5037,7 @@ Available statuses:
           "dealFee": "0",                // executed fee by deal
           "price": "40000" ,              // unexecuted order price
           "status": "FILLED" ,            // order status
-          "stp": "no"                     // self trade prevention mode
+          "stp": "no",                     // self trade prevention mode
         }
     },
     {
