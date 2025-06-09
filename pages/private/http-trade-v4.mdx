@@ -540,7 +540,8 @@ This endpoint creates bulk [limit trading orders](./../glossary.md#limit-order).
       "market": "BTC_USDT",
       "postOnly": false,
       "ioc": false,
-      "clientOrderId": ""
+      "clientOrderId": "",
+      "positionSide": "BOTH"
     },
     {
       "side": "sell",
@@ -549,7 +550,8 @@ This endpoint creates bulk [limit trading orders](./../glossary.md#limit-order).
       "postOnly": false,
       "market": "BTC_USDT",
       "ioc": false,
-      "clientOrderId": ""
+      "clientOrderId": "",
+      "positionSide": "BOTH"
     },
     {
       "side": "sell",
@@ -558,7 +560,8 @@ This endpoint creates bulk [limit trading orders](./../glossary.md#limit-order).
       "postOnly": false,
       "market": "BTC_USDT",
       "ioc": false,
-      "clientOrderId": ""
+      "clientOrderId": "",
+      "positionSide": "BOTH"
     }
   ],
   "stopOnFail": true,
@@ -594,7 +597,8 @@ Available statuses:
       "postOnly": false,              // PostOnly
       "price": "40000",                // price
       "status": "FILLED" ,            // order status
-      "stp": "no"                      // self trade prevention mode
+      "stp": "no",                    // self trade prevention mode
+      "positionSide": "BOTH"          // position side
     },
     "error": null
   },
@@ -625,7 +629,8 @@ Available statuses:
       "postOnly": false,
       "price": "41000",
       "status": "FILLED",
-      "stp": "no"
+      "stp": "no",
+      "positionSide": "BOTH"
     },
     "error": null
   }
@@ -4992,7 +4997,8 @@ Available statuses:
         "activation_condition": "gte",  // activation condition
         "activated": 0,                  // activation status
         "status": "FILLED" ,            // order status
-        "stp": "no"                     // self trade prevention mode
+        "stp": "no",                    // self trade prevention mode
+        "positionSide": "LONG"          // position side - LONG or SHORT or BOTH
       },
       "take_profit": {
         "orderId": 117703764515,        // unexecuted order ID
@@ -5012,7 +5018,8 @@ Available statuses:
         "mtime": 1662478154.941582,     // timestamp of order modification
         "price": "9928.79",              // unexecuted order price
         "status": "FILLED" ,            // order status
-        "stp": "no"                     // self trade prevention mode
+        "stp": "no",                     // self trade prevention mode
+        "positionSide": "LONG"          // position side - LONG or SHORT or BOTH
       }
     },
     {
@@ -5038,6 +5045,7 @@ Available statuses:
           "price": "40000" ,              // unexecuted order price
           "status": "FILLED" ,            // order status
           "stp": "no",                     // self trade prevention mode
+          "positionSide": "LONG"          // position side - LONG or SHORT or BOTH
         }
     },
     {
