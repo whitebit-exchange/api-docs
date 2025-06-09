@@ -93,8 +93,8 @@
               "url": "/private/http-trade-v4/#query-unexecutedactive-conditional-orders"
             },
             {
-              "title": "v4 - Bulk limit order",
-              "url": "/private/http-trade-v4/#bulk-limit-order"
+              "title": "v4 - Collateral bulk limit order",
+              "url": "/private/http-trade-v4/#collateral-bulk-limit-order"
             },
             {
               "title": "v4 - Executed order history",
