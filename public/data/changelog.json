@@ -89,6 +89,14 @@
               "url": "/private/http-trade-v4/#query-executed-orders"
             },
             {
+              "title": "v4 - Unexecuted (active) conditional orders",
+              "url": "/private/http-trade-v4/#query-unexecutedactive-conditional-orders"
+            },
+            {
+              "title": "v4 - Bulk limit order",
+              "url": "/private/http-trade-v4/#bulk-limit-order"
+            },
+            {
               "title": "v4 - Executed order history",
               "url": "/private/http-trade-v4/#query-executed-order-history"
             },
