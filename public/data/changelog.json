@@ -8,7 +8,7 @@
         {
           "title": "Event time and update id introduced in WebSocket events",
           "description": "WebSocket events now include `event_time` and `update_id` fields. The `event_time` field provides the timestamp of the event, while the `update_id` field is a unique identifier for each update, allowing for better tracking and synchronization of events.",
-          "type": "improvement",
+          "type": "websocket",
           "links": [
             {
               "title": "ws - Market Depth Subscribe",
@@ -19,7 +19,7 @@
         {
           "title": "Hedge mode support",
           "description": "The Hedge mode is now available for all users. This mode allows you to hold both long and short positions in the same asset simultaneously, providing greater flexibility in managing your trades.",
-          "type": "improvement",
+          "type": "trading",
           "links": [
             {
               "title": "v4 - Collateral Limit Order",
@@ -74,7 +74,7 @@
         {
           "title": "Queries Limited to the Last 6 Months",
           "description": "To enhance performance and focus on the most relevant data, our API will soon limit data queries to the past 6 months. This means you will be able to retrieve data up to six months old from the current date. ",
-          "type": "improvement",
+          "type": "performance",
           "links": [
             {
               "title": "v4 - Convert History",
@@ -127,7 +127,7 @@
         {
           "title": "HTTP Main V4 API - Withdraw",
           "description": "The `paymentDescription` field is now mandatory for withdrawal requests from whitebit-tr.com.",
-          "type": "improvement",
+          "type": "withdrawal",
           "links": [
             {
               "title": "Withdraw",
@@ -144,7 +144,7 @@
         {
           "title": "HTTP Trade V4 API - Convert",
           "description": "Added 30 days date range limit for convert history and default values for `from` and `to` parameters.",
-          "type": "improvement",
+          "type": "data",
           "links": [
             {
               "title": "Convert History",
@@ -161,7 +161,7 @@
         {
           "title": "HTTP Main V4 API - Travel Rule",
           "description": "Added new statuses DEPOSIT_TRAVEL_RULE_FROZEN (27) and DEPOSIT_TRAVEL_RULE_FROZEN_PROCESSING (28) to the deposit endpoint.",
-          "type": "planned",
+          "type": "compliance",
           "links": [
             {
               "title": "Get deposit/withdraw history",
