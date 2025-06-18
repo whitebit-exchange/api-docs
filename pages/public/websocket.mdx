@@ -20,7 +20,7 @@ WebSocket endpoint is **```wss://api.whitebit.com/ws```**
 
 The API is based on [JSON RPC](https://www.jsonrpc.org/specification) of WebSocket protocol.
 
-⚠️ **Connection Timeout** ⚠️
+⚠️️ **Connection Timeout** ⚠️️
 - Server closes websocket connection after **60 seconds of inactivity**
 - Inactivity is defined as no messages sent by the client
 
@@ -246,7 +246,6 @@ The requested interval must meet the following conditions:
             "151.095481849",  // volume in deal
             "ETH_BTC"         // market
         ],
-        ...
     ],
     "error": null
 }
@@ -367,7 +366,6 @@ Update interval: 1 sec
     "params": [
         "ETH_BTC", // markets
         "BTC_USDT",
-        ...
     ]
 }
 ```
@@ -474,7 +472,6 @@ Update interval: 1 sec
     "params": [
         "ETH_BTC", // markets
         "BTC_USDT",
-        ...
     ]
 }
 ```
@@ -586,7 +583,6 @@ Update interval: 1 sec
     "params": [
         "ETH_BTC", // markets
         "BTC_USDT",
-        ...
     ]
 }
 ```
@@ -681,7 +677,6 @@ Update interval: 1 sec
             "amount": "5.511",        // trade amount
             "type": "sell"            // type of trade (buy/sell)
         },
-        ...
     ],
     "error": null
 }
@@ -703,7 +698,6 @@ Update interval: real-time
     "params": [
         "ETH_BTC", // markets
         "BTC_USDT",
-        ...
     ]
 }
 ```
@@ -736,7 +730,6 @@ Update interval: real-time
                  "amount": "5.511",        // trade amount
                  "type": "sell"            // type of trade (buy/sell)
              },
-             ...
          ]
     ]
 }

@@ -18,7 +18,7 @@ WebSocket endpoint is **```wss://api.whitebit.com/ws```**
 
 The API is based on [JSON RPC](https://www.jsonrpc.org/specification) of WebSocket protocol.
 
-⚠️ **Connection Timeout** ⚠️
+⚠️️ **Connection Timeout** ⚠️️
 - Server closes websocket connection after **60 seconds of inactivity**
 - Inactivity is defined as no messages sent by the client
 
@@ -249,7 +249,6 @@ It only needs to be done successfully once.
     "params": [
         "ETH",  // asset
         "BTC",  // asset
-        ...
     ]
 }
 ```
@@ -287,7 +286,6 @@ Update interval: 1 sec
     "params": [
         "USDT", // asset
         "ETH",  // asset
-        ...
     ]
 }
 ```
@@ -317,7 +315,6 @@ Update interval: 1 sec
                 "freeze": "0"            // Amount in active orders
             }
         },
-        ...
     ]
 }
 ```
@@ -681,7 +678,6 @@ All possible [order types](#order-types)
                 "status": "FILLED",               // Order status. All statuses in table above
                 "fee_asset": "USDT"               // Fee asset type
             },
-            ...
         ]
     },
     "error": null
@@ -827,7 +823,6 @@ Market should exist. The maximum limit is 100.
                 "client_order_id": "",             // Client Order ID
                 "fee_asset": "USDT"                // Fee asset type
             },
-            ...
         ]
     },
     "error": null
