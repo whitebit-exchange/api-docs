@@ -443,6 +443,43 @@ Available statuses:
 
 ### Get card token request
 
+<ApiEndpoint method="POST" path="/api/v4/jwt" />
+
+This endpoint generate a JWT token using API key authentication.
+
+**Request BODY raw:**
+```json
+{
+  "request": "{{request}}",
+  "nonceWindow": false,
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response is cached for:**
+NONE
+
+```json
+{
+  "data": {
+    "token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "expires_at": 1622551200
+  }
+}
+```
+
+**Response:**
+Available statuses:
+
+- `Status 201 if validation succeeded and card token is returned`
+- `Status 400 if missing required fields or invalid data`
+- `Status 401 if invalid API key, signature, or nonce`
+- `Status 500 if server configuration issues`
+
+---
+
+### Get card token request
+
 <ApiEndpoint method="POST" path="https://fgw.whitebit.com/api/card-token" />
 
 This endpoint returned card token in exchange on card number for fiat card withdraws.
