@@ -11,6 +11,7 @@ import { Tabs } from 'nextra/components'
 - [Market statistics for current day UTC](#market-statistics-for-current-day-utc)
 - [Market trades](#market-trades)
 - [Market depth](#market-depth)
+- [Book Ticker](#book-ticker)
 
 - [Playground](#playground)
 
@@ -1226,6 +1227,86 @@ This endpoint allows clients to unsubscribe from real-time updates of market dep
 }
 ```
 
+---
+
+### Book Ticker
+
+The Book Ticker stream provides real-time updates to the best bid and ask prices and quantities for a market.
+
+#### Subscribe
+
+Update interval: real-time
+
+##### ⤴️ Request
+
+```json
+{
+    "method": "bookTicker_subscribe",
+    "params": [
+        "SHIB_PERP" // Optional: market name. If empty, subscribes to all markets
+    ],
+    "id": 1
+}
+```
+
+##### ⤵️ Response
+
+```json
+{
+  "id": 1,
+  "result": {
+    "status": "success"
+  },
+  "error": null
+}
+```
+
+##### 🔄 Update events
+
+```json
+{
+    "method": "bookTicker_update",
+    "params": [
+        [
+            1751958383.5933869, // transaction_time - timestamp of the update from matchengine
+            1751958383.5935569, // message_time - timestamp of the message from websocket
+            "SHIB_PERP",        // market
+            80670102,           // update_id
+            "0.000011751",      // best_bid_price
+            "12547000",         // best_bid_amount
+            "0.000011776",      // best_ask_price
+            "17424000"          // best_ask_amount
+        ]
+    ],
+    "id": null
+}
+```
+
+#### Unsubscribe
+
+##### ⤴️ Request
+
+```json
+{
+    "method": "bookTicker_unsubscribe",
+    "params": [],
+    "id": 2
+}
+```
+
+##### ⤵️ Response
+
+```json
+{
+  "id": 2,
+  "result": {
+    "status": "success"
+  },
+  "error": null
+}
+```
+
+---
 ## Playground
 
 import { WebSocketPlayground } from "@/components/websocket-playground";

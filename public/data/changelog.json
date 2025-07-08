@@ -1,6 +1,5 @@
 {
   "changes": [
-
     {
       "title": "Trade Engine Update",
       "timeframe": "2025-06-10",
@@ -187,6 +186,23 @@
             {
               "title": "Fiat Deposit",
               "url": "/private/http-main-v4/#get-fiat-deposit-address"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Public WebSocket Update",
+      "timeframe": "2025-07-09T06:00:00",
+      "changes": [
+        {
+          "title": "Added BookTicker WebSocket stream",
+          "description": "New bookTicker stream added to WebSocket API, providing real-time updates of best bid/ask prices and quantities for markets. Includes subscription (bookTicker_subscribe) and unsubscription (bookTicker_unsubscribe) methods for managing the data feed.",
+          "type": "websocket",
+          "links": [
+            {
+              "title": "ws - Book Ticker",
+              "url": "/public/websocket/#book-ticker"
             }
           ]
         }
