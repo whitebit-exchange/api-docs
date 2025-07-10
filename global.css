@@ -71,14 +71,75 @@
   * {
     @apply border-border;
   }
+
   html {
     scrollbar-gutter: stable;
     font-family: var(--font-inter);
   }
+
   body {
     @apply bg-background text-foreground;
   }
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-manrope);
+  }
+}
+
+
+.neon-border-button {
+  border: 2px solid #3b82f6;
+  box-shadow:
+    0 0 5px rgba(59, 130, 246, 0.4),
+    0 0 10px rgba(59, 130, 246, 0.3),
+    0 0 15px rgba(59, 130, 246, 0.2);
+  animation: neon-glow 3s ease-in-out infinite;
+}
+
+.neon-border-button:hover {
+  box-shadow:
+    0 0 8px rgba(59, 130, 246, 0.6),
+    0 0 16px rgba(59, 130, 246, 0.4),
+    0 0 24px rgba(59, 130, 246, 0.3);
+}
+
+@keyframes neon-glow {
+
+  0%,
+  100% {
+    border-color: #3b82f6;
+    box-shadow:
+      0 0 5px rgba(59, 130, 246, 0.4),
+      0 0 10px rgba(59, 130, 246, 0.3),
+      0 0 15px rgba(59, 130, 246, 0.2);
+  }
+
+  25% {
+    border-color: #60a5fa;
+    box-shadow:
+      0 0 8px rgba(96, 165, 250, 0.5),
+      0 0 16px rgba(96, 165, 250, 0.4),
+      0 0 24px rgba(96, 165, 250, 0.3);
+  }
+
+  50% {
+    border-color: #93c5fd;
+    box-shadow:
+      0 0 12px rgba(147, 197, 253, 0.6),
+      0 0 24px rgba(147, 197, 253, 0.5),
+      0 0 36px rgba(147, 197, 253, 0.4);
+  }
+
+  75% {
+    border-color: #60a5fa;
+    box-shadow:
+      0 0 8px rgba(96, 165, 250, 0.5),
+      0 0 16px rgba(96, 165, 250, 0.4),
+      0 0 24px rgba(96, 165, 250, 0.3);
   }
 }
