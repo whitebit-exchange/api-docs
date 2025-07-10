@@ -1,44 +1,21 @@
 "use client"
-import { useState, useRef, useEffect, useMemo } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 import {
     ChevronUp,
     ChevronDown,
     Code,
     X,
     Zap,
-    Copy,
     Construction,
-    Play,
-    Square,
-    Send,
-    Trash2,
-    Wifi,
-    WifiOff,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-// WebSocket Types
-interface WebSocketMessage {
-    id: string
-    timestamp: Date
-    type: "sent" | "received" | "connection" | "error"
-    data: string
-    size?: number
-}
-
-interface WebSocketConnection {
-    url: string
-    status: "disconnected" | "connecting" | "connected" | "error"
-    socket: WebSocket | null
-}
-
-import { websocketConfigs, type WebSocketProviderKey } from "@/config/websocket"
+import { config } from "@/config/websocket"
+import { WebSocketProvider, WebSocketMessage, WebSocketConnection } from "@/types/websocket"
+import { ConnectionControls } from "@/components/playground/connection-controls"
+import { MessageComposer } from "@/components/playground/message-composer"
+import { MessageLog } from "@/components/playground/message-log"
 
 // WebSocket Panel Component
 function WebSocketPanel() {
@@ -46,18 +23,20 @@ function WebSocketPanel() {
         url: "",
         status: "disconnected",
         socket: null,
-    })
-    const [selectedProvider, setSelectedProvider] = useState<WebSocketProviderKey | "">("")
-    const [payload, setPayload] = useState("")
-    const [messages, setMessages] = useState<WebSocketMessage[]>([])
-    const [autoScroll, setAutoScroll] = useState(true)
-    const messagesEndRef = useRef<HTMLDivElement>(null)
+    });
+    const [selectedProvider, setSelectedProvider] = useState<WebSocketProvider | null>(null);
+    const [messages, setMessages] = useState<WebSocketMessage[]>([]);
+    const [autoScroll, setAutoScroll] = useState(true);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    // Get available sample payloads for the selected provider
-    const availableSamplePayloads = useMemo(() => {
-        if (!selectedProvider) return []
-        return websocketConfigs[selectedProvider]?.samplePayloads || []
-    }, [selectedProvider])
+    // Handle provider change
+    const handleProviderChange = (providerId: keyof typeof config.providers | "custom" | "") => {
+        if (providerId && providerId !== "custom") {
+            setSelectedProvider(config.providers[providerId]);
+        } else {
+            setSelectedProvider(null);
+        }
+    };
 
     // Auto scroll to bottom when new messages arrive
     useEffect(() => {
@@ -76,14 +55,10 @@ function WebSocketPanel() {
             size,
         }
         setMessages((prev) => [...prev, message])
-    }
-
-    // Connect to WebSocket
-    const connect = () => {
-        const url = websocketConfigs[selectedProvider]?.url
-
+    }    // Connect to WebSocket
+    const connect = (url: string) => {
         if (!url) {
-            addMessage("error", "Please select or enter a WebSocket URL")
+            addMessage("error", "Please provide a valid WebSocket URL")
             return
         }
 
@@ -133,21 +108,21 @@ function WebSocketPanel() {
     }
 
     // Send message
-    const sendMessage = () => {
+    const sendMessage = (message: string) => {
         if (!connection.socket || connection.status !== "connected") {
             addMessage("error", "Not connected to WebSocket server")
             return
         }
 
-        if (!payload.trim()) {
+        if (!message.trim()) {
             addMessage("error", "Please enter a message to send")
             return
         }
 
         try {
-            connection.socket.send(payload)
-            const size = new Blob([payload]).size
-            addMessage("sent", payload, size)
+            connection.socket.send(message)
+            const size = new Blob([message]).size
+            addMessage("sent", message, size)
         } catch (error) {
             addMessage("error", `Failed to send message: ${error}`)
         }
@@ -163,239 +138,35 @@ function WebSocketPanel() {
         navigator.clipboard.writeText(message)
     }
 
-    // Format timestamp
-    const formatTimestamp = (timestamp: Date) => {
-        return timestamp.toLocaleTimeString()
-    }
 
-    // Format message size
-    const formatSize = (size?: number) => {
-        if (!size) return ""
-        if (size < 1024) return `${size}B`
-        if (size < 1024 * 1024) return `${(size / 1024).toFixed(1)}KB`
-        return `${(size / (1024 * 1024)).toFixed(1)}MB`
-    }
 
-    // Get status color
-    const getStatusColor = () => {
-        switch (connection.status) {
-            case "connected":
-                return "text-green-600"
-            case "connecting":
-                return "text-yellow-600"
-            case "error":
-                return "text-red-600"
-            default:
-                return "text-gray-600"
-        }
-    }
 
-    // Get status icon
-    const getStatusIcon = () => {
-        switch (connection.status) {
-            case "connected":
-                return <Wifi className="w-4 h-4" />
-            case "connecting":
-                return <Wifi className="w-4 h-4 animate-pulse" />
-            default:
-                return <WifiOff className="w-4 h-4" />
-        }
-    }
-
-    // Handle provider selection
-    const handleProviderSelection = (value: string) => {
-        setSelectedProvider(value as WebSocketProviderKey)
-    }
 
     return (
         <div className="h-full flex flex-col">
-            {/* Connection Controls */}
-            <div className="p-4 border-b border-gray-200 space-y-4">
-                <div className="flex items-center justify-between">
-                    <div className={`flex items-center gap-2 ${getStatusColor()}`}>
-                        {getStatusIcon()}
-                        <span className="text-sm font-medium capitalize">{connection.status}</span>
-                    </div>
-                </div>
-
-                <div className="space-y-3">
-                    <div>
-                        <Label>WebSocket Provider</Label>
-                        <Select value={selectedProvider} onValueChange={handleProviderSelection}>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Select a WebSocket provider" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {Object.entries(websocketConfigs).map(([key, config]) => (
-                                    <SelectItem key={key} value={key}>
-                                        <div>
-                                            <div className="font-medium">{config.name}</div>
-                                            {config.description && (
-                                                <div className="text-xs text-gray-500">{config.description}</div>
-                                            )}
-                                        </div>
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </div>
-                    <div className="flex gap-2">
-                        <Button
-                            onClick={connect}
-                            disabled={connection.status === "connecting" || connection.status === "connected"}
-                            className="flex-1"
-                        >
-                            <Play className="w-4 h-4 mr-2" />
-                            Connect
-                        </Button>
-                        <Button
-                            onClick={disconnect}
-                            disabled={connection.status === "disconnected"}
-                            variant="outline"
-                            className="flex-1 bg-transparent"
-                        >
-                            <Square className="w-4 h-4 mr-2" />
-                            Disconnect
-                        </Button>
-                    </div>
-                </div>
-            </div>
+                        <ConnectionControls
+                isConnected={connection.status === "connected"}
+                onConnect={connect}
+                onDisconnect={disconnect}
+                onProviderChange={handleProviderChange}
+            />
 
             <div className="flex-1 flex overflow-hidden">
-                {/* Message Composer */}
-                <div className="w-1/2 border-r border-gray-200 flex flex-col">
-                    <div className="p-4 border-b border-gray-200">
-                        <div className="flex items-center justify-between mb-3">
-                            <h4 className="font-medium">Message Composer</h4>
-                            <div className="flex items-center gap-2">
-                                <Select onValueChange={(value) => setPayload(value)}>
-                                    <SelectTrigger className="w-80">
-                                        <SelectValue placeholder="Load sample" />
-                                    </SelectTrigger>
-                                    <SelectContent position="bottom">
-                                        {availableSamplePayloads.map((sample) => (
-                                            <SelectItem key={sample.label} value={sample.payload}>
-                                                <div>
-                                                    <div className="font-medium">{sample.label}</div>
-                                                    {sample.description && (
-                                                        <div className="text-xs text-gray-500">{sample.description}</div>
-                                                    )}
-                                                </div>
-                                            </SelectItem>
-                                        ))}
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                        </div>
-                    </div>
+                <MessageComposer
+                isConnected={connection.status === "connected"}
+                selectedProvider={selectedProvider}
+                onSend={sendMessage}
+                className="w-1/2 border-r border-gray-200 flex flex-col"
+            />
 
-                    <div className="flex-1 p-4">
-                        <div className="h-full flex flex-col">
-                            <Label htmlFor="payload" className="mb-2">
-                                Message Payload
-                            </Label>
-                            <Textarea
-                                id="payload"
-                                value={payload}
-                                onChange={(e) => setPayload(e.target.value)}
-                                placeholder="Enter your WebSocket message here..."
-                                className="flex-1 font-mono text-sm resize-none"
-                            />
-                            <div className="flex gap-2 mt-3">
-                                <Button onClick={sendMessage} disabled={connection.status !== "connected"} className="flex-1">
-                                    <Send className="w-4 h-4 mr-2" />
-                                    Send Message
-                                </Button>
-                                <Button onClick={() => setPayload("")} variant="outline">
-                                    Clear
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Message Log */}
-                <div className="w-1/2 flex flex-col">
-                    <div className="p-4 border-b border-gray-200">
-                        <div className="flex items-center justify-between">
-                            <h4 className="font-medium">Message Log</h4>
-                            <div className="flex items-center gap-2">
-                                <label className="flex items-center gap-2 text-sm">
-                                    <input
-                                        type="checkbox"
-                                        checked={autoScroll}
-                                        onChange={(e) => setAutoScroll(e.target.checked)}
-                                        className="rounded"
-                                    />
-                                    Auto-scroll
-                                </label>
-                                <Button onClick={clearMessages} variant="outline" size="sm">
-                                    <Trash2 className="w-4 h-4 mr-2" />
-                                    Clear
-                                </Button>
-                            </div>
-                        </div>
-                        <div className="text-xs text-gray-500 mt-1">
-                            {messages.length} message{messages.length !== 1 ? "s" : ""}
-                        </div>
-                    </div>
-
-                    <ScrollArea className="flex-1">
-                        <div className="p-4 space-y-2">
-                            {messages.length === 0 ? (
-                                <div className="text-center text-gray-500 py-8">
-                                    <Wifi className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                                    <p>No messages yet</p>
-                                    <p className="text-xs">Connect to a WebSocket server to see messages</p>
-                                </div>
-                            ) : (
-                                messages.map((message) => (
-                                    <div
-                                        key={message.id}
-                                        className={`p-3 rounded-lg border text-sm ${message.type === "sent"
-                                            ? "bg-blue-50 border-blue-200"
-                                            : message.type === "received"
-                                                ? "bg-green-50 border-green-200"
-                                                : message.type === "connection"
-                                                    ? "bg-gray-50 border-gray-200"
-                                                    : "bg-red-50 border-red-200"
-                                            }`}
-                                    >
-                                        <div className="flex items-center justify-between mb-2">
-                                            <div className="flex items-center gap-2">
-                                                <Badge
-                                                    variant="outline"
-                                                    className={`text-xs ${message.type === "sent"
-                                                        ? "bg-blue-100 text-blue-800"
-                                                        : message.type === "received"
-                                                            ? "bg-green-100 text-green-800"
-                                                            : message.type === "connection"
-                                                                ? "bg-gray-100 text-gray-800"
-                                                                : "bg-red-100 text-red-800"
-                                                        }`}
-                                                >
-                                                    {message.type.toUpperCase()}
-                                                </Badge>
-                                                <span className="text-xs text-gray-500">{formatTimestamp(message.timestamp)}</span>
-                                                {message.size && <span className="text-xs text-gray-500">{formatSize(message.size)}</span>}
-                                            </div>
-                                            <Button
-                                                onClick={() => copyMessage(message.data)}
-                                                variant="ghost"
-                                                size="sm"
-                                                className="h-6 w-6 p-0"
-                                            >
-                                                <Copy className="w-3 h-3" />
-                                            </Button>
-                                        </div>
-                                        <pre className="whitespace-pre-wrap break-all text-xs font-mono">{message.data}</pre>
-                                    </div>
-                                ))
-                            )}
-                            <div ref={messagesEndRef} />
-                        </div>
-                    </ScrollArea>
-                </div>
+                <MessageLog
+                    messages={messages}
+                    autoScroll={autoScroll}
+                    onAutoScrollChange={setAutoScroll}
+                    onClear={clearMessages}
+                    onCopy={copyMessage}
+                    className="w-1/2"
+                />
             </div>
         </div>
     )
