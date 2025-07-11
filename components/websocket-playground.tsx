@@ -245,7 +245,7 @@ export function WebSocketPlayground() {
         try {
           const data = JSON.parse(event.data);
           addMessage(JSON.stringify(data, null, 2), "received", "success");
-        } catch (e) {
+        } catch {
           addMessage(event.data, "received", "error");
         }
       };

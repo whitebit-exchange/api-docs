@@ -18,7 +18,7 @@ WebSocket endpoint is **```wss://api.whitebit.com/ws```**
 
 The API is based on [JSON RPC](https://www.jsonrpc.org/specification) of WebSocket protocol.
 
-⚠️ **Connection Timeout** ⚠️
+⚠️️ **Connection Timeout** ⚠️️
 - Server closes websocket connection after **60 seconds of inactivity**
 - Inactivity is defined as no messages sent by the client
 
@@ -249,7 +249,6 @@ It only needs to be done successfully once.
     "params": [
         "ETH",  // asset
         "BTC",  // asset
-        ...
     ]
 }
 ```
@@ -287,7 +286,6 @@ Update interval: 1 sec
     "params": [
         "USDT", // asset
         "ETH",  // asset
-        ...
     ]
 }
 ```
@@ -317,7 +315,6 @@ Update interval: 1 sec
                 "freeze": "0"            // Amount in active orders
             }
         },
-        ...
     ]
 }
 ```
@@ -523,7 +520,8 @@ All possible [order types](#order-types)
                 "deal_fee": "0",               // Charged fee amount in money
                 "client_order_id": "",         // Custom client order id
                 "stp": "no",                   // stp flag; [no, co, cn, cb]. No Prevention (no), Cancel Oldest (co), Cancel Newest (cn), Cancel Both (cb)
-                "status": "OPEN"               // Order status. All statuses in table above
+                "status": "OPEN",              // Order status. All statuses in table above
+                "position_side": "LONG"         // position side - LONG or SHORT or BOTH
             }
         ]
     },
@@ -593,7 +591,8 @@ If new [order](./../glossary.md#orders) instantly matches an order from [orderbo
             "deal_fee": "0",            // Charged fee amount in money
             "client_order_id": "",      // Custom client order id
             "stp": "no",                // STP flag; [no, co, cn, cb]. No Prevention (no), Cancel Oldest (co), Cancel Newest (cn), Cancel Both (cb)
-            "status": "OPEN"            // Order status. All statuses in table above
+            "status": "OPEN",           // Order status. All statuses in table above
+            "position_side": "LONG"      // position side - LONG or SHORT or BOTH
         }
     ],
 }
@@ -679,7 +678,6 @@ All possible [order types](#order-types)
                 "status": "FILLED",               // Order status. All statuses in table above
                 "fee_asset": "USDT"               // Fee asset type
             },
-            ...
         ]
     },
     "error": null
@@ -748,7 +746,8 @@ Update interval: real-time
             "deal_fee": "0.001",           // Charged fee amount in money
             "client_order_id": "",
             "stp": "no",                   // STP flag; [no, co, cn, cb]. No Prevention (no), Cancel Oldest (co), Cancel Newest (cn), Cancel Both (cb)
-            "status": "FILLED"             // Order status. All statuses in table above
+            "status": "FILLED",            // Order status. All statuses in table above
+            "position_side": "LONG"         // position side - LONG or SHORT or BOTH
         }
     ]
 }
@@ -824,7 +823,6 @@ Market should exist. The maximum limit is 100.
                 "client_order_id": "",             // Client Order ID
                 "fee_asset": "USDT"                // Fee asset type
             },
-            ...
         ]
     },
     "error": null
@@ -962,7 +960,8 @@ Update interval: 1 sec
               "funding": "0",                // funding that has already been disbursed
               "margin": "23.8",              // own funds amount in open position **money**
               "free_margin": "999932.92",    // free funds for trading
-              "realized_pnl": "0"            // Realized PnL in **money**
+              "realized_pnl": "0",           // Realized PnL in **money**
+              "position_side": "LONG"         // position side - LONG or SHORT or BOTH
           }
       ]
   },
@@ -1043,7 +1042,8 @@ Update interval: 1 sec
             "funding": "0",                             //  funding that has already been disbursed
             "margin": "1109.77",                        //  own funds amount in open position **money**
             "free_margin": "-652.9",                    //  free funds for trading
-            "realized_pnl": "-8.945817921792"           //  Realized PnL in **money**
+            "realized_pnl": "-8.945817921792",          //  Realized PnL in **money**
+            "position_side": "LONG"                      // position side - LONG or SHORT or BOTH
         }
     ],
     "id": null

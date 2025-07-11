@@ -1,4 +1,4 @@
-export default {
+const meta = {
   "client-order-id": {
     title: "Client Order ID",
     theme: {
@@ -12,3 +12,5 @@ export default {
     },
   },
 };
+
+export default meta;

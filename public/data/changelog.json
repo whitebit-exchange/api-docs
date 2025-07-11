@@ -1,13 +1,132 @@
 {
   "changes": [
     {
+      "title": "Trade Engine Update",
+      "timeframe": "2025-06-10",
+      "changes": [
+        {
+          "title": "Event time and update id introduced in WebSocket events",
+          "description": "WebSocket events now include `event_time` and `update_id` fields. The `event_time` field provides the timestamp of the event, while the `update_id` field is a unique identifier for each update, allowing for better tracking and synchronization of events.",
+          "type": "websocket",
+          "links": [
+            {
+              "title": "ws - Market Depth Subscribe",
+              "url": "/public/websocket/#subscribe-5"
+            }
+          ]
+        },
+        {
+          "title": "Hedge mode support",
+          "description": "The Hedge mode is now available for all users. This mode allows you to hold both long and short positions in the same asset simultaneously, providing greater flexibility in managing your trades.",
+          "type": "trading",
+          "links": [
+            {
+              "title": "v4 - Collateral Limit Order",
+              "url": "/private/http-trade-v4/#collateral-limit-order"
+            },
+            {
+              "title": "v4 - Collateral Stop Limit Order",
+              "url": "/private/http-trade-v4/#collateral-stop-limit-order"
+            },
+            {
+              "title": "v4 - Collateral Market Order",
+              "url": "/private/http-trade-v4/#collateral-market-order"
+            },
+            {
+              "title": "v4 - Collateral OCO Order",
+              "url": "/private/http-trade-v4/#create-collateral-oco-order"
+            },
+            {
+              "title": "v4 - Collateral Trigger Market Order",
+              "url": "/private/http-trade-v4/#collateral-trigger-market-order"
+            },
+            {
+              "title": "v4 - Collateral Account Hedge Mode",
+              "url": "/private/http-trade-v4/#collateral-account-hedge-mode"
+            },
+            {
+              "title": "v4 - Update Collateral Account Hedge Mode",
+              "url": "/private/http-trade-v4/#update-collateral-account-hedge-mode"
+            },
+            {
+              "title": "ws - Orders Pending WebSocket",
+              "url": "/private/websocket/#orders-pending"
+            },
+            {
+              "title": "ws - Orders Executed",
+              "url": "/private/websocket/#orders-executed"
+            },
+            {
+              "title": "ws - Orders Executed",
+              "url": "/private/websocket/#orders-executed"
+            },
+            {
+              "title": "ws - Orders Executed",
+              "url": "/private/websocket/#orders-executed"
+            },
+            {
+              "title": "ws - Positions",
+              "url": "/private/websocket/#positions"
+            }
+          ]
+        },
+        {
+          "title": "Queries Limited to the Last 6 Months",
+          "description": "To enhance performance and focus on the most relevant data, our API will soon limit data queries to the past 6 months. This means you will be able to retrieve data up to six months old from the current date. ",
+          "type": "performance",
+          "links": [
+            {
+              "title": "v4 - Convert History",
+              "url": "/private/http-trade-v4/#convert-history"
+            },
+            {
+              "title": "v4 - Executed order deals",
+              "url": "/private/http-trade-v4/#query-executed-order-deals"
+            },
+            {
+              "title": "v4 - Executed orders",
+              "url": "/private/http-trade-v4/#query-executed-orders"
+            },
+            {
+              "title": "v4 - Unexecuted (active) conditional orders",
+              "url": "/private/http-trade-v4/#query-unexecutedactive-conditional-orders"
+            },
+            {
+              "title": "v4 - Collateral bulk limit order",
+              "url": "/private/http-trade-v4/#collateral-bulk-limit-order"
+            },
+            {
+              "title": "v4 - Executed order history",
+              "url": "/private/http-trade-v4/#query-executed-order-history"
+            },
+            {
+              "title": "v4 - Positions history",
+              "url": "/private/http-trade-v4/#positions-history"
+            },
+            {
+              "title": "v1 - Order history",
+              "url": "/private/http-trade-v1/#query-order-history"
+            },
+            {
+              "title": "v1 - Executed History by single market",
+              "url": "/private/http-trade-v1/#query-executed-order-history-by-single-market"
+            },
+            {
+              "title": "v1 - Executed History by all markets",
+              "url": "/private/http-trade-v1/#query-executed-order-history-by-all-markets"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "title": "Withdraw update",
       "timeframe": "2025-05-29",
       "changes": [
         {
           "title": "HTTP Main V4 API - Withdraw",
           "description": "The `paymentDescription` field is now mandatory for withdrawal requests from whitebit-tr.com.",
-          "type": "improvement",
+          "type": "withdrawal",
           "links": [
             {
               "title": "Withdraw",
@@ -24,7 +143,7 @@
         {
           "title": "HTTP Trade V4 API - Convert",
           "description": "Added 30 days date range limit for convert history and default values for `from` and `to` parameters.",
-          "type": "improvement",
+          "type": "data",
           "links": [
             {
               "title": "Convert History",
@@ -41,7 +160,7 @@
         {
           "title": "HTTP Main V4 API - Travel Rule",
           "description": "Added new statuses DEPOSIT_TRAVEL_RULE_FROZEN (27) and DEPOSIT_TRAVEL_RULE_FROZEN_PROCESSING (28) to the deposit endpoint.",
-          "type": "planned",
+          "type": "compliance",
           "links": [
             {
               "title": "Get deposit/withdraw history",
@@ -67,6 +186,23 @@
             {
               "title": "Fiat Deposit",
               "url": "/private/http-main-v4/#get-fiat-deposit-address"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Public WebSocket Update",
+      "timeframe": "2025-07-09T06:00:00",
+      "changes": [
+        {
+          "title": "Added BookTicker WebSocket stream",
+          "description": "New bookTicker stream added to WebSocket API, providing real-time updates of best bid/ask prices and quantities for markets. Includes subscription (bookTicker_subscribe) and unsubscription (bookTicker_unsubscribe) methods for managing the data feed.",
+          "type": "websocket",
+          "links": [
+            {
+              "title": "ws - Book Ticker",
+              "url": "/public/websocket/#book-ticker"
             }
           ]
         }

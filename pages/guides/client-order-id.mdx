@@ -11,9 +11,7 @@ This guide provides information about using `clientOrderId` in your trading oper
 
 <Card className="mt-6">
   <CardContent className="pt-6 text-foreground/90">
-    The `clientOrderId` is your own optional ID to help you keep track of your orders. Think of it as a custom label you can create. This ID works alongside the standard `orderId` provided by the exchange, giving you another way to manage and follow your orders.
-
-    **Important:** While you can choose your own `clientOrderId`, it must be unique for any orders placed by your account. This means you cannot reuse the same `clientOrderId` for a new order if that ID was already used for another order.
+    The `clientOrderId` is an optional identifier that allows you to track and manage your orders with your own custom identifiers. It provides an additional layer of order management and tracking capabilities alongside the exchange-provided `orderId`.
   </CardContent>
 </Card>
 
@@ -28,7 +26,7 @@ This guide provides information about using `clientOrderId` in your trading oper
       <ul className="space-y-2 text-sm text-foreground/80">
         <li>• Type: String</li>
         <li>• Mandatory: No</li>
-        <li>• Uniqueness: Must be unique for 24 hours</li>
+        <li>• Uniqueness: Must be unique per account</li>
       </ul>
     </CardContent>
   </Card>
@@ -56,7 +54,7 @@ This guide provides information about using `clientOrderId` in your trading oper
   <CardContent>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="space-y-2 text-sm text-foreground/80">
-        <div>• Recommended maximum length: 32 characters</div>
+        <div>• Recommended length: 32 characters</div>
         <div>• Case-sensitive: "Order1" and "order1" are different IDs</div>
       </div>
       <div className="space-y-2 text-sm text-foreground/80">
@@ -405,7 +403,7 @@ This guide provides information about using `clientOrderId` in your trading oper
           <CardTitle className="text-base">Duplicate ID</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-sm text-foreground/80">The `clientOrderId` must be unique for 24 hours</div>
+          <div className="text-sm text-foreground/80">The `clientOrderId` must be unique per account</div>
         </CardContent>
       </Card>
       <Card>
@@ -421,7 +419,7 @@ This guide provides information about using `clientOrderId` in your trading oper
           <CardTitle className="text-base">Length Limit</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-sm text-foreground/80">Keep the ID length reasonable (recommended: under 32 characters)</div>
+          <div className="text-sm text-foreground/80">The recommended length is 32 characters, with a maximum permissible length of 64 characters.</div>
         </CardContent>
       </Card>
       <Card>

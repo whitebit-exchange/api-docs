@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import { useTheme } from "next-themes";
 
 import { Inter, Manrope } from "next/font/google";
+import { ApiPlayground } from "@/components/playground";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <main className={`${inter.variable} ${manrope.variable}`}>
+      <ApiPlayground></ApiPlayground>
       <QueryClientProvider client={queryClient}>
         <Component {...pageProps} />
         <Toaster
