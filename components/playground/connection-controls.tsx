@@ -48,22 +48,25 @@ export function ConnectionControls({
     }
   };
 
-  const status = isConnected
-    ? { icon: <Wifi className="w-4 h-4" />, label: "Connected", color: "text-green-600" }
-    : { icon: <WifiOff className="w-4 h-4" />, label: "Disconnected", color: "text-gray-600" };
-
   return (
-    <div className={`p-4 space-y-4 border-b ${className}`}>
+    <div className={`p-4 space-y-4 border-b border-border bg-card text-card-foreground ${className}`}>
       <div className="flex items-center gap-2">
-        <span className={`flex items-center gap-2 ${status.color}`}>
-          {status.icon}
-          <span className="text-sm font-medium">{status.label}</span>
-        </span>
+        {isConnected ? (
+          <span className="flex items-center gap-2 text-success">
+            <Wifi className="w-4 h-4" />
+            <span className="text-sm font-medium text-foreground">Connected</span>
+          </span>
+        ) : (
+          <span className="flex items-center gap-2 text-muted-foreground">
+            <WifiOff className="w-4 h-4" />
+            <span className="text-sm font-medium">Disconnected</span>
+          </span>
+        )}
       </div>
 
       <div className="space-y-3">
         <div>
-          <Label>WebSocket Provider</Label>
+          <Label className="text-foreground">WebSocket Provider</Label>
           <Select value={selectedProvider} onValueChange={handleProviderChange}>
             <SelectTrigger className="text-left">
               <SelectValue placeholder="Select a WebSocket provider" />
@@ -74,7 +77,7 @@ export function ConnectionControls({
                   <div>
                     <div className="font-medium">{provider.label}</div>
                     {provider.description && (
-                      <div className="text-xs text-gray-500">{provider.description}</div>
+                      <div className="text-xs text-muted-foreground">{provider.description}</div>
                     )}
                   </div>
                 </SelectItem>
@@ -88,7 +91,7 @@ export function ConnectionControls({
 
         {selectedProvider === "custom" && (
           <div>
-            <Label>Custom WebSocket URL</Label>
+            <Label className="text-foreground">Custom WebSocket URL</Label>
             <Input
               value={customUrl}
               onChange={(e) => onCustomUrlChange(e.target.value)}

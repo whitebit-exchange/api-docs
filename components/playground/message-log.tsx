@@ -45,27 +45,27 @@ export function MessageLog({
   };
 
   return (
-    <div className={cn("w-1/2 flex flex-col", className)}>
-      <div className="p-4 border-b border-gray-200">
+    <div className={cn("w-1/2 flex flex-col bg-card text-card-foreground", className)}>
+      <div className="p-4 border-b border-border">
         <div className="flex items-center justify-between">
-          <h4 className="font-medium">Message Log</h4>
+          <h4 className="font-medium text-foreground">Message Log</h4>
           <div className="flex items-center gap-2">
-            <label className="flex items-center gap-2 text-sm">
+            <label className="flex items-center gap-2 text-sm text-foreground">
               <input
                 type="checkbox"
                 checked={autoScroll}
                 onChange={(e) => onAutoScrollChange(e.target.checked)}
-                className="rounded"
+                className="rounded border-border text-primary bg-card"
               />
               Auto-scroll
             </label>
-            <Button onClick={onClear} variant="outline" size="sm">
+            <Button onClick={onClear} variant="outline" size="sm" className="border-border hover:bg-accent hover:text-accent-foreground">
               <Trash2 className="w-4 h-4 mr-2" />
               Clear
             </Button>
           </div>
         </div>
-        <div className="text-xs text-gray-500 mt-1">
+        <div className="text-xs text-muted-foreground mt-1">
           {messages.length} message{messages.length !== 1 ? "s" : ""}
         </div>
       </div>
@@ -73,7 +73,7 @@ export function MessageLog({
       <ScrollArea className="flex-1">
         <div className="p-4 space-y-2">
           {messages.length === 0 ? (
-            <div className="text-center text-gray-500 py-8">
+            <div className="text-center text-muted-foreground py-8">
               <Wifi className="w-8 h-8 mx-auto mb-2 opacity-50" />
               <p>No messages yet</p>
               <p className="text-xs">Connect to a WebSocket server to see messages</p>
@@ -84,12 +84,12 @@ export function MessageLog({
                 key={message.id}
                 className={`p-3 rounded-lg border text-sm ${
                   message.type === "sent"
-                    ? "bg-blue-50 border-blue-200"
+                    ? "bg-blue-500/10 border-blue-500/20 dark:bg-blue-500/5"
                     : message.type === "received"
-                    ? "bg-green-50 border-green-200"
+                    ? "bg-green-500/10 border-green-500/20 dark:bg-green-500/5"
                     : message.type === "connection"
-                    ? "bg-gray-50 border-gray-200"
-                    : "bg-red-50 border-red-200"
+                    ? "bg-background border-border"
+                    : "bg-red-500/10 border-red-500/20 dark:bg-red-500/5"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
@@ -98,31 +98,31 @@ export function MessageLog({
                       variant="outline"
                       className={`text-xs ${
                         message.type === "sent"
-                          ? "bg-blue-100 text-blue-800"
+                          ? "border-blue-500/50 text-blue-600 dark:text-blue-400"
                           : message.type === "received"
-                          ? "bg-green-100 text-green-800"
+                          ? "border-green-500/50 text-green-600 dark:text-green-400"
                           : message.type === "connection"
-                          ? "bg-gray-100 text-gray-800"
-                          : "bg-red-100 text-red-800"
+                          ? "border-border text-muted-foreground"
+                          : "border-red-500/50 text-red-600 dark:text-red-400"
                       }`}
                     >
                       {message.type.toUpperCase()}
                     </Badge>
-                    <span className="text-xs text-gray-500">{formatTimestamp(message.timestamp)}</span>
+                    <span className="text-xs text-muted-foreground">{formatTimestamp(message.timestamp)}</span>
                     {message.size && (
-                      <span className="text-xs text-gray-500">{formatSize(message.size)}</span>
+                      <span className="text-xs text-muted-foreground">{formatSize(message.size)}</span>
                     )}
                   </div>
                   <Button
                     onClick={() => onCopy(message.data)}
                     variant="ghost"
                     size="sm"
-                    className="h-6 w-6 p-0"
+                    className="h-6 w-6 p-0 hover:bg-accent hover:text-accent-foreground"
                   >
                     <Copy className="w-3 h-3" />
                   </Button>
                 </div>
-                <pre className="whitespace-pre-wrap break-all text-xs font-mono">{message.data}</pre>
+                <pre className="whitespace-pre-wrap break-all text-xs font-mono text-card-foreground">{message.data}</pre>
               </div>
             ))
           )}
