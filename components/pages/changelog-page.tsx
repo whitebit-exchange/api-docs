@@ -8,7 +8,6 @@ import {
   CheckCircle2,
   Clock,
   Info,
-  AlertTriangle,
   ExternalLink,
   Link as LinkIcon,
   CreditCard,
@@ -17,14 +16,12 @@ import {
   Shield,
   Database,
   Wallet,
-  Globe,
   Settings,
   BarChart3,
   Network,
   FileText,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface ChangelogLink {
@@ -411,7 +408,7 @@ export default function ChangelogPage() {
         <p className="text-lg leading-relaxed text-muted-foreground">
           Track all updates, improvements, and fixes to the WhiteBIT API
           Platform. This page documents both upcoming and previous changes to
-          help you stay informed about our platform's evolution.
+          help you stay informed about our platform&apos;s evolution.
         </p>
       </div>
       <div className="changelog-content">
