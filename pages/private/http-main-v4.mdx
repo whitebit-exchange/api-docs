@@ -157,8 +157,8 @@ NONE
 
 | Name    | Type   | Mandatory                                                             | Description                                                                                                                                                                                                                                               |
 | ------- | ------ | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ticker  | String | **Yes**                                                               | Currencies [ticker](./../glossary.md#ticker). Example: BTC ⚠ Currency ticker should not be [fiat](./../glossary.md#fiat) and it's "can_deposit" status must be "true". You can find this status in https://whitebit.com/api/v4/public/assets response.   |
-| network | String | **Yes, if currency is [multinetwork](./../glossary.md#multinetwork)** | Cryptocurrency network. ⚠ If currency has multiple networks like USDT - you need to specify network to be used. You can find [ticker](./../glossary.md#ticker) networks list in "networks" field from response https://whitebit.com/api/v4/public/assets. |
+| ticker  | String | **Yes**                                                               | Currencies [ticker](./../glossary.md#ticker). Example: BTC ⚠️ Currency ticker should not be [fiat](./../glossary.md#fiat) and it's "can_deposit" status must be "true". You can find this status in https://whitebit.com/api/v4/public/assets response.   |
+| network | String | **Yes, if currency is [multinetwork](./../glossary.md#multinetwork)** | Cryptocurrency network. ⚠️ If currency has multiple networks like USDT - you need to specify network to be used. You can find [ticker](./../glossary.md#ticker) networks list in "networks" field from response https://whitebit.com/api/v4/public/assets. |
 
 **Request BODY raw:**
 
@@ -269,8 +269,8 @@ NONE
 
 | Name                         | Type           | Mandatory                                                                              | Description                                                                                                                                                                                                                                                 |
 |------------------------------| -------------- |----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ticker                       | String         | **Yes**                                                                                | Currencies [ticker](./../glossary.md#ticker). Example: UAH ⚠ Currencies ticker should be: [fiat](./../glossary.md#fiat) and has "can_deposit" status must be "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency. |
-| provider                     | String         | **Yes**                                                                                | [Fiat](./../glossary.md#fiat) currency provider. Example: VISAMASTER ⚠ Currency [provider](./../glossary.md#provider) should be taken from https://whitebit.com/api/v4/public/assets response.                                                              |
+| ticker                       | String         | **Yes**                                                                                | Currencies [ticker](./../glossary.md#ticker). Example: UAH ⚠️ Currencies ticker should be: [fiat](./../glossary.md#fiat) and has "can_deposit" status must be "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency. |
+| provider                     | String         | **Yes**                                                                                | [Fiat](./../glossary.md#fiat) currency provider. Example: VISAMASTER ⚠️ Currency [provider](./../glossary.md#provider) should be taken from https://whitebit.com/api/v4/public/assets response.                                                              |
 | amount                       | Numeric String | **Yes**                                                                                | Deposit amount.                                                                                                                                                                                                                                             |
 | uniqueId                     | String         | **Yes**                                                                                | Unique transaction identifier on client's side.                                                                                                                                                                                                             |
 | customer.firstName           | String         | **Yes, if currency USD or EUR with VISAMASTER [provider](./../glossary.md#provider)**  | Customer billing first name                                                                                                                                                                                                                                 |
@@ -336,7 +336,7 @@ Available statuses:
 }
 ```
 
-**⚠ If you have used VISAMASTER as [provider](./../glossary.md#provider), you must pass [referer header](https://developer.mozilla.org/ru/docs/Web/HTTP/Headers/Referer) when you go to the invoice link (for example, pass `referer` header when you go to `https://someaddress.com`). Otherwise if there is no header (for example, you go to `https://someaddress.com` from Telegram message) you will be redirected to the WhiteBIT homepage**
+**⚠️ If you have used VISAMASTER as [provider](./../glossary.md#provider), you must pass [referer header](https://developer.mozilla.org/ru/docs/Web/HTTP/Headers/Referer) when you go to the invoice link (for example, pass `referer` header when you go to `https://someaddress.com`). Otherwise if there is no header (for example, you go to `https://someaddress.com` from Telegram message) you will be redirected to the WhiteBIT homepage**
 
 <details>
 <summary><b>Errors:</b></summary>
@@ -554,13 +554,13 @@ NONE
 
 | Name                  | Type           | Mandatory                                                                                                           | Description                                                                                                                                                                                                                                                              |
 |-----------------------| -------------- |---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ticker                | String         | **Yes**                                                                                                             | Currencies [ticker](./../glossary.md#ticker). Example: BTC ⚠ Currencies ticker must have "can_deposit" status equal to "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.                                                    |
+| ticker                | String         | **Yes**                                                                                                             | Currencies [ticker](./../glossary.md#ticker). Example: BTC ⚠️ Currencies ticker must have "can_deposit" status equal to "true". Use this [url](https://whitebit.com/api/v4/public/assets) to know more about currency.                                                    |
 | amount                | Numeric string | **Yes**                                                                                                             | Withdraw amount (including [fee](./../glossary.md#fee)). If you want fee to be added to the specified amount, you need to use [/main-account/withdraw-pay](#create-withdraw-request-with-specifying-absolute-withdraw-amount) request (see examples there)               |
 | address               | String         | **Yes**                                                                                                             | Target address (wallet address for cryptocurrencies, identifier/card token for [fiat](./../glossary.md#fiat) currencies)                                                                                                                                                |
 | memo                  | String         | **Yes, if currency is memoable**                                                                                    | Target address (wallet address for cryptocurrencies, identifier/card number for [fiat](./../glossary.md#fiat) currencies)                                                                                                                                                |
-| uniqueId              | String         | **Yes**                                                                                                             | Unique transaction identifier. ⚠ Note that you should generate new unique id for each withdrawal request.                                                                                                                                                                |
-| provider              | String         | **Yes, if currency is fiat**                                                                                        | [Fiat](./../glossary.md#fiat) currency [provider](./../glossary.md#provider). Example: VISAMASTER ⚠ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.                                                                           |
-| network               | String         | **No**                                                                                                              | Cryptocurrency network. Available for multi network currencies. Example: OMNI ⚠ Currency network should be taken from https://whitebit.com/api/v4/public/assets response. Default for USDT is ERC20                                                                      |
+| uniqueId              | String         | **Yes**                                                                                                             | Unique transaction identifier. ⚠️ Note that you should generate new unique id for each withdrawal request.                                                                                                                                                                |
+| provider              | String         | **Yes, if currency is fiat**                                                                                        | [Fiat](./../glossary.md#fiat) currency [provider](./../glossary.md#provider). Example: VISAMASTER ⚠️ Currency provider should be taken from https://whitebit.com/api/v4/public/assets response.                                                                           |
+| network               | String         | **No**                                                                                                              | Cryptocurrency network. Available for multi network currencies. Example: OMNI ⚠️ Currency network should be taken from https://whitebit.com/api/v4/public/assets response. Default for USDT is ERC20                                                                      |
 | partialEnable         | Boolean        | **No**                                                                                                              | Optional parameter for [FIAT](./../glossary.md#fiat) withdrawals with increased Maximum Limit if set as "true". In order to use this parameter your application should support "Partially successful" withdrawal status and latest updates in deposit/withdrawal history. |
 | beneficiary           | Object         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: UAH_IBAN, USD_VISAMASTER, EUR_VISAMASTER, USD, EUR** | Beneficiary information data array.                                                                                                                                                                                                                                      |
 | beneficiary.firstName | String         | **Yes, if currency [ticker](./../glossary.md#ticker) is one of: UAH_IBAN, USD_VISAMASTER, USD, EUR**                | Beneficiary first name. Max length: 40 symbols, latin letters and special characters.                                                                                                                                                                                    |
@@ -1147,9 +1147,6 @@ Available statuses:
                 "required": 2                                                                       // required block confirmation for successful deposit
             }
         },
-        {...},
-        {...},
-        {...}
     ],
     "total": 300                                                                                    // total number of  transactions, use this for calculating 'limit' and 'offset'
 }
@@ -1631,7 +1628,6 @@ Available statuses:
             "ticker": "ETH",                                      // code ticker
             "external_id": "cf7c3ff8-5eb0-11ed-9b6a-0242ac120002" // code external id
         },
-        {...}
     ],
     "limit": 30,
     "offset": 0
@@ -1734,7 +1730,6 @@ Available statuses:
             "ticker": "ETH",                                      // code ticker
             "external_id": "52995812-5eb1-11ed-9b6a-0242ac120002" // code external id
         },
-        {...}
     ],
     "limit": 100,
     "offset": 0

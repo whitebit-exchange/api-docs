@@ -1,4 +1,5 @@
-import { ApiEndpoint } from '@/components/api-endpoint'
+import { ApiEndpoint } from "@/components/api-endpoint";
+import { Alert } from "@/components/alert";
 
 # Private HTTP API V4 for trading
 
@@ -87,12 +88,13 @@ This endpoint retrieves the maker and taker fees for a specific market.
 
 **Parameters:**
 
-| Name   | Type   | Mandatory | Description                                                    |
-|--------|--------|-----------|----------------------------------------------------------------|
-| market | String | **Yes**   | Available market. Example: BTC_USDT                            |
+| Name   | Type   | Mandatory | Description                         |
+| ------ | ------ | --------- | ----------------------------------- |
+| market | String | **Yes**   | Available market. Example: BTC_USDT |
 
 **Response:**
 Available statuses:
+
 - `Status 200`
 - `Status 422 if validation failed`
 
@@ -112,6 +114,7 @@ This endpoint retrieves the maker and taker fees for all markets, including any 
 
 **Response:**
 Available statuses:
+
 - `Status 200`
 - `Status 422 if validation failed`
 
@@ -166,17 +169,14 @@ Available statuses:
 
 ```json
 {
-    "...": {...},
-    "BTC": {
-        "available": "0.123",      // Available balance of currency for trading
-        "freeze": "1"              // Balance of currency that is currently in active orders
-    },
-    "...": {...},
-    "XMR": {
-        "available": "3013",
-        "freeze": "100"
-    },
-    "...": {...}
+  "BTC": {
+    "available": "0.123", // Available balance of currency for trading
+    "freeze": "1" // Balance of currency that is currently in active orders
+  },
+  "USDT": {
+    "available": "3013",
+    "freeze": "100"
+  }
 }
 ```
 
@@ -226,17 +226,17 @@ This endpoint creates [limit trading order](./../glossary.md#limit-order).
 
 **Parameters:**
 
-| Name          | Type          | Mandatory | Description                                                                                                                                                                                                                                                                                        |
-|---------------|---------------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| market        | String        | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                                                                                                                                                     |
-| side          | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                                                                                                                                                                                               |
-| amount        | String/Number | **Yes**   | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                                                                                                                                                                                       |
-| price         | String/Number | **Yes**   | Price in money currency. Example: '9800' or 9800                                                                                                                                                                                                                                                   |
-| clientOrderId | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                                                                                                                      |
-| postOnly      | boolean       | **No**    | [Orders](./../glossary.md#orders) are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: 'true' / 'false' Example: 'false'.                                                                                                  |
-| ioc           | boolean       | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                                                                  |
-| bboRole       | Integer       | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables:  1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 2. |
-| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                                                                                                            |                                                                                                                                                                 |
+| Name          | Type          | Mandatory | Description                                                                                                                                                                                                                                                                                       |
+| ------------- | ------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| market        | String        | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                                                                                                                                                    |
+| side          | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                                                                                                                                                                                              |
+| amount        | String/Number | **Yes**   | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                                                                                                                                                                                      |
+| price         | String/Number | **Yes**   | Price in money currency. Example: '9800' or 9800                                                                                                                                                                                                                                                  |
+| clientOrderId | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                                                                                                                             |
+| postOnly      | boolean       | **No**    | [Orders](./../glossary.md#orders) are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: 'true' / 'false' Example: 'false'.                                                                                                 |
+| ioc           | boolean       | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                                                                 |
+| bboRole       | Integer       | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables: 1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 2. |
+| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                                                                                                           |     |
 
 **Request BODY raw:**
 
@@ -264,22 +264,22 @@ Available statuses:
 
 ```json
 {
-  "orderId": 4180284841,           // order id
+  "orderId": 4180284841, // order id
   "clientOrderId": "order1987111", // custom client order id; "clientOrderId": "" - if not specified.
-  "market": "BTC_USDT",            // deal market
-  "side": "buy",                   // order side
-  "type": "limit",                 // order type
-  "timestamp": 1595792396.165973,  // timestamp of order creation
-  "dealMoney": "0",                // if order finished - amount in money currency that is finished
-  "dealStock": "0",                // if order finished - amount in stock currency that is finished
-  "amount": "0.01",                // amount
-  "left": "0.001",                 // if order not finished - rest of the amount that must be finished
-  "dealFee": "0",                  // fee in money that you pay if order is finished
-  "price": "40000",                // price
-  "postOnly": false,               // PostOnly
-  "ioc": false,                     // IOC
-  "status": "FILLED" ,            // order status
-  "stp": "no"                      // self trade prevention mode
+  "market": "BTC_USDT", // deal market
+  "side": "buy", // order side
+  "type": "limit", // order type
+  "timestamp": 1595792396.165973, // timestamp of order creation
+  "dealMoney": "0", // if order finished - amount in money currency that is finished
+  "dealStock": "0", // if order finished - amount in stock currency that is finished
+  "amount": "0.01", // amount
+  "left": "0.001", // if order not finished - rest of the amount that must be finished
+  "dealFee": "0", // fee in money that you pay if order is finished
+  "price": "40000", // price
+  "postOnly": false, // PostOnly
+  "ioc": false, // IOC
+  "status": "FILLED", // order status
+  "stp": "no" // self trade prevention mode
 }
 ```
 
@@ -578,22 +578,23 @@ Available statuses:
 [
   {
     "result": {
-      "orderId": 4326248250,          // order id
-      "clientOrderId": "",            // custom client order id; "clientOrderId": "" - if not specified.
-      "market": "BTC_USDT",           // deal market
-      "side": "buy",                  // order side
-      "type": "limit",                // order type
+      "orderId": 4326248250, // order id
+      "clientOrderId": "", // custom client order id; "clientOrderId": "" - if not specified.
+      "market": "BTC_USDT", // deal market
+      "side": "buy", // order side
+      "type": "limit", // order type
       "timestamp": 1684916268.825564, // timestamp of order creation
-      "dealMoney": "641.988",         // if order finished - amount in money currency that is finished
-      "dealStock": "0.02",            // if order finished - amount in stock currency that is finished
-      "amount": "0.02",               // amount
-      "left": "0",                    // if order not finished - rest of the amount that must be finished
-      "dealFee": "1.283976",          // fee in money that you pay if order is finished
-      "ioc": false,                   // IOC
-      "postOnly": false,              // PostOnly
-      "price": "40000",                // price
-      "status": "FILLED" ,            // order status
-      "stp": "no"                      // self trade prevention mode
+      "dealMoney": "641.988", // if order finished - amount in money currency that is finished
+      "dealStock": "0.02", // if order finished - amount in stock currency that is finished
+      "amount": "0.02", // amount
+      "left": "0", // if order not finished - rest of the amount that must be finished
+      "dealFee": "1.283976", // fee in money that you pay if order is finished
+      "ioc": false, // IOC
+      "postOnly": false, // PostOnly
+      "price": "40000", // price
+      "status": "FILLED", // order status
+      "stp": "no", // self trade prevention mode
+      "positionSide": "BOTH" // position side
     },
     "error": null
   },
@@ -624,7 +625,8 @@ Available statuses:
       "postOnly": false,
       "price": "41000",
       "status": "FILLED",
-      "stp": "no"
+      "stp": "no",
+      "positionSide": "BOTH"
     },
     "error": null
   }
@@ -633,7 +635,9 @@ Available statuses:
 
 <details>
 
-<summary><b>Errors:</b></summary>
+<summary>
+  <b>Errors:</b>
+</summary>
 
 Error codes:
 
@@ -649,7 +653,9 @@ Error codes:
 }
 ```
 
-<summary><b>Errors in multiply response:</b></summary>
+<summary>
+  <b>Errors in multiply response:</b>
+</summary>
 
 Error codes:
 
@@ -891,13 +897,13 @@ NONE
 
 **Parameters:**
 
-| Name          | Type          | Mandatory | Description                                                                                                                                                                                              |
-| ------------- | ------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| market        | String        | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                                                           |
-| side          | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                                                                                                     |
-| amount        | String/Number | **Yes**   | ⚠️ Amount of [money](./../glossary.md#money) currency to buy or amount in [stock](./../glossary.md#stock) currency to sell. Example: '5 USDT' for buy (min total) and '0.001 BTC' for sell (min amount). |
-| clientOrderId | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                            |
-| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                                       |
+| Name          | Type          | Mandatory | Description                                                                                                                                                                                               |
+| ------------- | ------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market        | String        | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                                                            |
+| side          | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                                                                                                      |
+| amount        | String/Number | **Yes**   | ⚠️️ Amount of [money](./../glossary.md#money) currency to buy or amount in [stock](./../glossary.md#stock) currency to sell. Example: '5 USDT' for buy (min total) and '0.001 BTC' for sell (min amount). |
+| clientOrderId | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                                     |
+| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                   |
 
 **Request BODY raw:**
 
@@ -933,19 +939,19 @@ Available statuses:
 
 ```json
 {
-  "orderId": 4180284841,           // order id
+  "orderId": 4180284841, // order id
   "clientOrderId": "order1987111", // custom client order id; "clientOrderId": "" - if not specified.
-  "market": "BTC_USDT",            // deal market
-  "side": "buy",                   // order side
-  "type": "market",                // order type
-  "timestamp": 1595792396.165973,  // timestamp of order creation
-  "dealMoney": "0",                // amount in money currency that finished
-  "dealStock": "0",                // amount in stock currency that finished
-  "amount": "0.001",               // amount
-  "left": "0.001",                 // rest of amount that must be finished
-  "dealFee": "0",                   // fee in money that you pay if order is finished
-  "status": "FILLED" ,            // order status
-  "stp": "no"                      // self trade prevention mode
+  "market": "BTC_USDT", // deal market
+  "side": "buy", // order side
+  "type": "market", // order type
+  "timestamp": 1595792396.165973, // timestamp of order creation
+  "dealMoney": "0", // amount in money currency that finished
+  "dealStock": "0", // amount in stock currency that finished
+  "amount": "0.001", // amount
+  "left": "0.001", // rest of amount that must be finished
+  "dealFee": "0", // fee in money that you pay if order is finished
+  "status": "FILLED", // order status
+  "stp": "no" // self trade prevention mode
 }
 ```
 
@@ -1145,13 +1151,14 @@ NONE
 
 **Parameters:**
 
-| Name          | Type          | Mandatory | Description                                                                                                                   |
-| ------------- | ------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| market        | String        | **Yes**   | Available market. Example: BTC_USDT                                                                                           |
-| side          | String        | **Yes**   | Order type. Available variables: "buy", "sell"                                                                                |
-| amount        | String/Number | **Yes**   | ⚠️ Amount in [stock](./../glossary.md#stock) currency for buy or sell. Example: "0.0001" or 0.0001.                           |
+| Name          | Type          | Mandatory | Description                                                                                                           |
+| ------------- | ------------- | --------- | --------------------------------------------------------------------------------------------------------------------- |
+| market        | String        | **Yes**   | Available market. Example: BTC_USDT                                                                                   |
+| side          | String        | **Yes**   | Order type. Available variables: "buy", "sell"                                                                        |
+| amount        | String/Number | **Yes**   | ⚠️️ Amount in [stock](./../glossary.md#stock) currency for buy or sell. Example: "0.0001" or 0.0001.                  |
 | clientOrderId | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique. |
-| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
+| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.               |
+
 **Request BODY raw:**
 
 ```json
@@ -1367,16 +1374,16 @@ NONE
 
 **Parameters:**
 
-| Name             | Type          | Mandatory | Description                                                                                                                   |
-| ---------------- | ------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| market           | String        | **Yes**   | Available market. Example: BTC_USDT                                                                                           |
-| side             | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                          |
-| amount           | String/Number | **Yes**   | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                  |
-| price            | String/Number | **Yes**   | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800                                                    |
-| activation_price | String/Number | **Yes**   | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                       |
-| clientOrderId    | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique. |
-| bboRole       | Integer       | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables:  1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 2. |
-| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
+| Name             | Type          | Mandatory | Description                                                                                                                                                                                                                                                                                       |
+| ---------------- | ------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market           | String        | **Yes**   | Available market. Example: BTC_USDT                                                                                                                                                                                                                                                               |
+| side             | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                                                                                                                                                                                              |
+| amount           | String/Number | **Yes**   | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                                                                                                                                                                                      |
+| price            | String/Number | **Yes**   | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800                                                                                                                                                                                                                        |
+| activation_price | String/Number | **Yes**   | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                                                                                                                                                                                           |
+| clientOrderId    | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                                                                                                                             |
+| bboRole          | Integer       | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables: 1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 2. |
+| stp              | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                                                                                                           |
 
 **Request BODY raw:**
 
@@ -1403,23 +1410,23 @@ Available statuses:
 
 ```json
 {
-  "orderId": 4180284841,           // order id
+  "orderId": 4180284841, // order id
   "clientOrderId": "order1987111", // custom client order id; "clientOrderId": "" - if not specified.
-  "market": "BTC_USDT",            // deal market
-  "side": "buy",                   // order side
-  "type": "stop limit",            // order type
-  "timestamp": 1595792396.165973,  // timestamp of order creation
-  "dealMoney": "0",                // if order finished - amount in money currency that finished
-  "dealStock": "0",                // if order finished - amount in stock currency that finished
-  "amount": "0.001",               // amount
-  "takerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-  "makerFee": "0.001",             // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-  "left": "0.001",                 // if order not finished - rest of amount that must be finished
-  "dealFee": "0",                  // fee in money that you pay if order is finished
-  "price": "40000",                // price
-  "activation_price": "40000"      // activation price
-  "status": "FILLED" ,            // order status
-  "stp": "no"                      // self trade prevention mode
+  "market": "BTC_USDT", // deal market
+  "side": "buy", // order side
+  "type": "stop limit", // order type
+  "timestamp": 1595792396.165973, // timestamp of order creation
+  "dealMoney": "0", // if order finished - amount in money currency that finished
+  "dealStock": "0", // if order finished - amount in stock currency that finished
+  "amount": "0.001", // amount
+  "takerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+  "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+  "left": "0.001", // if order not finished - rest of amount that must be finished
+  "dealFee": "0", // fee in money that you pay if order is finished
+  "price": "40000", // price
+  "activation_price": "40000", // activation price
+  "status": "FILLED", // order status
+  "stp": "no" // self trade prevention mode
 }
 ```
 
@@ -1736,14 +1743,14 @@ NONE
 
 **Parameters:**
 
-| Name             | Type          | Mandatory | Description                                                                                                                                                                                           |
-| ---------------- | ------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| market           | String        | **Yes**   | Available market. Example: BTC_USDT                                                                                                                                                                   |
-| side             | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                                                                                                  |
-| amount           | String/Number | **Yes**   | ⚠️Amount of [**`money`**](./../glossary.md#money) currency to **buy** or amount in [**`stock`**](./../glossary.md#stock) currency to **sell**. Example: '0.01' or 0.01 for buy and '0.0001' for sell. |
-| activation_price | String/Number | **Yes**   | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                                                                                               |
-| clientOrderId    | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                         |
-| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
+| Name             | Type          | Mandatory | Description                                                                                                                                                                                            |
+| ---------------- | ------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| market           | String        | **Yes**   | Available market. Example: BTC_USDT                                                                                                                                                                    |
+| side             | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                                                                                                   |
+| amount           | String/Number | **Yes**   | ⚠️️Amount of [**`money`**](./../glossary.md#money) currency to **buy** or amount in [**`stock`**](./../glossary.md#stock) currency to **sell**. Example: '0.01' or 0.01 for buy and '0.0001' for sell. |
+| activation_price | String/Number | **Yes**   | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                                                                                                |
+| clientOrderId    | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                                  |
+| stp              | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                |
 
 **Request BODY raw:**
 
@@ -1779,20 +1786,20 @@ Available statuses:
 
 ```json
 {
-  "orderId": 4180284841,           // order id
+  "orderId": 4180284841, // order id
   "clientOrderId": "order1987111", // custom order identifier; "clientOrderId": "" - if not specified.
-  "market": "BTC_USDT",            // deal market
-  "side": "buy",                   // order side
-  "type": "stop market",           // order type
-  "timestamp": 1595792396.165973,  // timestamp of order creation
-  "dealMoney": "0",                // if order finished - amount in money currency that finished
-  "dealStock": "0",                // if order finished - amount in stock currency that finished
-  "amount": "0.001",               // amount
-  "left": "0.001",                 // if order not finished - rest of amount that must be finished
-  "dealFee": "0",                  // fee in money that you pay if order is finished
-  "activation_price": "40000",      // activation price
-  "status": "FILLED" ,            // order status
-  "stp": "no"                      // self trade prevention mode
+  "market": "BTC_USDT", // deal market
+  "side": "buy", // order side
+  "type": "stop market", // order type
+  "timestamp": 1595792396.165973, // timestamp of order creation
+  "dealMoney": "0", // if order finished - amount in money currency that finished
+  "dealStock": "0", // if order finished - amount in stock currency that finished
+  "amount": "0.001", // amount
+  "left": "0.001", // if order not finished - rest of amount that must be finished
+  "dealFee": "0", // fee in money that you pay if order is finished
+  "activation_price": "40000", // activation price
+  "status": "FILLED", // order status
+  "stp": "no" // self trade prevention mode
 }
 ```
 
@@ -2057,11 +2064,11 @@ NONE
 
 **Parameters:**
 
-| Name          | Type         | Mandatory                      | Description                                                    |
-| ------------- | ------------ | ------------------------------ | -------------------------------------------------------------- |
-| market        | String       | **Yes**                        | Available [market](./../glossary.md#market). Example: BTC_USDT |
-| orderId       | String/Int   | **No if clientOrderId is set** | Order Id. Example: 4180284841 or "4180284841"                  |
-| clientOrderId | String       | **No if orderId is set**       | Custom client order id. Example: "customId11"                  |
+| Name          | Type       | Mandatory                      | Description                                                    |
+| ------------- | ---------- | ------------------------------ | -------------------------------------------------------------- |
+| market        | String     | **Yes**                        | Available [market](./../glossary.md#market). Example: BTC_USDT |
+| orderId       | String/Int | **No if clientOrderId is set** | Order Id. Example: 4180284841 or "4180284841"                  |
+| clientOrderId | String     | **No if orderId is set**       | Custom client order id. Example: "customId11"                  |
 
 ❗ Modification by clientOrderId takes priority over orderId.
 ❗ The request supports working only with orderId or only with clientOrderId.
@@ -2089,23 +2096,23 @@ Available statuses:
 
 ```json
 {
-  "orderId": 4180284841,          // order id
-  "clientOrderId": "customId11",  // custom order identifier; "clientOrderId": "" - if not specified.
-  "market": "BTC_USDT",           // deal market
-  "side": "buy",                  // order side
-  "type": "stop market",          // order type
+  "orderId": 4180284841, // order id
+  "clientOrderId": "customId11", // custom order identifier; "clientOrderId": "" - if not specified.
+  "market": "BTC_USDT", // deal market
+  "side": "buy", // order side
+  "type": "stop market", // order type
   "timestamp": 1595792396.165973, // timestamp of order creation
-  "dealMoney": "0",               // if order finished - amount in money currency that is finished
-  "dealStock": "0",               // if order finished - amount in stock currency that is finished
-  "amount": "0.001",              // amount
-  "takerFee": "0.001",            // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-  "makerFee": "0.001",            // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-  "left": "0.001",                // if order not finished - rest of the amount that must be finished
-  "dealFee": "0",                 // fee in money that you pay if order is finished
-  "price": "40000",               // price if price isset
-  "activation_price": "40000",     // activation price if activation price is set
-  "status": "FILLED" ,            // order status
-  "stp": "no"                      // self trade prevention mode
+  "dealMoney": "0", // if order finished - amount in money currency that is finished
+  "dealStock": "0", // if order finished - amount in stock currency that is finished
+  "amount": "0.001", // amount
+  "takerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+  "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+  "left": "0.001", // if order not finished - rest of the amount that must be finished
+  "dealFee": "0", // fee in money that you pay if order is finished
+  "price": "40000", // price if price isset
+  "activation_price": "40000", // activation price if activation price is set
+  "status": "FILLED", // order status
+  "stp": "no" // self trade prevention mode
 }
 ```
 
@@ -2208,22 +2215,17 @@ NONE
 
 **Parameters:**
 
-| Name  | Type | Mandatory | Description                                                    |
-| -----  | --------- | -------------------------------------------------------------- | ---|
-| market | String | **No**   | Available [market](./../glossary.md#market). Example: BTC_USDT |
-| type   | Array  | **No**    | Order types value. Example: "spot", "margin", "futures" |
-
+| Name   | Type   | Mandatory | Description                                                    |
+| ------ | ------ | --------- | -------------------------------------------------------------- |
+| market | String | **No**    | Available [market](./../glossary.md#market). Example: BTC_USDT |
+| type   | Array  | **No**    | Order types value. Example: "spot", "margin", "futures"        |
 
 **Request BODY raw:**
 
 ```json
 {
   "market": "BTC_USDT",
-  "type": [
-    "Margin",
-    "Futures",
-    "Spot"
-  ]
+  "type": ["Margin", "Futures", "Spot"]
 }
 ```
 
@@ -2247,7 +2249,6 @@ Error codes:
 
 - `30` - default validation error code
 - `31` - market validation failed
-
 
 ```json
 {
@@ -2319,13 +2320,13 @@ NONE
 
 **Parameters:**
 
-| Name          | Type        | Mandatory | Description                                                                                                                                                           |
-| ------------- |-------------| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| market        | String      | **No**    | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
-| orderId       | String/Int  | **No**    | Available orderId. Example: 3134995325                                                                                                                                |
-| clientOrderId | String      | **No**    | Available clientOrderId. Example: customId11                                                                                                                          |
-| limit         | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
-| offset        | String/Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+| Name          | Type       | Mandatory | Description                                                                                                                                                           |
+| ------------- | ---------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market        | String     | **No**    | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
+| orderId       | String/Int | **No**    | Available orderId. Example: 3134995325                                                                                                                                |
+| clientOrderId | String     | **No**    | Available clientOrderId. Example: customId11                                                                                                                          |
+| limit         | String/Int | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
+| offset        | String/Int | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0 |
 
 Search across all markets is available only if clientOrderId and orderId are not provided.
 
@@ -2334,7 +2335,7 @@ Search across all markets is available only if clientOrderId and orderId are not
 ```json
 {
   "market": "BTC_USDT",
-  "orderId": "3134995325",       //order Id (optional)
+  "orderId": "3134995325", //order Id (optional)
   "clientOrderId": "customId11", // custom order id; (optional)
   "offset": 0,
   "limit": 100,
@@ -2354,32 +2355,31 @@ Available statuses:
 
 ```json
 [
-    {
-        "orderId": 3686033640,         // unexecuted order ID
-        "clientOrderId": "customId11", // custom order id; "clientOrderId": "" - if not specified.
-        "market": "BTC_USDT",          // currency market
-        "side": "buy",                 // order side
-        "type": "limit",               // unexecuted order type
-        "timestamp": 1594605801.49815, // timestamp of order creation
-        "dealMoney": "0",              // executed amount in money
-        "dealStock": "0",              // executed amount in stock
-        "amount": "2.241379",          // active order amount
-        "takerFee": "0.001",           // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-        "makerFee": "0.001",           // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-        "left": "2.241379",            // unexecuted amount in stock
-        "dealFee": "0",                // executed fee by deal
-        "price": "40000",              // unexecuted order price
-        "status": "FILLED" ,            // order status
-        "stp": "no",                     // self trade prevention mode
-        "oto": {                       // OTO order data - if stopLoss or takeProfit is specified
-          "otoId": 29457221,           // ID of the OTO
-          "stopLoss": "30000",         // stop loss order price - if stopLoss is specified
-          "takeProfit": "50000"        // take profit order price - if takeProfit is specified
-      }
-    },
-    {...}
+  {
+    "orderId": 3686033640, // unexecuted order ID
+    "clientOrderId": "customId11", // custom order id; "clientOrderId": "" - if not specified.
+    "market": "BTC_USDT", // currency market
+    "side": "buy", // order side
+    "type": "limit", // unexecuted order type
+    "timestamp": 1594605801.49815, // timestamp of order creation
+    "dealMoney": "0", // executed amount in money
+    "dealStock": "0", // executed amount in stock
+    "amount": "2.241379", // active order amount
+    "takerFee": "0.001", // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+    "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+    "left": "2.241379", // unexecuted amount in stock
+    "dealFee": "0", // executed fee by deal
+    "price": "40000", // unexecuted order price
+    "status": "FILLED", // order status
+    "stp": "no", // self trade prevention mode
+    "oto": {
+      // OTO order data - if stopLoss or takeProfit is specified
+      "otoId": 29457221, // ID of the OTO
+      "stopLoss": "30000", // stop loss order price - if stopLoss is specified
+      "takeProfit": "50000" // take profit order price - if takeProfit is specified
+    }
+  }
 ]
-
 ```
 
 <details>
@@ -2495,12 +2495,18 @@ NONE
 
 **Parameters:**
 
-| Name          | Type        | Mandatory | Description                                                                                                                                                           |
-| ------------- |-------------| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| market        | String      | **No**    | Requested market. Example: BTC_USDT                                                                                                                                   |
-| clientOrderId | String      | **No**    | Requested clientOrderId. Example: customId11                                                                                                                          |
-| limit         | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
-| offset        | String/Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+| Name          | Type       | Mandatory | Description                                                                                                                                                           |
+| ------------- | ---------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market        | String     | **No**    | Requested market. Example: BTC_USDT                                                                                                                                   |
+| clientOrderId | String     | **No**    | Requested clientOrderId. Example: customId11                                                                                                                          |
+| limit         | String/Int | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
+| offset        | String/Int | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0 |
+
+<Alert
+  type="warning"
+  header="Important Limitations"
+  message="This method can retrieve data not older than 6 months from current month. If you need older data - you can use Report on the History page in your account."
+/>
 
 **Request BODY raw:**
 
@@ -2525,21 +2531,21 @@ Available statuses:
 
 ```json
 {
-    "BTC_USDT": [
-        {
-            "id": 8846967538,              // deal ID
-            "clientOrderId": "customId11", // custom order id; "clientOrderId": "" - if not specified.
-            "time": 1739310711.387599,     // Timestamp of the executed deal
-            "side": "buy",                 // Deal side "sell" / "buy"
-            "role": 2,                     // Role - 1 - maker, 2 - taker
-            "amount": "2.717",             // amount in stock
-            "price": "3.3419",             // price
-            "deal": "9.0799423",           // amount in money
-            "fee": "0.002717",             // paid fee
-            "orderId": 1164603916051,      // order ID
-            "feeAsset": "SUI"              // fee asset
-        }
-    ]
+  "BTC_USDT": [
+    {
+      "id": 8846967538, // deal ID
+      "clientOrderId": "customId11", // custom order id; "clientOrderId": "" - if not specified.
+      "time": 1739310711.387599, // Timestamp of the executed deal
+      "side": "buy", // Deal side "sell" / "buy"
+      "role": 2, // Role - 1 - maker, 2 - taker
+      "amount": "2.717", // amount in stock
+      "price": "3.3419", // price
+      "deal": "9.0799423", // amount in money
+      "fee": "0.002717", // paid fee
+      "orderId": 1164603916051, // order ID
+      "feeAsset": "SUI" // fee asset
+    }
+  ]
 }
 ```
 
@@ -2626,11 +2632,17 @@ NONE
 
 **Parameters:**
 
-| Name    | Type        | Mandatory | Description                                                                                                                                                          |
-| ------- |-------------| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| orderId | String/Int  | **Yes**   | Order ID. Example: 1234                                                                                                                                              |
-| limit   | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                         |
-| offset  | String/Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 1000 |
+| Name    | Type       | Mandatory | Description                                                                                                                                                          |
+| ------- | ---------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| orderId | String/Int | **Yes**   | Order ID. Example: 1234                                                                                                                                              |
+| limit   | String/Int | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                         |
+| offset  | String/Int | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0 |
+
+<Alert
+  type="warning"
+  header="Important Limitations"
+  message="This method can retrieve data not older than 6 months from current month. If you need older data - you can use Report on the History page in your account."
+/>
 
 **Request BODY raw:**
 
@@ -2766,21 +2778,27 @@ NONE
 
 **Parameters:**
 
-| Name          | Type        | Mandatory | Description                                                                                                                                                          |
-|---------------|-------------| --------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| market        | String/Int  | **No**    | Requested available market. Example: BTC_USDT                                                                                                                        |
-| orderId       | String/Int  | **No**    | Requested available orderId. Example: 3134995325                                                                                                                     |
-| clientOrderId | String      | **No**    | Requested available clientOrderId. Example: clientOrderId                                                                                                            |
-| limit         | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                         |
-| offset        | String/Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
-| status        | String      | **No**    | Possible values: "ALL", "FILLED", "CANCELED", "PARTIALLY_FILLED"                                                                                     |
+| Name          | Type       | Mandatory | Description                                                                                                                                                           |
+| ------------- | ---------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market        | String/Int | **No**    | Requested available market. Example: BTC_USDT                                                                                                                         |
+| orderId       | String/Int | **No**    | Requested available orderId. Example: 3134995325                                                                                                                      |
+| clientOrderId | String     | **No**    | Requested available clientOrderId. Example: clientOrderId                                                                                                             |
+| limit         | String/Int | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
+| offset        | String/Int | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0 |
+| status        | String     | **No**    | Possible values: "ALL", "FILLED", "CANCELED", "PARTIALLY_FILLED"                                                                                                      |
+
+<Alert
+  type="warning"
+  header="Important Limitations"
+  message="This method can retrieve data not older than 6 months from current month. If you need older data - you can use Report on the History page in your account."
+/>
 
 **Request BODY raw:**
 
 ```json
 {
-  "market": "BTC_USDT",             //optional
-  "orderId": "3134995325",          //order Id (optional)
+  "market": "BTC_USDT", //optional
+  "orderId": "3134995325", //order Id (optional)
   "clientOrderId": "clientOrderId", // custom order id; (optional)
   "offset": 0,
   "limit": 100,
@@ -2802,32 +2820,29 @@ Empty response if order is not yours
 
 ```json
 {
-    "BTC_USDT": [
-        {
-            "amount": "0.0009",            // amount of trade
-            "price": "40000",              // price
-            "type": "limit",               // order type
-            "id": 4986126152,              // order id
-            "clientOrderId": "customId11", // custom order identifier; "clientOrderId": "" - if not specified.
-            "side": "sell",                // order side
-            "ctime": 1597486960.311311,    // timestamp of order creation
-            "takerFee": "0.001",           // maker fee ratio. If the number less than 0.0001 - its rounded to zero
-            "ftime": 1597486960.311332,    // executed order timestamp
-            "makerFee": "0.001",           // maker fee ratio. If the number less than 0.0001 - its rounded to zero
-            "dealFee": "0.041258268",      // paid fee if order is finished
-            "dealStock": "0.0009",         // amount in stock currency that finished
-            "dealMoney": "41.258268",      // amount in money currency that finished
-            "postOnly": false,             // PostOnly flag
-            "ioc": false,                  // IOC flag
-            "status": "CANCELED",           // Order status
-           "feeAsset": "USDT",              // fee asset
-           "stp": "no"                      // self trade prevention mode
-        },
-        {...}
-    ]
+  "BTC_USDT": [
+    {
+      "amount": "0.0009", // amount of trade
+      "price": "40000", // price
+      "type": "limit", // order type
+      "id": 4986126152, // order id
+      "clientOrderId": "customId11", // custom order identifier; "clientOrderId": "" - if not specified.
+      "side": "sell", // order side
+      "ctime": 1597486960.311311, // timestamp of order creation
+      "takerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - its rounded to zero
+      "ftime": 1597486960.311332, // executed order timestamp
+      "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - its rounded to zero
+      "dealFee": "0.041258268", // paid fee if order is finished
+      "dealStock": "0.0009", // amount in stock currency that finished
+      "dealMoney": "41.258268", // amount in money currency that finished
+      "postOnly": false, // PostOnly flag
+      "ioc": false, // IOC flag
+      "status": "CANCELED", // Order status
+      "feeAsset": "USDT", // fee asset
+      "stp": "no" // self trade prevention mode
+    }
+  ]
 }
-
-
 ```
 
 <details>
@@ -2915,15 +2930,15 @@ NONE
 
 **Parameters:**
 
-| Name            | Type          | Mandatory                      | Description                                                                                                                                            |
-|-----------------|---------------|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
-| orderId         | Integer       | **No if clientOrderId is set** | Active order id [order](./../glossary.md#active-orders). Example: 834506                                                                               |
-| clientOrderId   | String        | **No if orderId is set**       | Identifier should be unique and contain letters, dashes, numbers, dots or underscores.                                                                 |
-| market          | String        | **Yes**                        | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                         |
-| amount          | String/Number | **No**                         | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                                           |
-| total           | String/Number | **No**                         | Total of [money](./../glossary.md#money) currency to buy or sell. Example: '0.001' or 0.001                                                            |
-| price           | String/Number | **No**                         | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800                                                                             |
-| activationPrice | String/Number | **No**                         | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                                                |
+| Name            | Type          | Mandatory                      | Description                                                                                  |
+| --------------- | ------------- | ------------------------------ | -------------------------------------------------------------------------------------------- |
+| orderId         | Integer       | **No if clientOrderId is set** | Active order id [order](./../glossary.md#active-orders). Example: 834506                     |
+| clientOrderId   | String        | **No if orderId is set**       | Identifier should be unique and contain letters, dashes, numbers, dots or underscores.       |
+| market          | String        | **Yes**                        | Available [market](./../glossary.md#market). Example: BTC_USDT                               |
+| amount          | String/Number | **No**                         | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001 |
+| total           | String/Number | **No**                         | Total of [money](./../glossary.md#money) currency to buy or sell. Example: '0.001' or 0.001  |
+| price           | String/Number | **No**                         | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800                   |
+| activationPrice | String/Number | **No**                         | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000      |
 
 ❗ Use total parameter instead of amount for modify buy stop market order.
 ❗ Modification by clientOrderId takes priority.
@@ -3006,7 +3021,6 @@ Error codes:
   }
 }
 ```
-
 
 ```json
 {
@@ -3240,9 +3254,7 @@ Available statuses:
   "code": 30,
   "message": "Validation failed",
   "errors": {
-    "ticker": [
-      "ticker is invalid."
-    ]
+    "ticker": ["ticker is invalid."]
   }
 }
 ```
@@ -3298,9 +3310,7 @@ Available statuses:
   "code": 30,
   "message": "Validation failed",
   "errors": {
-    "ticker": [
-      "ticker is invalid."
-    ]
+    "ticker": ["ticker is invalid."]
   }
 }
 ```
@@ -3320,19 +3330,20 @@ NONE
 
 **Parameters:**
 
-| Name          | Type    | Mandatory | Description                                                                                                                                                                                                                                                                                        |
-|---------------|---------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| market        | String  | **Yes**   | Available margin market. Example: BTC_USDT                                                                                                                                                                                                                                                         |
-| side          | String  | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite [order](./../glossary.md#orders) with current position amount.                                                 |
-| amount        | String  | **Yes**   | ⚠️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.                                                                                                                                                                                                                 |
-| price         | String  | **Yes**   | Price in [money](./../glossary.md#money) currency. Example: '9800'                                                                                                                                                                                                                                 |
-| clientOrderId | String  | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                                                                                                        |
-| stopLoss      | String  | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                                                                        |
-| takeProfit    | String  | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                                                                    |
-| postOnly      | boolean | **No**    | Orders are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: true / false Example: false.                                                                                                                                   |
-| ioc           | boolean | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                                                                  |
-| bboRole       | Integer | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables:  1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 1. |
-| stp           | String  | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
+| Name          | Type    | Mandatory                        | Description                                                                                                                                                                                                                                                                                       |
+| ------------- | ------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market        | String  | **Yes**                          | Available margin market. Example: BTC_USDT                                                                                                                                                                                                                                                        |
+| side          | String  | **Yes**                          | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite [order](./../glossary.md#orders) with current position amount.                                                |
+| amount        | String  | **Yes**                          | ⚠️️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.                                                                                                                                                                                                               |
+| price         | String  | **Yes**                          | Price in [money](./../glossary.md#money) currency. Example: '9800'                                                                                                                                                                                                                                |
+| clientOrderId | String  | **No**                           | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                                                                                                                             |
+| stopLoss      | String  | **No**                           | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                                                                       |
+| takeProfit    | String  | **No**                           | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                                                                   |
+| postOnly      | boolean | **No**                           | Orders are guaranteed to be the [maker](./../glossary.md#maker) order when [executed](./../glossary.md#finished-orders). Variables: true / false Example: false.                                                                                                                                  |
+| ioc           | boolean | **No**                           | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                                                                 |
+| bboRole       | Integer | **No**                           | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables: 1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 1. |
+| stp           | String  | **No**                           | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                                                                                                           |
+| positionSide  | String  | **Yes, when hedge mode enabled** | Defines the position direction. Variables: 'LONG / 'SHORT' / 'BOTH'. Example: 'BOTH'. See [positionSide](./../glossary.md#position-side)                                                                                                                                                          |
 
 **Request BODY raw:**
 
@@ -3347,6 +3358,7 @@ NONE
   "clientOrderId": "order1987111",
   "stopLoss": "50000",
   "takeProfit": "30000",
+  "positionSide": "LONG",
   "request": "{{request}}",
   "nonce": "{{nonce}}"
 }
@@ -3361,27 +3373,29 @@ Available statuses:
 
 ```json
 {
-  "orderId": 4180284841,           // order id
+  "orderId": 4180284841, // order id
   "clientOrderId": "order1987111", // custom client order id; "clientOrderId": "" - if not specified.
-  "market": "BTC_USDT",            // deal market
-  "side": "buy",                   // order side
-  "type": "limit",                 // order type
-  "timestamp": 1595792396.165973,  // timestamp of order creation
-  "dealMoney": "0",                // if order finished - amount in money currency that is finished
-  "dealStock": "0",                // if order finished - amount in stock currency that is finished
-  "amount": "0.01",                // amount
-  "left": "0.001",                 // if order not finished - rest of the amount that must be finished
-  "dealFee": "0",                  // fee in money that you pay if order is finished
-  "price": "40000",                // price
-  "postOnly": false,               // PostOnly
-  "ioc": false,                    // IOC
-  "status": "FILLED" ,            // order status
-  "stp": "no",                     // self trade prevention mode
-  "oto": {                         // OTO order data - if stopLoss or takeProfit is specified
-    "otoId": 29457221,             // ID of the OTO
-    "stopLoss": "30000",           // stop loss order price - if stopLoss is specified
-    "takeProfit": "50000"          // take profit order price - if takeProfit is specified
-  }
+  "market": "BTC_USDT", // deal market
+  "side": "buy", // order side
+  "type": "limit", // order type
+  "timestamp": 1595792396.165973, // timestamp of order creation
+  "dealMoney": "0", // if order finished - amount in money currency that is finished
+  "dealStock": "0", // if order finished - amount in stock currency that is finished
+  "amount": "0.01", // amount
+  "left": "0.001", // if order not finished - rest of the amount that must be finished
+  "dealFee": "0", // fee in money that you pay if order is finished
+  "price": "40000", // price
+  "postOnly": false, // PostOnly
+  "ioc": false, // IOC
+  "status": "FILLED", // order status
+  "stp": "no", // self trade prevention mode
+  "oto": {
+    // OTO order data - if stopLoss or takeProfit is specified
+    "otoId": 29457221, // ID of the OTO
+    "stopLoss": "30000", // stop loss order price - if stopLoss is specified
+    "takeProfit": "50000" // take profit order price - if takeProfit is specified
+  },
+  "positionSide": "LONG" // position side - LONG or SHORT or BOTH
 }
 ```
 
@@ -3430,7 +3444,8 @@ This endpoint creates bulk collateral [limit trading orders](./../glossary.md#li
       "market": "BTC_PERP",
       "postOnly": false,
       "ioc": false,
-      "clientOrderId": ""
+      "clientOrderId": "",
+      "positionSide": "LONG"
     },
     {
       "side": "sell",
@@ -3439,7 +3454,8 @@ This endpoint creates bulk collateral [limit trading orders](./../glossary.md#li
       "postOnly": false,
       "market": "BTC_USDT",
       "ioc": false,
-      "clientOrderId": ""
+      "clientOrderId": "",
+      "positionSide": "LONG"
     },
     {
       "side": "sell",
@@ -3448,7 +3464,8 @@ This endpoint creates bulk collateral [limit trading orders](./../glossary.md#li
       "postOnly": false,
       "market": "ETH_BTC",
       "ioc": false,
-      "clientOrderId": ""
+      "clientOrderId": "",
+      "positionSide": "LONG"
     }
   ],
   "stopOnFail": true,
@@ -3469,22 +3486,23 @@ Available statuses:
 [
   {
     "result": {
-      "orderId": 4326248250,          // order id
-      "clientOrderId": "",            // custom client order id; "clientOrderId": "" - if not specified.
-      "market": "BTC_USDT",           // deal market
-      "side": "buy",                  // order side
-      "type": "limit",                // order type
+      "orderId": 4326248250, // order id
+      "clientOrderId": "", // custom client order id; "clientOrderId": "" - if not specified.
+      "market": "BTC_USDT", // deal market
+      "side": "buy", // order side
+      "type": "limit", // order type
       "timestamp": 1684916268.825564, // timestamp of order creation
-      "dealMoney": "641.988",         // if order finished - amount in money currency that is finished
-      "dealStock": "0.02",            // if order finished - amount in stock currency that is finished
-      "amount": "0.02",               // amount
-      "left": "0",                    // if order not finished - rest of the amount that must be finished
-      "dealFee": "1.283976",          // fee in money that you pay if order is finished
-      "ioc": false,                   // IOC
-      "postOnly": false,              // PostOnly
-      "price": "40000",                // price
-      "status": "FILLED" ,            // order status
-      "stp": "no",                     // self trade prevention mode
+      "dealMoney": "641.988", // if order finished - amount in money currency that is finished
+      "dealStock": "0.02", // if order finished - amount in stock currency that is finished
+      "amount": "0.02", // amount
+      "left": "0", // if order not finished - rest of the amount that must be finished
+      "dealFee": "1.283976", // fee in money that you pay if order is finished
+      "ioc": false, // IOC
+      "postOnly": false, // PostOnly
+      "price": "40000", // price
+      "status": "FILLED", // order status
+      "stp": "no", // self trade prevention mode
+      "positionSide": "LONG" // position side - LONG or SHORT or BOTH
     },
     "error": null
   },
@@ -3514,8 +3532,9 @@ Available statuses:
       "ioc": false,
       "postOnly": false,
       "price": "41000",
-      "status": "FILLED" ,            // order status
-      "stp": "no"                     // self trade prevention mode
+      "status": "FILLED", // order status
+      "stp": "no", // self trade prevention mode
+      "positionSide": "LONG" // position side - LONG or SHORT or BOTH
     },
     "error": null
   }
@@ -3524,7 +3543,9 @@ Available statuses:
 
 <details>
 
-<summary><b>Errors:</b></summary>
+<summary>
+  <b>Errors:</b>
+</summary>
 
 Error codes:
 
@@ -3540,7 +3561,9 @@ Error codes:
 }
 ```
 
-<summary><b>Errors in multiply response:</b></summary>
+<summary>
+  <b>Errors in multiply response:</b>
+</summary>
 
 Error codes:
 
@@ -3782,15 +3805,16 @@ NONE
 
 **Parameters:**
 
-| Name          | Type   | Mandatory | Description                                                                                                                                                                                                                                        |
-| ------------- | ------ | --------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| market        | String | **Yes**   | Available margin market. Example: BTC_USDT                                                                                                                                                                                                         |
-| side          | String | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite [order](./../glossary.md#orders) with current position amount. |
-| amount        | String | **Yes**   | ⚠️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.                                                                                                                                                                 |
-| clientOrderId | String | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                                                                      |
-| stopLoss      | String | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                        |
-| takeProfit    | String | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                    |
-| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
+| Name          | Type   | Mandatory                        | Description                                                                                                                                                                                                                                        |
+| ------------- | ------ | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market        | String | **Yes**                          | Available margin market. Example: BTC_USDT                                                                                                                                                                                                         |
+| side          | String | **Yes**                          | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite [order](./../glossary.md#orders) with current position amount. |
+| amount        | String | **Yes**                          | ⚠️️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.                                                                                                                                                                |
+| clientOrderId | String | **No**                           | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                                                                              |
+| stopLoss      | String | **No**                           | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                        |
+| takeProfit    | String | **No**                           | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                    |
+| stp           | String | **No**                           | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                                                            |
+| positionSide  | String | **Yes, when hedge mode enabled** | Defines the position direction. Variables: 'LONG / 'SHORT' / 'BOTH'. Example: 'BOTH'. See [positionSide](./../glossary.md#position-side)                                                                                                           |
 
 **Request BODY raw:**
 
@@ -3807,12 +3831,13 @@ NONE
 
 ```json
 {
-  "market": "BTC_USDT",
+  "market": "BTC_PERP",
   "side": "sell",
   "amount": "0.01", // I want to sell 0.01 BTC
   "clientOrderId": "order1987111",
   "stopLoss": "50000",
   "takeProfit": "40000",
+  "positionSide": "LONG",
   "request": "{{request}}",
   "nonce": "{{nonce}}"
 }
@@ -3827,24 +3852,26 @@ Available statuses:
 
 ```json
 {
-  "orderId": 4180284841,           // order id
+  "orderId": 4180284841, // order id
   "clientOrderId": "order1987111", // custom client order id; "clientOrderId": "" - if not specified.
-  "market": "BTC_USDT",            // deal market
-  "side": "sell",                  // order side
-  "type": "market",                // order type
-  "timestamp": 1595792396.165973,  // timestamp of order creation
-  "dealMoney": "0",                // amount in money currency that finished
-  "dealStock": "0",                // amount in stock currency that finished
-  "amount": "0.001",               // amount
-  "left": "0.001",                 // rest of amount that must be finished
-  "dealFee": "0",                  // fee in money that you pay if order is finished
-  "status": "FILLED" ,            // order status
-  "stp": "no",                     // self trade prevention mode
-  "oto": {                         // OTO order data - if stopLoss or takeProfit is specified
-    "otoId": 29457221,             // ID of the OTO
-    "stopLoss": "50000",           // stop loss order price - if stopLoss is specified
-    "takeProfit": "40000"          // take profit order price - if takeProfit is specified
-  }
+  "market": "BTC_USDT", // deal market
+  "side": "sell", // order side
+  "type": "market", // order type
+  "timestamp": 1595792396.165973, // timestamp of order creation
+  "dealMoney": "0", // amount in money currency that finished
+  "dealStock": "0", // amount in stock currency that finished
+  "amount": "0.001", // amount
+  "left": "0.001", // rest of amount that must be finished
+  "dealFee": "0", // fee in money that you pay if order is finished
+  "status": "FILLED", // order status
+  "stp": "no", // self trade prevention mode
+  "oto": {
+    // OTO order data - if stopLoss or takeProfit is specified
+    "otoId": 29457221, // ID of the OTO
+    "stopLoss": "50000", // stop loss order price - if stopLoss is specified
+    "takeProfit": "40000" // take profit order price - if takeProfit is specified
+  },
+  "positionSide": "LONG" // position side - LONG or SHORT or BOTH
 }
 ```
 
@@ -3879,18 +3906,19 @@ NONE
 
 **Parameters:**
 
-| Name             | Type          | Mandatory | Description                                                                                                                   |
-|------------------| ------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| market           | String        | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                |
-| side             | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                          |
-| amount           | String/Number | **Yes**   | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                  |
-| price            | String/Number | **Yes**   | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800                                                    |
-| activation_price | String/Number | **Yes**   | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                       |
-| clientOrderId    | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique. |
-| stopLoss         | String/Number | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                        |
-| takeProfit       | String/Number | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                    |
-| bboRole       | Integer       | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables:  1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 2. |
-| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
+| Name             | Type          | Mandatory                        | Description                                                                                                                                                                                                                                                                                       |
+| ---------------- | ------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market           | String        | **Yes**                          | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                                                                                                                                                    |
+| side             | String        | **Yes**                          | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                                                                                                                                                                                              |
+| amount           | String/Number | **Yes**                          | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                                                                                                                                                                                      |
+| price            | String/Number | **Yes**                          | Price in [money](./../glossary.md#money) currency. Example: '9800' or 9800                                                                                                                                                                                                                        |
+| activation_price | String/Number | **Yes**                          | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                                                                                                                                                                                           |
+| clientOrderId    | String        | **No**                           | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                                                                                                                             |
+| stopLoss         | String/Number | **No**                           | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                                                                       |
+| takeProfit       | String/Number | **No**                           | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                                                                   |
+| bboRole          | Integer       | **No**                           | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables: 1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 2. |
+| stp              | String        | **No**                           | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                                                                                                           |
+| positionSide     | String        | **Yes, when hedge mode enabled** | Defines the position direction. Variables: 'LONG / 'SHORT' / 'BOTH'. Example: 'BOTH'. See [positionSide](./../glossary.md#position-side)                                                                                                                                                          |
 
 **Request BODY raw:**
 
@@ -3904,6 +3932,7 @@ NONE
   "stopLoss": "30000",
   "takeProfit": "50000",
   "clientOrderId": "order1987111",
+  "positionSide": "LONG",
   "request": "{{request}}",
   "nonce": "{{nonce}}"
 }
@@ -3919,26 +3948,28 @@ Available statuses:
 
 ```json
 {
-  "orderId": 4180284841,           // order id
+  "orderId": 4180284841, // order id
   "clientOrderId": "order1987111", // custom client order id; "clientOrderId": "" - if not specified.
-  "market": "BTC_USDT",            // deal market
-  "side": "buy",                   // order side
-  "type": "stop limit",            // order type
-  "timestamp": 1595792396.165973,  // timestamp of order creation
-  "dealMoney": "0",                // if order finished - amount in money currency that finished
-  "dealStock": "0",                // if order finished - amount in stock currency that finished
-  "amount": "0.001",               // amount
-  "left": "0.001",                 // if order not finished - rest of amount that must be finished
-  "dealFee": "0",                  // fee in money that you pay if order is finished
-  "price": "40000",                // price
-  "activation_price": "40000",     // activation price
-  "status": "FILLED" ,            // order status
-  "stp": "no",                     // self trade prevention mode
-  "oto": {                         // OTO order data - if stopLoss or takeProfit is specified
-    "otoId": 29457221,             // ID of the OTO
-    "stopLoss": "30000",           // stop loss order price - if stopLoss is specified
-    "takeProfit": "50000"          // take profit order price - if takeProfit is specified
-  }
+  "market": "BTC_USDT", // deal market
+  "side": "buy", // order side
+  "type": "stop limit", // order type
+  "timestamp": 1595792396.165973, // timestamp of order creation
+  "dealMoney": "0", // if order finished - amount in money currency that finished
+  "dealStock": "0", // if order finished - amount in stock currency that finished
+  "amount": "0.001", // amount
+  "left": "0.001", // if order not finished - rest of amount that must be finished
+  "dealFee": "0", // fee in money that you pay if order is finished
+  "price": "40000", // price
+  "activation_price": "40000", // activation price
+  "status": "FILLED", // order status
+  "stp": "no", // self trade prevention mode
+  "oto": {
+    // OTO order data - if stopLoss or takeProfit is specified
+    "otoId": 29457221, // ID of the OTO
+    "stopLoss": "30000", // stop loss order price - if stopLoss is specified
+    "takeProfit": "50000" // take profit order price - if takeProfit is specified
+  },
+  "positionSide": "LONG" // position side - LONG or SHORT or BOTH
 }
 ```
 
@@ -4255,16 +4286,17 @@ NONE
 
 **Parameters:**
 
-| Name             | Type   | Mandatory | Description                                                                                                                                                                                                             |
-|------------------|--------| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| market           | String | **Yes**   | Available margin market. Example: BTC_USDT                                                                                                                                                                              |
-| side             | String | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite order with current position amount. |
-| amount           | String | **Yes**   | ⚠️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.                                                                                                                                      |
-| activation_price | String | **Yes**   | Activation price in [money](./../glossary.md#money) currency. Example: '10000'                                                                                                                                          |
-| clientOrderId    | String | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                                           |
-| stopLoss         | String | **No**    | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                                                        |
-| takeProfit       | String | **No**    | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                                                    |
-| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
+| Name             | Type   | Mandatory                        | Description                                                                                                                                                                                                             |
+| ---------------- | ------ | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market           | String | **Yes**                          | Available margin market. Example: BTC_USDT                                                                                                                                                                              |
+| side             | String | **Yes**                          | Order type. Variables: 'buy' / 'sell' Example: 'buy'. For open long position you have to use **buy**, for short **sell**. Also to close current position you have to place opposite order with current position amount. |
+| amount           | String | **Yes**                          | ⚠️️Amount of [**`stock`**](./../glossary.md#stock) currency to **buy** or **sell**.                                                                                                                                     |
+| activation_price | String | **Yes**                          | Activation price in [money](./../glossary.md#money) currency. Example: '10000'                                                                                                                                          |
+| clientOrderId    | String | **No**                           | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                                                                                                   |
+| stopLoss         | String | **No**                           | Stop loss price, if exist create [OTO](./../glossary.md#OTO) with stop loss                                                                                                                                             |
+| takeProfit       | String | **No**                           | Take profit price, if exist create [OTO](./../glossary.md#OTO) with take profit                                                                                                                                         |
+| stp              | String | **No**                           | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                                 |
+| positionSide     | String | **Yes, when hedge mode enabled** | Defines the position direction. Variables: 'LONG / 'SHORT' / 'BOTH'. Example: 'BOTH'. See [positionSide](./../glossary.md#position-side)                                                                                |
 
 **Request BODY raw:**
 
@@ -4282,12 +4314,13 @@ NONE
 
 ```json
 {
-  "market": "BTC_USDT",
+  "market": "BTC_PERP",
   "side": "sell",
   "amount": "0.01", // I want to sell 0.01 BTC
   "activation_price": "40000",
   "stopLoss": "50000",
   "takeProfit": "30000",
+  "positionSide": "LONG",
   "request": "{{request}}",
   "nonce": "{{nonce}}"
 }
@@ -4302,25 +4335,27 @@ Available statuses:
 
 ```json
 {
-  "orderId": 4180284841,           // order id
+  "orderId": 4180284841, // order id
   "clientOrderId": "order1987111", // custom order identifier; "clientOrderId": "" - if not specified.
-  "market": "BTC_USDT",            // deal market
-  "side": "sell",                  // order side
-  "type": "stop market",           // order type
-  "timestamp": 1595792396.165973,  // timestamp of order creation
-  "dealMoney": "0",                // if order finished - amount in money currency that finished
-  "dealStock": "0",                // if order finished - amount in stock currency that finished
-  "amount": "0.001",               // amount
-  "left": "0.001",                 // if order not finished - rest of amount that must be finished
-  "dealFee": "0",                  // fee in money that you pay if order is finished
-  "activation_price": "40000",     // activation price
-  "status": "FILLED" ,            // order status
-  "stp": "no",                     // self trade prevention mode
-  "oto": {                         // OTO order data - if stopLoss or takeProfit is specified
-    "otoId": 29457221,             // ID of the OTO
-    "stopLoss": "50000",           // stop loss order price - if stopLoss is specified
-    "takeProfit": "30000"          // take profit order price - if takeProfit is specified
-  }
+  "market": "BTC_USDT", // deal market
+  "side": "sell", // order side
+  "type": "stop market", // order type
+  "timestamp": 1595792396.165973, // timestamp of order creation
+  "dealMoney": "0", // if order finished - amount in money currency that finished
+  "dealStock": "0", // if order finished - amount in stock currency that finished
+  "amount": "0.001", // amount
+  "left": "0.001", // if order not finished - rest of amount that must be finished
+  "dealFee": "0", // fee in money that you pay if order is finished
+  "activation_price": "40000", // activation price
+  "status": "FILLED", // order status
+  "stp": "no", // self trade prevention mode
+  "oto": {
+    // OTO order data - if stopLoss or takeProfit is specified
+    "otoId": 29457221, // ID of the OTO
+    "stopLoss": "50000", // stop loss order price - if stopLoss is specified
+    "takeProfit": "30000" // take profit order price - if takeProfit is specified
+  },
+  "positionSide": "LONG" // position side - LONG or SHORT or BOTH
 }
 ```
 
@@ -4366,13 +4401,13 @@ Available statuses:
 
 ```json
 {
-  "equity": "130970.8947456254113367",              // total equity of collateral balance including lending funds in USDT
-  "margin": "456.58349",                            // amount of funds in open position USDT
-  "freeMargin": "129681.3285348840110099",          // free funds for trading
-  "unrealizedFunding": "0.0292207414003268",        // funding that will be paid on next position stage change (order, liquidation, etc)
-  "pnl": "-832.9535",                               // curren profit and loss in USDT
-  "leverage": 10,                                   // current leverage of account which affect amount of lending funds
-  "marginFraction": "6.2446758120916304",           // margin fraction (Note: value of 1000000000000000000000 indicates no positions)
+  "equity": "130970.8947456254113367", // total equity of collateral balance including lending funds in USDT
+  "margin": "456.58349", // amount of funds in open position USDT
+  "freeMargin": "129681.3285348840110099", // free funds for trading
+  "unrealizedFunding": "0.0292207414003268", // funding that will be paid on next position stage change (order, liquidation, etc)
+  "pnl": "-832.9535", // curren profit and loss in USDT
+  "leverage": 10, // current leverage of account which affect amount of lending funds
+  "marginFraction": "6.2446758120916304", // margin fraction (Note: value of 1000000000000000000000 indicates no positions)
   "maintenanceMarginFraction": "1.2446758120916304" // maintenance margin fraction
 }
 ```
@@ -4416,44 +4451,46 @@ Available statuses:
 ```json
 [
   {
-    "positionId": 527,                        // position ID
-    "market": "BTC_USDT",                     // market name
-    "openDate": 1651568067.789679,            // date of position opening
-    "modifyDate": 1651568067.789679,          // date of position modifying (this is date of current event)
-    "amount": "0.1",                          // amount of order
-    "basePrice": "45658.349",                 // base price of position
-    "liquidationPrice": null,                 // liquidation price according to current state of position
-    "liquidationState": null,                 // state of liquidation. Possible values: null, margin_call, liquidation
-    "pnl": "-168.42",                         // unrealized profit and loss in money
-    "pnlPercent": "-0.43",                    // unrealized profit and loss in percentage
-    "margin": "8316.74",                      // amount of funds in open position money
-    "freeMargin": "619385.67",                // free funds for trading
-    "funding": "0",                           // funding that will be paid on next position stage change (order, liquidation, etc)
+    "positionId": 527, // position ID
+    "market": "BTC_USDT", // market name
+    "openDate": 1651568067.789679, // date of position opening
+    "modifyDate": 1651568067.789679, // date of position modifying (this is date of current event)
+    "amount": "0.1", // amount of order
+    "basePrice": "45658.349", // base price of position
+    "liquidationPrice": null, // liquidation price according to current state of position
+    "liquidationState": null, // state of liquidation. Possible values: null, margin_call, liquidation
+    "pnl": "-168.42", // unrealized profit and loss in money
+    "pnlPercent": "-0.43", // unrealized profit and loss in percentage
+    "margin": "8316.74", // amount of funds in open position money
+    "freeMargin": "619385.67", // free funds for trading
+    "funding": "0", // funding that will be paid on next position stage change (order, liquidation, etc)
     "unrealizedFunding": "0.0019142920201966", // funding that will be paid on next position stage change (order, liquidation, etc)
     "tpsl": {
-        "takeProfitId": 123,                   // take profit order ID
-        "takeProfit": "50000",                   // take profit price
-        "stopLossId": 124,                    // stop loss order ID
-        "stopLoss": "35000",                    // stop loss price
+      "takeProfitId": 123, // take profit order ID
+      "takeProfit": "50000", // take profit price
+      "stopLossId": 124, // stop loss order ID
+      "stopLoss": "35000" // stop loss price
     },
+    "positionSide": "LONG" // position side - LONG or SHORT or BOTH
   },
   {
-    "positionId": 528,                        // position ID
-    "market": "ETH_USDT",                     // market name
-    "openDate": 1651568067.789679,            // date of position opening
-    "modifyDate": 1651568067.789679,          // date of position modifying (this is date of current event)
-    "amount": "0.1",                          // amount of order
-    "basePrice": "5658.349",                 // base price of position
-    "liquidationPrice": null,                 // liquidation price according to current state of position
-    "liquidationState": null,                 // state of liquidation. Possible values: null, margin_call, liquidation
-    "pnl": "-168.42",                         // unrealized profit and loss in money
-    "pnlPercent": "-0.43",                    // unrealized profit and loss in percentage
-    "margin": "8316.74",                      // amount of funds in open position money
-    "freeMargin": "19385.67",                // free funds for trading
-    "funding": "0",                           // funding that will be paid on next position stage change (order, liquidation, etc)
+    "positionId": 528, // position ID
+    "market": "ETH_USDT", // market name
+    "openDate": 1651568067.789679, // date of position opening
+    "modifyDate": 1651568067.789679, // date of position modifying (this is date of current event)
+    "amount": "0.1", // amount of order
+    "basePrice": "5658.349", // base price of position
+    "liquidationPrice": null, // liquidation price according to current state of position
+    "liquidationState": null, // state of liquidation. Possible values: null, margin_call, liquidation
+    "pnl": "-168.42", // unrealized profit and loss in money
+    "pnlPercent": "-0.43", // unrealized profit and loss in percentage
+    "margin": "8316.74", // amount of funds in open position money
+    "freeMargin": "19385.67", // free funds for trading
+    "funding": "0", // funding that will be paid on next position stage change (order, liquidation, etc)
     "unrealizedFunding": "0.0020142920201966", // funding that will be paid on next position stage change (order, liquidation, etc)
     "tpsl": null,
-  },
+    "positionSide": "LONG" // position side - LONG or SHORT or BOTH
+  }
 ]
 ```
 
@@ -4462,9 +4499,157 @@ Available statuses:
 
 ---
 
+### Close Position
+
+<ApiEndpoint method="POST" path="/api/v4/collateral-account/position/close" />
+
+This endpoint closes specific position by `positionId` and by `market`.
+
+❗ Rate limit 12000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name         | Type   | Mandatory | Description                                                                                                                                                        |
+| ------------ | ------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| positionId   | Int    | **Yes**   | Requested position                                                                                                                                                 |
+| market       | String | **Yes**   | Requested [market](./../glossary.md#market). Example: BTC_USDT                                                                                                     |
+| positionSide | String | **No**    | Defines the position direction when hedge mode is enabled. Variables: 'LONG / 'SHORT' / 'BOTH'. Example: 'BOTH'. See [positionSide](./../glossary.md#PositionSide) |
+
+**Request BODY raw:**
+
+```json
+{
+  "positionId": 123,
+  "positionSide": "LONG",
+  "market": "BTC_USDT",
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+Available statuses:
+
+- `Status 200`
+- `Status 400 if inner validation failed`
+- `Status 422 if request validation failed`
+- `Status 500 if internal error`
+- `Status 503 if service temporary unavailable`
+
+```json
+[]
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["The market field is required."]
+  }
+}
+```
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market field should be a string."]
+  }
+}
+```
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market field format is invalid."]
+  }
+}
+```
+
+```json
+{
+  "code": 31,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["Market field should not be empty string."]
+  }
+}
+```
+
+```json
+{
+  "message": "Validation failed",
+  "code": 31,
+  "errors": {
+    "market": ["Market is not available"]
+  }
+}
+```
+
+```json
+{
+  "code": 30,
+  "message": "Validation failed",
+  "errors": {
+    "positionId": ["The PositionId must be an integer."]
+  }
+}
+```
+
+```json
+{
+  "code": 113,
+  "message": "Validation failed",
+  "errors": {
+    "hedgeMode": [
+      "Position side cannot be changed if there exists futures positions or orders"
+    ]
+  }
+}
+```
+
+```json
+{
+  "code": 114,
+  "message": "Validation failed",
+  "errors": {
+    "hedgeMode": ["Order's position side does not match user's setting"]
+  }
+}
+```
+
+```json
+{
+  "code": 115,
+  "message": "Validation failed",
+  "errors": {
+    "hedgeMode": [
+      "Order would result in a new position in the opposite direction"
+    ]
+  }
+}
+```
+
+</details>
+
+---
+
 ### Positions History
 
-<ApiEndpoint method="POST" path="/api/v4/collateral-account/positions/history" />
+<ApiEndpoint
+  method="POST"
+  path="/api/v4/collateral-account/positions/history"
+/>
 
 This endpoint returns past positions history. Each position represented by position states. Each of them means event that shows current position changes such [order](./../glossary.md#orders), position close, liquidation, etc.
 
@@ -4480,14 +4665,14 @@ NONE
 
 **Parameters:**
 
-| Name     | Type   | Mandatory | Description                                                                                                                                                           |
-|----------| ------ | --------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| market   | String | **No**    | Requested [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
+| Name       | Type   | Mandatory | Description                                                                                                                                                           |
+| ---------- | ------ | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market     | String | **No**    | Requested [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
 | positionId | Int    | **No**    | Requested position                                                                                                                                                    |
-| startDate | Int    | **No**    | Start date in Unix-time format                                                                                                                                        |
-| endDate  | Int    | **No**    | End date in Unix-time format                                                                                                                                          |
-| limit    | Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
-| offset   | Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+| startDate  | Int    | **No**    | Start date in Unix-time format                                                                                                                                        |
+| endDate    | Int    | **No**    | End date in Unix-time format                                                                                                                                          |
+| limit      | Int    | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
+| offset     | Int    | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0 |
 
 **Request BODY raw:**
 
@@ -4510,25 +4695,26 @@ Available statuses:
 ```json
 [
   {
-      "positionId": 111,               // position ID
-      "market": "BTC_USDT",            // position market
-      "openDate": 1650400589.882613,   // date of position opening
-      "modifyDate": 1650400589.882613, // date of position modifying (this is date of current event)
-      "amount": "0.1",                 // amount of order
-      "basePrice": "45658.349",        // base price of position
-      "realizedFunding": "0",          // funding fee for whole position lifetime till current state
-      "liquidationPrice": null,        // liquidation price according to current state of position
-      "liquidationState": null,        // state of liquidation. Possible values: null, margin_call, liquidation
-      "orderDetail": {                 // details of order which changes position
-        "id": 97067934,                // order ID
-        "tradeAmount": "0.1",          // trade amount of order
-        "price": "41507.59",           // order's price
-        "tradeFee": "415.07",          // order's trade fee
-        "fundingFee": null,            // funding fee which was captured by this position change (order)
-        "realizedPnl": null            // realized pnl
-      }
+    "positionId": 111, // position ID
+    "market": "BTC_USDT", // position market
+    "openDate": 1650400589.882613, // date of position opening
+    "modifyDate": 1650400589.882613, // date of position modifying (this is date of current event)
+    "amount": "0.1", // amount of order
+    "basePrice": "45658.349", // base price of position
+    "realizedFunding": "0", // funding fee for whole position lifetime till current state
+    "liquidationPrice": null, // liquidation price according to current state of position
+    "liquidationState": null, // state of liquidation. Possible values: null, margin_call, liquidation
+    "orderDetail": {
+      // details of order which changes position
+      "id": 97067934, // order ID
+      "tradeAmount": "0.1", // trade amount of order
+      "price": "41507.59", // order's price
+      "tradeFee": "415.07", // order's trade fee
+      "fundingFee": null, // funding fee which was captured by this position change (order)
+      "realizedPnl": null // realized pnl
     },
-    ...
+    "positionSide": "LONG" // position side - LONG or SHORT or BOTH
+  }
 ]
 ```
 
@@ -4547,13 +4733,13 @@ NONE
 
 **Parameters:**
 
-| Name     | Type   | Mandatory | Description                                                                                                                                       |
-|----------| ------ |-----------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| market   | String | **Yes**    | Requested futures [market](./../glossary.md#market). Example: BTC_PERP                                                                            |
+| Name      | Type   | Mandatory | Description                                                                                                                                       |
+| --------- | ------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market    | String | **Yes**   | Requested futures [market](./../glossary.md#market). Example: BTC_PERP                                                                            |
 | startDate | Int    | **No**    | Start date in Unix-time format                                                                                                                    |
-| endDate  | Int    | **No**    | End date in Unix-time format                                                                                                                      |
-| limit    | Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 100, Min: 1, Max: 100                                     |
-| offset   | Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0 |
+| endDate   | Int    | **No**    | End date in Unix-time format                                                                                                                      |
+| limit     | Int    | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 100, Min: 1, Max: 100                                     |
+| offset    | Int    | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0 |
 
 **Request BODY raw:**
 
@@ -4577,21 +4763,21 @@ Available statuses:
   "records": [
     {
       "market": "BTC_PERP", // market name
-      "fundingTime": "1708704000000", // funding time
+      "fundingTime": "1734451200", // funding time
       "fundingRate": "0.00017674", // funding rate
       "fundingAmount": "-0.171053531892", // funding amount
       "positionAmount": "0.019", // position amount
       "settlementPrice": "50938.2", // settlement price
-      "rateCalculatedTime": "1708675200000" // rate calculated time
+      "rateCalculatedTime": "1734364800" // rate calculated time
     },
     {
       "market": "BTC_PERP",
-      "fundingTime": "1688457600000",
+      "fundingTime": "1734451200",
       "fundingRate": "-0.000177877800093587",
       "fundingAmount": "-0.0054997859133136",
       "positionAmount": "-0.001",
       "settlementPrice": "30918.9",
-      "rateCalculatedTime": "1688428800000"
+      "rateCalculatedTime": "1734364800"
     }
   ],
   "limit": 100,
@@ -4600,7 +4786,6 @@ Available statuses:
 ```
 
 ---
-
 
 ### Change Collateral Account Leverage
 
@@ -4647,6 +4832,96 @@ Available statuses:
 
 ---
 
+### Collateral Account Hedge Mode
+
+<ApiEndpoint method="POST" path="/api/v4/collateral-account/hedge-mode" />
+
+This endpoint retrieves the current hedge mode status for a collateral account.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+None required
+
+**Request BODY raw:**
+
+```json
+{
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+Available statuses:
+
+- `Status 200`
+- `Status 500 if internal error`
+- `Status 503 if service temporary unavailable`
+
+```json
+{
+  "hedgeMode": true
+}
+```
+
+---
+
+### Update Collateral Account Hedge Mode
+
+<ApiEndpoint
+  method="POST"
+  path="/api/v4/collateral-account/hedge-mode/update"
+/>
+
+This endpoint updates the hedge mode status for a collateral account. When hedge mode is enabled, you can hold both long and short positions on the same market simultaneously.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name      | Type    | Mandatory | Description                                              |
+| --------- | ------- | --------- | -------------------------------------------------------- |
+| hedgeMode | Boolean | **Yes**   | Set to `true` to enable or `false` to disable hedge mode |
+
+**Request BODY raw:**
+
+```json
+{
+  "hedgeMode": true
+}
+```
+
+**Response:**
+Available statuses:
+
+- `Status 200`
+- `Status 422 if inner validation failed`
+- `Status 500 if internal error`
+- `Status 503 if service temporary unavailable`
+
+<details>
+<summary><b>Errors:</b></summary>
+```json
+{
+    "code": 113,
+    "message": "Validation failed",
+    "errors": {
+        "hedgeMode": ["Position side cannot be changed if there exists futures positions or orders"],
+    }
+}
+```
+The response confirms the updated hedge mode status (`true` for enabled, `false` for disabled) for the collateral account.
+</details>
+
+---
+
 ### Query unexecuted(active) conditional orders
 
 <ApiEndpoint method="POST" path="/api/v4/conditional-orders" />
@@ -4660,11 +4935,11 @@ NONE
 
 **Parameters:**
 
-| Name   | Type        | Mandatory | Description                                                                                                                                                           |
-| ------ |-------------| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| market | String      | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
-| limit  | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
-| offset | String/Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+| Name   | Type       | Mandatory | Description                                                                                                                                                           |
+| ------ | ---------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market | String     | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
+| limit  | String/Int | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
+| offset | String/Int | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0 |
 
 **Request BODY raw:**
 
@@ -4694,83 +4969,82 @@ Available statuses:
   "total": 2,
   "records": [
     {
-      "id": 117703764513,               // conditional order id
+      "id": 117703764513, // conditional order id
       "type": "oco",
       "stop_loss": {
-        "orderId": 117703764514,        // unexecuted order ID
-        "clientOrderId": "",            // custom order id; "clientOrderId": "" - if not specified.
-        "market": "BTC_USDT",           // currency market
-        "side": "buy",                  // order side
-        "type": "stop limit",           // unexecuted order type
-        "timestamp": 1594605801.49815,  // timestamp of order creation
-        "dealMoney": "0",               // executed amount in money
-        "dealStock": "0",               // executed amount in stock
-        "amount": "2.241379",           // active order amount
-        "takerFee": "0.001",            // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-        "makerFee": "0.001",            // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-        "left": "2.241379",             // unexecuted amount in stock
-        "dealFee": "0",                 // executed fee by deal
-        "post_only": false,             // orders are guaranteed to be the maker order when executed.
-        "mtime": 1662478154.941582,     // timestamp of order modification
-        "price": "19928.79",            // unexecuted order price
+        "orderId": 117703764514, // unexecuted order ID
+        "clientOrderId": "", // custom order id; "clientOrderId": "" - if not specified.
+        "market": "BTC_USDT", // currency market
+        "side": "buy", // order side
+        "type": "stop limit", // unexecuted order type
+        "timestamp": 1594605801.49815, // timestamp of order creation
+        "dealMoney": "0", // executed amount in money
+        "dealStock": "0", // executed amount in stock
+        "amount": "2.241379", // active order amount
+        "takerFee": "0.001", // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+        "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+        "left": "2.241379", // unexecuted amount in stock
+        "dealFee": "0", // executed fee by deal
+        "post_only": false, // orders are guaranteed to be the maker order when executed.
+        "mtime": 1662478154.941582, // timestamp of order modification
+        "price": "19928.79", // unexecuted order price
         "activation_price": "29928.79", // activation price
-        "activation_condition": "gte",  // activation condition
-        "activated": 0,                  // activation status
-        "status": "FILLED" ,            // order status
-        "stp": "no"                     // self trade prevention mode
+        "activation_condition": "gte", // activation condition
+        "activated": 0, // activation status
+        "status": "FILLED", // order status
+        "stp": "no", // self trade prevention mode
+        "positionSide": "LONG" // position side - LONG or SHORT or BOTH
       },
       "take_profit": {
-        "orderId": 117703764515,        // unexecuted order ID
-        "clientOrderId": "",            // custom order id; "clientOrderId": "" - if not specified.
-        "market": "BTC_USDT",           // currency market
-        "side": "buy",                  // order side
-        "type": "limit",                // unexecuted order type
+        "orderId": 117703764515, // unexecuted order ID
+        "clientOrderId": "", // custom order id; "clientOrderId": "" - if not specified.
+        "market": "BTC_USDT", // currency market
+        "side": "buy", // order side
+        "type": "limit", // unexecuted order type
         "timestamp": 1662478154.941582, // timestamp of order creation
-        "dealMoney": "0",               // executed amount in money
-        "dealStock": "0",               // executed amount in stock
-        "amount": "0.635709",           // active order amount
-        "takerFee": "0.001",            // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-        "makerFee": "0.001",            // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-        "left": "0.635709",             // unexecuted amount in stock
-        "dealFee": "0",                 // executed fee by deal
-        "post_only": false,             // orders are guaranteed to be the maker order when executed.
-        "mtime": 1662478154.941582,     // timestamp of order modification
-        "price": "9928.79",              // unexecuted order price
-        "status": "FILLED" ,            // order status
-        "stp": "no"                     // self trade prevention mode
+        "dealMoney": "0", // executed amount in money
+        "dealStock": "0", // executed amount in stock
+        "amount": "0.635709", // active order amount
+        "takerFee": "0.001", // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+        "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+        "left": "0.635709", // unexecuted amount in stock
+        "dealFee": "0", // executed fee by deal
+        "post_only": false, // orders are guaranteed to be the maker order when executed.
+        "mtime": 1662478154.941582, // timestamp of order modification
+        "price": "9928.79", // unexecuted order price
+        "status": "FILLED", // order status
+        "stp": "no", // self trade prevention mode
+        "positionSide": "LONG" // position side - LONG or SHORT or BOTH
       }
     },
     {
-      "id": 29457221,                    // ID of the conditional
-      "type": "oto",                     // type of the conditional
-      "stopLossPrice": "30000",          // stop loss order price - if stopLoss is specified
-      "takeProfitPrice": "50000",        // take profit order price - if takeProfit is specified
-      "conditionalOrder":                // OTO order data - if stopLoss or takeProfit is specified
-        {
-          "orderId": 3686033640,         // unexecuted order ID
-          "clientOrderId": "customId11", // custom order id; "clientOrderId": "" - if not specified.
-          "market": "BTC_USDT",          // currency market
-          "side": "buy",                 // order side
-          "type": "limit",               // unexecuted order type
-          "timestamp": 1594605801.49815, // timestamp of order creation
-          "dealMoney": "0",              // executed amount in money
-          "dealStock": "0",              // executed amount in stock
-          "amount": "2.241379",          // active order amount
-          "takerFee": "0.001",           // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-          "makerFee": "0.001",           // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-          "left": "2.241379",            // unexecuted amount in stock
-          "dealFee": "0",                // executed fee by deal
-          "price": "40000" ,              // unexecuted order price
-          "status": "FILLED" ,            // order status
-          "stp": "no"                     // self trade prevention mode
-        }
-    },
-    {
-      ...
+      "id": 29457221, // ID of the conditional
+      "type": "oto", // type of the conditional
+      "stopLossPrice": "30000", // stop loss order price - if stopLoss is specified
+      "takeProfitPrice": "50000", // take profit order price - if takeProfit is specified
+      // OTO order data - if stopLoss or takeProfit is specified
+      "conditionalOrder": {
+        "orderId": 3686033640, // unexecuted order ID
+        "clientOrderId": "customId11", // custom order id; "clientOrderId": "" - if not specified.
+        "market": "BTC_USDT", // currency market
+        "side": "buy", // order side
+        "type": "limit", // unexecuted order type
+        "timestamp": 1594605801.49815, // timestamp of order creation
+        "dealMoney": "0", // executed amount in money
+        "dealStock": "0", // executed amount in stock
+        "amount": "2.241379", // active order amount
+        "takerFee": "0.001", // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+        "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+        "left": "2.241379", // unexecuted amount in stock
+        "dealFee": "0", // executed fee by deal
+        "price": "40000", // unexecuted order price
+        "status": "FILLED", // order status
+        "stp": "no", // self trade prevention mode
+        "positionSide": "LONG" // position side - LONG or SHORT or BOTH
+      }
     }
   ]
 }
-
 ```
 
 <details>
@@ -4887,11 +5161,11 @@ NONE
 
 **Parameters:**
 
-| Name   | Type        | Mandatory | Description                                                                                                                                                           |
-| ------ |-------------| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| market | String      | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
-| limit  | String/Int  | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
-| offset | String/Int  | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000 |
+| Name   | Type       | Mandatory | Description                                                                                                                                                           |
+| ------ | ---------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| market | String     | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                                                        |
+| limit  | String/Int | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
+| offset | String/Int | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0 |
 
 **Request BODY raw:**
 
@@ -4917,54 +5191,52 @@ Available statuses:
 ```json
 [
   {
-    "id": 117703764513,               // oco order id
+    "id": 117703764513, // oco order id
     "stop_loss": {
-      "orderId": 117703764514,        // unexecuted order ID
-      "clientOrderId": "",            // custom order id; "clientOrderId": "" - if not specified.
-      "market": "BTC_USDT",           // currency market
-      "side": "buy",                  // order side
-      "type": "stop limit",           // unexecuted order type
-      "timestamp": 1594605801.49815,  // timestamp of order creation
-      "dealMoney": "0",               // executed amount in money
-      "dealStock": "0",               // executed amount in stock
-      "amount": "2.241379",           // active order amount
-      "takerFee": "0.001",            // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-      "makerFee": "0.001",            // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-      "left": "2.241379",             // unexecuted amount in stock
-      "dealFee": "0",                 // executed fee by deal
-      "post_only": false,             // orders are guaranteed to be the maker order when executed.
-      "mtime": 1662478154.941582,     // timestamp of order modification
-      "price": "19928.79",            // unexecuted order price
+      "orderId": 117703764514, // unexecuted order ID
+      "clientOrderId": "", // custom order id; "clientOrderId": "" - if not specified.
+      "market": "BTC_USDT", // currency market
+      "side": "buy", // order side
+      "type": "stop limit", // unexecuted order type
+      "timestamp": 1594605801.49815, // timestamp of order creation
+      "dealMoney": "0", // executed amount in money
+      "dealStock": "0", // executed amount in stock
+      "amount": "2.241379", // active order amount
+      "takerFee": "0.001", // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+      "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+      "left": "2.241379", // unexecuted amount in stock
+      "dealFee": "0", // executed fee by deal
+      "post_only": false, // orders are guaranteed to be the maker order when executed.
+      "mtime": 1662478154.941582, // timestamp of order modification
+      "price": "19928.79", // unexecuted order price
       "activation_price": "29928.79", // activation price
-      "activation_condition": "gte",  // activation condition
-      "activated": 0,                  // activation status
-      "status": "FILLED" ,            // order status
-      "stp": "no"                     // self trade prevention mode
+      "activation_condition": "gte", // activation condition
+      "activated": 0, // activation status
+      "status": "FILLED", // order status
+      "stp": "no" // self trade prevention mode
     },
     "take_profit": {
-      "orderId": 117703764515,        // unexecuted order ID
-      "clientOrderId": "",            // custom order id; "clientOrderId": "" - if not specified.
-      "market": "BTC_USDT",           // currency market
-      "side": "buy",                  // order side
-      "type": "limit",                // unexecuted order type
+      "orderId": 117703764515, // unexecuted order ID
+      "clientOrderId": "", // custom order id; "clientOrderId": "" - if not specified.
+      "market": "BTC_USDT", // currency market
+      "side": "buy", // order side
+      "type": "limit", // unexecuted order type
       "timestamp": 1662478154.941582, // timestamp of order creation
-      "dealMoney": "0",               // executed amount in money
-      "dealStock": "0",               // executed amount in stock
-      "amount": "0.635709",           // active order amount
-      "takerFee": "0.001",            // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-      "makerFee": "0.001",            // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-      "left": "0.635709",             // unexecuted amount in stock
-      "dealFee": "0",                 // executed fee by deal
-      "post_only": false,             // orders are guaranteed to be the maker order when executed.
-      "mtime": 1662478154.941582,     // timestamp of order modification
-      "price": "9928.79",              // unexecuted order price
-      "status": "FILLED" ,            // order status
-      "stp": "no"                     // self trade prevention mode
+      "dealMoney": "0", // executed amount in money
+      "dealStock": "0", // executed amount in stock
+      "amount": "0.635709", // active order amount
+      "takerFee": "0.001", // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+      "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+      "left": "0.635709", // unexecuted amount in stock
+      "dealFee": "0", // executed fee by deal
+      "post_only": false, // orders are guaranteed to be the maker order when executed.
+      "mtime": 1662478154.941582, // timestamp of order modification
+      "price": "9928.79", // unexecuted order price
+      "status": "FILLED", // order status
+      "stp": "no" // self trade prevention mode
     }
-  },
-    {...}
+  }
 ]
-
 ```
 
 <details>
@@ -5080,16 +5352,17 @@ NONE
 
 **Parameters:**
 
-| Name             | Type          | Mandatory | Description                                                                                                                            |
-| ---------------- | ------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| market           | String        | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                         |
-| side             | String        | **Yes**   | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                                   |
-| amount           | String/Number | **Yes**   | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                           |
-| price            | String/Number | **Yes**   | Price in [money](./../glossary.md#money) currency for [limit order](./../glossary.md#limit-order). Example: '9800' or 9800             |
-| activation_price | String/Number | **Yes**   | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                                |
-| stop_limit_price | String/Number | **Yes**   | Price in [money](./../glossary.md#money) currency for [stop limit order](./../glossary.md#stop-limit-order). Example: '10100' or 10100 |
-| clientOrderId    | String        | **No**    | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.          |
-| stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.  |
+| Name             | Type          | Mandatory                        | Description                                                                                                                              |
+| ---------------- | ------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| market           | String        | **Yes**                          | Available [market](./../glossary.md#market). Example: BTC_USDT                                                                           |
+| side             | String        | **Yes**                          | Order type. Variables: 'buy' / 'sell' Example: 'buy'                                                                                     |
+| amount           | String/Number | **Yes**                          | Amount of [stock](./../glossary.md#stock) currency to buy or sell. Example: '0.001' or 0.001                                             |
+| price            | String/Number | **Yes**                          | Price in [money](./../glossary.md#money) currency for [limit order](./../glossary.md#limit-order). Example: '9800' or 9800               |
+| activation_price | String/Number | **Yes**                          | Activation price in [money](./../glossary.md#money) currency. Example: '10000' or 10000                                                  |
+| stop_limit_price | String/Number | **Yes**                          | Price in [money](./../glossary.md#money) currency for [stop limit order](./../glossary.md#stop-limit-order). Example: '10100' or 10100   |
+| clientOrderId    | String        | **No**                           | Identifier should be unique and contain letters, dashes, numbers, dots or underscores. The identifier must be unique.                    |
+| stp              | String        | **No**                           | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                  |
+| positionSide     | String        | **Yes, when hedge mode enabled** | Defines the position direction. Variables: 'LONG / 'SHORT' / 'BOTH'. Example: 'BOTH'. See [positionSide](./../glossary.md#position-side) |
 
 **Request BODY raw:**
 
@@ -5117,49 +5390,51 @@ Available statuses:
 
 ```json
 {
-  "id": 117703764513,               // oco order id
+  "id": 117703764513, // oco order id
   "stop_loss": {
-    "orderId": 117703764514,        // unexecuted order ID
-    "clientOrderId": "",            // custom order id; "clientOrderId": "" - if not specified.
-    "market": "BTC_USDT",           // currency market
-    "side": "buy",                  // order side
-    "type": "stop limit",           // unexecuted order type
-    "timestamp": 1594605801.49815,  // timestamp of order creation
-    "dealMoney": "0",               // executed amount in money
-    "dealStock": "0",               // executed amount in stock
-    "amount": "2.241379",           // active order amount
-    "takerFee": "0.001",            // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "makerFee": "0.001",            // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "left": "2.241379",             // unexecuted amount in stock
-    "dealFee": "0",                 // executed fee by deal
-    "post_only": false,             // orders are guaranteed to be the maker order when executed.
-    "mtime": 1662478154.941582,     // timestamp of order modification
-    "price": "19928.79",            // unexecuted order price
+    "orderId": 117703764514, // unexecuted order ID
+    "clientOrderId": "", // custom order id; "clientOrderId": "" - if not specified.
+    "market": "BTC_USDT", // currency market
+    "side": "buy", // order side
+    "type": "stop limit", // unexecuted order type
+    "timestamp": 1594605801.49815, // timestamp of order creation
+    "dealMoney": "0", // executed amount in money
+    "dealStock": "0", // executed amount in stock
+    "amount": "2.241379", // active order amount
+    "takerFee": "0.001", // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+    "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+    "left": "2.241379", // unexecuted amount in stock
+    "dealFee": "0", // executed fee by deal
+    "post_only": false, // orders are guaranteed to be the maker order when executed.
+    "mtime": 1662478154.941582, // timestamp of order modification
+    "price": "19928.79", // unexecuted order price
     "activation_price": "29928.79", // activation price
-    "activation_condition": "gte",  // activation condition
-    "activated": 0,                  // activation status
-    "status": "FILLED" ,            // order status
-    "stp": "no"                     // self trade prevention mode
+    "activation_condition": "gte", // activation condition
+    "activated": 0, // activation status
+    "status": "FILLED", // order status
+    "stp": "no", // self trade prevention mode
+    "positionSide": "LONG" // position side - LONG or SHORT or BOTH
   },
   "take_profit": {
-    "orderId": 117703764515,        // unexecuted order ID
-    "clientOrderId": "",            // custom order id; "clientOrderId": "" - if not specified.
-    "market": "BTC_USDT",           // currency market
-    "side": "buy",                  // order side
-    "type": "limit",                // unexecuted order type
+    "orderId": 117703764515, // unexecuted order ID
+    "clientOrderId": "", // custom order id; "clientOrderId": "" - if not specified.
+    "market": "BTC_USDT", // currency market
+    "side": "buy", // order side
+    "type": "limit", // unexecuted order type
     "timestamp": 1662478154.941582, // timestamp of order creation
-    "dealMoney": "0",               // executed amount in money
-    "dealStock": "0",               // executed amount in stock
-    "amount": "0.635709",           // active order amount
-    "takerFee": "0.001",            // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "makerFee": "0.001",            // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "left": "0.635709",             // unexecuted amount in stock
-    "dealFee": "0",                 // executed fee by deal
-    "post_only": false,             // orders are guaranteed to be the maker order when executed.
-    "mtime": 1662478154.941582,     // timestamp of order modification
-    "price": "9928.79",              // unexecuted order price
-    "status": "FILLED" ,            // order status
-    "stp": "no"                     // self trade prevention mode
+    "dealMoney": "0", // executed amount in money
+    "dealStock": "0", // executed amount in stock
+    "amount": "0.635709", // active order amount
+    "takerFee": "0.001", // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+    "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+    "left": "0.635709", // unexecuted amount in stock
+    "dealFee": "0", // executed fee by deal
+    "post_only": false, // orders are guaranteed to be the maker order when executed.
+    "mtime": 1662478154.941582, // timestamp of order modification
+    "price": "9928.79", // unexecuted order price
+    "status": "FILLED", // order status
+    "stp": "no", // self trade prevention mode
+    "positionSide": "LONG" // position side - LONG or SHORT or BOTH
   }
 }
 ```
@@ -5611,47 +5886,47 @@ Available statuses:
 
 ```json
 {
-  "id": 117703764513,               // oco order id
+  "id": 117703764513, // oco order id
   "stop_loss": {
-    "orderId": 117703764514,        // unexecuted order ID
-    "clientOrderId": "",            // custom order id; "clientOrderId": "" - if not specified.
-    "market": "BTC_USDT",           // currency market
-    "side": "buy",                  // order side
-    "type": "stop limit",           // unexecuted order type
-    "timestamp": 1594605801.49815,  // timestamp of order creation
-    "dealMoney": "0",               // executed amount in money
-    "dealStock": "0",               // executed amount in stock
-    "amount": "2.241379",           // active order amount
-    "takerFee": "0.001",            // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "makerFee": "0.001",            // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "left": "2.241379",             // unexecuted amount in stock
-    "dealFee": "0",                 // executed fee by deal
-    "post_only": false,             // orders are guaranteed to be the maker order when executed.
-    "mtime": 1662478154.941582,     // timestamp of order modification
-    "price": "19928.79",            // unexecuted order price
+    "orderId": 117703764514, // unexecuted order ID
+    "clientOrderId": "", // custom order id; "clientOrderId": "" - if not specified.
+    "market": "BTC_USDT", // currency market
+    "side": "buy", // order side
+    "type": "stop limit", // unexecuted order type
+    "timestamp": 1594605801.49815, // timestamp of order creation
+    "dealMoney": "0", // executed amount in money
+    "dealStock": "0", // executed amount in stock
+    "amount": "2.241379", // active order amount
+    "takerFee": "0.001", // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+    "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+    "left": "2.241379", // unexecuted amount in stock
+    "dealFee": "0", // executed fee by deal
+    "post_only": false, // orders are guaranteed to be the maker order when executed.
+    "mtime": 1662478154.941582, // timestamp of order modification
+    "price": "19928.79", // unexecuted order price
     "activation_price": "29928.79", // activation price
-    "activation_condition": "gte",  // activation condition
-    "activated": 0,                  // activation status
-    "status": "CANCELED" ,            // order status
-    "stp": "no"                     // self trade prevention mode
+    "activation_condition": "gte", // activation condition
+    "activated": 0, // activation status
+    "status": "CANCELED", // order status
+    "stp": "no" // self trade prevention mode
   },
   "take_profit": {
-    "orderId": 117703764515,        // unexecuted order ID
-    "clientOrderId": "",            // custom order id; "clientOrderId": "" - if not specified.
-    "market": "BTC_USDT",           // currency market
-    "side": "buy",                  // order side
-    "type": "limit",                // unexecuted order type
+    "orderId": 117703764515, // unexecuted order ID
+    "clientOrderId": "", // custom order id; "clientOrderId": "" - if not specified.
+    "market": "BTC_USDT", // currency market
+    "side": "buy", // order side
+    "type": "limit", // unexecuted order type
     "timestamp": 1662478154.941582, // timestamp of order creation
-    "dealMoney": "0",               // executed amount in money
-    "dealStock": "0",               // executed amount in stock
-    "amount": "0.635709",           // active order amount
-    "left": "0.635709",             // unexecuted amount in stock
-    "dealFee": "0",                 // executed fee by deal
-    "post_only": false,             // orders are guaranteed to be the maker order when executed.
-    "mtime": 1662478154.941582,     // timestamp of order modification
-    "price": "9928.79",              // unexecuted order price
-    "status": "CANCELED" ,            // order status
-    "stp": "no"                     // self trade prevention mode
+    "dealMoney": "0", // executed amount in money
+    "dealStock": "0", // executed amount in stock
+    "amount": "0.635709", // active order amount
+    "left": "0.635709", // unexecuted amount in stock
+    "dealFee": "0", // executed fee by deal
+    "post_only": false, // orders are guaranteed to be the maker order when executed.
+    "mtime": 1662478154.941582, // timestamp of order modification
+    "price": "9928.79", // unexecuted order price
+    "status": "CANCELED", // order status
+    "stp": "no" // self trade prevention mode
   }
 }
 ```
@@ -5746,7 +6021,7 @@ NONE
 **Parameters:**
 
 | Name   | Type       | Mandatory | Description                                                                         |
-|--------| ---------- | --------- |-------------------------------------------------------------------------------------|
+| ------ | ---------- | --------- | ----------------------------------------------------------------------------------- |
 | market | String     | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT                      |
 | id     | String/Int | **Yes**   | [conditional](./../glossary.md#conditional) Id. Example: 4180284841 or "4180284841" |
 
@@ -5864,7 +6139,7 @@ NONE
 **Parameters:**
 
 | Name   | Type       | Mandatory | Description                                                                |
-|--------| ---------- | --------- |----------------------------------------------------------------------------|
+| ------ | ---------- | --------- | -------------------------------------------------------------------------- |
 | market | String     | **Yes**   | Available [market](./../glossary.md#market). Example: BTC_USDT             |
 | otoId  | String/Int | **Yes**   | [OTO](./../glossary.md#oco-orders) Id. Example: 4180284841 or "4180284841" |
 
@@ -6178,16 +6453,17 @@ This endpoint creates a quote for converting one currency to another. Quote life
 
 **Parameters:**
 
-| Name      | Type   | Mandatory | Description                                                                                                                                                                                                       |
-|-----------|--------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| from      | String | **Yes**   | From currency. Example: BTC                                                                                                                                                                                       |
-| to        | String | **Yes**   | To currency. Example: USDT                                                                                                                                                                                        |
+| Name      | Type   | Mandatory | Description                                                                                                                                                                                                         |
+| --------- | ------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| from      | String | **Yes**   | From currency. Example: BTC                                                                                                                                                                                         |
+| to        | String | **Yes**   | To currency. Example: USDT                                                                                                                                                                                          |
 | direction | String | **Yes**   | Convert amount direction, defines in which currency corresponding "amount" field is populated. Use "to" in case amount is in "to" currency, use "from" if amount is in "from" currency (see use case samples below) |
-| amount    | String | **Yes**   | Amount to convert or receive.                                                                                                                                                                                     |
+| amount    | String | **Yes**   | Amount to convert or receive.                                                                                                                                                                                       |
 
 **Request BODY raw:**
 
 Example of 'I would like to estimate convert of BTC to receive 35,103.1 USDT':
+
 ```json
 {
   "amount": "35,103.1",
@@ -6200,6 +6476,7 @@ Example of 'I would like to estimate convert of BTC to receive 35,103.1 USDT':
 ```
 
 Example of 'I would like to estimate convert of 1 BTC to USDT':
+
 ```json
 {
   "amount": "1",
@@ -6239,9 +6516,7 @@ Available statuses:
   "code": 0,
   "message": "Validation failed",
   "errors": {
-    "user": [
-      "Terms of exchange are not accepted"
-    ]
+    "user": ["Terms of exchange are not accepted"]
   }
 }
 ```
@@ -6251,21 +6526,17 @@ Available statuses:
   "code": 30,
   "message": "Validation failed",
   "errors": {
-    "direction": [
-      "Direction field does not exist in [from,to]."
-    ]
+    "direction": ["Direction field does not exist in [from,to]."]
   }
 }
 ```
 
 ```json
 {
-    "code": 0,
-    "message": "Validation failed",
-    "errors": {
-        "from": [
-            "Conversion markets not available"
-        ]
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "from": ["Conversion markets not available"]
   }
 }
 ```
@@ -6286,9 +6557,9 @@ This endpoint confirms an estimated quote.
 NONE
 
 **Parameters:**
-| Name    | Type   | Mandatory | Description |
+| Name | Type | Mandatory | Description |
 |---------|--------|-----------|-------------|
-| quoteId | String | **Yes**   | Quote ID    |
+| quoteId | String | **Yes** | Quote ID |
 
 **Request BODY raw:**
 
@@ -6323,9 +6594,7 @@ Available statuses:
   "code": 0,
   "message": "Validation failed",
   "errors": {
-    "quoteId": [
-      "Quote could not be found"
-    ]
+    "quoteId": ["Quote could not be found"]
   }
 }
 ```
@@ -6347,20 +6616,21 @@ NONE
 
 **Parameters:**
 
-| Name       | Type   | Mandatory | Description                               |
-|------------|--------|-----------|-------------------------------------------|
-| fromTicker | String | **No**    | From currency. Example: BTC               |
-| toTicker   | String | **No**    | To currency. Example: USDT                |
-| from       | String | **No**    | From time filter. Example: 1699260637. Default: `now()`     |
-| to         | String | **No**    | To time filter. Example: 1699260637. Default: `now() +`      |
-| quoteId    | String | **No**    | Quote Id. Example: 4050                   |
-| limit      | String | **No**    | How many records to receive. Default: 100 |
-| offset     | String | **No**    | Amount to convert or receive. Default 0   |
+| Name       | Type   | Mandatory | Description                                             |
+| ---------- | ------ | --------- | ------------------------------------------------------- |
+| fromTicker | String | **No**    | From currency. Example: BTC                             |
+| toTicker   | String | **No**    | To currency. Example: USDT                              |
+| from       | String | **No**    | From time filter. Example: 1699260637. Default: `now()` |
+| to         | String | **No**    | To time filter. Example: 1699260637. Default: `now() +` |
+| quoteId    | String | **No**    | Quote Id. Example: 4050                                 |
+| limit      | String | **No**    | How many records to receive. Default: 100               |
+| offset     | String | **No**    | Amount to convert or receive. Default 0                 |
 
-⚠️ **Important Limitations** ⚠️
-
-Date Range: The time range between the `from` and `to` parameters must not exceed 30 days. Requests with a date range wider than 30 days will result in an error.
-
+<Alert
+  type="warning"
+  header="Important Limitations"
+  message="This method can retrieve data not older than 6 months from current month. If you need older data - you can use Report on the History page in your account."
+/>
 
 **Request BODY raw:**
 
@@ -6368,7 +6638,7 @@ Date Range: The time range between the `from` and `to` parameters must not excee
 {
   "fromTicker": "BTC",
   "nonce": "{{nonce}}",
-  "request": "{{request}}",
+  "request": "{{request}}"
 }
 ```
 
@@ -6412,9 +6682,7 @@ Available statuses:
   "code": 30,
   "message": "Validation failed",
   "errors": {
-    "fromTicker": [
-      "fromTicker is invalid."
-    ]
+    "fromTicker": ["fromTicker is invalid."]
   }
 }
 ```
@@ -6424,9 +6692,7 @@ Available statuses:
   "code": 30,
   "message": "Validation failed",
   "errors": {
-    "toTicker": [
-      "toTicker is invalid."
-    ]
+    "toTicker": ["toTicker is invalid."]
   }
 }
 ```
@@ -6434,4 +6700,3 @@ Available statuses:
 </details>
 
 ---
-

@@ -1,4 +1,4 @@
-export default {
+const meta = {
   "overview": {
     title: "Overview",
     theme: {
@@ -10,4 +10,6 @@ export default {
   "colocation": "Colocation",
   "webhook": "Webhook",
   "oauth": "OAuth"
-}
+};
+
+export default meta;

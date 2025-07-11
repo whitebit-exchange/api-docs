@@ -8,13 +8,20 @@ import {
   CheckCircle2,
   Clock,
   Info,
-  AlertTriangle,
   ExternalLink,
   Link as LinkIcon,
   CreditCard,
+  Zap,
+  TrendingUp,
+  Shield,
+  Database,
+  Wallet,
+  Settings,
+  BarChart3,
+  Network,
+  FileText,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface ChangelogLink {
@@ -47,21 +54,39 @@ interface ProcessedChangelogData {
 const renderChangeTypeIcon = (type: string) => {
   switch (type) {
     case "feature":
-      return <CheckCircle2 className="h-5 w-5 text-green-500" />;
+      return <Zap className="h-5 w-5 text-blue-500" />;
     case "improvement":
-      return <CheckCircle2 className="h-5 w-5 text-green-500" />;
+      return <TrendingUp className="h-5 w-5 text-green-500" />;
     case "bugfix":
-      return <Info className="h-5 w-5 text-amber-500" />;
+      return <CheckCircle2 className="h-5 w-5 text-amber-500" />;
     case "deprecation":
       return <AlertCircle className="h-5 w-5 text-red-500" />;
     case "security":
-      return <AlertTriangle className="h-5 w-5 text-orange-500" />;
+      return <Shield className="h-5 w-5 text-orange-500" />;
     case "planned":
-      return <Clock className="h-5 w-5 text-blue-500" />;
+      return <Clock className="h-5 w-5 text-purple-500" />;
     case "roadmap":
-      return <AlertCircle className="h-5 w-5 text-purple-500" />;
+      return <BarChart3 className="h-5 w-5 text-indigo-500" />;
     case "fiat":
-      return <CreditCard className="h-5 w-5 text-green-500" />;
+      return <CreditCard className="h-5 w-5 text-emerald-500" />;
+    case "websocket":
+      return <Network className="h-5 w-5 text-cyan-500" />;
+    case "trading":
+      return <BarChart3 className="h-5 w-5 text-blue-600" />;
+    case "regulatory":
+      return <FileText className="h-5 w-5 text-orange-600" />;
+    case "performance":
+      return <Zap className="h-5 w-5 text-yellow-500" />;
+    case "api":
+      return <Settings className="h-5 w-5 text-gray-600" />;
+    case "withdrawal":
+      return <Wallet className="h-5 w-5 text-green-600" />;
+    case "deposit":
+      return <Wallet className="h-5 w-5 text-blue-600" />;
+    case "data":
+      return <Database className="h-5 w-5 text-purple-600" />;
+    case "compliance":
+      return <Shield className="h-5 w-5 text-red-600" />;
     default:
       return <Info className="h-5 w-5 text-gray-500" />;
   }
@@ -97,6 +122,28 @@ const copyLinkToClipboard = (slug: string) => {
   const url = `${window.location.origin}${window.location.pathname}#${slug}`;
   navigator.clipboard.writeText(url);
   toast.success("Link copied to clipboard");
+};
+
+const renderTextWithCodeBlocks = (text: string) => {
+  // Split text by code blocks (text wrapped in backticks)
+  const parts = text.split(/(`[^`]+`)/g);
+
+  return parts.map((part, index) => {
+    if (part.startsWith('`') && part.endsWith('`')) {
+      // This is a code block, remove the backticks and render as code
+      const code = part.slice(1, -1);
+      return (
+        <code
+          key={index}
+          className="inline-block px-1.5 py-0.5 bg-muted text-foreground rounded text-xs font-mono"
+        >
+          {code}
+        </code>
+      );
+    }
+    // Regular text
+    return part;
+  });
 };
 
 async function fetchChangelogData(): Promise<RawChangelogData> {
@@ -164,7 +211,7 @@ export default function ChangelogPage() {
           const itemDate = new Date(item.timeframe);
           itemDate.setHours(0, 0, 0, 0);
 
-          if (itemDate >= now) {
+          if (itemDate > now) {
             upcoming.push(item);
           } else {
             previous.push(item);
@@ -268,7 +315,7 @@ export default function ChangelogPage() {
                                 {change.title}
                               </h4>
                               <p className="text-sm leading-relaxed text-muted-foreground mt-2">
-                                {change.description}
+                                {renderTextWithCodeBlocks(change.description)}
                               </p>
                               {renderChangeLinks(change.links)}
                             </div>
@@ -328,7 +375,7 @@ export default function ChangelogPage() {
                                 {change.title}
                               </h5>
                               <p className="text-sm leading-relaxed text-muted-foreground mt-2">
-                                {change.description}
+                                {renderTextWithCodeBlocks(change.description)}
                               </p>
                               {renderChangeLinks(change.links)}
                             </div>
@@ -361,7 +408,7 @@ export default function ChangelogPage() {
         <p className="text-lg leading-relaxed text-muted-foreground">
           Track all updates, improvements, and fixes to the WhiteBIT API
           Platform. This page documents both upcoming and previous changes to
-          help you stay informed about our platform's evolution.
+          help you stay informed about our platform&apos;s evolution.
         </p>
       </div>
       <div className="changelog-content">
