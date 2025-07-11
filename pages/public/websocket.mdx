@@ -1307,8 +1307,35 @@ Update interval: real-time
 ```
 
 ---
-## Playground
+import { Button } from "@/components/ui/button"
+import { PlayCircle } from "lucide-react"
 
-import { WebSocketPlayground } from "@/components/websocket-playground";
-
-<WebSocketPlayground />
+<div className="flex flex-col items-center my-12">
+  <Button
+    variant="outline"
+    size="lg"
+    onClick={() => {
+      const event = new CustomEvent('open-playground', { detail: { mode: 'websocket' } });
+      window.dispatchEvent(event);
+    }}
+    className="relative group px-8 py-6 shadow-lg bg-gradient-to-b from-white to-zinc-50/50 dark:from-zinc-900 dark:to-zinc-950/50 hover:shadow-xl overflow-hidden transition-all duration-300"
+  >
+    <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-blue-500/10 to-primary/10 dark:from-primary/[0.07] dark:via-blue-500/[0.07] dark:to-primary/[0.07] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl scale-110" />
+    <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-blue-500/10 to-primary/10 dark:from-primary/[0.07] dark:via-blue-500/[0.07] dark:to-primary/[0.07] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+    <div className="relative flex items-center gap-3">
+      <div className="p-2 rounded-full bg-primary/10 dark:bg-primary/[0.15]">
+        <PlayCircle className="w-6 h-6 text-primary dark:text-primary" />
+      </div>
+      <span className="text-lg font-medium bg-gradient-to-br from-primary to-blue-600 dark:from-primary dark:to-blue-400 text-transparent bg-clip-text">
+        Open WebSocket Playground
+      </span>
+    </div>
+  </Button>
+  <div className="mt-4 flex justify-center">
+    <div className="text-sm text-muted-foreground flex items-center gap-2">
+      <div className="w-1 h-1 rounded-full bg-muted" />
+      Try out WebSocket API directly in the documentation
+      <div className="w-1 h-1 rounded-full bg-muted" />
+    </div>
+  </div>
+</div>
