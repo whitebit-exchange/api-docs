@@ -63,19 +63,19 @@ export function MessageComposer({
   }, []);
 
   return (
-    <div className={`flex flex-col ${className}`}>
+    <div className={`flex flex-col bg-card text-card-foreground ${className}`}>
       {hasSamples && selectedProvider?.samples && (
-        <div className="flex-none p-4 border-b">
+        <div className="flex-none p-4 border-b border-border">
           <div className="flex items-center justify-between mb-3">
-            <h4 className="font-medium">Sample Messages</h4>
+            <h4 className="font-medium text-foreground">Sample Messages</h4>
             <Select onValueChange={handleSampleSelect}>
-              <SelectTrigger className="w-80">
-                <SelectValue placeholder="Load sample" />
+              <SelectTrigger className="w-80 bg-card text-card-foreground">
+                <SelectValue placeholder="Load sample" className="text-muted-foreground" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent side="bottom" className="max-h-60 overflow-y-auto">
                 {selectedProvider.samples.map((sample) => (
                   <SelectItem key={sample.label} value={sample.payload}>
-                    <div className="font-medium">{sample.label}</div>
+                    <div className="font-medium text-foreground">{sample.label}</div>
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -85,7 +85,7 @@ export function MessageComposer({
       )}
 
       <div className="flex-1 flex flex-col p-4 min-h-0">
-        <Label htmlFor="payload" className="flex-none mb-2">
+        <Label htmlFor="payload" className="flex-none mb-2 text-foreground">
           Message Payload
         </Label>
         <Textarea
@@ -94,14 +94,14 @@ export function MessageComposer({
           onChange={(e) => setPayload(e.target.value)}
           onPaste={handleJsonPaste}
           placeholder="Enter your WebSocket message here..."
-          className="flex-1 font-mono text-sm resize-none min-h-0 h-full"
+          className="flex-1 font-mono text-sm resize-none min-h-0 h-full bg-card text-card-foreground placeholder:text-muted-foreground"
         />
         <div className="flex-none flex gap-2 mt-3">
           <Button onClick={handleSend} disabled={!isConnected} className="flex-1">
             <Send className="w-4 h-4 mr-2" />
             Send Message
           </Button>
-          <Button onClick={handleClear} variant="outline">
+          <Button onClick={handleClear} variant="outline" className="border-border hover:bg-accent hover:text-accent-foreground">
             Clear
           </Button>
         </div>
