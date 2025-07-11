@@ -21,7 +21,15 @@ const ENDPOINTS = [
 interface TickerData {
   [key: string]: {
     quote_volume: string;
-    [key: string]: any;
+    base_id: string;
+    change: string;
+    deal: string;
+    high: string;
+    last_price: string;
+    low: string;
+    open: string;
+    quote_id: string;
+    volume: string;
   };
 }
 

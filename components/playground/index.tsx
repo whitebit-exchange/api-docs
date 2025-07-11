@@ -7,7 +7,7 @@ import { ConnectionControls } from "./connection-controls";
 import { MessageComposer } from "./message-composer";
 import { MessageLog } from "./message-log";
 import { config } from "@/config/websocket";
-import { WebSocketProvider, WebSocketMessage } from "@/types/websocket";
+import { WebSocketProvider } from "@/types/websocket";
 
 interface PlaygroundProps {
   defaultProvider?: string;
@@ -15,6 +15,7 @@ interface PlaygroundProps {
 }
 
 interface Message {
+  id: string;
   type: "sent" | "received" | "error";
   data: string;
   timestamp: Date;
@@ -24,14 +25,26 @@ export function Playground({ defaultProvider, className }: PlaygroundProps) {
   const [isConnected, setIsConnected] = useState(false);
   const [ws, setWs] = useState<WebSocket | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [autoScroll, setAutoScroll] = useState(true);
+  const [selectedProviderKey, setSelectedProviderKey] = useState<string>("");
   const [selectedProvider, setSelectedProvider] = useState<WebSocketProvider | null>(
-    defaultProvider
-      ? (Object.entries(config.providers).find(
-          ([key]) => key === defaultProvider
-        )?.[1] as WebSocketProvider)
+    defaultProvider && config.providers[defaultProvider]
+      ? config.providers[defaultProvider]
       : null
   );
   const [customUrl, setCustomUrl] = useState("");
+
+  const addMessage = useCallback((type: Message["type"], data: string) => {
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+        type,
+        data,
+        timestamp: new Date(),
+      },
+    ]);
+  }, []);
 
   const connect = useCallback(
     (url: string) => {
@@ -44,63 +57,28 @@ export function Playground({ defaultProvider, className }: PlaygroundProps) {
 
         newWs.onopen = () => {
           setIsConnected(true);
-          setMessages((prev) => [
-            ...prev,
-            {
-              type: "received",
-              data: "Connected",
-              timestamp: new Date(),
-            },
-          ]);
+          addMessage("received", "Connected");
         };
 
         newWs.onclose = () => {
           setIsConnected(false);
-          setMessages((prev) => [
-            ...prev,
-            {
-              type: "received",
-              data: "Disconnected",
-              timestamp: new Date(),
-            },
-          ]);
+          addMessage("received", "Disconnected");
         };
 
-        newWs.onerror = (error) => {
-          setMessages((prev) => [
-            ...prev,
-            {
-              type: "error",
-              data: "WebSocket error occurred",
-              timestamp: new Date(),
-            },
-          ]);
+        newWs.onerror = () => {
+          addMessage("error", "WebSocket error occurred");
         };
 
         newWs.onmessage = (event) => {
-          setMessages((prev) => [
-            ...prev,
-            {
-              type: "received",
-              data: event.data,
-              timestamp: new Date(),
-            },
-          ]);
+          addMessage("received", event.data);
         };
 
         setWs(newWs);
       } catch (error) {
-        setMessages((prev) => [
-          ...prev,
-          {
-            type: "error",
-            data: `Failed to connect: ${error}`,
-            timestamp: new Date(),
-          },
-        ]);
+        addMessage("error", `Failed to connect: ${error}`);
       }
     },
-    [ws]
+    [ws, addMessage]
   );
 
   const disconnect = useCallback(() => {
@@ -114,22 +92,34 @@ export function Playground({ defaultProvider, className }: PlaygroundProps) {
     (message: string) => {
       if (ws && ws.readyState === WebSocket.OPEN) {
         ws.send(message);
-        setMessages((prev) => [
-          ...prev,
-          {
-            type: "sent",
-            data: message,
-            timestamp: new Date(),
-          },
-        ]);
+        addMessage("sent", message);
       }
     },
-    [ws]
+    [ws, addMessage]
   );
 
   const clearLog = useCallback(() => {
     setMessages([]);
   }, []);
+
+  const handleProviderChange = useCallback((providerId: string) => {
+    setSelectedProviderKey(providerId);
+    if (providerId && providerId !== "custom" && config.providers[providerId]) {
+      setSelectedProvider(config.providers[providerId]);
+    } else {
+      setSelectedProvider(null);
+    }
+  }, []);
+
+  const handleCopy = useCallback((message: string) => {
+    navigator.clipboard.writeText(message);
+  }, []);
+
+  useEffect(() => {
+    if (defaultProvider && config.providers[defaultProvider]) {
+      handleProviderChange(defaultProvider);
+    }
+  }, [defaultProvider, handleProviderChange]);
 
   useEffect(() => {
     return () => {
@@ -143,9 +133,9 @@ export function Playground({ defaultProvider, className }: PlaygroundProps) {
     <Card className={cn("p-4 space-y-4", className)}>
       <ConnectionControls
         isConnected={isConnected}
-        selectedProvider={selectedProvider}
+        selectedProvider={selectedProviderKey}
         customUrl={customUrl}
-        onProviderChange={setSelectedProvider}
+        onProviderChange={handleProviderChange}
         onCustomUrlChange={setCustomUrl}
         onConnect={() => connect(customUrl || selectedProvider?.url || "")}
         onDisconnect={disconnect}
@@ -155,7 +145,13 @@ export function Playground({ defaultProvider, className }: PlaygroundProps) {
         selectedProvider={selectedProvider}
         onSend={sendMessage}
       />
-      <MessageLog messages={messages} onClearLog={clearLog} />
+      <MessageLog
+        messages={messages}
+        autoScroll={autoScroll}
+        onAutoScrollChange={setAutoScroll}
+        onClear={clearLog}
+        onCopy={handleCopy}
+      />
     </Card>
   );
 }

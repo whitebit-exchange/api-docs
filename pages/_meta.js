@@ -1,4 +1,4 @@
-export default {
+const meta = {
   index: {
     title: "Home",
     theme: {
@@ -79,3 +79,5 @@ export default {
     newWindow: true,
   },
 };
+
+export default meta;

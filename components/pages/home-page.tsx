@@ -8,7 +8,6 @@ import {
   Code,
   Layers,
   Sparkles,
-  Clock,
   Headphones,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,7 +32,7 @@ export default function HomePage() {
                 WhiteBIT API Platform
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-                Access the global cryptocurrency market with WhiteBIT's
+                Access the global cryptocurrency market with WhiteBIT&apos;s
                 comprehensive trading APIs. Build powerful trading applications
                 with our developer-friendly tools.
               </p>
@@ -82,7 +81,7 @@ export default function HomePage() {
                     <p className="text-sm text-muted-foreground">
                       Watch our high-performance API handle thousands of trading
                       operations in real-time. From market orders to advanced
-                      trading strategies, see the full spectrum of what's
+                      trading strategies, see the full spectrum of what&apos;s
                       possible.
                     </p>
                   </div>
@@ -183,7 +182,7 @@ export default function HomePage() {
           >
             <h2 className="text-2xl md:text-3xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-2xl mx-auto">
-              Join thousands of developers building with WhiteBIT's API platform
+              Join thousands of developers building with WhiteBIT&apos;s API platform
             </p>
             <div className="flex gap-4 justify-center">
               <Link

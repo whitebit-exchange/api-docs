@@ -1,5 +1,5 @@
 "use client"
-import { useState, useRef, useEffect, useCallback } from "react"
+import { useState, useRef, useEffect } from "react"
 import {
     ChevronUp,
     ChevronDown,
@@ -25,12 +25,15 @@ function WebSocketPanel() {
         socket: null,
     });
     const [selectedProvider, setSelectedProvider] = useState<WebSocketProvider | null>(null);
+    const [selectedProviderKey, setSelectedProviderKey] = useState<string>("");
+    const [customUrl, setCustomUrl] = useState("");
     const [messages, setMessages] = useState<WebSocketMessage[]>([]);
     const [autoScroll, setAutoScroll] = useState(true);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     // Handle provider change
     const handleProviderChange = (providerId: keyof typeof config.providers | "custom" | "") => {
+        setSelectedProviderKey(providerId);
         if (providerId && providerId !== "custom") {
             setSelectedProvider(config.providers[providerId]);
         } else {
@@ -144,20 +147,23 @@ function WebSocketPanel() {
 
     return (
         <div className="h-full flex flex-col">
-                        <ConnectionControls
+            <ConnectionControls
                 isConnected={connection.status === "connected"}
+                selectedProvider={selectedProviderKey}
+                customUrl={customUrl}
                 onConnect={connect}
                 onDisconnect={disconnect}
                 onProviderChange={handleProviderChange}
+                onCustomUrlChange={setCustomUrl}
             />
 
             <div className="flex-1 flex overflow-hidden">
                 <MessageComposer
-                isConnected={connection.status === "connected"}
-                selectedProvider={selectedProvider}
-                onSend={sendMessage}
-                className="w-1/2 border-r border-gray-200 flex flex-col"
-            />
+                    isConnected={connection.status === "connected"}
+                    selectedProvider={selectedProvider}
+                    onSend={sendMessage}
+                    className="w-1/2 border-r border-gray-200 flex flex-col"
+                />
 
                 <MessageLog
                     messages={messages}

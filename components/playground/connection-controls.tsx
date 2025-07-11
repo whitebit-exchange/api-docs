@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
@@ -10,37 +9,42 @@ import { config } from "@/config/websocket";
 
 interface ConnectionControlsProps {
   isConnected: boolean;
+  selectedProvider: string;
+  customUrl: string;
   onConnect: (url: string) => void;
   onDisconnect: () => void;
-  onProviderChange?: (provider: keyof typeof config.providers | "custom" | "") => void;
+  onProviderChange: (provider: keyof typeof config.providers | "custom" | "") => void;
+  onCustomUrlChange: (url: string) => void;
   className?: string;
 }
 
 export function ConnectionControls({
   isConnected,
+  selectedProvider,
+  customUrl,
   onConnect,
   onDisconnect,
   onProviderChange,
+  onCustomUrlChange,
   className,
 }: ConnectionControlsProps) {
-  const [selectedProvider, setSelectedProvider] = useState<string>("");
-  const [customUrl, setCustomUrl] = useState("");
-
   const handleProviderChange = (value: string) => {
-    setSelectedProvider(value);
     if (value !== "custom") {
-      setCustomUrl("");
+      onCustomUrlChange("");
     }
-    onProviderChange?.(value as keyof typeof config.providers | "custom" | "");
+    onProviderChange(value as keyof typeof config.providers | "custom" | "");
   };
 
   const handleConnect = () => {
-    const url = selectedProvider === "custom"
-      ? customUrl
-      : config.providers[selectedProvider]?.url;
-
-    if (url) {
-      onConnect(url);
+    if (selectedProvider === "custom") {
+      if (customUrl) {
+        onConnect(customUrl);
+      }
+    } else if (selectedProvider) {
+      const url = config.providers[selectedProvider]?.url;
+      if (url) {
+        onConnect(url);
+      }
     }
   };
 
@@ -87,7 +91,7 @@ export function ConnectionControls({
             <Label>Custom WebSocket URL</Label>
             <Input
               value={customUrl}
-              onChange={(e) => setCustomUrl(e.target.value)}
+              onChange={(e) => onCustomUrlChange(e.target.value)}
               placeholder="wss://example.com/ws"
               className="font-mono"
             />

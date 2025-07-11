@@ -9,7 +9,7 @@ import {
 } from "@tanstack/react-table";
 
 import { TableCell, TableHead, TableRow } from "@/components/ui/table";
-import { HTMLAttributes, forwardRef, useState } from "react";
+import { HTMLAttributes, forwardRef } from "react";
 import { TableVirtuoso } from "react-virtuoso";
 import { cn } from "@/lib/utils";
 
