@@ -207,6 +207,27 @@
           ]
         }
       ]
+    },
+    {
+      "title": "Private API Update",
+      "timeframe": "2025-07-10T06:00:00",
+      "changes": [
+        {
+          "title": "Issue JWT Token for Private API",
+          "description": "New endpoint to issue JWT token for private API access.",
+          "type": "feature"
+        },
+        {
+          "title": "Issue card token using JWT",
+          "description": "New endpoint to issue a card token using JWT for secure transactions.",
+          "type": "feature"
+        },
+        {
+          "title": "Withdraw endpoint update",
+          "description": "Address now accepts card tokens for withdrawals.",
+          "type": "withdrawal"
+        }
+      ]
     }
   ]
 }
