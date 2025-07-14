@@ -16,6 +16,7 @@ import { WebSocketProvider, WebSocketMessage, WebSocketConnection } from "@/type
 import { ConnectionControls } from "@/components/playground/connection-controls"
 import { MessageComposer } from "@/components/playground/message-composer"
 import { MessageLog } from "@/components/playground/message-log"
+import clsx from "clsx";
 
 // WebSocket Panel Component
 function WebSocketPanel() {
@@ -202,14 +203,14 @@ export function ApiPlayground() {
     }, [])
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-50">
+        <div className={clsx({"fixed bottom-0 left-0 right-0 z-50": true, "w-fit left-1/2 right-1/2 -translate-y-1/2 -translate-x-1/2": !isOpen})}>
             {/* Toggle Button */}
             <div className="flex justify-center">
                 <Button
                     onClick={() => setIsOpen(!isOpen)}
                     variant="outline"
                     size="sm"
-                    className="mb-2 shadow-lg bg-white hover:bg-gray-50 text-gray-900 relative overflow-hidden transition-all duration-300 neon-border-button"
+                    className="mb-2 shadow-lg bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-900 dark:text-zinc-100 relative overflow-hidden transition-all duration-300 neon-border-button"
                 >
                     <Code className="w-4 h-4 mr-2" />
                     API Playground
@@ -219,14 +220,14 @@ export function ApiPlayground() {
 
             {/* Playground Panel */}
             <div
-                className={`bg-white border-t border-gray-200 shadow-2xl transition-all duration-300 ease-in-out ${isOpen ? "translate-y-0" : "translate-y-full"
+                className={`bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 shadow-2xl transition-all duration-300 ease-in-out ${isOpen ? "translate-y-0" : "translate-y-full opacity-0"
                     }`}
                 style={{ height: isOpen ? "70vh" : "0" }}
             >
                 <div className="h-full flex flex-col">
                     {/* Mode Selection */}
-                    <div className="p-4 border-b border-gray-200 bg-white flex-shrink-0">
-                        <div className="flex items-center justify-between mb-3">
+                    <div className="p-4 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 flex-shrink-0">
+                        <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
                                 <Button
                                     onClick={() => setActiveMode("rest")}
@@ -261,50 +262,50 @@ export function ApiPlayground() {
                         {activeMode === "websocket" ? (
                             <WebSocketPanel />
                         ) : (
-                            <div className="flex-1 flex items-center justify-center bg-gray-50">
+                            <div className="flex-1 flex items-center justify-center bg-zinc-50 dark:bg-zinc-900">
                                 <div className="text-center max-w-md mx-auto p-8">
                                     <div className="mb-6">
-                                        <Construction className="w-16 h-16 mx-auto mb-4 text-yellow-500" />
-                                        <Badge variant="secondary" className="mb-4 bg-yellow-100 text-yellow-800 px-3 py-1">
+                                        <Construction className="w-16 h-16 mx-auto mb-4 text-zinc-600 dark:text-zinc-400" />
+                                        <Badge variant="secondary" className="mb-4">
                                             Work in Progress
                                         </Badge>
                                     </div>
 
-                                    <h3 className="text-xl font-semibold text-gray-900 mb-3">REST API Testing</h3>
-                                    <p className="text-gray-600 mb-6">
+                                    <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-3">REST API Testing</h3>
+                                    <p className="text-zinc-600 dark:text-zinc-400 mb-6">
                                         The REST API testing functionality is currently under development. This feature will include:
                                     </p>
 
-                                    <div className="text-left bg-white rounded-lg p-4 border border-gray-200 mb-6">
-                                        <ul className="space-y-2 text-sm text-gray-700">
+                                    <div className="text-left bg-white dark:bg-zinc-900 rounded-lg p-4 border border-zinc-200 dark:border-zinc-800 mb-6">
+                                        <ul className="space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
                                             <li className="flex items-center gap-2">
-                                                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                                <div className="w-2 h-2 bg-zinc-400 dark:bg-zinc-500 rounded-full"></div>
                                                 OpenAPI specification loading
                                             </li>
                                             <li className="flex items-center gap-2">
-                                                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                                <div className="w-2 h-2 bg-zinc-400 dark:bg-zinc-500 rounded-full"></div>
                                                 Interactive endpoint testing
                                             </li>
                                             <li className="flex items-center gap-2">
-                                                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                                <div className="w-2 h-2 bg-zinc-400 dark:bg-zinc-500 rounded-full"></div>
                                                 Parameter configuration
                                             </li>
                                             <li className="flex items-center gap-2">
-                                                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                                <div className="w-2 h-2 bg-zinc-400 dark:bg-zinc-500 rounded-full"></div>
                                                 Authentication support
                                             </li>
                                             <li className="flex items-center gap-2">
-                                                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                                <div className="w-2 h-2 bg-zinc-400 dark:bg-zinc-500 rounded-full"></div>
                                                 Response visualization
                                             </li>
                                             <li className="flex items-center gap-2">
-                                                <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                                <div className="w-2 h-2 bg-zinc-400 dark:bg-zinc-500 rounded-full"></div>
                                                 cURL command generation
                                             </li>
                                         </ul>
                                     </div>
 
-                                    <p className="text-sm text-gray-500">
+                                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
                                         In the meantime, you can use the WebSocket functionality which is fully operational.
                                     </p>
 
