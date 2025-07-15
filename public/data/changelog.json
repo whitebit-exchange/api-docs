@@ -228,6 +228,17 @@
           "type": "withdrawal"
         }
       ]
+    },
+    {
+      "title": "Public API Update",
+      "timeframe": "2025-07-15",
+      "changes": [
+        {
+          "title": "New Funding History endpoint",
+          "description": "Added new endpoint `/api/v4/public/funding-history/{market}` to retrieve funding rate history for futures markets.",
+          "type": "trading"
+        }
+      ]
     }
   ]
 }
