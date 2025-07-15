@@ -15,6 +15,7 @@ import { ApiEndpoint } from "@/components/api-endpoint";
   - [Server Status](#server-status)
   - [Collateral Markets List](#collateral-markets-list)
   - [Available Futures Markets List](#available-futures-markets-list)
+  - [Funding History](#funding-history)
 
 Base URL is https://whitebit.com
 
@@ -635,6 +636,45 @@ _1 second_
     }
   ]
 }
+```
+
+### Funding History
+
+<ApiEndpoint method="GET" path="/api/v4/public/funding-history/{market}" />
+
+This endpoint returns the funding rate history for a specified futures market.
+
+❗ Rate limit 2000 requests/10 sec.
+
+**Parameters:**
+
+| Name      | Type   | Mandatory | Description                                                   |
+| --------- | ------ | --------- | ------------------------------------------------------------- |
+| market    | String | **Yes**   | Market name (e.g., BTC_PERP)                                 |
+| startDate | Int    | **No**    | Start timestamp in seconds                                    |
+| endDate   | Int    | **No**    | End timestamp in seconds                                     |
+| limit     | Int    | **No**    | Number of records to return. Default: 100, Maximum: 1000     |
+| offset    | Int    | **No**    | Number of records to skip                                    |
+
+**Response:**
+
+```json
+[
+  {
+    "fundingTime": "1752537600",        // Timestamp when funding was executed
+    "fundingRate": "-0.0001229",        // Funding rate value
+    "market": "BTC_PERP",               // Market name
+    "settlementPrice": "119816.5",      // Price at which funding was settled
+    "rateCalculatedTime": "1752508800"  // Timestamp when the funding rate was calculated
+  },
+  {
+    "fundingTime": "1752508800",
+    "fundingRate": "-0.0001306",
+    "market": "BTC_PERP",
+    "settlementPrice": "119873.1",
+    "rateCalculatedTime": "1752480000"
+  }
+]
 ```
 
 ### Mining Pool Overview
