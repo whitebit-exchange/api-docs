@@ -2782,6 +2782,8 @@ NONE
 | ------------- | ---------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | market        | String/Int | **No**    | Requested available market. Example: BTC_USDT                                                                                                                         |
 | orderId       | String/Int | **No**    | Requested available orderId. Example: 3134995325                                                                                                                      |
+| startDate     | Int        | **No**    | Start date in Unix-time format                                                                                                                    |
+| endDate       | Int        | **No**    | End date in Unix-time format      
 | clientOrderId | String     | **No**    | Requested available clientOrderId. Example: clientOrderId                                                                                                             |
 | limit         | String/Int | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
 | offset        | String/Int | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0 |
