@@ -239,6 +239,23 @@
           "type": "trading"
         }
       ]
+    },
+    {
+      "title": "API Documentation Updates",
+      "timeframe": "2025-07-17",
+      "changes": [
+        {
+          "title": "Enhanced Query executed orders documentation",
+          "description": "Updated documentation for `/api/v4/trade-account/order/history` endpoint to clarify date range filtering capabilities with `startDate` and `endDate` parameters.",
+          "type": "performance",
+          "links": [
+            {
+              "title": "Trade API - Query executed orders",
+              "url": "/private/http-trade-v4/#query-executed-orders"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
