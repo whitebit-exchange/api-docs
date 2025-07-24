@@ -2498,7 +2498,9 @@ NONE
 | Name          | Type       | Mandatory | Description                                                                                                                                                           |
 | ------------- | ---------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | market        | String     | **No**    | Requested market. Example: BTC_USDT                                                                                                                                   |
-| clientOrderId | String     | **No**    | Requested clientOrderId. Example: customId11                                                                                                                          |
+| clientOrderId | String     | **No**    | Requested clientOrderId. Example: customId11    
+| startDate     | Int        | **No**    | Start date in Unix-time format                                                                                                                    |
+| endDate       | Int        | **No**    | End date in Unix-time format                                                                                                                         |
 | limit         | String/Int | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
 | offset        | String/Int | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0 |
 
@@ -2803,7 +2805,7 @@ NONE
   "orderId": "3134995325", //order Id (optional)
   "clientOrderId": "clientOrderId", // custom order id; (optional)
   "startDate": 1597486960, // start date in Unix-time format (optional)
-  "endDate": 1597486960, // end date in Unix-time format (
+  "endDate": 1597486960, // end date in Unix-time format (optional)
   "offset": 0,
   "limit": 100,
   "request": "{{request}}",
