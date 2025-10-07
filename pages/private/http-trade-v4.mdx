@@ -1,5 +1,6 @@
 import { ApiEndpoint } from "@/components/api-endpoint";
 import { Alert } from "@/components/alert";
+import { ErrorCodeSelector } from "@/components/error-code-selector";
 
 # Private HTTP API V4 for trading
 
@@ -3645,6 +3646,58 @@ Available statuses:
 ```
 
 </details>
+
+<ErrorCodeSelector 
+  errorCodes={[
+    { code: 1, message: "Inner validation failed", field: "amount", description: "Invalid argument." },
+    { code: 2, message: "Inner validation failed", field: "orderId", description: "Unexecuted order was not found." },
+    { code: 6, message: "Inner validation failed", field: "orderId", description: "Unexecuted order was not found." },
+    { code: 7, message: "Validation failed", field: "orderId", description: "order not found." },
+    { code: 10, message: "Validation failed", field: "amount", description: "Not enough balance." },
+    { code: 11, message: "Validation failed", field: "amount", description: "Amount too small." },
+    { code: 12, message: "Validation failed", field: "amount", description: "The amount field value, that the API unable to process." },
+    { code: 13, message: "Validation failed", field: "postOnly", description: "This order couldn't be executed as a maker order and was canceled." },
+    { code: 14, message: "Validation failed", field: "postOnly", description: "This order couldn't be executed as a maker order and was canceled." },
+    { code: 15, message: "Validation failed", field: "error", description: "Please try again later." },
+    { code: 16, message: "Validation failed", field: "error", description: "Please try again later." },
+    { code: 17, message: "Validation failed", field: "amount", description: "Not enough balance." },
+    { code: 20, message: "Inner validation failed", field: "quoteId", description: "quote expired" },
+    { code: 24, message: "Inner validation failed", field: "quoteId", description: "quote not found." },
+    { code: 25, message: "Validation failed", field: "amount", description: "quote amount is too big" },
+    { code: 27, message: "Validation failed", field: "market", description: "conversion markets not found" },
+    { code: 40, message: "Validation failed", field: "postOnly", description: "Limit order is not post only" },
+    { code: 42, message: "Validation failed", field: "stp", description: "trading group does not match" },
+    { code: 51, message: "Validation failed", field: "price", description: "Trading in the market is not allowed." },
+    { code: 101, message: "Validation failed", field: "activation_price", description: "Activation price should not be equal to the last price." },
+    { code: 103, message: "Validation failed", field: "error", description: "Max. limit of margin stop limit orders have been reached." },
+    { code: 104, message: "Validation failed", field: "positionId", description: "position doesn't exist." },
+    { code: 105, message: "Validation failed", field: "takeProfit", description: "Wrong activation price for take profit." },
+    { code: 106, message: "Validation failed", field: "stopLoss", description: "Wrong activation price for stop loss." },
+    { code: 111, message: "Validation failed", field: "amount", description: "margin position too big" },
+    { code: 112, message: "Validation failed", field: "amount", description: "margin pending orders value too big" },
+    { code: 113, message: "Validation failed", field: "hedgeMode", description: "Position side cannot be changed if there exists futures positions or orders" },
+    { code: 114, message: "Validation failed", field: "hedgeMode", description: "Order's position side does not match user's setting" },
+    { code: 115, message: "Validation failed", field: "hedgeMode", description: "Order would result in a new position in the opposite direction" },
+    { code: 150, message: "Validation failed", field: "price", description: "Can't place limit order." },
+    { code: 151, message: "Validation failed", field: "activation_price", description: "Wrong activation price for stop loss." },
+    { code: 152, message: "Validation failed", field: "error", description: "Max. limit of margin stop limit orders have been reached." },
+    { code: 153, message: "Validation failed", field: "price", description: "Not enough balance for limit order." },
+    { code: 155, message: "Validation failed", field: "orderId", description: "Can't modify conditional order." },
+    { code: 157, message: "Validation failed", field: "amount", description: "Wrong order deal size." },
+    { code: 158, message: "Validation failed", field: "activation_price", description: "Activation price can't be set for a limit order." },
+    { code: 159, message: "Validation failed", field: "price", description: "Limit price can't be set for stop market order." },
+    { code: 160, message: "Validation failed", field: "orderId", description: "tpsl orders can't be modified." },
+    { code: 161, message: "Validation failed", field: "price", description: "Wrong order conditions" },
+    { code: 162, message: "Validation failed", field: "total", description: "Total cannot be specified for this order type" },
+    { code: 163, message: "Validation failed", field: "amount", description: "Amount cannot be specified for this order type" },
+    { code: 250, message: "Validation failed", field: "price", description: "The Price is out of bands" },
+    { code: 251, message: "Validation failed", field: "stopLimitPrice", description: "The Price is out of bands" },
+    { code: 300, message: "Validation failed", field: "request", description: "fee not found" },
+    { code: 302, message: "Validation failed", field: "amount", description: "margin balance update magnitude limit exceeded" },
+    { code: 330, message: "Validation failed", field: "request", description: "fee not found" }
+  ]}
+  title="Modify Order Error Codes"
+/>
 
 ## Collateral
 
