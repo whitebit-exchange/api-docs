@@ -2365,8 +2365,6 @@ Available statuses:
     "dealMoney": "0", // executed amount in money
     "dealStock": "0", // executed amount in stock
     "amount": "2.241379", // active order amount
-    "takerFee": "0.001", // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
-    "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
     "left": "2.241379", // unexecuted amount in stock
     "dealFee": "0", // executed fee by deal
     "price": "40000", // unexecuted order price
@@ -2789,7 +2787,7 @@ NONE
 | clientOrderId | String     | **No**    | Requested available clientOrderId. Example: clientOrderId                                                                                                             |
 | limit         | String/Int | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 50, Min: 1, Max: 100                                                          |
 | offset        | String/Int | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0 |
-| status        | String     | **No**    | Possible values: "ALL", "FILLED", "CANCELED", "PARTIALLY_FILLED"                                                                                                      |
+| status        | String     | **No**    | Possible values: "ALL", "OPEN", "FILLED", "CANCELED", "AUTO_CANCELED_USER_MARGIN", "AUTO_CANCELED_LIQUIDATION", "AUTO_CANCELED_REDUCE_ONLY", "PARTIALLY_FILLED", "CANCELED_STP", "CANCELED_POSITION_SIDE_NOT_MATCH" |
 
 <Alert
   type="warning"
@@ -4414,7 +4412,7 @@ Available statuses:
   "pnl": "-832.9535", // curren profit and loss in USDT
   "leverage": 10, // current leverage of account which affect amount of lending funds
   "marginFraction": "6.2446758120916304", // margin fraction (Note: value of 1000000000000000000000 indicates no positions)
-  "maintenanceMarginFraction": "1.2446758120916304" // maintenance margin fraction
+  "maintenanceMarginRequirement": "1.2446758120916304" // maintenance margin requirement
 }
 ```
 
