@@ -2969,10 +2969,12 @@ NONE
 
 Available statuses:
 
-- `Status 200`
-- `Status 400 if inner validation failed`
-- `Status 422 if validation failed`
-- `Status 503 if service temporary unavailable`
+- `Status 200` - Order successfully modified
+- `Status 400` - Bad Request (client errors): Invalid arguments, order not found, quote expired, activation price issues
+  - Error codes: 1, 2, 6, 20, 24, 101, 158
+- `Status 422` - Unprocessable Entity (business logic validation): Balance insufficient, trading restrictions, order type conflicts, price bands exceeded
+  - Error codes: 10, 11, 12, 13, 14, 15, 16, 17, 25, 27, 40, 42, 51, 103, 104, 105, 106, 111, 112, 113, 114, 115, 150, 151, 152, 153, 155, 157, 159, 160, 161, 162, 163, 250, 251, 300, 302, 330
+- `Status 503` - Service temporarily unavailable
 
 ```json
 [
@@ -2999,11 +3001,6 @@ Available statuses:
 
 <details>
 <summary><b>Errors:</b></summary>
-
-Error codes:
-
-- `30` - default validation error code
-- `31` - market validation failed
 
 ```json
 {
@@ -3200,9 +3197,449 @@ Error codes:
 ```json
 {
   "code": 11,
-  "message": "Inner validation failed",
+  "message": "Validation failed",
   "errors": {
     "amount": ["Amount too small."]
+  }
+}
+```
+
+```json
+{
+  "code": 2,
+  "message": "Inner validation failed",
+  "errors": {
+    "orderId": ["Unexecuted order was not found."]
+  }
+}
+```
+
+```json
+{
+  "code": 6,
+  "message": "Inner validation failed",
+  "errors": {
+    "orderId": ["Unexecuted order was not found."]
+  }
+}
+```
+
+```json
+{
+  "code": 7,
+  "message": "Validation failed",
+  "errors": {
+    "orderId": ["order not found."]
+  }
+}
+```
+
+```json
+{
+  "code": 10,
+  "message": "Validation failed",
+  "errors": {
+    "amount": ["Not enough balance."]
+  }
+}
+```
+
+```json
+{
+  "code": 12,
+  "message": "Validation failed",
+  "errors": {
+    "amount": ["The amount field value, that the API unable to process."]
+  }
+}
+```
+
+```json
+{
+  "code": 13,
+  "message": "Validation failed",
+  "errors": {
+    "postOnly": ["This order couldn't be executed as a maker order and was canceled."]
+  }
+}
+```
+
+```json
+{
+  "code": 14,
+  "message": "Validation failed",
+  "errors": {
+    "postOnly": ["This order couldn't be executed as a maker order and was canceled."]
+  }
+}
+```
+
+```json
+{
+  "code": 15,
+  "message": "Validation failed",
+  "errors": {
+    "error": ["Please try again later."]
+  }
+}
+```
+
+```json
+{
+  "code": 16,
+  "message": "Validation failed",
+  "errors": {
+    "error": ["Please try again later."]
+  }
+}
+```
+
+```json
+{
+  "code": 17,
+  "message": "Validation failed",
+  "errors": {
+    "amount": ["Not enough balance."]
+  }
+}
+```
+
+```json
+{
+  "code": 40,
+  "message": "Validation failed",
+  "errors": {
+    "postOnly": ["Limit order is not post only"]
+  }
+}
+```
+
+```json
+{
+  "code": 42,
+  "message": "Validation failed",
+  "errors": {
+    "stp": ["trading group does not match"]
+  }
+}
+```
+
+```json
+{
+  "code": 51,
+  "message": "Validation failed",
+  "errors": {
+    "price": ["Trading in the market is not allowed."]
+  }
+}
+```
+
+```json
+{
+  "code": 101,
+  "message": "Validation failed",
+  "errors": {
+    "activation_price": ["Activation price should not be equal to the last price."]
+  }
+}
+```
+
+```json
+{
+  "code": 103,
+  "message": "Validation failed",
+  "errors": {
+    "error": ["Max. limit of margin stop limit orders have been reached."]
+  }
+}
+```
+
+```json
+{
+  "code": 104,
+  "message": "Validation failed",
+  "errors": {
+    "positionId": ["position doesn't exist."]
+  }
+}
+```
+
+```json
+{
+  "code": 105,
+  "message": "Validation failed",
+  "errors": {
+    "takeProfit": ["Wrong activation price for take profit."]
+  }
+}
+```
+
+```json
+{
+  "code": 106,
+  "message": "Validation failed",
+  "errors": {
+    "stopLoss": ["Wrong activation price for stop loss."]
+  }
+}
+```
+
+```json
+{
+  "code": 111,
+  "message": "Validation failed",
+  "errors": {
+    "amount": ["margin position too big"]
+  }
+}
+```
+
+```json
+{
+  "code": 112,
+  "message": "Validation failed",
+  "errors": {
+    "amount": ["margin pending orders value too big"]
+  }
+}
+```
+
+```json
+{
+  "code": 113,
+  "message": "Validation failed",
+  "errors": {
+    "hedgeMode": ["Position side cannot be changed if there exists futures positions or orders"]
+  }
+}
+```
+
+```json
+{
+  "code": 114,
+  "message": "Validation failed",
+  "errors": {
+    "hedgeMode": ["Order's position side does not match user's setting"]
+  }
+}
+```
+
+```json
+{
+  "code": 115,
+  "message": "Validation failed",
+  "errors": {
+    "hedgeMode": ["Order would result in a new position in the opposite direction"]
+  }
+}
+```
+
+```json
+{
+  "code": 150,
+  "message": "Validation failed",
+  "errors": {
+    "price": ["Can't place limit order."]
+  }
+}
+```
+
+```json
+{
+  "code": 151,
+  "message": "Validation failed",
+  "errors": {
+    "activation_price": ["Wrong activation price for stop loss."]
+  }
+}
+```
+
+```json
+{
+  "code": 152,
+  "message": "Validation failed",
+  "errors": {
+    "error": ["Max. limit of margin stop limit orders have been reached."]
+  }
+}
+```
+
+```json
+{
+  "code": 153,
+  "message": "Validation failed",
+  "errors": {
+    "price": ["Not enough balance for limit order."]
+  }
+}
+```
+
+```json
+{
+  "code": 155,
+  "message": "Validation failed",
+  "errors": {
+    "orderId": ["Can't modify conditional order."]
+  }
+}
+```
+
+```json
+{
+  "code": 157,
+  "message": "Validation failed",
+  "errors": {
+    "amount": ["Wrong order deal size."]
+  }
+}
+```
+
+```json
+{
+  "code": 158,
+  "message": "Validation failed",
+  "errors": {
+    "activation_price": ["Activation price can't be set for a limit order."]
+  }
+}
+```
+
+```json
+{
+  "code": 159,
+  "message": "Validation failed",
+  "errors": {
+    "price": ["Limit price can't be set for stop market order."]
+  }
+}
+```
+
+```json
+{
+  "code": 160,
+  "message": "Validation failed",
+  "errors": {
+    "orderId": ["tpsl orders can't be modified."]
+  }
+}
+```
+
+```json
+{
+  "code": 161,
+  "message": "Validation failed",
+  "errors": {
+    "price": ["Wrong order conditions"]
+  }
+}
+```
+
+```json
+{
+  "code": 162,
+  "message": "Validation failed",
+  "errors": {
+    "total": ["Total cannot be specified for this order type"]
+  }
+}
+```
+
+```json
+{
+  "code": 163,
+  "message": "Validation failed",
+  "errors": {
+    "amount": ["Amount cannot be specified for this order type"]
+  }
+}
+```
+
+```json
+{
+  "code": 250,
+  "message": "Validation failed",
+  "errors": {
+    "price": ["The Price is out of bands"]
+  }
+}
+```
+
+```json
+{
+  "code": 251,
+  "message": "Validation failed",
+  "errors": {
+    "stopLimitPrice": ["The Price is out of bands"]
+  }
+}
+```
+
+```json
+{
+  "code": 300,
+  "message": "Validation failed",
+  "errors": {
+    "request": ["fee not found"]
+  }
+}
+```
+
+```json
+{
+  "code": 302,
+  "message": "Validation failed",
+  "errors": {
+    "amount": ["margin balance update magnitude limit exceeded"]
+  }
+}
+```
+
+```json
+{
+  "code": 330,
+  "message": "Validation failed",
+  "errors": {
+    "request": ["fee not found"]
+  }
+}
+```
+
+```json
+{
+  "code": 20,
+  "message": "Inner validation failed",
+  "errors": {
+    "quoteId": ["quote expired"]
+  }
+}
+```
+
+```json
+{
+  "code": 24,
+  "message": "Inner validation failed",
+  "errors": {
+    "quoteId": ["quote not found."]
+  }
+}
+```
+
+```json
+{
+  "code": 25,
+  "message": "Validation failed",
+  "errors": {
+    "amount": ["quote amount is too big"]
+  }
+}
+```
+
+```json
+{
+  "code": 27,
+  "message": "Validation failed",
+  "errors": {
+    "market": ["conversion markets not found"]
   }
 }
 ```
