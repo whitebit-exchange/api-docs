@@ -1,57 +1,14 @@
 name: Ghost Repository to Public
 
 on:
-  workflow_dispatch:
-    inputs:
-      github_token:
-        description: 'GitHub token for authentication'
-        required: true
-        type: string
-      target_repo:
-        description: 'Target repository (owner/repo)'
-        required: true
-        default: 'whitebit-exchange/api-documentation'
-        type: string
-      author_name:
-        description: 'New author name for all commits'
-        required: true
-        default: 'whitebit-robot'
-        type: string
-      author_email:
-        description: 'New author email for all commits'
-        required: true
-        default: 'robot@whitebit.com'
-        type: string
-      committer_name:
-        description: 'New committer name for all commits'
-        required: true
-        default: 'whitebit-robot'
-        type: string
-      committer_email:
-        description: 'New committer email for all commits'
-        required: true
-        default: 'robot@whitebit.com'
-        type: string
-      username_for_auth:
-        description: 'Username for remote authentication'
-        required: true
-        default: 'whitebit-robot'
-        type: string
-      confirm_ghost:
-        description: 'Type "CONFIRM_GHOST" to proceed'
-        required: true
-        type: string
+  push:
+    branches:
+      - main
 
 jobs:
   ghost-repository:
     runs-on: ubuntu-latest
     steps:
-      - name: Validate confirmation
-        if: ${{ github.event.inputs.confirm_ghost != 'CONFIRM_GHOST' }}
-        run: |
-          echo "❌ ERROR: You must type 'CONFIRM_GHOST' to proceed"
-          exit 1
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -63,13 +20,18 @@ jobs:
           git push origin backup-before-ghost-$(date +%Y%m%d-%H%M%S)
 
       - name: Set remote URL and rewrite history
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TARGET_REPO: "whitebit-exchange/api-documentation"
+          ROBOT_NAME: "whitebit-robot"
+          ROBOT_EMAIL: "robot@whitebit.com"
         run: |
-          git remote set-url origin https://${{ github.event.inputs.username_for_auth }}:${{ github.event.inputs.github_token }}@github.com/${{ github.event.inputs.target_repo }}.git
+          git remote set-url origin https://${{ env.ROBOT_NAME }}:${{ env.GITHUB_TOKEN }}@github.com/${{ env.TARGET_REPO }}.git
           git filter-branch -f --env-filter "
-            GIT_AUTHOR_NAME='${{ github.event.inputs.author_name }}'
-            GIT_AUTHOR_EMAIL='${{ github.event.inputs.author_email }}'
-            GIT_COMMITTER_NAME='${{ github.event.inputs.committer_name }}'
-            GIT_COMMITTER_EMAIL='${{ github.event.inputs.committer_email }}'
+            GIT_AUTHOR_NAME='${{ env.ROBOT_NAME }}'
+            GIT_AUTHOR_EMAIL='${{ env.ROBOT_EMAIL }}'
+            GIT_COMMITTER_NAME='${{ env.ROBOT_NAME }}'
+            GIT_COMMITTER_EMAIL='${{ env.ROBOT_EMAIL }}'
           " HEAD
 
       - name: Push to target repository
