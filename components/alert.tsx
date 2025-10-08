@@ -22,6 +22,10 @@ export interface AlertProps {
    * Optional: Show alert only after this ISO date/time (in user's local time)
    */
   showAfter?: string; // ISO string, e.g. "2025-06-02T12:00:00Z"
+  /**
+   * Optional: Show alert only before this ISO date/time (in user's local time)
+   */
+  showBefore?: string; // ISO string, e.g. "2025-06-30T23:59:59Z"
 }
 
 const typeStyles: Record<string, string> = {
@@ -44,13 +48,18 @@ export const Alert: React.FC<AlertProps> = ({
   type = "info",
   className,
   showAfter,
+  showBefore,
 }) => {
+  const now = new Date();
   // If showAfter is set, only show the alert after this time (in UTC)
   if (showAfter) {
-    const now = new Date();
     const showAt = new Date(showAfter);
-    // Compare using UTC time
     if (now.getTime() < showAt.getTime()) return null;
+  }
+  // If showBefore is set, only show the alert before this time (in UTC)
+  if (showBefore) {
+    const hideAt = new Date(showBefore);
+    if (now.getTime() > hideAt.getTime()) return null;
   }
   return (
     <div

@@ -1,4 +1,5 @@
 import { ApiEndpoint } from '@/components/api-endpoint'
+import { Alert } from '@/components/alert'
 
 # Private HTTP API V4 for Main balance changes
 
@@ -17,11 +18,21 @@ import { ApiEndpoint } from '@/components/api-endpoint'
     - [Get my codes](#get-my-codes)
     - [Get codes history](#get-codes-history)
   - [Crypto Lending](#crypto-lending)
-    - [Get plans](#get-plans)
-    - [Invest](#invest)
-    - [Close investment](#close-investment)
-    - [Get investments history](#get-investments-history)
-    - [Get interest payments history](#get-interest-payments-history)
+    - [Fixed](#fixed-plans)
+        - [Get plans](#get-plans)
+        - [Invest](#invest)
+        - [Close investment](#close-investment)
+        - [Get investments history](#get-investments-history)
+        - [Get interest payments history](#get-interest-payments-history)
+    - [Flex](#flex-plans)
+      - [Get flex plans](#get-flex-plans)
+      - [Get User Flex Investments](#get-user-flex-investments)
+      - [Get Flex Investment History](#get-flex-investment-history)
+      - [Get Flex Payment History](#get-flex-payment-history)
+      - [Create Flex Investment](#create-flex-investment)
+      - [Withdraw from Flex Investment](#withdraw-from-flex-investment)
+      - [Close Flex Investment](#close-flex-investment)
+      - [Update Flex Auto-Reinvestment](#update-flex-auto-reinvestment)
   - [Fees](#fees)
     - [Get fees](#get-fees)
   - [Sub Account](#sub-account)
@@ -1785,6 +1796,10 @@ This API provides endpoints for interacting with [Crypto Lending](./../glossary.
 
 These endpoints are available only for B2B partner services, you need to fill the form https://whitebit.com/institutional-services/b2b in order to get permissions to use these endpoints.
 
+---
+
+## Fixed Plans
+
 ### Get plans
 
 <ApiEndpoint method="POST" path="/api/v4/main-account/smart/plans" />
@@ -2276,6 +2291,647 @@ Available statuses:
 }
 ```
 
+</details>
+
+---
+
+## Flex Plans
+
+<Alert
+  type="warning"
+  header="Availability notice"
+  message="Flex Plans API will be available after September 22, 2025."
+  showBefore="2025-09-23T00:00:00Z"
+/>
+
+### Get Flex Plans
+
+<ApiEndpoint method="POST" path="/api/v4/main-account/smart-flex/plans" />
+
+Retrieve list of active [Flex Plans](./../glossary.md#crypto-lending).
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name   | Type    | Mandatory | Description                                  |
+|--------|---------|-----------|----------------------------------------------|
+| limit  | Integer | **No**    | Pagination limit. Default: 100, Max: 100.    |
+| offset | Integer | **No**    | Pagination offset. Default: 0, Min: 0.       |
+| ticker | String  | **No**    | Filter by currency ticker. Example: USDT.    |
+
+**Request BODY raw:**
+
+```json
+{
+  "limit": 50,
+  "offset": 0,
+  "ticker": "USDT",
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+
+```json
+[
+  {
+    "id": "8f2e9d3c-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+    "ticker": "USDT",
+    "minInvestment": "10.0",
+    "maxInvestment": "100000.0",
+    "maxRate": "0.15"
+  },
+  {
+    "id": "7e1d8c2b-9a3b-3b1c-8d4e-5a6b7c8d9e0f",
+    "ticker": "BTC",
+    "minInvestment": "0.001",
+    "maxInvestment": "10.0",
+    "maxRate": "0.12"
+  }
+]
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "ticker": ["The selected ticker is invalid."],
+    "limit": ["The limit must be an integer.", "The limit may not be greater than 100."],
+    "offset": ["The offset must be an integer.", "The offset must be at least 0."]
+  }
+}
+```
+
+</details>
+
+---
+
+### Get User Flex Investments
+
+<ApiEndpoint method="POST" path="/api/v4/main-account/smart-flex/investments" />
+
+Retrieve user's investment portfolio with optional filtering.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name             | Type    | Mandatory | Description                                       |
+|------------------|---------|-----------|---------------------------------------------------|
+| limit            | Integer | **No**    | Pagination limit. Default: 100.                   |
+| offset           | Integer | **No**    | Pagination offset. Default: 0.                    |
+| ticker           | String  | **No**    | Filter by currency ticker. Example: USDT.         |
+| plan             | String  | **No**    | Filter by plan ID (UUID).                         |
+| investment       | String  | **No**    | Filter by investment ID.                          |
+| investmentStatus | Integer | **No**    | Filter by status (1=ACTIVE, 0=CLOSED).            |
+
+**Request BODY raw:**
+
+```json
+{
+  "limit": 100,
+  "offset": 0,
+  "ticker": "USDT",
+  "plan": "8f2e9d3c-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+  "investment": "invest_id_123",
+  "investmentStatus": 1,
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+
+```json
+{
+  "data": [
+    {
+      "id": "inv_7e2d9c3b-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+      "planId": "8f2e9d3c-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+      "currency": "USDT",
+      "invested": "1500.75",
+      "withAutoReinvest": true,
+      "status": 1,
+      "createdAt": 1640995200,
+      "updatedAt": 1641081600
+    }
+  ],
+  "limit": 100,
+  "offset": 0
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "ticker": ["The selected ticker is invalid."],
+    "plan": ["The selected plan is invalid."],
+    "investment": ["The selected investment is invalid."],
+    "investmentStatus": ["The selected investment status is invalid."]
+  }
+}
+```
+
+</details>
+
+---
+
+### Get Flex Investment History
+
+<ApiEndpoint method="POST" path="/api/v4/main-account/smart-flex/investments/history" />
+
+Retrieve complete investment operations history with advanced filtering.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name        | Type           | Mandatory | Description                                      |
+|-------------|----------------|-----------|--------------------------------------------------|
+| limit       | Integer        | **No**    | Pagination limit. Default: 50.                   |
+| offset      | Integer        | **No**    | Pagination offset. Default: 0.                   |
+| plan        | String         | **No**    | Filter by plan ID (UUID).                        |
+| investment  | String         | **No**    | Filter by investment ID.                         |
+| transaction | String         | **No**    | Filter by transaction ID.                        |
+| dateFrom    | Integer        | **No**    | Filter from date (timestamp).                    |
+| dateTo      | Integer        | **No**    | Filter to date (timestamp).                      |
+| actionTypes | Array[Integer] | **No**    | Array of operation type IDs. See table below.    |
+
+**Available Action Types:**
+
+| ID | Type                       | Description                  |
+|----|----------------------------|------------------------------|
+| 1  | INVEST                     | Investment creation          |
+| 2  | REINVEST                   | Automatic reinvestment       |
+| 3  | WITHDRAW_FROM_INVESTMENT   | Partial withdrawal           |
+| 4  | DAILY_EARNING              | Daily earnings               |
+| 5  | CLOSE_INVESTMENT           | Investment closure           |
+| 6  | OPEN_INVESTMENT            | Investment opening           |
+
+**Request BODY raw:**
+
+```json
+{
+  "limit": 50,
+  "offset": 0,
+  "plan": "8f2e9d3c-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+  "investment": "inv_123",
+  "transaction": "tx_456",
+  "dateFrom": 1640995200,
+  "dateTo": 1641081600,
+  "actionTypes": [1, 2, 4],
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+
+```json
+{
+  "data": [
+    {
+      "createdAt": 1640995200,
+      "planId": "8f2e9d3c-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+      "investmentId": "inv_7e2d9c3b-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+      "currency": "USDT",
+      "amount": "15.75",
+      "transactionId": "tx_9f3e0d4c-2b5c-4d3e-8f6g-7a8b9c0d1e2f",
+      "actionType": 1
+    }
+  ],
+  "limit": 50,
+  "offset": 0
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "plan": ["The selected plan is invalid."],
+    "investment": ["The selected investment is invalid."],
+    "transaction": ["The selected transaction is invalid."],
+    "dateFrom": ["The date from is invalid."],
+    "dateTo": ["The date to is invalid."],
+    "actionTypes": ["The action types must be an array."],
+    "actionTypes.0": ["The selected action type is invalid."]
+  }
+}
+```
+
+</details>
+
+---
+
+### Get Flex Payment History
+
+<ApiEndpoint method="POST" path="/api/v4/main-account/smart-flex/investments/payment-history" />
+
+Retrieve investment earnings history (ONLY DAILY_EARNING operations).
+
+- Note: This endpoint automatically filters to show ONLY DAILY_EARNING operations (type 4)
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name        | Type    | Mandatory | Description                   |
+|-------------|---------|-----------|-------------------------------|
+| limit       | Integer | **No**    | Pagination limit. Default: 50.|
+| offset      | Integer | **No**    | Pagination offset. Default: 0.|
+| plan        | String  | **No**    | Filter by plan ID (UUID).     |
+| investment  | String  | **No**    | Filter by investment ID.      |
+| transaction | String  | **No**    | Filter by transaction ID.     |
+| dateFrom    | Integer | **No**    | Filter from date (timestamp). |
+| dateTo      | Integer | **No**    | Filter to date (timestamp).   |
+
+**Request BODY raw:**
+
+```json
+{
+  "limit": 50,
+  "offset": 0,
+  "plan": "8f2e9d3c-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+  "investment": "inv_123",
+  "transaction": "tx_456",
+  "dateFrom": 1640995200,
+  "dateTo": 1641081600,
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+
+*Same format as investment history, but automatically filtered to show ONLY DAILY_EARNING operations (actionType = 4).*
+
+```json
+{
+  "data": [
+    {
+      "createdAt": 1640995200,
+      "planId": "8f2e9d3c-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+      "investmentId": "inv_7e2d9c3b-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+      "currency": "USDT",
+      "amount": "15.75",
+      "transactionId": "tx_9f3e0d4c-2b5c-4d3e-8f6g-7a8b9c0d1e2f",
+      "actionType": 4
+    }
+  ],
+  "limit": 50,
+  "offset": 0
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+*Same as investment history endpoint.*
+
+</details>
+
+---
+
+### Create Flex Investment
+
+<ApiEndpoint method="POST" path="/api/v4/main-account/smart-flex/investments/invest" />
+
+Create new investment in a [Flex plan](./../).
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name         | Type    | Mandatory | Description                               |
+|--------------|---------|-----------|-------------------------------------------|
+| plan         | String  | **Yes**   | Plan external ID (UUID).                  |
+| amount       | Numeric | **Yes**   | Investment amount.                        |
+| withReinvest | Boolean | **No**    | Enable auto-reinvestment (default: false).|
+
+**Request BODY raw:**
+
+```json
+{
+  "plan": "8f2e9d3c-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+  "amount": "1000.500000",
+  "withReinvest": true,
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 201`
+
+```json
+{
+  "data": {
+    "transactionId": "tx_9f3e0d4c-2b5c-4d3e-8f6g-7a8b9c0d1e2f"
+  }
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+**Validation Error (400):**
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "plan": ["validation.required"],
+    "amount": ["validation.numeric"]
+  }
+}
+```
+
+**Business Logic Error (422):**
+```json
+{
+  "code": 2,
+  "message": "Inner validation failed",
+  "errors": {
+    "amount": ["Amount is greater than maximum investment", "Amount is less than minimum investment"],
+    "balance": ["User must have sufficient balance"],
+    "plan": ["Plan must be active and accessible to user's region"]
+  }
+}
+```
+
+</details>
+
+---
+
+### Withdraw from Flex Investment
+
+<ApiEndpoint method="POST" path="/api/v4/main-account/smart-flex/investments/withdraw" />
+
+Withdraw specified amount from user's investment.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name   | Type    | Mandatory | Description              |
+|--------|---------|-----------|--------------------------|
+| plan   | String  | **Yes**   | Plan external ID (UUID). |
+| amount | Numeric | **Yes**   | Withdrawal amount.       |
+
+- Plan must be active and accessible to user
+
+**Request BODY raw:**
+
+```json
+{
+  "plan": "8f2e9d3c-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+  "amount": "500.250000",
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 201`
+
+*Same as invest endpoint.*
+```json
+{
+  "data": {
+    "transactionId": "tx_9f3e0d4c-2b5c-4d3e-8f6g-7a8b9c0d1e2f"
+  }
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+**Validation Error (400):**
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "plan": ["validation.required"],
+    "amount": ["validation.required", "validation.numeric"]
+  }
+}
+```
+
+**Business Logic Error (422):**
+```json
+{
+  "code": 2,
+  "message": "Inner validation failed",
+  "errors": {
+    "amount": ["Withdrawal amount must not exceed invested amount"],
+    "plan": ["User must have active investment in specified plan"]
+  }
+}
+```
+
+</details>
+
+---
+
+### Close Flex Investment
+
+<ApiEndpoint method="POST" path="/api/v4/main-account/smart-flex/investments/close" />
+
+Completely close investment and withdraw all funds.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name | Type   | Mandatory | Description              |
+|------|--------|-----------|--------------------------|
+| plan | String | **Yes**   | Plan external ID (UUID). |
+
+**Validation Rules**
+
+- plan: required, string, UUID format, must exist
+- Investment must be ACTIVE
+
+**Request BODY raw:**
+
+```json
+{
+  "plan": "8f2e9d3c-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 201`
+
+*Same as invest endpoint.*
+```json
+{
+  "data": {
+    "transactionId": "tx_9f3e0d4c-2b5c-4d3e-8f6g-7a8b9c0d1e2f"
+  }
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+**Validation Error (400):**
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "plan": ["validation.required"]
+  }
+}
+```
+
+**Business Logic Error (422):**
+```json
+{
+  "code": 2,
+  "message": "Inner validation failed",
+  "errors": {
+    "investment": ["Investment must be in ACTIVE status", "Investment amount must be > 0"]
+  }
+}
+```
+
+</details>
+
+---
+
+### Update Flex Auto-Reinvestment
+
+<ApiEndpoint method="POST" path="/api/v4/main-account/smart-flex/investments/auto-invest" />
+
+Enable/disable automatic reinvestment for user's investment.
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Parameters:**
+
+| Name    | Type    | Mandatory | Description                               |
+|---------|---------|-----------|-------------------------------------------|
+| plan    | String  | **Yes**   | Plan external ID (UUID).                  |
+| enabled | Boolean | **No**    | Enable/disable auto-reinvestment (default: false). |
+
+**Request BODY raw:**
+
+```json
+{
+  "plan": "8f2e9d3c-1a4b-4c2d-9e5f-6a7b8c9d0e1f",
+  "enabled": true,
+  "request": "{{request}}",
+  "nonce": "{{nonce}}"
+}
+```
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+
+```json
+{
+  "data": []
+}
+```
+
+<details>
+<summary><b>Errors:</b></summary>
+
+**Validation Error (400):**
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "plan": ["validation.required"],
+    "enabled": ["validation.boolean"]
+  }
+}
+```
+
+**Business Logic Error (422):**
+```json
+{
+  "code": 2,
+  "message": "Inner validation failed",
+  "errors": {
+    "investment": ["User must have active investment in specified plan"]
+  }
+}
+```
 </details>
 
 ---

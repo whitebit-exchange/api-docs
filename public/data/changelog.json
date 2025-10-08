@@ -1,6 +1,44 @@
 {
   "changes": [
     {
+      "title": "Documentation Updates",
+      "timeframe": "2025-09-22",
+      "changes": [
+        {
+          "title": "Clarified Book Ticker stream update interval",
+          "description": "Refined the description of the Book Ticker WebSocket stream to explicitly state instant BBO snapshot with incremental updates.",
+          "type": "websocket",
+          "links": [
+            {
+              "title": "ws - Book Ticker",
+              "url": "/public/websocket/#book-ticker"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Flex Earn Endpoints",
+      "timeframe": "2025-09-22",
+      "changes": [
+        {
+          "title": "Introduced Smart Flex private endpoints",
+          "description": "Added documentation for Smart Flex (Flex Earn) endpoints: list plans, manage investments, view histories, and configure auto-reinvestment.",
+          "type": "feature",
+          "links": [
+            { "title": "v4 - Get Flex Plans", "url": "/private/http-main-v4/#get-flex-plans" },
+            { "title": "v4 - Get User Flex Investments", "url": "/private/http-main-v4/#get-user-flex-investments" },
+            { "title": "v4 - Get Flex Investment History", "url": "/private/http-main-v4/#get-flex-investment-history" },
+            { "title": "v4 - Get Flex Payment History", "url": "/private/http-main-v4/#get-flex-payment-history" },
+            { "title": "v4 - Create Flex Investment", "url": "/private/http-main-v4/#create-flex-investment" },
+            { "title": "v4 - Withdraw from Flex Investment", "url": "/private/http-main-v4/#withdraw-from-flex-investment" },
+            { "title": "v4 - Close Flex Investment", "url": "/private/http-main-v4/#close-flex-investment" },
+            { "title": "v4 - Update Flex Auto-Reinvestment", "url": "/private/http-main-v4/#update-flex-auto-reinvestment" }
+          ]
+        }
+      ]
+    },
+    {
       "title": "Trade Engine Update",
       "timeframe": "2025-06-10",
       "changes": [
