@@ -1,0 +1,52 @@
+name: Ghost Repository to Public
+
+on:
+  workflow_dispatch:
+    inputs:
+      github_token:
+        description: 'GitHub token for authentication'
+        required: true
+        type: string
+      target_repo:
+        description: 'Target repository (owner/repo)'
+        required: true
+        default: 'whitebit-exchange/api-documentation'
+        type: string
+      confirm_ghost:
+        description: 'Type "CONFIRM_GHOST" to proceed'
+        required: true
+        type: string
+
+jobs:
+  ghost-repository:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate confirmation
+        if: ${{ github.event.inputs.confirm_ghost != 'CONFIRM_GHOST' }}
+        run: |
+          echo "❌ ERROR: You must type 'CONFIRM_GHOST' to proceed"
+          exit 1
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create backup branch
+        run: |
+          git branch backup-before-ghost-$(date +%Y%m%d-%H%M%S) HEAD
+          git push origin backup-before-ghost-$(date +%Y%m%d-%H%M%S)
+
+      - name: Set remote URL and rewrite history
+        run: |
+          git remote set-url origin https://whitebit-robot:${{ github.event.inputs.github_token }}@github.com/${{ github.event.inputs.target_repo }}.git
+          git filter-branch -f --env-filter "
+            GIT_AUTHOR_NAME='whitebit-robot'
+            GIT_AUTHOR_EMAIL='robot@whitebit.com'
+            GIT_COMMITTER_NAME='whitebit-robot'
+            GIT_COMMITTER_EMAIL='robot@whitebit.com'
+          " HEAD
+
+      - name: Push to target repository
+        run: |
+          git push --force -u origin
