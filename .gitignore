@@ -5,6 +5,7 @@
 # Generated files
 .docusaurus
 .cache-loader
+tsconfig.tsbuildinfo
 
 # Misc
 .DS_Store
