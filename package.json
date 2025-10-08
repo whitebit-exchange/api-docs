@@ -11,9 +11,7 @@
     "check-types": "tsc --noemit",
     "export": "next build && touch out/.nojekyll",
     "generate-og": "bun run scripts/generate-og-images.tsx",
-    "sitemap": "next-sitemap --config next-sitemap.config.cjs",
-    "rename-committers": "./scripts/rename-committers.sh",
-    "test-rename-setup": "./scripts/test-rename-setup.sh"
+    "sitemap": "next-sitemap --config next-sitemap.config.cjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.11",
