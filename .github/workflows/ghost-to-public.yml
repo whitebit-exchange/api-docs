@@ -21,12 +21,12 @@ jobs:
 
       - name: Set remote URL and rewrite history
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ROBOT_GITHUB_TOKEN: ${{ secrets.ROBOT_GITHUB_TOKEN }}
           TARGET_REPO: "whitebit-exchange/api-documentation"
           ROBOT_NAME: "whitebit-robot"
           ROBOT_EMAIL: "robot@whitebit.com"
         run: |
-          git remote set-url origin https://${{ env.ROBOT_NAME }}:${{ env.GITHUB_TOKEN }}@github.com/${{ env.TARGET_REPO }}.git
+          git remote set-url origin https://${{ env.ROBOT_NAME }}:${{ env.ROBOT_GITHUB_TOKEN }}@github.com/${{ env.TARGET_REPO }}.git
           git filter-branch -f --env-filter "
             GIT_AUTHOR_NAME='${{ env.ROBOT_NAME }}'
             GIT_AUTHOR_EMAIL='${{ env.ROBOT_EMAIL }}'
