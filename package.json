@@ -11,8 +11,7 @@
     "check-types": "tsc --noemit",
     "export": "next build && touch out/.nojekyll",
     "generate-og": "bun run scripts/generate-og-images.tsx",
-    "sitemap": "next-sitemap --config next-sitemap.config.cjs",
-    "ghost-to-public": "./scripts/ghost-to-public.sh"
+    "sitemap": "next-sitemap --config next-sitemap.config.cjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.11",
