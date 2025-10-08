@@ -5,18 +5,21 @@
 # 
 # WARNING: This operation rewrites git history and cannot be easily undone!
 # 
-# Usage: ./rename-committers.sh [new_name] [new_email]
-# Example: ./rename-committers.sh "joh" "joh@whitebit.com"
+# Usage: ./rename-committers.sh [new_name] [new_email] [github_token] [target_repo]
+# Example: ./rename-committers.sh "whitebit-robot" "robot@whitebit.com" "your_token" "whitebit-exchange/api-documentation"
 
 set -e
 
 # Default values
-DEFAULT_NAME="joh"
-DEFAULT_EMAIL="joh@whitebit.com"
+DEFAULT_NAME="whitebit-robot"
+DEFAULT_EMAIL="robot@whitebit.com"
+DEFAULT_REPO="whitebit-exchange/api-documentation"
 
 # Get parameters or use defaults
 NEW_NAME="${1:-$DEFAULT_NAME}"
 NEW_EMAIL="${2:-$DEFAULT_EMAIL}"
+GITHUB_TOKEN="${3}"
+TARGET_REPO="${4:-$DEFAULT_REPO}"
 
 # Colors for output
 RED='\033[0;31m'
@@ -30,6 +33,7 @@ echo ""
 echo -e "${YELLOW}This script will rename ALL committers in git history to:${NC}"
 echo -e "  Name: ${GREEN}$NEW_NAME${NC}"
 echo -e "  Email: ${GREEN}$NEW_EMAIL${NC}"
+echo -e "  Target Repository: ${GREEN}$TARGET_REPO${NC}"
 echo ""
 
 # Warning
@@ -40,11 +44,17 @@ echo -e "${RED}  - Break existing references, PRs, and deployments${NC}"
 echo -e "${RED}  - Cannot be easily reversed once pushed${NC}"
 echo ""
 
-# Check if git-filter-repo is available
-if ! command -v git-filter-repo &> /dev/null; then
-    echo -e "${RED}Error: git-filter-repo is not installed.${NC}"
-    echo "Install it with: pip install git-filter-repo"
-    echo "Or on Ubuntu/Debian: sudo apt-get install git-filter-repo"
+# Check if GitHub token is provided
+if [ -z "$GITHUB_TOKEN" ]; then
+    echo -e "${RED}Error: GitHub token is required.${NC}"
+    echo "Usage: $0 [new_name] [new_email] [github_token] [target_repo]"
+    echo "Example: $0 \"whitebit-robot\" \"robot@whitebit.com\" \"your_token\" \"whitebit-exchange/api-documentation\""
+    exit 1
+fi
+
+# Check if git-filter-branch is available (it's built into git)
+if ! git --version &> /dev/null; then
+    echo -e "${RED}Error: git is not installed.${NC}"
     exit 1
 fi
 
@@ -68,15 +78,26 @@ BACKUP_BRANCH="backup-before-rewrite-$(date +%Y%m%d-%H%M%S)"
 git branch "$BACKUP_BRANCH" HEAD
 echo -e "${GREEN}Backup created: $BACKUP_BRANCH${NC}"
 
+# Set remote URL with token
+echo -e "${YELLOW}Setting remote URL...${NC}"
+git remote set-url origin "https://whitebit-robot:${GITHUB_TOKEN}@github.com/${TARGET_REPO}.git"
+
 # Configure git
 git config user.name "$NEW_NAME"
 git config user.email "$NEW_EMAIL"
 
+# Push backup branch
+echo -e "${YELLOW}Pushing backup branch...${NC}"
+git push origin "$BACKUP_BRANCH"
+
 # Rewrite git history
 echo -e "${YELLOW}Rewriting git history...${NC}"
-git filter-repo --force \
-    --name-callback "return b'$NEW_NAME'" \
-    --email-callback "return b'$NEW_EMAIL'"
+git filter-branch -f --env-filter "
+  GIT_AUTHOR_NAME='$NEW_NAME'
+  GIT_AUTHOR_EMAIL='$NEW_EMAIL'
+  GIT_COMMITTER_NAME='$NEW_NAME'
+  GIT_COMMITTER_EMAIL='$NEW_EMAIL'
+" HEAD
 
 # Show new statistics
 echo ""
@@ -94,8 +115,8 @@ echo -e "  - Backup branch created: $BACKUP_BRANCH"
 echo ""
 echo -e "${YELLOW}⚠️  Important next steps:${NC}"
 echo -e "  1. Review the changes carefully"
-echo -e "  2. To push the rewritten history: ${BLUE}git push --force-with-lease origin HEAD${NC}"
+echo -e "  2. To push the rewritten history: ${BLUE}git push --force -u origin${NC}"
 echo -e "  3. Team members will need to reset their local repositories"
 echo -e "  4. To restore original history: ${BLUE}git reset --hard $BACKUP_BRANCH${NC}"
 echo ""
-echo -e "${RED}Note: The rewritten history has not been pushed yet. Use 'git push --force-with-lease' when ready.${NC}"
+echo -e "${RED}Note: The rewritten history has not been pushed yet. Use 'git push --force -u origin' when ready.${NC}"

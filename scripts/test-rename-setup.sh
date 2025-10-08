@@ -17,13 +17,12 @@ echo ""
 echo -e "${YELLOW}This test shows what the rename operation would do without actually changing anything.${NC}"
 echo ""
 
-# Check git-filter-repo availability
-if command -v git-filter-repo &> /dev/null; then
-    echo -e "${GREEN}✅ git-filter-repo is available${NC}"
+# Check git-filter-branch availability
+if git --version &> /dev/null; then
+    echo -e "${GREEN}✅ git is available (git filter-branch is built-in)${NC}"
 else
-    echo -e "${YELLOW}⚠️  git-filter-repo is not installed${NC}"
-    echo "  Install with: pip install git-filter-repo"
-    echo "  This is required for the actual rename operation"
+    echo -e "${RED}❌ git is not installed${NC}"
+    echo "  This is required for the rename operation"
 fi
 
 # Show current repository status
@@ -42,10 +41,11 @@ git log --format='%aN <%aE>' | sort | uniq -c | sort -rn
 echo ""
 echo -e "${BLUE}=== What Would Change ===${NC}"
 echo -e "${GREEN}After running the rename operation:${NC}"
-echo -e "  - All authors would become: joh <joh@whitebit.com>"
-echo -e "  - All committers would become: joh <joh@whitebit.com>"
+echo -e "  - All authors would become: whitebit-robot <robot@whitebit.com>"
+echo -e "  - All committers would become: whitebit-robot <robot@whitebit.com>"
 echo -e "  - Total commits would remain: $(git rev-list --count HEAD)"
 echo -e "  - All commit SHAs would change"
+echo -e "  - Remote will be updated to: whitebit-exchange/api-documentation"
 
 # Show available tools
 echo ""
@@ -58,6 +58,7 @@ echo -e "   - Automatic backup and push"
 echo ""
 echo -e "${GREEN}2. Local Script:${NC} scripts/rename-committers.sh"
 echo -e "   - Run locally with more control"
+echo -e "   - Requires GitHub token parameter"
 echo -e "   - Manual push timing"
 echo -e "   - Interactive confirmation"
 

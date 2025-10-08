@@ -35,11 +35,11 @@ npm run test-rename-setup
 ⚠️ **WARNING: This rewrites git history!**
 
 ```bash
-# Using npm script
-npm run rename-committers
+# Using npm script (requires GitHub token as parameter)
+npm run rename-committers "whitebit-robot" "robot@whitebit.com" "your_github_token"
 
-# Or directly
-./scripts/rename-committers.sh
+# Or directly with all parameters
+./scripts/rename-committers.sh "whitebit-robot" "robot@whitebit.com" "your_github_token" "whitebit-exchange/api-documentation"
 
 # Or use the GitHub Actions workflow from the Actions tab
 ```

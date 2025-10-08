@@ -25,8 +25,10 @@ A GitHub Actions workflow that can be triggered manually from the GitHub web int
 2. Select "Rename All Committers" workflow
 3. Click "Run workflow"
 4. Fill in the required parameters:
-   - **New email address**: Default is `joh@whitebit.com`
-   - **New name**: Default is `joh`
+   - **New email address**: Default is `robot@whitebit.com`
+   - **New name**: Default is `whitebit-robot`
+   - **GitHub token**: Your GitHub token for authentication
+   - **Target repository**: Default is `whitebit-exchange/api-documentation`
    - **Confirmation**: Type `CONFIRM_REWRITE` to proceed
 5. Click "Run workflow"
 
@@ -35,7 +37,9 @@ A GitHub Actions workflow that can be triggered manually from the GitHub web int
 - ✅ Automatic backup branch creation
 - ✅ Statistics before and after
 - ✅ Detailed logging
-- ✅ Force push with lease for safety
+- ✅ Remote URL update for target repository
+- ✅ Force push for complete history replacement
+- ✅ Uses git filter-branch (built into git)
 
 ### 2. Local Script (For Advanced Users)
 
@@ -45,20 +49,17 @@ A bash script that can be run locally for more control over the process.
 
 **Prerequisites:**
 ```bash
-# Install git-filter-repo
-pip install git-filter-repo
-
-# Or on Ubuntu/Debian
-sudo apt-get install git-filter-repo
+# No additional packages needed - uses git filter-branch (built into git)
+git --version
 ```
 
 **How to use:**
 ```bash
-# With default values (joh, joh@whitebit.com)
-./scripts/rename-committers.sh
+# With default values (whitebit-robot, robot@whitebit.com)
+./scripts/rename-committers.sh "whitebit-robot" "robot@whitebit.com" "your_github_token"
 
 # With custom values
-./scripts/rename-committers.sh "New Name" "new.email@example.com"
+./scripts/rename-committers.sh "Custom Name" "custom.email@example.com" "your_github_token" "owner/repository"
 ```
 
 **Features:**
@@ -67,13 +68,16 @@ sudo apt-get install git-filter-repo
 - ✅ Colored output for better readability
 - ✅ Statistics before and after
 - ✅ Manual control over push timing
+- ✅ Remote URL update for target repository
+- ✅ Uses git filter-branch (built into git)
 
 ## What Happens During the Process
 
 1. **Backup Creation**: A backup branch is created with the original history
-2. **History Rewrite**: All commits are rewritten with the new committer information
-3. **Statistics**: Before and after statistics are shown
-4. **Push**: The rewritten history is pushed (workflow) or ready to push (script)
+2. **Remote URL Update**: Remote is updated to point to the target repository
+3. **History Rewrite**: All commits are rewritten with the new committer information using git filter-branch
+4. **Statistics**: Before and after statistics are shown
+5. **Push**: The rewritten history is pushed (workflow) or ready to push (script)
 
 ## Recovery
 
@@ -87,7 +91,7 @@ git branch -a | grep backup
 git reset --hard backup-before-rewrite-YYYYMMDD-HHMMSS
 
 # Force push the original history back
-git push --force-with-lease origin HEAD
+git push --force origin HEAD
 ```
 
 ## Team Coordination
@@ -114,25 +118,26 @@ After running this operation:
 Total commits: 26
 
 === New Committer Statistics ===
-     26 joh <joh@whitebit.com>
+     26 whitebit-robot <robot@whitebit.com>
 
 Total commits: 26
 ```
 
 ## Technical Details
 
-- Uses `git-filter-repo` for safe and efficient history rewriting
+- Uses `git filter-branch` for history rewriting (built into git)
 - Creates timestamped backup branches
 - Preserves commit messages, dates, and file changes
 - Only modifies author and committer information
-- Uses `--force-with-lease` for safer force pushing
+- Updates remote URL to target repository
+- Uses `--force` for complete history replacement
 
 ## Support
 
 If you encounter issues:
-1. Check that `git-filter-repo` is installed
-2. Ensure you have the necessary permissions
+1. Check that `git` is installed and up to date
+2. Ensure you have the necessary permissions and valid GitHub token
 3. Verify that the repository is in a clean state
 4. Check the backup branches if recovery is needed
 
-For more information about `git-filter-repo`, see: https://github.com/newren/git-filter-repo
+For more information about `git filter-branch`, see: https://git-scm.com/docs/git-filter-branch
