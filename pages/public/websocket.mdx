@@ -688,9 +688,13 @@ Update interval: 1 sec
 
 Update interval: real-time
 
-❗ For each websocket connection, you can subscribe to either one or several markets. Every following subscription will replace the existing one.
+❗ For each websocket connection, you can subscribe to either one or several specific markets, or all markets. Every following subscription will replace the existing one.
+
+**Note:** To subscribe to all markets, send the request with an empty `params` array.
 
 ##### ⤴️ Request
+
+**Subscribe to specific markets:**
 
 ```json
 {
@@ -700,6 +704,16 @@ Update interval: real-time
         "ETH_BTC", // markets
         "BTC_USDT",
     ]
+}
+```
+
+**Subscribe to all markets:**
+
+```json
+{
+    "id": 9,
+    "method": "trades_subscribe",
+    "params": []
 }
 ```
 
