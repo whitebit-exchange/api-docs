@@ -3719,6 +3719,8 @@ Available statuses:
 
 This endpoint retrieves a list of API keys for a sub-account.
 
+**Note:** For security reasons, the `apiSecret` field returns an empty string in this endpoint. The API secret is only displayed once during the initial API key creation.
+
 ❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
@@ -3760,7 +3762,7 @@ Available statuses:
       "title": "Trading Bot Key",                               // API key title/name
       "isEnabled": true,                                        // Whether the API key is enabled
       "apiKey": "your-api-key",                                // API key
-      "apiSecret": "your-api-secret",                          // API secret
+      "apiSecret": "",                                         // API secret (empty for security - only shown during creation)
       "type": "trade",                                         // API key type
       "lastActivity": 1646825196,                              // Last activity timestamp
       "restrictAccess": true,                                  // Whether access is restricted
