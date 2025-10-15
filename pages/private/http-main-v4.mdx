@@ -3002,12 +3002,16 @@ This endpoint creates new sub-account
 **Response is cached for:**
 NONE
 
+**Note:** The `email` field requirement depends on the `shareKyc` parameter:
+- When `shareKyc` is `false` or not provided: `email` is **required**
+- When `shareKyc` is `true`: `email` is **optional**
+
 **Parameters:**
 
 | Name                          | Type   | Mandatory | Description                                                                                                                                        |
 |-------------------------------|--------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------|
 | alias                         | String | **Yes**   | Name for sub-account                                                                                                                               |
-| email                         | String | **No**    | Sub-account email. If this field is provided on this e-mail address will be sent invitation link. If not - new user without e-mail will be created |
+| email                         | String | **Conditional** | Sub-account email. Required when `shareKyc` is `false`. If this field is provided, an invitation link will be sent to this email address. If not provided (only when `shareKyc` is `true`), a new user without email will be created |
 | shareKyc                      | bool   | **No**    | If KYC shared with main account                                                                                                                    |
 | permissions                   | object | **Yes**   | Sub-account permissions                                                                                                                            |
 | permissions.spotEnabled       | bool   | **Yes**   | Enable transfers to trade balance                                                                                                                                |
@@ -3063,6 +3067,16 @@ Available statuses:
   "errors": {
     "alias": ["Alias already exists."],
     "email": ["Email is invalid."],
+  }
+}
+```
+
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "email": ["The email field is required."]
   }
 }
 ```
