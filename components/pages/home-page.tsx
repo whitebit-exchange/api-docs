@@ -1,4 +1,4 @@
-import LogViewer from "@/components/log-viewer";
+import dynamic from "next/dynamic";
 import {
   ArrowRight,
   Zap,
@@ -13,6 +13,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Link from "next/link";
+
+const LogViewer = dynamic(() => import("@/components/log-viewer"), {
+  ssr: false,
+  loading: () => (
+    <div className="font-mono shadow-lg rounded-lg border bg-card/50 backdrop-blur-sm overflow-hidden p-8 text-center text-muted-foreground">
+      <p>Loading API Activity...</p>
+    </div>
+  ),
+});
 
 export default function HomePage() {
   return (

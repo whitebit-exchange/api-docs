@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from "react";
 import { ApiLog, TradePayload } from "@/types/logs";
 import { ColumnDef } from "@tanstack/react-table";
@@ -33,11 +35,22 @@ interface TickerData {
   };
 }
 
-async function fetchTopMarkets(): Promise<
+async function fetchTopMarketsClient(): Promise<
   { market: string; last_price?: string }[]
 > {
   try {
-    const response = await fetch("https://whitebit.com/api/v4/public/ticker");
+    const response = await fetch("https://whitebit.com/api/v4/public/ticker", {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+      signal: AbortSignal.timeout(5000), // 5 second timeout
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const data: TickerData = await response.json();
     // Sort and slice after collecting all markets
     return Object.entries(data)
@@ -194,9 +207,28 @@ function generateBatch(
 export default function LogViewer({ className }: { className?: string }) {
   const [logs, setLogs] = useState<ApiLog[]>([]);
 
+  // Client-side detection to prevent SSR execution
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Fetch markets only on client-side with fallback data for SSR
   const { data: markets = [], isLoading } = useQuery({
     queryKey: ["markets"],
-    queryFn: fetchTopMarkets,
+    queryFn: fetchTopMarketsClient,
+    enabled: isClient, // Only run on client-side
+    staleTime: 60000, // Cache for 1 minute
+    refetchOnWindowFocus: false, // Don't refetch on tab focus
+    initialData: [
+      // Fallback data prevents query execution during SSR
+      { market: "BTC_USDT" },
+      { market: "BTC_PERP" },
+      { market: "WBT_USDT" },
+      { market: "ETH_USDT" },
+      { market: "ETH_PERP" },
+    ],
   });
 
   useEffect(() => {
@@ -214,7 +246,7 @@ export default function LogViewer({ className }: { className?: string }) {
     return () => {
       clearInterval(interval);
     };
-  }, [markets, logs]);
+  }, [markets]); // Fixed: removed logs from dependencies
 
   if (isLoading) {
     return (
