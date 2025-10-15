@@ -3503,7 +3503,7 @@ NONE
 
 | Name      | Type    | Mandatory | Description                                                                                                                                                                                         |
 |-----------|---------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| id        | String  | **No**    | Sub-account id. If ot provided for all sub-accounts                                                                                                                                                 |
+| id        | String  | **Yes**   | Sub-account id                                                                                                                                                                                       |
 | direction | String  | **No**    | Transfer direction. Values: "main_to_sub" or "sub_to_main". If provided, returns transactions in selected direction. If not provided, returns all transactions between main account and sub-account |
 | limit     | Int     | **No**    | LIMIT is a special clause used to limit records a particular query can return. Default: 30, Min: 1, Max: 100                                                                                        |
 | offset    | Int     | **No**    | If you want the request to return entries starting from a particular line, you can use OFFSET clause to tell it where it should start. Default: 0, Min: 0, Max: 10000                               |
@@ -3543,6 +3543,16 @@ Available statuses:
 
 <details>
 <summary><b>Errors:</b></summary>
+
+```json
+{
+  "code": 0,
+  "message": "Validation failed",
+  "errors": {
+    "id": ["The id field is required."]
+  }
+}
+```
 
 ```json
 {
