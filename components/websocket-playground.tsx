@@ -152,7 +152,7 @@ export function WebSocketPlayground() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const socketRef = useRef<WebSocket | null>(null);
-  const pingIntervalRef = useRef<number>();
+  const pingIntervalRef = useRef<number | undefined>(undefined);
   const messageIdRef = useRef(0);
   const tableRef = useRef<HTMLDivElement>(null);
 
