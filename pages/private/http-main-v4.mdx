@@ -4117,9 +4117,9 @@ Available statuses:
 
 ### List Credit Lines
 
-<ApiEndpoint method="POST" path="/api/v4/credit-line/list" />
+<ApiEndpoint method="POST" path="/api/v4/credit-line/loans/info" />
 
-This endpoint returns a list of active loans.
+This endpoint returns an active loan.
 
 ***Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality.***
 
@@ -4128,45 +4128,29 @@ This endpoint returns a list of active loans.
 **Response is cached for:**
 NONE
 
-**Parameters:**
-
-| Name   | Type | Mandatory | Description                                                                              |
-|--------|------|-----------|------------------------------------------------------------------------------------------|
-| limit  | Int  | **No**    | Number of records to return. Min: 1, Max: 100                                           |
-| offset | Int  | **No**    | Number of records to skip. Min: 1, Max: 10000                                           |
-
-**Request BODY raw:**
-
-```json
-{
-  "limit": 25,
-  "offset": 0
-}
-```
-
 **Response:**
 
 Available statuses:
 
 - `Status 200`
+
+```json
+{
+  "asset": "BTC",
+  "amount": "1.5",
+  "totalFunding": "0.5",
+  "currentLtv": "25",
+  "initialLtv": "60",
+  "marginCallLtv": "75",
+  "liquidationLtv": "85",
+  "createdAt": 1715339355
+}
+```
 - `Status 400 if request validation failed`
 
 ```json
 {
-  "data": [
-    {
-      "asset": "BTC",
-      "amount": "1.5",
-      "totalFunding": "0.5",
-      "currentLtv": "25",
-      "initialLtv": "60",
-      "marginCallLtv": "75",
-      "liquidationLtv": "85",
-      "createdAt": 1715339355
-    }
-  ],
-  "limit": 25,
-  "offset": 1
+  "error": "No active loan at the moment",
 }
 ```
 
