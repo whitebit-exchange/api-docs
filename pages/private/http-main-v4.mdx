@@ -56,6 +56,8 @@ import { Alert } from '@/components/alert'
   - [Mining Pool](#mining-pool)
     - [Get Rewards](#get-rewards)
     - [Get Mining Account Hashrate](#get-mining-account-hashrate)
+  - [Credit Line](#credit-line)
+    - [List Credit Lines](#list-credit-lines)
 
 Base URL is https://whitebit.com
 
@@ -4108,5 +4110,48 @@ Available statuses:
 ```
 
 </details>
+
+---
+
+## Credit Line
+
+### List Credit Lines
+
+<ApiEndpoint method="POST" path="/api/v4/credit-line/loans/info" />
+
+This endpoint returns an active loan.
+
+***Please, pay attention that this endpoint works on demand. It means that you need to contact WhiteBIT support and provide your API key to get access to this functionality.***
+
+❗ Rate limit 1000 requests/10 sec.
+
+**Response is cached for:**
+NONE
+
+**Response:**
+
+Available statuses:
+
+- `Status 200`
+
+```json
+{
+  "asset": "BTC",
+  "amount": "1.5",
+  "totalFunding": "0.5",
+  "currentLtv": "25",
+  "initialLtv": "60",
+  "marginCallLtv": "75",
+  "liquidationLtv": "85",
+  "createdAt": 1715339355
+}
+```
+- `Status 400 if request validation failed`
+
+```json
+{
+  "error": "No active loan at the moment",
+}
+```
 
 ---
