@@ -161,6 +161,10 @@ NONE
     "max_deposit": "0",          // Max deposit amount, will not be returned if there is no limit, 0 if unlimited
     "currency_precision": 18,    // Max number of digits to the right of the decimal point
     "is_memo": false,            // Identifies if currency has memo address
+    "memo": {                    // Identifies if currency requires memo for deposits/withdraws
+      "deposit": false,
+      "withdraw": false
+    },
     "networks": {                // Currency networks. It might be a list of networks for cryptocurrency networks or just a single item list for simple cryptocurrencies or tokens
       "deposits": [              // Networks available for depositing
         "BTC"
@@ -199,6 +203,10 @@ NONE
     "max_deposit": "0",
     "currency_precision": 18,
     "is_memo": false,
+    "memo": {            // Identifies if currency requires memo for deposits/withdraws
+      "deposit": false,
+      "withdraw": false
+    },
     "networks": {        // Currency networks. It might be a list of networks for cryptocurrency networks or just a single item list for simple cryptocurrencies or tokens
       "deposits": [      // Networks available for depositing
         "ETH"
@@ -237,6 +245,10 @@ NONE
     "max_deposit": "0",
     "currency_precision": 6,
     "is_memo": false,
+    "memo": {            // Identifies if currency requires memo for deposits/withdraws
+      "deposit": false,
+      "withdraw": false
+    },
     "networks": {        // Currency networks. It might be a list of networks for cryptocurrency networks or just a single item list for simple cryptocurrencies or tokens
       "deposits": [      // Networks available for depositing
         "ERC20",
@@ -289,6 +301,10 @@ NONE
     "min_deposit": "50",
     "max_deposit": "100000",
     "is_memo": false,
+    "memo": {             // Identifies if currency requires memo for deposits/withdraws
+      "deposit": false,
+      "withdraw": false
+    },
     "providers": {        // Fiat currency providers
       "deposits": [       // Providers available for depositing
         "VISAMASTER",
