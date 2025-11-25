@@ -8,6 +8,7 @@ import { MessageComposer } from "./message-composer";
 import { MessageLog } from "./message-log";
 import { config } from "@/config/websocket";
 import { WebSocketProvider } from "@/types/websocket";
+import { RegionSelector } from "@/components/region-selector";
 
 interface PlaygroundProps {
   defaultProvider?: string;
@@ -131,6 +132,9 @@ export function Playground({ defaultProvider, className }: PlaygroundProps) {
 
   return (
     <Card className={cn("p-4 space-y-4", className)}>
+      <div className="flex items-center justify-between mb-2">
+        <RegionSelector showLabel={true} />
+      </div>
       <ConnectionControls
         isConnected={isConnected}
         selectedProvider={selectedProviderKey}

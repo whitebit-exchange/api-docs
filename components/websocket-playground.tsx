@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRegionConfig } from "@/lib/region-context";
+import { RegionSelector } from "@/components/region-selector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -144,11 +146,17 @@ function formatHumanReadableTime(date: Date): string {
 }
 
 export function WebSocketPlayground() {
+  const regionConfig = useRegionConfig();
   const [connected, setConnected] = useState(false);
   const [messages, setMessages] = useState<WebSocketMessage[]>([]);
   const [method, setMethod] = useState<AvailableMethod | "">("");
   const [params, setParams] = useState("");
-  const [websocketUrl, setWebsocketUrl] = useState("wss://api.whitebit.com/ws");
+  const [websocketUrl, setWebsocketUrl] = useState(`${regionConfig.wsBaseUrl}/ws`);
+
+  // Update WebSocket URL when region changes
+  useEffect(() => {
+    setWebsocketUrl(`${regionConfig.wsBaseUrl}/ws`);
+  }, [regionConfig.wsBaseUrl]);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const socketRef = useRef<WebSocket | null>(null);
@@ -324,6 +332,9 @@ export function WebSocketPlayground() {
 
   return (
     <div className="space-y-4 mt-6">
+      <div className="flex items-center justify-between mb-4">
+        <RegionSelector showLabel={true} />
+      </div>
       <div className="space-y-2">
         <div className="flex gap-4 items-end">
           <div className="flex-1">

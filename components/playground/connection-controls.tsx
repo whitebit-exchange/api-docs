@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Play, Square, Wifi, WifiOff } from "lucide-react";
 import { config } from "@/config/websocket";
+import { useRegionConfig } from "@/lib/region-context";
 
 interface ConnectionControlsProps {
   isConnected: boolean;
@@ -28,6 +29,8 @@ export function ConnectionControls({
   onCustomUrlChange,
   className,
 }: ConnectionControlsProps) {
+  const regionConfig = useRegionConfig();
+
   const handleProviderChange = (value: string) => {
     if (value !== "custom") {
       onCustomUrlChange("");
@@ -41,10 +44,9 @@ export function ConnectionControls({
         onConnect(customUrl);
       }
     } else if (selectedProvider) {
-      const url = config.providers[selectedProvider]?.url;
-      if (url) {
-        onConnect(url);
-      }
+      // Use dynamic region-aware URL instead of static config
+      const dynamicUrl = `${regionConfig.wsBaseUrl}/ws`;
+      onConnect(dynamicUrl);
     }
   };
 

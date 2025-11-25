@@ -1,5 +1,10 @@
 import { ApiEndpoint } from "@/components/api-endpoint";
 import { Alert } from "@/components/alert";
+import { RegionalBaseUrl } from "@/components/regional-base-url";
+import { InlineRegionSelector } from "@/components/inline-region-selector";
+import { RegionalUrl } from "@/components/regional-url";
+import { RegionalBaseUrlText } from "@/components/regional-base-url-text";
+import { Code } from "nextra/components";
 
 # Private HTTP API V1
 
@@ -15,9 +20,9 @@ import { Alert } from "@/components/alert";
 - [Query order history by all markets](#query-executed-order-history-by-all-markets)
 - [Query executed order deals](#query-executed-order-deals)
 
-Base URL is https://whitebit.com
+<InlineRegionSelector className="my-4" />
 
-Endpoint example: https://whitebit.com/api/v1/{endpoint}
+Endpoint example: <Code><RegionalBaseUrlText />/api/v1/{"{endpoint}"}</Code>
 
 All endpoints return time in Unix-time format.
 

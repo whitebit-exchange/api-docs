@@ -91,6 +91,36 @@
   }
 }
 
+/* Regional link components - match Nextra's theme link color */
+.regional-link {
+  color: hsl(43, 79%, 61%);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.regional-link:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+/* Position region toggle between Contact and Search */
+/* Using !important to override Nextra's default navbar flexbox styling */
+nav > div:has(.region-toggle-wrapper) {
+  display: flex !important;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Region toggle - order after meta items but before search/github */
+nav .region-toggle-wrapper {
+  order: 1 !important;
+}
+
+/* Search and GitHub - push to end */
+nav div:has(input[type="search"]),
+nav a[href*="github.com"] {
+  order: 2 !important;
+}
 
 .neon-border-button {
   border: 2px solid #3b82f6;

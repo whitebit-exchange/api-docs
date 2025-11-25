@@ -2,6 +2,13 @@ import React from "react";
 import { DocsThemeConfig } from "nextra-theme-docs";
 import { useRouter } from "next/router";
 import seoConfig from "./seo.config";
+import dynamic from "next/dynamic";
+
+// Dynamically import to prevent SSR hydration mismatch (useRegion depends on client-side localStorage)
+const RegionSegmentedControl = dynamic(() => import("@/components/region-segmented-control").then(mod => ({ default: mod.RegionSegmentedControl })), {
+  ssr: false,
+  loading: () => <div className="w-[100px] h-7" /> // Placeholder to prevent layout shift
+});
 
 const config: DocsThemeConfig = {
   logo: (
@@ -18,6 +25,13 @@ const config: DocsThemeConfig = {
   },
   footer: {
     component: <div />,
+  },
+  navbar: {
+    extraContent: (
+      <div className="region-toggle-wrapper">
+        <RegionSegmentedControl size="sm" showTooltip={true} />
+      </div>
+    ),
   },
   head: function useHead() {
     const { route, locale } = useRouter();
