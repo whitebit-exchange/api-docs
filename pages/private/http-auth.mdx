@@ -1,4 +1,5 @@
 import { RegionalUrl } from "@/components/regional-url";
+import { URL_TYPE_MAIN } from "@/constants";
 
 # Private HTTP API Authentication
 
@@ -10,7 +11,7 @@ This guide explains how to authenticate with WhiteBit's private HTTP API endpoin
 
 ### Setting Up API Keys
 
-1. Navigate to <RegionalUrl type="main" path="/settings/api">WhiteBIT API Settings</RegionalUrl>
+1. Navigate to <RegionalUrl type={URL_TYPE_MAIN} path="/settings/api">WhiteBIT API Settings</RegionalUrl>
 2. Select the appropriate configuration tab for your API keys
    > Different API keys provide access to different API endpoints
 3. Generate a new API key

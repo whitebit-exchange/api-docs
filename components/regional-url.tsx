@@ -4,9 +4,10 @@ import React from "react";
 import { useRegion } from "@/lib/region-context";
 import { getApiUrl, getWebSocketUrl, getMainSiteUrl } from "@/lib/urls";
 import { cn } from "@/lib/utils";
+import { URL_TYPE_API, URL_TYPE_WS, URL_TYPE_MAIN, type UrlType } from "@/constants";
 
 interface RegionalUrlProps {
-  type: "api" | "ws" | "main";
+  type: UrlType;
   path: string;
   children?: React.ReactNode;
   className?: string;
@@ -17,11 +18,11 @@ export function RegionalUrl({ type, path, children, className }: RegionalUrlProp
 
   const getUrl = () => {
     switch (type) {
-      case "api":
+      case URL_TYPE_API:
         return getApiUrl(path, region);
-      case "ws":
+      case URL_TYPE_WS:
         return getWebSocketUrl(path, region);
-      case "main":
+      case URL_TYPE_MAIN:
         return getMainSiteUrl(path, region);
       default:
         return path;

@@ -5,7 +5,7 @@ export const config: WebSocketConfig = {
   providers: {
     public: {
       label: "Public WebSocket API",
-      url: `${REGIONS[DEFAULT_REGION].wsBaseUrl}/ws`, // Template URL - actual URL is dynamic via region context
+      url: `${REGIONS[DEFAULT_REGION].wsBaseUrl}/ws`,
       description: "Public WebSocket API for market data",
       samples: [
         {
