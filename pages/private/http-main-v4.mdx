@@ -4146,12 +4146,21 @@ Available statuses:
   "createdAt": 1715339355
 }
 ```
-- `Status 400 if request validation failed`
+- `Status 400 if no information available about active loan`
 
 ```json
 {
-  "error": "No active loan at the moment",
+  "code": 400,
+  "message": "No active loan at the moment"
 }
 ```
 
+- `Status 404 if loans not available. Please, contact support to enable this feature for your account.`
+
+```json
+{
+  "code": 404,
+  "message": ""
+}
+```
 ---
