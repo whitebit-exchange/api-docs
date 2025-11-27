@@ -243,6 +243,7 @@ This endpoint creates [limit trading order](./../glossary.md#limit-order).
 | ioc           | boolean       | **No**    | An immediate or cancel order (IOC) is an order that attempts to execute all or part immediately and then cancels any unfilled portion of the order. Variables: 'true' / 'false' Example: 'false'.                                                                                                 |
 | bboRole       | Integer       | **No**    | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables: 1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 2. |
 | stp           | String        | **No**    | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                                                                                                           |
+|| rpi           | boolean       | **No**    | Retail Price Improvement(RPI) order: Order type designed to offer better prices to retail users. It is post-only and can match only with orders from the Web or Mobile App. RPI orders can be placed only by the designated Market Makers. Example: true                                          |
 
 **Request BODY raw:**
 
@@ -255,6 +256,7 @@ This endpoint creates [limit trading order](./../glossary.md#limit-order).
   "postOnly": false,
   "ioc": false,
   "clientOrderId": "order1987111",
+  "rpi": true,
   "request": "{{request}}",
   "nonce": "{{nonce}}"
 }
@@ -285,7 +287,8 @@ Available statuses:
   "postOnly": false, // PostOnly
   "ioc": false, // IOC
   "status": "FILLED", // order status
-  "stp": "no" // self trade prevention mode
+  "stp": "no", // self trade prevention mode
+  "rpi": true // RPI order flag
 }
 ```
 
@@ -545,7 +548,8 @@ This endpoint creates bulk [limit trading orders](./../glossary.md#limit-order).
       "market": "BTC_USDT",
       "postOnly": false,
       "ioc": false,
-      "clientOrderId": ""
+      "clientOrderId": "",
+      "rpi": true
     },
     {
       "side": "sell",
@@ -554,7 +558,8 @@ This endpoint creates bulk [limit trading orders](./../glossary.md#limit-order).
       "postOnly": false,
       "market": "BTC_USDT",
       "ioc": false,
-      "clientOrderId": ""
+      "clientOrderId": "",
+      "rpi": true
     },
     {
       "side": "sell",
@@ -563,7 +568,8 @@ This endpoint creates bulk [limit trading orders](./../glossary.md#limit-order).
       "postOnly": false,
       "market": "BTC_USDT",
       "ioc": false,
-      "clientOrderId": ""
+      "clientOrderId": "",
+      "rpi": true
     }
   ],
   "stopOnFail": true,
@@ -600,7 +606,8 @@ Available statuses:
       "price": "40000", // price
       "status": "FILLED", // order status
       "stp": "no", // self trade prevention mode
-      "positionSide": "BOTH" // position side
+      "positionSide": "BOTH", // position side
+      "rpi": true // RPI order flag
     },
     "error": null
   },
@@ -632,7 +639,8 @@ Available statuses:
       "price": "41000",
       "status": "FILLED",
       "stp": "no",
-      "positionSide": "BOTH"
+      "positionSide": "BOTH",
+      "rpi": true
     },
     "error": null
   }
@@ -2118,7 +2126,8 @@ Available statuses:
   "price": "40000", // price if price isset
   "activation_price": "40000", // activation price if activation price is set
   "status": "FILLED", // order status
-  "stp": "no" // self trade prevention mode
+  "stp": "no", // self trade prevention mode
+  "rpi": true // RPI order flag
 }
 ```
 
@@ -2376,6 +2385,7 @@ Available statuses:
     "price": "40000", // unexecuted order price
     "status": "FILLED", // order status
     "stp": "no", // self trade prevention mode
+    "rpi": true, // RPI order flag
     "oto": {
       // OTO order data - if stopLoss or takeProfit is specified
       "otoId": 29457221, // ID of the OTO
@@ -2683,8 +2693,9 @@ Available statuses:
       "dealOrderId": 3134995325,     // completed order Id
       "clientOrderId": "customId11", // custom order id; "clientOrderId": "" - if not specified.
       "role": 2,                     // Role - 1 - maker, 2 - taker
-      "deal": "0.00419198"           // amount in money
-      "feeAsset": "USDT",              // fee asset
+      "deal": "0.00419198",          // amount in money
+      "feeAsset": "USDT",            // fee asset
+      "rpi": true                    // RPI order flag
     }
   ],
   "offset": 0,
@@ -2849,7 +2860,8 @@ Empty response if order is not yours
       "ioc": false, // IOC flag
       "status": "CANCELED", // Order status
       "feeAsset": "USDT", // fee asset
-      "stp": "no" // self trade prevention mode
+      "stp": "no", // self trade prevention mode
+      "rpi": false // RPI order flag
     }
   ]
 }
@@ -2998,7 +3010,8 @@ Available statuses:
     "price": "38635",
     "postOnly": false,
     "status": "FILLED",
-    "stp": "no"
+    "stp": "no",
+    "rpi": true
   }
 ]
 ```
@@ -3843,6 +3856,7 @@ NONE
 | bboRole       | Integer | **No**                           | When you activate the [BBO](./../glossary.md#bbo) option when placing Limit orders, the system automatically selects the best market prices for executing these orders in one of two ways. Variables: 1 - Queue Method / 2 - Counterparty Method. You can use 2 method with ioc flag. Example: 1. |
 | stp           | String  | **No**                           | Self trade prevention mode. Variables: 'no / 'cancel_both' / 'cancel_new' /'cancel_old'. Example: 'no'.                                                                                                                                                                                           |
 | positionSide  | String  | **Yes, when hedge mode enabled** | Defines the position direction. Variables: 'LONG / 'SHORT' / 'BOTH'. Example: 'BOTH'. See [positionSide](./../glossary.md#position-side)                                                                                                                                                          |
+| rpi           | boolean | **No**                           | Retail Price Improvement(RPI) order: Order type designed to offer better prices to retail users. It is post-only and can match only with orders from the Web or Mobile App. RPI orders can be placed only by the designated Market Makers. Example: true                                          |
 
 **Request BODY raw:**
 
@@ -3858,6 +3872,7 @@ NONE
   "stopLoss": "50000",
   "takeProfit": "30000",
   "positionSide": "LONG",
+  "rpi": true,
   "request": "{{request}}",
   "nonce": "{{nonce}}"
 }
@@ -3894,7 +3909,8 @@ Available statuses:
     "stopLoss": "30000", // stop loss order price - if stopLoss is specified
     "takeProfit": "50000" // take profit order price - if takeProfit is specified
   },
-  "positionSide": "LONG" // position side - LONG or SHORT or BOTH
+  "positionSide": "LONG", // position side - LONG or SHORT or BOTH
+  "rpi": true // RPI order flag
 }
 ```
 
@@ -3944,7 +3960,8 @@ This endpoint creates bulk collateral [limit trading orders](./../glossary.md#li
       "postOnly": false,
       "ioc": false,
       "clientOrderId": "",
-      "positionSide": "LONG"
+      "positionSide": "LONG",
+      "rpi": true
     },
     {
       "side": "sell",
@@ -3954,7 +3971,8 @@ This endpoint creates bulk collateral [limit trading orders](./../glossary.md#li
       "market": "BTC_USDT",
       "ioc": false,
       "clientOrderId": "",
-      "positionSide": "LONG"
+      "positionSide": "LONG",
+      "rpi": true
     },
     {
       "side": "sell",
@@ -3964,7 +3982,8 @@ This endpoint creates bulk collateral [limit trading orders](./../glossary.md#li
       "market": "ETH_BTC",
       "ioc": false,
       "clientOrderId": "",
-      "positionSide": "LONG"
+      "positionSide": "LONG",
+      "rpi": true
     }
   ],
   "stopOnFail": true,
