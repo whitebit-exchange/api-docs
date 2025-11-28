@@ -90,7 +90,7 @@ For receiving responses from API calls please use http method **POST**
 
 <ApiEndpoint method="POST" path="/api/v4/market/fee?market=BTC_USDT" />
 
-This endpoint retrieves the maker and taker fees for a specific market.
+This endpoint retrieves the maker and taker fees for a specific market. The `taker` and `maker` fields represent spot trading fees, while `futures_taker` and `futures_maker` represent futures trading fees. Futures fees return either the default values or custom values if set by the user.
 
 **Parameters:**
 
@@ -107,8 +107,10 @@ Available statuses:
 ```json
 {
   "error": null,
-  "taker": "0.1",
-  "maker": "0.1"
+  "taker": "0.1",           // Spot taker fee
+  "maker": "0.1",           // Spot maker fee
+  "futures_taker": "0.05",  // Futures taker fee (default or custom)
+  "futures_maker": "0.03"  // Futures maker fee (default or custom)
 }
 ```
 
@@ -116,7 +118,7 @@ Available statuses:
 
 <ApiEndpoint method="POST" path="/api/v4/market/fee" />
 
-This endpoint retrieves the maker and taker fees for all markets, including any custom fees.
+This endpoint retrieves the maker and taker fees for all markets, including any custom fees. The `taker` and `maker` fields represent default spot trading fees, while `futures_taker` and `futures_maker` represent futures trading fees (returning default values or custom values if set by the user). The `custom_fee` object contains market-specific custom spot fees.
 
 **Response:**
 Available statuses:
@@ -127,8 +129,10 @@ Available statuses:
 ```json
 {
   "error": null,
-  "taker": "0.1",
-  "maker": "0.1",
+  "taker": "0.1",           // Default spot taker fee
+  "maker": "0.1",           // Default spot maker fee
+  "futures_taker": "0.05",  // Default or custom futures taker fee
+  "futures_maker": "0.03",  // Default or custom futures maker fee
   "custom_fee": {
     "BTC_USDT": ["0.1", "0.2"],
     "ETH_USDT": ["0.1", "0.2"]
