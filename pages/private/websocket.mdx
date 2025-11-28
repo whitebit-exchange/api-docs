@@ -521,7 +521,8 @@ All possible [order types](#order-types)
                 "client_order_id": "",         // Custom client order id
                 "stp": "no",                   // stp flag; [no, co, cn, cb]. No Prevention (no), Cancel Oldest (co), Cancel Newest (cn), Cancel Both (cb)
                 "status": "OPEN",              // Order status. All statuses in table above
-                "position_side": "LONG"         // position side - LONG or SHORT or BOTH
+                "position_side": "LONG",        // position side - LONG or SHORT or BOTH
+                "rpi": true                    // RPI order flag
             }
         ]
     },
@@ -592,7 +593,8 @@ If new [order](./../glossary.md#orders) instantly matches an order from [orderbo
             "client_order_id": "",      // Custom client order id
             "stp": "no",                // STP flag; [no, co, cn, cb]. No Prevention (no), Cancel Oldest (co), Cancel Newest (cn), Cancel Both (cb)
             "status": "OPEN",           // Order status. All statuses in table above
-            "position_side": "LONG"      // position side - LONG or SHORT or BOTH
+            "position_side": "LONG",     // position side - LONG or SHORT or BOTH
+            "rpi": true                 // RPI order flag
         }
     ],
 }
@@ -676,8 +678,9 @@ All possible [order types](#order-types)
                 "deal_fee": "10.536606693468",    // Charged fee amount in money
                 "client_order_id": "",            // Custom client order id
                 "status": "FILLED",               // Order status. All statuses in table above
-                "fee_asset": "USDT"               // Fee asset type
-            },
+                "fee_asset": "USDT",              // Fee asset type
+                "rpi": false                      // RPI order flag
+            }
         ]
     },
     "error": null
@@ -747,7 +750,8 @@ Update interval: real-time
             "client_order_id": "",
             "stp": "no",                   // STP flag; [no, co, cn, cb]. No Prevention (no), Cancel Oldest (co), Cancel Newest (cn), Cancel Both (cb)
             "status": "FILLED",            // Order status. All statuses in table above
-            "position_side": "LONG"         // position side - LONG or SHORT or BOTH
+            "position_side": "LONG",        // position side - LONG or SHORT or BOTH
+            "rpi": true                    // RPI order flag
         }
     ]
 }

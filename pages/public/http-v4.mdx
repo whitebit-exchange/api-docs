@@ -443,7 +443,8 @@ _1 second_
     "quote_volume": "0.0021",      // Transaction amount in quote pair volume.
     "base_volume": "9186.13",      // Transaction amount in base pair volume.
     "trade_timestamp": 1594391747, // Unix timestamp in milliseconds, identifies when the transaction occurred.
-    "type": "sell"                 // Used to determine whether or not the transaction originated as a buy or sell. Buy – Identifies an ask that was removed from the order book. Sell – Identifies a bid that was removed from the order book.
+    "type": "sell",                // Used to determine whether or not the transaction originated as a buy or sell. Buy – Identifies an ask that was removed from the order book. Sell – Identifies a bid that was removed from the order book.
+    "rpi": true                    // Indicates whether the trade involved a Retail Price Improvement (RPI) order
   },
   {
     "tradeID": 158056416,
@@ -451,8 +452,9 @@ _1 second_
     "base_volume": "9186.13",
     "quote_volume": "0.002751",
     "trade_timestamp": 1594391746,
-    "type": "sell"
-  },
+    "type": "sell",
+    "rpi": false
+  }
 ]
 ```
 
