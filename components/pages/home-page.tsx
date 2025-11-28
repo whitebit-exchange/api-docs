@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { getMainSiteUrl } from "@/lib/urls";
 
 const LogViewer = dynamic(() => import("@/components/log-viewer"), {
   ssr: false,
@@ -195,7 +196,7 @@ export default function HomePage() {
             </p>
             <div className="flex gap-4 justify-center">
               <Link
-                href="https://whitebit.com/settings/api/api-keys"
+                href={getMainSiteUrl("/settings/api/api-keys")}
                 target="_blank"
                 rel="noopener noreferrer"
               >

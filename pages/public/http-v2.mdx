@@ -1,4 +1,9 @@
 import { ApiEndpoint } from "@/components/api-endpoint";
+import { RegionalBaseUrl } from "@/components/regional-base-url";
+import { InlineRegionSelector } from "@/components/inline-region-selector";
+import { RegionalUrl } from "@/components/regional-url";
+import { RegionalBaseUrlText } from "@/components/regional-base-url-text";
+import { Code } from "nextra/components";
 
 # Public HTTP API V2
 
@@ -10,9 +15,9 @@ import { ApiEndpoint } from "@/components/api-endpoint";
   - [Asset Status List](#asset-status-list)
   - [Orderbook](#orderbook)
 
-Base endpoint is https://whitebit.com
+<InlineRegionSelector className="my-4" />
 
-Example how to use: https://whitebit.com/api/v2/public/{endpoint}
+Example how to use: <Code><RegionalBaseUrlText />/api/v2/public/{"{endpoint}"}</Code>
 
 All endpoints return time in Unix-time format.
 

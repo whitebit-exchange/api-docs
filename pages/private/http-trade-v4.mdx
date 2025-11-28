@@ -1,6 +1,11 @@
 import { ApiEndpoint } from "@/components/api-endpoint";
 import { Alert } from "@/components/alert";
 import { ErrorCodeSelector } from "@/components/error-code-selector";
+import { RegionalBaseUrl } from "@/components/regional-base-url";
+import { InlineRegionSelector } from "@/components/inline-region-selector";
+import { RegionalUrl } from "@/components/regional-url";
+import { RegionalBaseUrlText } from "@/components/regional-base-url-text";
+import { Code } from "nextra/components";
 
 # Private HTTP API V4 for trading
 
@@ -52,9 +57,9 @@ import { ErrorCodeSelector } from "@/components/error-code-selector";
 
 ---
 
-Base URL is https://whitebit.com
+<InlineRegionSelector className="my-4" />
 
-Endpoint example: https://whitebit.com/api/v4/{endpoint}
+Endpoint example: <Code><RegionalBaseUrlText />/api/v4/{"{endpoint}"}</Code>
 
 All endpoints return time in Unix-time format.
 

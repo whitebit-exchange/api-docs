@@ -1,8 +1,31 @@
 import { MethodLabel } from "@/components/method-label";
 import { Code, CopyToClipboard, Tabs } from "nextra/components";
 import { ApiEndpoint } from "@/components/api-endpoint";
+import { RegionalUrl } from "@/components/regional-url";
+import { Alert } from "@/components/alert";
+import { RegionalBaseUrlText } from "@/components/regional-base-url-text";
 
 # OAuth 2.0 API Reference
+
+<Alert 
+  type="info" 
+  header="Region-Aware URLs"
+  message={
+    <>
+      All code examples below use a <code>BASE_URL</code> constant that you should set based on your region:
+      <ul className="mt-2 ml-4 list-disc">
+        <li><strong>Global</strong>: <code>BASE_URL = "https://whitebit.com"</code></li>
+        <li><strong>EU</strong>: <code>BASE_URL = "https://whitebit.eu"</code></li>
+      </ul>
+      <p className="mt-2">
+        <strong>Your current region base URL:</strong> <code><RegionalBaseUrlText /></code>
+      </p>
+      <p className="mt-2 text-sm">
+        Simply replace the <code>BASE_URL</code> constant in each code example with the appropriate value for your region.
+      </p>
+    </>
+  }
+/>
 
 ## Authentication
 
@@ -10,7 +33,7 @@ import { ApiEndpoint } from "@/components/api-endpoint";
 
 **Example Request:**
 
-<ApiEndpoint method="GET" path="https://whitebit.com/auth/login?clientId=YOUR_CLIENT_ID&state=SECURE_RANDOM_STATE" />
+<ApiEndpoint method="GET" path="/auth/login?clientId=YOUR_CLIENT_ID&state=SECURE_RANDOM_STATE" />
 
 This endpoint initiates the OAuth 2.0 authorization flow for user authentication and obtaining an authorization code.
 
@@ -34,6 +57,11 @@ The `state` parameter is crucial for security in OAuth flows:
   import { URL, URLSearchParams } from 'url';
   import { parse as parseUrl } from 'url';
   import { parse as parseQueryString } from 'querystring';
+
+  // Region-aware base URL - set based on your region:
+  // Global: "https://whitebit.com"
+  // EU: "https://whitebit.eu"
+  const BASE_URL = "https://whitebit.com";
 
   // Simple in-memory session store (for production use a proper store)
   const sessions = new Map<string, Record<string, any>>();
@@ -85,7 +113,7 @@ The `state` parameter is crucial for security in OAuth flows:
       session.oauth_state = state;
 
       res.writeHead(302, {
-        'Location': `https://whitebit.com/auth/login?clientId=YOUR_CLIENT_ID&state=${state}`
+        'Location': `${BASE_URL}/auth/login?clientId=YOUR_CLIENT_ID&state=${state}`
       });
       res.end();
     }
@@ -134,10 +162,12 @@ The `state` parameter is crucial for security in OAuth flows:
       code: code
     }).toString();
 
+    // Construct full URL and parse for https.request()
+    const tokenUrl = new URL(`${BASE_URL}/oauth2/token`);
     const options = {
-      hostname: 'whitebit.com',
-      port: 443,
-      path: '/oauth2/token',
+      hostname: tokenUrl.hostname,
+      port: tokenUrl.port ? parseInt(tokenUrl.port, 10) : 443,
+      path: tokenUrl.pathname,
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -198,6 +228,11 @@ The `state` parameter is crucial for security in OAuth flows:
   <?php
   declare(strict_types=1);
 
+  // Region-aware base URL - set based on your region:
+  // Global: "https://whitebit.com"
+  // EU: "https://whitebit.eu"
+  define('BASE_URL', 'https://whitebit.com');
+
   /**
    * Generate a cryptographically secure random state value
    *
@@ -230,7 +265,7 @@ The `state` parameter is crucial for security in OAuth flows:
       $_SESSION['oauth_state_expires_at'] = time() + 600; // 10 minutes
 
       // Redirect to authorization endpoint
-      $authUrl = 'https://whitebit.com/auth/login?clientId=' .
+      $authUrl = BASE_URL . '/auth/login?clientId=' .
                  urlencode('YOUR_CLIENT_ID') .
                  '&state=' . urlencode($state);
 
@@ -305,7 +340,7 @@ The `state` parameter is crucial for security in OAuth flows:
 
       // Set cURL options
       curl_setopt_array($ch, [
-          CURLOPT_URL => 'https://whitebit.com/oauth2/token',
+          CURLOPT_URL => BASE_URL . '/oauth2/token',
           CURLOPT_POST => true,
           CURLOPT_POSTFIELDS => http_build_query($params),
           CURLOPT_RETURNTRANSFER => true,
@@ -407,6 +442,11 @@ The `state` parameter is crucial for security in OAuth flows:
   // Global session store
   var sessionStore = NewSessionStore()
 
+  // Region-aware base URL - set based on your region:
+  // Global: "https://whitebit.com"
+  // EU: "https://whitebit.eu"
+  const BASE_URL = "https://whitebit.com"
+
   // Generate a secure random state value
   func generateSecureState() (string, error) {
   	b := make([]byte, 32) // 256 bits of entropy
@@ -465,7 +505,7 @@ The `state` parameter is crucial for security in OAuth flows:
   	createSecureCookie(w, "session_id", sessionID, 600) // 10 minutes
 
   	// Build authorization URL
-  	authURL, _ := url.Parse("https://whitebit.com/auth/login")
+  	authURL, _ := url.Parse(BASE_URL + "/auth/login")
   	q := authURL.Query()
   	q.Set("clientId", "YOUR_CLIENT_ID")
   	q.Set("state", state)
@@ -554,7 +594,7 @@ The `state` parameter is crucial for security in OAuth flows:
   	req, err := http.NewRequestWithContext(
   		ctx,
   		"POST",
-  		"https://whitebit.com/oauth2/token",
+  		BASE_URL + "/oauth2/token",
   		bytes.NewBufferString(data.Encode()),
   	)
   	if err != nil {
@@ -642,6 +682,11 @@ The `state` parameter is crucial for security in OAuth flows:
   import com.sun.net.httpserver.HttpServer;
 
   public class OAuthServer {
+      // Region-aware base URL - set based on your region:
+      // Global: "https://whitebit.com"
+      // EU: "https://whitebit.eu"
+      private static final String BASE_URL = "https://whitebit.com";
+      
       // Simple in-memory session store (use Redis or similar for production)
       private static final Map<String, Map<String, Object>> sessions = new ConcurrentHashMap<>();
       private static final SecureRandom secureRandom = new SecureRandom();
@@ -698,7 +743,7 @@ The `state` parameter is crucial for security in OAuth flows:
 
               // Build authorization URL
               String redirectUrl = String.format(
-                  "https://whitebit.com/auth/login?clientId=%s&state=%s",
+                  BASE_URL + "/auth/login?clientId=%s&state=%s",
                   URLEncoder.encode("YOUR_CLIENT_ID", StandardCharsets.UTF_8),
                   URLEncoder.encode(state, StandardCharsets.UTF_8)
               );
@@ -855,7 +900,7 @@ The `state` parameter is crucial for security in OAuth flows:
           );
 
           // Create connection
-          URL url = new URL("https://whitebit.com/oauth2/token");
+          URL url = new URL(BASE_URL + "/oauth2/token");
           HttpURLConnection connection = (HttpURLConnection) url.openConnection();
           connection.setRequestMethod("POST");
           connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -936,6 +981,11 @@ The `state` parameter is crucial for security in OAuth flows:
   import urllib.request
   from typing import Dict, Any, Optional, Tuple
 
+  # Region-aware base URL - set based on your region:
+  # Global: "https://whitebit.com"
+  # EU: "https://whitebit.eu"
+  BASE_URL = "https://whitebit.com"
+
   # Simple in-memory session store (use Redis or similar for production)
   sessions: Dict[str, Dict[str, Any]] = {}
 
@@ -979,7 +1029,7 @@ The `state` parameter is crucial for security in OAuth flows:
 
           # Build redirect URL
           redirect_url = (
-              f"https://whitebit.com/auth/login?"
+              f"{BASE_URL}/auth/login?"
               f"clientId={urllib.parse.quote('YOUR_CLIENT_ID')}&"
               f"state={urllib.parse.quote(state)}"
           )
@@ -1096,7 +1146,7 @@ def exchange_code_for_token(code: str) -> Dict[str, Any]:
 
     # Create request
     req = urllib.request.Request(
-        'https://whitebit.com/oauth2/token',
+        f'{BASE_URL}/oauth2/token',
         data=data,
         headers=headers,
         method='POST'

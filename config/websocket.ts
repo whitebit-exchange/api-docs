@@ -1,10 +1,11 @@
 import { WebSocketConfig } from "@/types/websocket";
+import { REGIONS, DEFAULT_REGION } from "./regions";
 
 export const config: WebSocketConfig = {
   providers: {
     public: {
       label: "Public WebSocket API",
-      url: "wss://api.whitebit.com/ws",
+      url: `${REGIONS[DEFAULT_REGION].wsBaseUrl}/ws`,
       description: "Public WebSocket API for market data",
       samples: [
         {

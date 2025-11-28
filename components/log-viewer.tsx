@@ -6,6 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/ui/data-table";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
+import { useRegionConfig } from "@/lib/region-context";
 
 const ENDPOINTS = [
   "/api/v4/order/collateral/limit",
@@ -35,11 +36,11 @@ interface TickerData {
   };
 }
 
-async function fetchTopMarketsClient(): Promise<
+async function fetchTopMarketsClient(apiBaseUrl: string): Promise<
   { market: string; last_price?: string }[]
 > {
   try {
-    const response = await fetch("https://whitebit.com/api/v4/public/ticker", {
+    const response = await fetch(`${apiBaseUrl}/api/v4/public/ticker`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -206,6 +207,7 @@ function generateBatch(
 
 export default function LogViewer({ className }: { className?: string }) {
   const [logs, setLogs] = useState<ApiLog[]>([]);
+  const regionConfig = useRegionConfig();
 
   // Client-side detection to prevent SSR execution
   const [isClient, setIsClient] = useState(false);
@@ -216,8 +218,8 @@ export default function LogViewer({ className }: { className?: string }) {
 
   // Fetch markets only on client-side with fallback data for SSR
   const { data: markets = [], isLoading } = useQuery({
-    queryKey: ["markets"],
-    queryFn: fetchTopMarketsClient,
+    queryKey: ["markets", regionConfig.apiBaseUrl],
+    queryFn: () => fetchTopMarketsClient(regionConfig.apiBaseUrl),
     enabled: isClient, // Only run on client-side
     staleTime: 60000, // Cache for 1 minute
     refetchOnWindowFocus: false, // Don't refetch on tab focus

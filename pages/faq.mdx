@@ -1,3 +1,6 @@
+import { RegionalUrl } from "@/components/regional-url";
+import { URL_TYPE_API } from "@/constants";
+
 # Frequently Asked Questions (FAQ)
 
 ## Rate Limits and Errors
@@ -78,7 +81,7 @@ Yes, HTTPS is required:
 ### Q: How can I check if deposits and withdrawals are available for a specific currency?
 
 You can check currency status through the assets endpoint:
-- URL: [https://whitebit.com/api/v4/public/assets](https://whitebit.com/api/v4/public/assets)
+- URL: <RegionalUrl type={URL_TYPE_API} path="/api/v4/public/assets">/api/v4/public/assets</RegionalUrl>
 - This endpoint provides real-time status of all currencies
 - Check the currency-specific enabled/disabled flags
 
