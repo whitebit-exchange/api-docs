@@ -1437,7 +1437,7 @@ Available statuses:
   "dealMoney": "0", // if order finished - amount in money currency that finished
   "dealStock": "0", // if order finished - amount in stock currency that finished
   "amount": "0.001", // amount
-  "takerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+  "takerFee": "0.001", // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
   "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
   "left": "0.001", // if order not finished - rest of amount that must be finished
   "dealFee": "0", // fee in money that you pay if order is finished
@@ -2118,17 +2118,16 @@ Available statuses:
   "clientOrderId": "customId11", // custom order identifier; "clientOrderId": "" - if not specified.
   "market": "BTC_USDT", // deal market
   "side": "buy", // order side
-  "type": "stop market", // order type
+  "type": "limit", // order type
   "timestamp": 1595792396.165973, // timestamp of order creation
   "dealMoney": "0", // if order finished - amount in money currency that is finished
   "dealStock": "0", // if order finished - amount in stock currency that is finished
   "amount": "0.001", // amount
-  "takerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
+  "takerFee": "0.001", // taker fee ratio. If the number less than 0.0001 - it will be rounded to zero
   "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - it will be rounded to zero
   "left": "0.001", // if order not finished - rest of the amount that must be finished
   "dealFee": "0", // fee in money that you pay if order is finished
   "price": "40000", // price if price isset
-  "activation_price": "40000", // activation price if activation price is set
   "status": "FILLED", // order status
   "stp": "no", // self trade prevention mode
   "rpi": true // RPI order flag
@@ -2225,7 +2224,7 @@ Error codes:
 
 <ApiEndpoint method="POST" path="/api/v4/order/cancel/all" />
 
-Cancel existing [order](./../glossary.md#orders)
+Cancels all orders that meet the conditions [order](./../glossary.md#orders)
 
 ❗ Rate limit 10000 requests/10 sec.
 
@@ -2504,7 +2503,7 @@ Available statuses:
 
 <ApiEndpoint method="POST" path="/api/v4/trade-account/executed-history" />
 
-This endpoint retrieves the deals history. Can be sorted by single market if needed.
+This endpoint retrieves all deals for all markets. Can be filtered by single market if needed.
 
 ❗ Rate limit 12000 requests/10 sec.
 
@@ -2643,7 +2642,7 @@ Available statuses:
 
 <ApiEndpoint method="POST" path="/api/v4/trade-account/order" />
 
-This endpoint retrieves [deals](./../glossary.md#deal-trade) history details on pending or [executed order](./../glossary.md#finished-orders).
+This endpoint retrieves deals of a specific order. [deals](./../glossary.md#deal-trade) history details on pending or [executed order](./../glossary.md#finished-orders).
 
 ❗ Rate limit 12000 requests/10 sec.
 
@@ -2790,7 +2789,7 @@ Available statuses:
 
 <ApiEndpoint method="POST" path="/api/v4/trade-account/order/history" />
 
-This endpoint retrieves [executed order](./../glossary.md#finished-orders) history by [market](./../glossary.md#market).
+This endpoint retrieves all orders for markets. [executed order](./../glossary.md#finished-orders) history by [market](./../glossary.md#market).
 
 ❗ Rate limit 12000 requests/10 sec.
 
@@ -2854,7 +2853,7 @@ Empty response if order is not yours
       "clientOrderId": "customId11", // custom order identifier; "clientOrderId": "" - if not specified.
       "side": "sell", // order side
       "ctime": 1597486960.311311, // timestamp of order creation
-      "takerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - its rounded to zero
+      "takerFee": "0.001", // taker fee ratio. If the number less than 0.0001 - its rounded to zero
       "ftime": 1597486960.311332, // executed order timestamp
       "makerFee": "0.001", // maker fee ratio. If the number less than 0.0001 - its rounded to zero
       "dealFee": "0.041258268", // paid fee if order is finished
