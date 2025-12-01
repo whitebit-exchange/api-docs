@@ -101,6 +101,10 @@ See [Perpetual Futures](./glossary#perpetual-futuresfutures)
 
 Users can open Long and Short positions and use leverage and they pay a [fee](./glossary#fee) for using borrowed funds not to the exchange but to each other.
 
+### Free Collateral
+
+The amount of funds available for trading without additional borrowing in [margin](./glossary#margin-trading) and [futures trading](./glossary#futures-trading). This represents the portion of your [collateral balance](./glossary#balance-collateral) that is not currently used to maintain open positions and can be freely used to open new positions or withdrawn. Also referred to as "free margin" in API responses.
+
 ## G
 
 ## H
@@ -127,7 +131,7 @@ See [Crypto Lending](./glossary#crypto-lending)
 
 ### Leverage
 
-The ratio of the margin to the borrowed funds used to open a position. In other words, it shows the number of times the credit exceeds your [assets](./glossary#assets).
+The ratio of borrowed funds to your own funds used to open a position in [margin](./glossary#margin-trading) or [futures trading](./glossary#futures-trading). For example, 10x leverage means you can control a position worth 10 times your initial [margin](./glossary#margin). Higher leverage increases both potential profits and potential losses.
 
 ### Limit order
 
@@ -142,6 +146,26 @@ The time delay between sending a trading order and its execution. In [high-frequ
 ### Maker
 
 Trader who places [limit orders](./glossary#limit-order) on the [order book](./glossary#order-book), which means they set the price and quantity of the [trade](./glossary#deal-trade) they want to make, and wait for another trader to accept their [order](./glossary#orders)
+
+### Maker fee
+
+The [fee](./glossary#fee) charged when a [maker](./glossary#maker) order is executed. This is typically lower than the [taker fee](./glossary#taker-fee) to incentivize providing liquidity to the [market](./glossary#market). The maker fee is expressed as a percentage of the trade amount.
+
+### Maintenance
+
+Short for [Maintenance Margin Requirement](./glossary#maintenance-margin-requirement). The minimum amount of [collateral](./glossary#collateral) that must be maintained in your account to keep positions open. If your account falls below this level, you may face liquidation.
+
+### Maintenance Margin Requirement
+
+The minimum percentage of [collateral](./glossary#collateral) required to maintain open positions in [margin](./glossary#margin-trading) or [futures trading](./glossary#futures-trading). If your account's [margin fraction](./glossary#margin-fraction) falls below this threshold, your positions may be automatically liquidated to prevent further losses.
+
+### Margin
+
+The amount of funds from your [collateral balance](./glossary#balance-collateral) that is currently allocated to maintain open positions in [margin](./glossary#margin-trading) or [futures trading](./glossary#futures-trading). This represents the portion of your capital that is "locked" to cover potential losses on your active positions.
+
+### Margin Fraction
+
+A risk metric calculated as the ratio of your [total collateral](./glossary#total-collateral) to your [margin](./glossary#margin). It indicates how well-capitalized your positions are. A higher margin fraction means lower risk, while a lower margin fraction indicates you're closer to the [maintenance margin requirement](./glossary#maintenance-margin-requirement). In the API, a value of 1000000000000000000000 indicates no open positions.
 
 ### Margin trading
 
@@ -178,6 +202,22 @@ Cryptocurrency like USDT obtained in different networks, like: OMNI, Tron, Ether
 ### Matching Engine
 
 The core system of an exchange that pairs buy and sell orders. In [colocation](./glossary#colocation) setups, trading servers are placed close to the matching engine to minimize execution time.
+
+### Max Position
+
+The maximum position size allowed for a specific [market](./glossary#market) or account in [margin](./glossary#margin-trading) or [futures trading](./glossary#futures-trading). This limit is set to manage risk and prevent excessively large positions that could impact market stability or result in significant losses.
+
+### Min. Order Amount
+
+The minimum quantity of [stock](./glossary#stock) currency required to place an [order](./glossary#orders) in a specific [market](./glossary#market). This value varies by market and is defined in the market configuration. Orders below this threshold will be rejected.
+
+### Min. Order Total
+
+The minimum total value (calculated as amount × price) in [money](./glossary#money) currency required to place an [order](./glossary#orders) in a specific [market](./glossary#market). This ensures that orders meet a minimum economic value. Orders with a total below this threshold will be rejected.
+
+### Min. size increment
+
+The minimum step size allowed for [order](./glossary#orders) amounts or prices in a specific [market](./glossary#market). This determines the number of decimal places permitted when placing orders. See also [Precision](./glossary#precision).
 
 ## N
 
@@ -217,6 +257,14 @@ See [Market](./glossary#market)
 
 A type of derivative contract for trading cryptocurrencies that do not have an expiration date and are rolled over daily
 
+### Ping
+
+A keep-alive message sent through the WebSocket connection to prevent automatic disconnection due to inactivity. The WebSocket server closes idle connections after 60 seconds, so clients should send ping messages every 50 seconds to maintain the connection.
+
+### Position Mode
+
+A trading mode setting that determines how positions are managed in [futures trading](./glossary#futures-trading). **One-Way Mode** (default): Only one position direction allowed per [market](./glossary#market). **Hedge Mode**: Allows simultaneous long and short positions in the same market. See also [Position Side](./glossary#position-side).
+
 ### Position Side
 Defines the position direction for a trade when hedge mode is enabled, and only for [Perpetual Futures](./glossary#perpetual-futuresfutures) trading [Market](./glossary#market).
 "LONG": Represents a long (buy) position.
@@ -238,6 +286,10 @@ Is the number of digits to the right of the decimal point
 ### Retail Price Improvement (RPI) Order
 
 A specialized [order](./glossary#orders) type that can be placed only by Designated Market Makers. It is designed to enhance liquidity and provide improved pricing for retail traders by interacting exclusively with manually placed (non-algorithmic) orders submitted via the Web or Mobile App. RPI orders are post-only and are guaranteed to provide price improvement for retail customers.
+
+### Risk Score
+
+An account risk metric that assesses the likelihood of liquidation or margin deficiency in [margin](./glossary#margin-trading) and [futures trading](./glossary#futures-trading). It evaluates factors including [leverage](./glossary#leverage) levels, [margin fraction](./glossary#margin-fraction), position sizes relative to account equity, and current market volatility. Higher risk scores may trigger warnings, trading restrictions, or requirements for additional [collateral](./glossary#collateral) to reduce exposure.
 
 ## S
 
@@ -283,9 +335,21 @@ Account (user) with specific permissions (for example disable [margin trading](#
 
 A trader who accepts an existing [order](./glossary#orders) from the [order book](./glossary#order-book), which means they take liquidity from the [market](./glossary#market)
 
+### Taker fee
+
+The [fee](./glossary#fee) charged when a [taker](./glossary#taker) order is executed. This fee is typically higher than the [maker fee](./glossary#maker-fee) because taker orders remove liquidity from the [market](./glossary#market). The taker fee is expressed as a percentage of the trade amount.
+
 ### Ticker
 
 An alphabetic and/or numeric abbreviation of the name of a digital [asset](./glossary#assets). (BTC - Bitcoin ticker).
+
+### Total Collateral
+
+The total value of all [assets](./glossary#assets) in your [collateral balance](./glossary#balance-collateral), including both used [margin](./glossary#margin) and [free collateral](./glossary#free-collateral). This represents your total available capital for [margin](./glossary#margin-trading) and [futures trading](./glossary#futures-trading), which serves as security against potential losses.
+
+### TPSL (Take Profit/Stop Loss)
+
+A risk management feature that allows traders to set predefined price levels at which a position will automatically close. Take Profit (TP) is a price level higher than the current market price where a long position will be closed for profit or a short position will be closed for loss. Stop Loss (SL) is a price level lower than the current market price where a long position will be closed for loss or a short position will be closed for profit. These orders help traders manage their risk and lock in profits automatically.
 
 ### Trade
 
@@ -294,10 +358,6 @@ See [Deal](./glossary#deal-trade)
 ### Trade Volume
 
 See [Volume](./glossary#volumetrade-volume)
-
-### TPSL (Take Profit/Stop Loss)
-
-A risk management feature that allows traders to set predefined price levels at which a position will automatically close. Take Profit (TP) is a price level higher than the current market price where a long position will be closed for profit or a short position will be closed for loss. Stop Loss (SL) is a price level lower than the current market price where a long position will be closed for loss or a short position will be closed for profit. These orders help traders manage their risk and lock in profits automatically.
 
 ## U
 
