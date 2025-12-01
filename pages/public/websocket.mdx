@@ -818,8 +818,7 @@ This endpoint allows clients to request the current market depth for a specific 
 
 #### Subscribe
 
-This endpoint allows clients to subscribe to market depth data updates. The server pushes updates every 100ms to subscribed clients.
-The updates can be either full reloads of the order book or partial updates containing only the changes since the last update. See the update events section below for details.
+This endpoint allows clients to subscribe to market depth data updates. After successful subscription, the server immediately sends a full snapshot of the current order book as the first `depth_update` message. Subsequent messages are incremental updates containing only changes. The server pushes updates every 100ms to subscribed clients when there are actual changes to the order book. **Note:** For pairs with less frequent trades, if there are no updates to the order book, the server will not send duplicate update events with the previous state.
 
 ##### ⤴️ Request
 
@@ -852,20 +851,50 @@ The last parameter - Multiple subscription flag - allows you to subscribe to mar
 
 ##### 🔄 Update events
 
-Update events provide real-time updates to the subscribed market depth.
+Update events provide real-time updates to the subscribed market depth. The first message after subscription is a full snapshot of the order book, while subsequent messages are incremental updates.
+
+**Note:** For pairs with less frequent trades, if there are no actual changes to the order book, the server will not send duplicate update events. Updates are only sent when there are real changes to the order book state.
+
+**First message (full snapshot):**
 
 ```json
 {
     "id": null,
     "method": "depth_update",
     "params": [
-        false,   // full_reload_flag | true - full reload, false - partial update
         {
             "timestamp": 1689600180.5164471, // timestamp of the update from matchengine
             "update_id": 214403,
-            "past_update_id": 214399, // this field will not be populated in first event
+            "asks": [                   // sorted ascending - full order book snapshot
+                ["0.020846", "29.369"],
+                ["0.020850", "15.123"],
+                ["0.020855", "8.456"],
+            ],
+            "bids": [                   // sorted descending - full order book snapshot
+                ["0.020844", "5.949"],
+                ["0.020840", "12.345"],
+                ["0.020835", "20.678"],
+            ],
+            "event_time": 1749026542.817343
+        },
+        "ETH_BTC"                       // market pair
+    ]
+}
+```
+
+**Subsequent messages (incremental updates):**
+
+```json
+{
+    "id": null,
+    "method": "depth_update",
+    "params": [
+        {
+            "timestamp": 1689600180.5164471, // timestamp of the update from matchengine
+            "update_id": 214404,
+            "past_update_id": 214403, // present in incremental updates
             "asks": [
-                ["0.020861", "0"],      // for partial update - finished orders will be [price, "0"]
+                ["0.020861", "0"],      // finished orders will be [price, "0"]
                 ["0.020900", "2.5"],
             ],
             "bids": [
@@ -886,14 +915,14 @@ When the client subscribes with a limit (e.g., 100), the API sends updates for o
 **Steps to Process Update Messages**
 
 1. **Receive the Update Message**: Listen for `depth_update` messages from the WebSocket connection.
-2. **Check Update Type**: Determine if the update is a full reload or a partial update.
-    - If it’s a full reload (`full_reload_flag` - first param in response is `true`), replace the current order book with the new data.
-    - If it’s a partial update (`full_reload_flag` is `false`), update the existing order book with the new price levels.
-3. **Update the Order Book**: Apply the changes from the update message to the local order book.
+2. **Check if First Message**: Determine if this is the initial snapshot by checking if `past_update_id` is missing or `null`.
+    - **If first message (snapshot)**: Replace the entire order book with the snapshot data from `asks` and `bids` arrays. The snapshot already contains the correct number of price levels up to the limit.
+    - **If subsequent message (incremental update)**: Proceed to step 3.
+3. **Apply Updates** (for incremental messages only): Apply the changes from the update message to the local order book.
     - For each price level in the `asks` and `bids` arrays:
-        - If the quantity is `0`, remove that price level from the order book.
-        - Otherwise, update the price level with the new quantity.
-4. **Truncate to Limit**: Ensure that the order book contains only the top N (e.g., 100) price levels for both buy and sell sides.
+        - If the quantity is `"0"`, remove that price level from the order book.
+        - Otherwise, update the price level with the new quantity or add it if it doesn't exist.
+4. **Truncate to Limit** (for incremental messages only): Ensure that the order book contains only the top N (e.g., 100) price levels for both buy and sell sides.
 
 ##### 💻 Code examples
 
@@ -925,12 +954,15 @@ ws.addEventListener("message", (event: MessageEvent) => {
     const message = JSON.parse(event.data.toString());
 
     if (message.method === "depth_update") {
-        const [fullReload, updateData] = message.params as [boolean, Partial<OrderBook>];
+        const updateData = message.params[0] as Partial<OrderBook & { past_update_id?: number }>;
+        const isFirstMessage = !updateData.past_update_id;
 
-        if (fullReload) {
+        if (isFirstMessage) {
+            // First message is a full snapshot - replace order book
             orderBook.asks = updateData.asks ?? [];
             orderBook.bids = updateData.bids ?? [];
         } else {
+            // Subsequent messages are incremental updates
             applyUpdates(orderBook.asks, updateData.asks, "ask");
             applyUpdates(orderBook.bids, updateData.bids, "bid");
             truncateOrderBook(orderBook.asks);
@@ -1009,11 +1041,15 @@ async def depth_subscribe():
                 handle_depth_update(data['params'])
 
 def handle_depth_update(params):
-    full_reload, update_data = params
-    if full_reload:
+    update_data = params[0]
+    is_first_message = update_data.get('past_update_id') is None
+    
+    if is_first_message:
+        # First message is a full snapshot - replace order book
         order_book.asks = update_data.get('asks', [])
         order_book.bids = update_data.get('bids', [])
     else:
+        # Subsequent messages are incremental updates
         apply_updates(order_book.asks, update_data.get('asks', []), "ask")
         apply_updates(order_book.bids, update_data.get('bids', []), "bid")
         truncate_order_book(order_book.asks)
@@ -1105,14 +1141,18 @@ public class OrderBookClient {
 
         if ("depth_update".equals(jsonMessage.getString("method"))) {
             JsonArray params = jsonMessage.getJsonArray("params");
-            boolean fullReload = params.getBoolean(0);
+            JsonObject updateData = params.getJsonObject(0);
+            boolean isFirstMessage = !updateData.containsKey("past_update_id") || 
+                                     updateData.isNull("past_update_id");
 
-            if (fullReload) {
-                asks = parseOrderBookSide(params.getJsonObject(1).getJsonArray("asks"));
-                bids = parseOrderBookSide(params.getJsonObject(1).getJsonArray("bids"));
+            if (isFirstMessage) {
+                // First message is a full snapshot - replace order book
+                asks = parseOrderBookSide(updateData.getJsonArray("asks"));
+                bids = parseOrderBookSide(updateData.getJsonArray("bids"));
             } else {
-                applyUpdates(asks, params.getJsonObject(1).getJsonArray("asks"), "ask");
-                applyUpdates(bids, params.getJsonObject(1).getJsonArray("bids"), "bid");
+                // Subsequent messages are incremental updates
+                applyUpdates(asks, updateData.getJsonArray("asks"), "ask");
+                applyUpdates(bids, updateData.getJsonArray("bids"), "bid");
                 truncateOrderBook(asks);
                 truncateOrderBook(bids);
             }
