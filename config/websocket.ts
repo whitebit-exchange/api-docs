@@ -133,7 +133,15 @@ export const config: WebSocketConfig = {
           payload: JSON.stringify({
             id: 18,
             method: "depth_subscribe",
-            params: ["BTC_USDT", 100, "0"],
+            params: ["BTC_USDT", 100, "0", true],
+          }, null, 2)
+        },
+        {
+          label: "Subscribe to Order Book (with keepalive)",
+          payload: JSON.stringify({
+            id: 21,
+            method: "depth_subscribe",
+            params: ["BTC_USDT", 100, "0", true, true],
           }, null, 2)
         },
         {

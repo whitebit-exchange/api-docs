@@ -830,12 +830,62 @@ This endpoint allows clients to subscribe to market depth data updates. After su
     "ETH_BTC",  // market
     100,        // limit. available values - 1, 5, 10, 20, 30, 50, 100
     "0",        // price interval units. "0" - no interval, available values - "0.00000001", "0.0000001", "0.000001", "0.00001", "0.0001", "0.001", "0.01", "0.1"
-    true        // multiple subscription flag. true - add, false - unsubscribe from all
+    true,       // multiple subscription flag. true - add, false - unsubscribe from all
+    true        // Optional: keepalive - enables periodic snapshots every 10s during silent periods for subscription health verification
   ]
 }
 ```
 
-The last parameter - Multiple subscription flag - allows you to subscribe to market depths as many markets as you want. The only restriction is one subscription with specific parameters per market.
+The fourth parameter - Multiple subscription flag - allows you to subscribe to market depths as many markets as you want. The only restriction is one subscription with specific parameters per market.
+
+**Keepalive Parameter (Optional):**
+
+The optional fifth parameter `keepalive` enables periodic orderbook snapshots during silent periods, helping clients verify subscription health on low-volume trading pairs.
+
+**Important distinction:**
+
+- **WebSocket connection liveness**: Maintained separately using the `ping`/`pong` mechanism (see [WebSocket Connection Management](#websocket-connection-management)). This keeps the connection itself alive.
+- **Subscription health verification**: The `keepalive` parameter verifies that your specific subscription is working correctly and receiving data updates, even during market silence. This is an additional mechanism on top of connection liveness.
+
+**How it works:**
+
+When `keepalive` is enabled (`true`), the subscription behaves as follows:
+
+1. **Normal operation**: When orderbook changes occur, the server sends incremental updates as usual (every 100ms when there are changes)
+2. **Silent periods**: If no orderbook updates occur for 10 seconds, the server automatically sends a full orderbook snapshot (keepalive snapshot)
+3. **Timer reset**: Any orderbook update (normal or keepalive) resets the 10-second inactivity timer
+4. **Snapshot format**: Keepalive snapshots use the same format as the initial subscription snapshot - a complete full snapshot with no `past_update_id` field
+
+**Example timeline with keepalive enabled:**
+- `T+0s`: Subscription established, initial full snapshot received
+- `T+2s`: Orderbook change occurs → incremental update sent (timer reset)
+- `T+5s`: Orderbook change occurs → incremental update sent (timer reset)
+- `T+15s`: No changes for 10 seconds → keepalive snapshot sent (timer reset)
+- `T+25s`: No changes for 10 seconds → keepalive snapshot sent (timer reset)
+- `T+30s`: Orderbook change occurs → incremental update sent (timer reset)
+
+**When to use keepalive:**
+
+This feature is particularly useful for:
+
+- **Low-volume trading pairs**: Pairs that may experience extended silence periods where legitimate market inactivity could be mistaken for a broken subscription
+- **Arbitrage bots and automated trading systems**: Systems that require continuous subscription health verification to distinguish between healthy market silence and a broken subscription (note: this is separate from WebSocket connection health, which is maintained via ping/pong)
+- **Circuit breaker protection**: Applications with circuit breakers that need to prevent false triggers during legitimate market silence periods
+- **Monitoring and alerting systems**: Systems that need to verify data stream health without relying solely on market activity
+
+**When NOT to use keepalive:**
+
+- **High-volume trading pairs**: Pairs with frequent updates where keepalive snapshots would add unnecessary overhead
+- **Simple monitoring applications**: Applications that don't require subscription health verification
+- **Bandwidth-sensitive environments**: Where the additional message frequency (approximately 6 messages per minute during complete silence) is a concern
+
+**Default behavior (keepalive disabled):**
+
+If the `keepalive` parameter is omitted or set to `false`, the subscription behaves as before:
+- Updates are only sent when there are actual changes to the order book state
+- No periodic snapshots are sent during silent periods
+- Clients cannot distinguish between healthy market silence and a broken subscription
+- Note: The WebSocket connection itself is still kept alive via the ping/pong mechanism (see [WebSocket Connection Management](#websocket-connection-management))
 
 ##### ⤵️ Response
 
@@ -853,7 +903,7 @@ The last parameter - Multiple subscription flag - allows you to subscribe to mar
 
 Update events provide real-time updates to the subscribed market depth. The first message after subscription is a full snapshot of the order book, while subsequent messages are incremental updates.
 
-**Note:** For pairs with less frequent trades, if there are no actual changes to the order book, the server will not send duplicate update events. Updates are only sent when there are real changes to the order book state.
+**Note:** For pairs with less frequent trades, if there are no actual changes to the order book, the server will not send duplicate update events. Updates are only sent when there are real changes to the order book state. However, if the `keepalive` parameter is enabled, the server will send periodic full snapshots every 10 seconds during silent periods to verify subscription health.
 
 **First message (full snapshot):**
 
@@ -908,6 +958,27 @@ Update events provide real-time updates to the subscribed market depth. The firs
 }
 ```
 
+**Keepalive snapshots (when keepalive is enabled):**
+
+When the `keepalive` parameter is enabled and no orderbook updates occur for 10 seconds, the server automatically sends a keepalive snapshot. This provides continuous verification that the subscription is active and functioning correctly, even during periods of no market activity.
+
+**Key characteristics:**
+
+- **Format**: Full snapshot format (identical to the initial subscription message)
+- **Structure**: Contains complete `asks` and `bids` arrays with no `past_update_id` field
+- **Frequency**: Sent every 10 seconds during silent periods (when no orderbook changes occur)
+- **Timer behavior**: Both normal orderbook updates and keepalive snapshots reset the 10-second inactivity timer
+- **Processing**: Must be treated as a full snapshot - replace the entire order book, do NOT apply as an incremental update
+- **Identification**: Clients can identify keepalive snapshots by the absence of `past_update_id` (same as the initial snapshot)
+
+**How to distinguish keepalive snapshots from initial snapshot:**
+
+- **Initial snapshot**: First message received immediately after subscription
+- **Keepalive snapshot**: Subsequent messages without `past_update_id` that occur during silent periods (10+ seconds after last update)
+- **Incremental update**: Messages with `past_update_id` field indicating actual orderbook changes
+
+```
+
 **Processing Update Messages**
 
 When the client subscribes with a limit (e.g., 100), the API sends updates for only the specified number of price levels (100 in this case) for both buy and sell sides. The client must process these updates and truncate the order book to maintain only the top 100 levels on each side.
@@ -915,14 +986,16 @@ When the client subscribes with a limit (e.g., 100), the API sends updates for o
 **Steps to Process Update Messages**
 
 1. **Receive the Update Message**: Listen for `depth_update` messages from the WebSocket connection.
-2. **Check if First Message**: Determine if this is the initial snapshot by checking if `past_update_id` is missing or `null`.
-    - **If first message (snapshot)**: Replace the entire order book with the snapshot data from `asks` and `bids` arrays. The snapshot already contains the correct number of price levels up to the limit.
-    - **If subsequent message (incremental update)**: Proceed to step 3.
+2. **Check if Full Snapshot**: Determine if this is a full snapshot by checking if `past_update_id` is missing or `null`.
+    - **If full snapshot** (initial message or keepalive snapshot): Replace the entire order book with the snapshot data from `asks` and `bids` arrays. The snapshot already contains the correct number of price levels up to the limit.
+    - **If incremental update** (has `past_update_id`): Proceed to step 3.
 3. **Apply Updates** (for incremental messages only): Apply the changes from the update message to the local order book.
     - For each price level in the `asks` and `bids` arrays:
         - If the quantity is `"0"`, remove that price level from the order book.
         - Otherwise, update the price level with the new quantity or add it if it doesn't exist.
 4. **Truncate to Limit** (for incremental messages only): Ensure that the order book contains only the top N (e.g., 100) price levels for both buy and sell sides.
+
+**Note:** When `keepalive` is enabled, periodic snapshots (sent every 10 seconds during silence) should be processed as full snapshots, not incremental updates. They will not have a `past_update_id` field, just like the initial subscription message.
 
 ##### 💻 Code examples
 
@@ -945,7 +1018,7 @@ ws.addEventListener("open", () => {
         JSON.stringify({
             id: 1,
             method: "depth_subscribe",
-            params: ["ETH_BTC", LIMIT, "0", true],
+            params: ["ETH_BTC", LIMIT, "0", true, true], // last parameter: keepalive (optional)
         }),
     );
 });
@@ -958,7 +1031,7 @@ ws.addEventListener("message", (event: MessageEvent) => {
         const isFirstMessage = !updateData.past_update_id;
 
         if (isFirstMessage) {
-            // First message is a full snapshot - replace order book
+            // First message or keepalive snapshot is a full snapshot - replace order book
             orderBook.asks = updateData.asks ?? [];
             orderBook.bids = updateData.bids ?? [];
         } else {
@@ -1032,7 +1105,7 @@ async def depth_subscribe():
         await ws.send(json.dumps({
             'id': 1,
             'method': 'depth_subscribe',
-            'params': ['ETH_BTC', LIMIT, '0', True]
+            'params': ['ETH_BTC', LIMIT, '0', True, True]  # last parameter: keepalive (optional)
         }))
 
         async for message in ws:
@@ -1045,7 +1118,7 @@ def handle_depth_update(params):
     is_first_message = update_data.get('past_update_id') is None
     
     if is_first_message:
-        # First message is a full snapshot - replace order book
+        # First message or keepalive snapshot is a full snapshot - replace order book
         order_book.asks = update_data.get('asks', [])
         order_book.bids = update_data.get('bids', [])
     else:
@@ -1129,7 +1202,8 @@ public class OrderBookClient {
                         .add("ETH_BTC")
                         .add(LIMIT)
                         .add("0")
-                        .add(true))
+                        .add(true)  // multiple subscription flag
+                        .add(true))  // keepalive (optional)
                 .build();
         session.getBasicRemote().sendText(message.toString());
     }
@@ -1146,7 +1220,7 @@ public class OrderBookClient {
                                      updateData.isNull("past_update_id");
 
             if (isFirstMessage) {
-                // First message is a full snapshot - replace order book
+                // First message or keepalive snapshot is a full snapshot - replace order book
                 asks = parseOrderBookSide(updateData.getJsonArray("asks"));
                 bids = parseOrderBookSide(updateData.getJsonArray("bids"));
             } else {
