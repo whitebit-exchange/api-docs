@@ -4,7 +4,7 @@
 - [Authorize](#authorize)
 - [Balance Spot](#balance-spot)
 - [Balance Margin](#balance-margin)
-- [Orders Pending](#orders-pending)
+- [Active Orders](#orders-pending)
 - [Orders Executed](#orders-executed)
 - [Deals](#deals)
 - [Positions](#positions)
@@ -471,7 +471,9 @@ Update interval: 1.5 sec
 
 ---
 
-### Orders Pending
+### Active Orders {#orders-pending}
+
+Query and subscribe to [active orders](./../glossary.md#active-orders) (orders not yet executed). The WebSocket methods use `ordersPending_*` naming for API compatibility.
 
 #### Query
 
