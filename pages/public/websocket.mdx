@@ -977,8 +977,6 @@ When the `keepalive` parameter is enabled and no orderbook updates occur for 10 
 - **Keepalive snapshot**: Subsequent messages without `past_update_id` that occur during silent periods (10+ seconds after last update)
 - **Incremental update**: Messages with `past_update_id` field indicating actual orderbook changes
 
-```
-
 **Processing Update Messages**
 
 When the client subscribes with a limit (e.g., 100), the API sends updates for only the specified number of price levels (100 in this case) for both buy and sell sides. The client must process these updates and truncate the order book to maintain only the top 100 levels on each side.
