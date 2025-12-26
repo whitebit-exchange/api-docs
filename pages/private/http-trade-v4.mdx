@@ -24,7 +24,7 @@ import { Code } from "nextra/components";
     - [Create stop-market order](#create-stop-market-order)
     - [Cancel order](#cancel-order)
     - [Cancel all orders](#cancel-all-orders)
-    - [Query Active Orders](#query-unexecutedactive-orders)
+    - [Query Active Orders](#query-active-orders)
     - [Query executed order history](#query-executed-order-history)
     - [Query executed order deals](#query-executed-order-deals)
     - [Query executed orders](#query-executed-orders)
@@ -44,8 +44,8 @@ import { Code } from "nextra/components";
     - [Positions History](#positions-history)
     - [Funding History](#funding-history)
     - [Change Collateral Account Leverage](#change-collateral-account-leverage)
-    - [Query Active Conditional Orders](#query-unexecutedactive-conditional-orders)
-    - [Query Active OCO Orders](#query-unexecutedactive-oco-orders)
+    - [Query Active Conditional Orders](#query-active-conditional-orders)
+    - [Query Active OCO Orders](#query-active-oco-orders)
     - [Create collateral OCO order](#create-collateral-oco-order)
     - [Cancel conditional order](#cancel-conditional-order)
     - [Cancel OCO order](#cancel-oco-order)
@@ -2325,7 +2325,7 @@ Error codes:
 
 ---
 
-### Query Active Orders {#query-unexecutedactive-orders}
+### Query Active Orders
 
 <ApiEndpoint method="POST" path="/api/v4/orders" />
 
@@ -5445,7 +5445,7 @@ The response confirms the updated hedge mode status (`true` for enabled, `false`
 
 ---
 
-### Query Active Conditional Orders {#query-unexecutedactive-conditional-orders}
+### Query Active Conditional Orders
 
 <ApiEndpoint method="POST" path="/api/v4/conditional-orders" />
 
@@ -5670,13 +5670,13 @@ Available statuses:
 
 ---
 
-### Query Active OCO Orders {#query-unexecutedactive-oco-orders}
+### Query Active OCO Orders
 
 <ApiEndpoint method="POST" path="/api/v4/oco-orders" />
 
 This endpoint retrieves [active](./../glossary.md#active-orders) [OCO orders](./../glossary.md#oco-orders) (orders not yet executed).
 
-❗ Deprecated - use [/api/v4/conditional-orders](#query-unexecutedactive-conditional-orders) instead.
+❗ Deprecated - use [/api/v4/conditional-orders](#query-active-conditional-orders) instead.
 ❗ Rate limit 1000 requests/10 sec.
 
 **Response is cached for:**
