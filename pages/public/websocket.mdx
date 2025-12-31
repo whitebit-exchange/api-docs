@@ -818,7 +818,7 @@ This endpoint allows clients to request the current market depth for a specific 
 
 #### Subscribe
 
-This endpoint allows clients to subscribe to market depth data updates. After successful subscription, the server immediately sends a full snapshot of the current order book as the first `depth_update` message. Subsequent messages are incremental updates containing only changes. The server pushes updates every 100ms to subscribed clients when there are actual changes to the order book. **Note:** For pairs with less frequent trades, if there are no updates to the order book, the server will not send duplicate update events with the previous state.
+This endpoint allows clients to subscribe to market depth data updates. After successful subscription, the server immediately sends a full snapshot of the current order book as the first `depth_update` message. Subsequent messages are incremental updates containing only changes. The server pushes updates every 100ms to subscribed clients when there are actual changes to the order book.
 
 ##### ⤴️ Request
 
@@ -854,8 +854,6 @@ INFO: If 10 seconds have elapsed without a change in the depth subscription, a s
 ##### 🔄 Update events
 
 Update events provide real-time updates to the subscribed market depth. The first message after subscription is a full snapshot of the order book, while subsequent messages are incremental updates.
-
-**Note:** For pairs with less frequent trades, if there are no actual changes to the order book, the server will not send duplicate update events. Updates are only sent when there are real changes to the order book state. However, if the `keepalive` parameter is enabled, the server will send periodic full snapshots every 10 seconds during silent periods to verify subscription health.
 
 **First message (full snapshot):**
 
