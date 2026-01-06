@@ -507,7 +507,7 @@ This endpoint issues a card token for the specified card number.
 
 | Header | Value | Required | Notes |
 |--------|-------|----------|-------|
-| `Authorization` | `Bearer YOUR_JWT_TOKEN` | **Yes** | JWT token from the [Issue JWT token](#issue-jwt-token) response field `data.token`. |
+| `Authorization` | `YOUR_JWT_TOKEN` | **Yes** | JWT token from the [Issue JWT token](#issue-jwt-token) response field `data.token`. |
 | `Content-Type` | `application/json` | **Yes** | JSON request body. |
 
 Use the `data.token` value returned by [Issue JWT token](#issue-jwt-token) as the `Authorization` header when calling this Fiat Gateway endpoint.
