@@ -4924,14 +4924,16 @@ Available statuses:
 
 ```json
 {
-  "equity": "130970.8947456254113367", // total equity of collateral balance including lending funds in USDT
-  "margin": "456.58349", // amount of funds in open position USDT
-  "freeMargin": "129681.3285348840110099", // free funds for trading
-  "unrealizedFunding": "0.0292207414003268", // funding that will be paid on next position stage change (order, liquidation, etc)
-  "pnl": "-832.9535", // curren profit and loss in USDT
-  "leverage": 10, // current leverage of account which affect amount of lending funds
-  "marginFraction": "6.2446758120916304", // margin fraction (Note: value of 1000000000000000000000 indicates no positions)
-  "maintenanceMarginRequirement": "1.2446758120916304" // maintenance margin requirement
+  "equity": "9817.676478608323", // total equity of collateral balance including lending funds in USDT
+  "margin": "3880.64387", // amount of funds in open position USDT
+  "freeMargin": "10739.489348608323", // free funds for trading
+  "unrealizedFunding": "0", // funding that will be paid on next position stage change (order, liquidation, etc)
+  "pnl": "4802.45674", // current profit and loss in USDT
+  "leverage": 100, // current leverage of account which affect amount of lending funds
+  "marginFraction": "0.0497228995828862", // margin fraction (Note: value of 1000000000000000000000 indicates no positions)
+  "maintenanceMarginFraction": "0.0065990118926067", // maintenance margin fraction
+  "futuresEquity": "9817.676478608323", // equity value for futures positions in USDT
+  "futuresFreeMargin": "10739.489348608323" // free margin available for futures in USDT
 }
 ```
 
